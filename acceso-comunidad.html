@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fase 1 | Área Privada</title>
+    <script>
+    /* ============================================================
+    🔒 Protección de Acceso a Comunidad
+    ============================================================ */
+    (function () {
+    // Recupera flag de sesión
+    const acceso = sessionStorage.getItem("accesoAutorizado");
+
+    // Si no hay sesión válida, redirige de inmediato
+    if (!acceso) {
+        // 🔗 Redirige siempre a la pantalla oficial de login
+        window.location.replace("iniciar-sesion.html");
+        return;
+    }
+
+    /* ============================================================
+        🛡️ Seguridad Extra
+        ============================================================ */
+    // Evita manipulación básica de sessionStorage desde consola
+    // (esto es solo front, la validación real debe estar en backend)
+    try {
+        if (typeof acceso !== "string" || acceso !== "true") {
+        sessionStorage.removeItem("accesoAutorizado");
+        window.location.replace("iniciar-sesion");
+        }
+    } catch (err) {
+        console.error("Error validando acceso:", err);
+        window.location.replace("iniciar-sesion");
+    }
+    })();
+    </script>
+    
+    <link rel="icon" href="assets/img/branding/logo-favicon.png" type="image/png" class="favicon"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/community.css"/> <!-- CSS externo -->
+    <link rel="stylesheet" href="assets/css/footer.css"/>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <img src="assets/img/branding/logo-coaching.png" alt="Logo Acceso" class="logo-acceso">
+            <button class="menu-toggle" aria-label="Abrir menú">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+
+        <div class="sidebar-content">
+            <ul class="nav-links">
+                <hr>
+                <li><a href="#introduccion">Introducción a las Opciones Binarias</a></li>
+                <li><a href="#como-preparar-el-grafico">Preparación del Gráfico</a></li>
+                <li><a href="#estrategias">Sistema Efectivo #1</a></li>
+                <li><a href="#estrategia-relleno-zona">Sistema Efectivo #2</a></li>
+                <li><a href="#consejos-adicionales">Consejos Adicionales</a></li>
+                <li><a href="#depositos-retiros">Depósitos y Retiros</a></li>
+                <li><a href="#glosario">Glosario</a></li>
+                <li><a href="index.html" class="btn-regresar">Volver al Menú Principal</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+<section class="bienvenida" id="fase-1">
+  <header>
+    <h1 class="bienvenida__titulo">👋 Bienvenido/a a la Fase 1 del Trading</h1>
+    <p class="bienvenida__subtitulo">
+      Comenzamos un recorrido <strong>claro, progresivo y práctico</strong> para que aprendas a operar con seguridad y confianza.
+    </p>
+  </header>
+
+  <hr class="bienvenida__divider" />
+
+  <article class="bienvenida__contenido">
+    <p>
+      Te guiaré paso a paso, mostrando <strong>lo que realmente importa</strong>.  
+      Cada acción que hagas te acercará a <strong>tomar decisiones inteligentes y consistentes</strong> en el mercado. 🚀
+    </p>
+
+    <p>
+      La clave del éxito es la <strong>constancia y la paciencia</strong>: los resultados no aparecen de la noche a la mañana, pero con disciplina y enfoque, se logran de manera sostenida. ⏳
+    </p>
+
+    <p>
+      Durante este proceso contarás con <strong>orientación clara y apoyo estratégico</strong>.  
+      Aquí eliminamos la información innecesaria y el ruido del mercado: hacemos un <em>detox de información</em> para que aprendas solo lo esencial.  
+      Aplicando correctamente lo aprendido, podrás <strong>generar ingresos de forma sólida y consistente</strong>. 💸
+    </p>
+  </article>
+
+  <hr class="bienvenida__divider" />
+
+  <footer class="bienvenida__motivacion">
+    <p>💡 <strong>Tip:</strong> La simplicidad es poder. Aprende lo justo, aplica con precisión y deja que los resultados hablen por sí mismos.</p>
+  </footer>
+</section>
+
+<section class="que-es-trading" id="introduccion">
+  <h1>Introducción al Trading</h1>
+
+  <h2>¿Qué es el Trading y las Opciones Binarias?</h2>
+
+  <article>
+    <h3>Trading</h3>
+    <p>
+      El <strong>trading</strong> es una profesión financiera que consiste en comprar y vender
+      activos —como acciones, divisas, criptomonedas o materias primas— con el objetivo de obtener un retorno
+      sobre la inversión aprovechando las fluctuaciones de sus precios.
+    </p>
+    <p>
+      Muchas veces se puede operar sin poseer directamente el activo, apostando a que su valor
+      <em>suba</em> o <em>baje</em>. Por ejemplo: si invertís a que el precio caerá y efectivamente baja, obtenés una
+      ganancia sobre lo invertido.
+    </p>
+    <p>
+      Este curso está diseñado para enseñarte un sistema <strong>simple y práctico</strong>,
+      accesible incluso para quienes no tienen experiencia previa.
+    </p>
+  </article>
+
+  <article>
+    <h3>Opciones Binarias</h3>
+    <p>
+      Las <strong>opciones binarias</strong> permiten invertir de manera sencilla y directa.
+      Solo existen dos posibles resultados: que el precio suba (<strong>CALL</strong>) o que baje (<strong>PUT</strong>)
+      en un período de tiempo determinado.
+    </p>
+    <p>
+      Si tu predicción es incorrecta, perdés el 100% de lo invertido en esa operación (pero no tu saldo total).
+      Si acertás, la ganancia suele rondar el <strong>85%</strong> del capital invertido.
+    </p>
+    <p>
+      Con un sistema claro y disciplina, esta herramienta puede ser utilizada de forma segura y consistente.
+    </p>
+  </article>
+
+  <article>
+    <h3>¿Cómo funciona?</h3>
+    <ol>
+      <li>Esperar las <strong>confirmaciones necesarias</strong> antes de operar.</li>
+      <li>Decidir si el precio subirá (<strong>CALL</strong>) o bajará (<strong>PUT</strong>).</li>
+      <li>Definir monto y tiempo de la operación, gestionando el riesgo.</li>
+      <li>
+        Si se cumple el análisis, se obtiene ganancia; si no, solo se pierde lo invertido en esa operación.
+      </li>
+    </ol>
+    <p>
+      El broker actúa como <strong>intermediario</strong>, conectando a compradores y vendedores.
+      Cada operación tiene dos lados: cuando alguien gana, otro pierde, y la plataforma paga en consecuencia.
+    </p>
+    <p>
+      Así, el sistema ofrece un marco claro y ordenado para tomar decisiones estratégicas y evitar
+      la impulsividad.
+    </p>
+  </article>
+
+  <article>
+    <h3>¿Es suerte?</h3>
+    <p>
+      No. Con un método probado, la clave está en practicar en cuenta demo hasta dominar el sistema
+      antes de arriesgar dinero real.
+    </p>
+  </article>
+</section>
+
+<section id="como-preparar-el-grafico">
+  <header>
+    <h1>📊 Cómo preparar tu gráfico para operar con precisión</h1>
+    <p>
+      Configurar el gráfico de forma correcta es <strong>el primer paso</strong> para aplicar cualquier estrategia de trading con éxito.  
+      Una pantalla limpia y clara te permitirá <em>leer el mercado con confianza y tomar mejores decisiones</em>. 🚀
+    </p>
+  </header>
+
+  <hr />
+
+  <article>
+    <h2>1️⃣ Navegación en la plataforma de trading</h2>
+    <p>Antes de añadir indicadores, asegurate de dominar lo básico:</p>
+    <ul>
+      <li>📈 <strong>Gráficos:</strong> muestran el movimiento de precios en tiempo real.</li>
+      <li>📊 <strong>Bandas de Bollinger:</strong> detectan zonas de expansión y contracción.</li>
+      <li>🏦 <strong>Niveles institucionales:</strong> áreas clave donde los grandes inversores actúan.</li>
+    </ul>
+  </article>
+
+  <hr />
+
+  <article>
+    <h2>2️⃣ Configuración completa del gráfico</h2>
+    <p>Optimiza tu gráfico paso a paso para lecturas precisas:</p>
+
+    <h3>2.1 Cambiar a velas japonesas</h3>
+    <p>El gráfico predeterminado suele ser <em>línea</em>. Para un análisis real, pasá a <strong>velas japonesas</strong>:</p>
+    <ul>
+      <li>🟩 Muestran apertura y cierre de cada vela.</li>
+      <li>⬆️ Reflejan máximos y mínimos exactos.</li>
+      <li>📊 Revelan la fuerza real del mercado.</li>
+    </ul>
+    <ol>
+      <li>🔘 Clic en <strong>tipo de gráfico</strong>.</li>
+      <li>📂 Seleccioná <strong>Velas Japonesas</strong>.</li>
+      <li>✅ Confirmá el cambio.</li>
+    </ol>
+
+    <div>
+      <figure class="image-container" style="max-width:600px;">
+        <img src="assets/img/course/instrumento del gráfico.png" alt="Botón para cambiar tipo de gráfico en la plataforma de trading" />
+        <figcaption>1️⃣ Botón de tipo de gráfico</figcaption>
+      </figure>
+      <figure class="image-container" style="max-width:600px;">
+        <img src="assets/img/course/cambiando tipo de gráfico.png" alt="Menú de selección de velas japonesas en la plataforma" />
+        <figcaption>2️⃣ Selección de velas japonesas</figcaption>
+      </figure>
+      <figure class="image-container" style="max-width:600px;">
+        <img src="assets/img/course/velas japonesas.png" alt="Gráfico mostrando velas japonesas activadas" />
+        <figcaption>3️⃣ Velas japonesas aplicadas</figcaption>
+      </figure>
+    </div>
+
+    <hr />
+
+    <h3>2.2 Ajustar temporalidad</h3>
+    <p>Configurá el gráfico en <strong>1 minuto (1m)</strong> para capturar micro-movimientos sin ruido.</p>
+    <figure class="image-container" style="max-width:500px;">
+      <img src="assets/img/course/1 minuto.png" alt="Temporalidad ajustada a 1 minuto en el gráfico de trading" />
+      <figcaption>⏳ Temporalidad en 1 minuto</figcaption>
+    </figure>
+
+    <hr />
+
+    <h3>2.3 Añadir Bandas de Bollinger</h3>
+    <p>Estas bandas permiten detectar acumulación, expansión y zonas de reversión:</p>
+    <ol>
+      <li>📍 Abrí el menú de <strong>Indicadores</strong>.</li>
+      <li>📂 Seleccioná <em>Popular</em>.</li>
+      <li>🔍 Elegí <strong>Bollinger Bands</strong>.</li>
+      <li>⚙️ Ajustá colores:
+        <ul>
+          <li>🎨 Bandas externas en <strong>blanco</strong>.</li>
+          <li>🎯 EMA central llamativa (ejemplo: naranja).</li>
+        </ul>
+      </li>
+    </ol>
+
+    <hr />
+
+    <h3>2.4 Confirmar la vista de trabajo</h3>
+    <ul>
+      <li>🖥️ Velas japonesas en <strong>1m</strong>.</li>
+      <li>📏 Bandas externas claras y visibles.</li>
+      <li>🎯 EMA central destacada.</li>
+    </ul>
+    <figure class="image-container" style="max-width:650px;">
+      <img src="assets/img/course/vista previa.png" alt="Gráfico final con velas japonesas y Bandas de Bollinger configuradas" />
+      <figcaption>✅ Vista final lista para operar</figcaption>
+    </figure>
+  </article>
+
+  <hr />
+
+  <article>
+    <h2>3️⃣ Vista final del gráfico</h2>
+    <ol>
+      <li>📊 <strong>Velas japonesas en 1m</strong></li>
+      <li>📏 <strong>Bandas de Bollinger</strong></li>
+      <li>🏦 <strong>Niveles institucionales</strong> (en gris)
+        <ul>
+          <li>🔼 Resistencias: techos donde el precio retrocede.</li>
+          <li>🔽 Soportes: pisos donde el precio rebota.</li>
+          <li>📊 Niveles macro: fuertes y difíciles de superar.</li>
+          <li>📉 Niveles micro: débiles y temporales.</li>
+        </ul>
+      </li>
+    </ol>
+  </article>
+</section>
+
+<section class="estrategias" id="estrategias">
+  <header>
+    <h1>🧠 Sistema #1 – Flexzone | Trading en Rango con Precisión</h1>
+  </header>
+
+  <!-- Definición -->
+  <article>
+    <h2>📌 ¿Qué es la Flexzone?</h2>
+    <p>
+      La <strong>Flexzone</strong> es una estrategia de trading basada en acción del precio para mercados
+      laterales sin tendencia clara. Utiliza <abbr title="Bandas de Bollinger">BB</abbr> y
+      <abbr title="Media Móvil Exponencial">EMA</abbr> para detectar acumulación y agotamiento,
+      entrando en el punto exacto de reversión.  
+      Es ideal para <strong>opciones binarias con expiración de 1 minuto</strong>, enfocada en
+      <u>reversiones inmediatas</u> y no en tendencias largas.
+    </p>
+  </article>
+
+  <hr />
+
+  <!-- Confirmaciones -->
+  <article>
+    <h2>✅ Confirmaciones</h2>
+    <p class="section-intro">
+      Mientras más confirmaciones utilices, más efectivo será el sistema.
+    </p>
+    <ul>
+      <li>1️⃣ Mercado lateral definido.</li>
+      <li>2️⃣ Velas grandes y consistentes.</li>
+      <li>3️⃣ Estructura clara y coherente.</li>
+      <li>4️⃣ Bandas de Bollinger horizontales.</li>
+      <li>5️⃣ Inicio de la vela en la banda.</li>
+      <li>6️⃣ Varios quiebres en la zona media (EMA).</li>
+      <li>7️⃣ Recorrido de banda a banda.</li>
+      <li>8️⃣ Última vela grande con cierre limpio.</li>
+      <li>9️⃣ Que no supere resistencia institucional fuerte.</li>
+      <li>🔟 Rango definido por soporte y resistencia institucional.</li>
+      <li>🚫 No usar indicadores extra (solo BB, EMA y acción del precio).</li>
+    </ul>
+    <p>
+      ⚠️ Se puede operar con 1 o 2 confirmaciones menos, pero el sistema pierde efectividad.
+      Lo ideal es operar con <strong>TODAS</strong> a tu favor para realmente
+      <em>“sacarle la plata al mercado”</em> 💸.
+    </p>
+  </article>
+
+  <hr />
+
+  <!-- Tipos de Flexzone -->
+  <article>
+    <h2>🧭 Tipos de Flexzone</h2>
+
+    <!-- Flexzone Superior -->
+    <article>
+      <h3 class="text-center mb-4">🔽 Flexzone Superior – Venta</h3>
+
+      <div class="carousel-container">
+        <button class="carousel-outside" type="button" data-bs-target="#carouselVenta" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+
+        <div class="carousel-wrapper">
+          <div id="carouselVenta" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="assets/img/strategies/flexzone/flexzone-sell-1.png" alt="Ejemplo de venta en Flexzone superior" />
+              </div>
+              <div class="carousel-item">
+                <img src="assets/img/strategies/flexzone/flexzone-sell-2.png" alt="Ejemplo adicional venta Flexzone superior" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="carousel-outside" type="button" data-bs-target="#carouselVenta" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+          <span class="visually-hidden">Siguiente</span>
+        </button>
+      </div>
+
+      <p class="explicacion">
+        ✔️ Estructura clara con <strong>BB horizontales</strong>.  
+        ✔️ Velas grandes con varios quiebres en la EMA.  
+        ✔️ Rebotes anteriores con volumen alto.  
+        ✔️ Última vela grande con mecha superior → dominio vendedor.  
+        👉 Señal clara para entrar en <strong>venta</strong>.
+      </p>
+    </article>
+
+    <hr />
+
+    <!-- Flexzone Inferior -->
+    <article>
+      <h3 class="text-center mb-4">🔼 Flexzone Inferior – Compra</h3>
+
+      <div class="carousel-container">
+        <button class="carousel-outside" type="button" data-bs-target="#carouselCompra" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+
+        <div class="carousel-wrapper">
+          <div id="carouselCompra" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="assets/img/strategies/flexzone/flexzone-buy-1.png" alt="Ejemplo de compra en Flexzone inferior" />
+              </div>
+              <div class="carousel-item">
+                <img src="assets/img/strategies/flexzone/flexzone-buy-2.png" alt="Ejemplo adicional compra Flexzone inferior" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="carousel-outside" type="button" data-bs-target="#carouselCompra" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+          <span class="visually-hidden">Siguiente</span>
+        </button>
+      </div>
+
+      <p class="explicacion">
+        ✔️ Mercado lateral con <strong>BB horizontales</strong>.  
+        ✔️ Varias velas grandes y quiebres en la EMA.  
+        ✔️ Dominio comprador en zona de soporte institucional.  
+        ✔️ Última vela roja de agotamiento → presión de reversión alcista.  
+        👉 Señal clara para entrar en <strong>compra</strong>.
+      </p>
+    </article>
+  </article>
+
+  <hr />
+
+  <!-- Paso a Paso -->
+  <article>
+    <h2>📈 Paso a Paso para Operar con Flexzone</h2>
+    <ol>
+      <li>Confirmar <strong>BB horizontales</strong>.</li>
+      <li>Verificar mercado lateral sin tendencias.</li>
+      <li>Identificar 3–4 velas en la misma dirección.</li>
+      <li>Esperar vela grande con mecha larga en la banda.</li>
+      <li>Entrar en la siguiente vela: <em>put</em> en superior, <em>call</em> en inferior.</li>
+    </ol>
+  </article>
+
+  <hr />
+
+  <!-- Cuándo NO operar -->
+  <article>
+    <h2>❌ Cuándo NO Operar</h2>
+    <p class="section-intro">
+      Operar sin condiciones válidas = pérdidas. Evitá estos errores:
+    </p>
+
+    <div class="no-operar-container">
+      <div class="no-operar-card">
+        <h3>1. Bandas abiertas o inclinadas ❌</h3>
+        <p>Indica tendencia; Flexzone <strong>NO funciona</strong> en este contexto.</p>
+        <img src="MAL ejemplo 1.png" alt="Ejemplo incorrecto: bandas abiertas" />
+      </div>
+
+      <div class="no-operar-card">
+        <h3>2. Velas de otro color intermedio ❌</h3>
+        <p>
+          Una vela opuesta invalida la secuencia.  
+          <span style="color:gray;">Dojis ⚪</span> sí son aceptables.
+        </p>
+        <img src="MAL ejemplo 2.png" alt="Ejemplo incorrecto: velas intermedias" />
+      </div>
+
+      <div class="no-operar-card">
+        <h3>3. Sin vela de agotamiento ❌</h3>
+        <p>
+          La señal es inválida sin vela de agotamiento clara.  
+          Paciencia: <strong>no se fuerza</strong>.
+        </p>
+        <img src="MAL ejemplo 3.png" alt="Ejemplo incorrecto: sin agotamiento" />
+      </div>
+    </div>
+  </article>
+
+  <hr />
+
+  <!-- Frase clave -->
+  <article>
+    <h2>💬 Frase Clave</h2>
+    <blockquote>
+      <em>"La vela de agotamiento no se fuerza. Se espera."</em><br />
+      👉 Entrá solo si todas las condiciones se cumplen.
+    </blockquote>
+  </article>
+
+  <hr />
+
+  <!-- Video -->
+  <article>
+    <h2>🎥 Próximamente: Video Demostrativo</h2>
+    <p>
+      Pronto tendrás un video con <strong>casos reales, entradas en vivo y explicación paso a paso</strong>.  
+      🔗 El enlace estará disponible aquí.
+    </p>
+  </article>
+</section>
+
+<section class="estrategias" id="estrategia-relleno-zona">
+  <header>
+    <h1>📊 Sistema #2: Relleno de Zona | Trading en Rango con Precisión</h1>
+  </header>
+
+  <!-- Concepto -->
+  <article>
+    <h2>🧠 Concepto Estratégico</h2>
+    <p>
+      La <strong>estrategia Relleno de Zona</strong> se utiliza en rangos laterales.
+      Su objetivo es detectar velas que se forman dentro del rango y generan un
+      <em>latigazo rápido</em> hacia fuera, sin ruptura estructural definitiva.
+    </p>
+    <p>
+      Este movimiento abrupto suele ser una <strong>trampa institucional</strong>.
+      La operación correcta se realiza en contra del latigazo, buscando el retorno
+      al centro del rango.
+    </p>
+  </article>
+
+  <hr />
+
+  <!-- Confirmaciones -->
+  <article>
+    <h2>✅ Confirmaciones Clave</h2>
+    <p>Cuantas más confirmaciones se cumplan, mayor será la efectividad del sistema:</p>
+    <ul>
+      <li>📏 Mercado lateral claramente definido (sin alta volatilidad).</li>
+      <li>📊 Velas amplias y dominantes con intención clara.</li>
+      <li>🧱 Estructura sólida con máximos y mínimos bien marcados.</li>
+      <li>📐 Bandas de Bollinger horizontales y estables.</li>
+      <li>🏛️ Rango delimitado por soportes y resistencias institucionales.</li>
+      <li>🕒 Señal en la primera vela de la tendencia.</li>
+      <li>💪 Vela amplia y dominante dentro del rango.</li>
+      <li>🚫 Sin picos de volatilidad excesiva.</li>
+      <li>⚡ Latigazo rápido entre los segundos 40 y 34.</li>
+      <li>📉 Precio no rellena después del latigazo.</li>
+      <li>🔍 Operar solo con acción del precio + Bollinger + estructura.</li>
+    </ul>
+    <p>
+      👉 Se puede operar con alguna confirmación menos, pero el sistema pierde efectividad.  
+      Lo ideal es entrar cuando <strong>TODAS</strong> las condiciones se cumplen 💸.
+    </p>
+  </article>
+
+  <hr />
+
+  <!-- Identificación -->
+  <article>
+    <h2>🔍 Cómo Identificar el Relleno de Zona</h2>
+    <ol>
+      <li>La vela se forma dentro del rango sin intención inicial de ruptura.</li>
+      <li>Entre segundos 40 y 34 aparece un latigazo rápido fuera del rango.</li>
+      <li>El cuerpo de la vela permanece dentro del canal.</li>
+      <li>La mecha dominante corresponde al latigazo.</li>
+      <li>La señal es válida si la vela se mantiene así hasta el cierre.</li>
+      <br>
+      <li>Plus: Soporte o resistencia institucional a favor.</li>
+    </ol>
+
+    <div class="image-container">
+      <img src="/mi-frontend/assets/img/strategies/zone fill/zone-fill-sell-1.png"
+           alt="Ejemplo visual de la estrategia Relleno de Zona en mercado lateral" />
+    </div>
+    <p class="caption">Ejemplo gráfico: operaciones válidas de compra y venta.</p>
+  </article>
+
+  <hr />
+
+  <!-- Tipos de relleno -->
+  <article>
+    <h2>🎯 Tipos de Relleno</h2>
+
+    <h3>📉 Relleno Superior – Venta (PUT)</h3>
+    <ul>
+      <li>📌 Vela inicia dentro del rango con movimiento bajista suave.</li>
+      <li>⚡ Latigazo fuerte hacia arriba sin cierre fuera del rango.</li>
+      <li>🔎 Mecha superior dominante y cuerpo dentro del rango.</li>
+      <li>✅ Señal: entrar en <strong>venta (PUT)</strong> en la siguiente vela.</li>
+    </ul>
+
+    <div class="carousel-container">
+      <button class="carousel-outside" type="button"
+              data-bs-target="#carouselVenta" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+
+      <div class="carousel-wrapper">
+        <div id="carouselVenta" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="assets/img/strategies/zone fill/zone-fill-sell-1.png"
+                   alt="Ejemplo de operación de venta con relleno superior" />
+            </div>
+            <div class="carousel-item">
+              <img src="assets/img/strategies/zone fill/zone-fill-sell-2.png"
+                   alt="Segundo ejemplo de operación de venta con relleno superior" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="carousel-outside" type="button"
+              data-bs-target="#carouselVenta" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+    </div>
+    <p class="explicacion">💡 Indica agotamiento del impulso alcista y alta probabilidad de retroceso bajista inmediato.</p>
+
+    <hr />
+
+    <h3>🔼 Relleno Inferior – Compra (CALL)</h3>
+    <ul>
+      <li>📌 Vela alcista que se forma dentro del rango.</li>
+      <li>⚡ Latigazo fuerte hacia abajo con mecha inferior dominante.</li>
+      <li>📉 Cuerpo permanece dentro del canal sin ruptura.</li>
+      <li>✅ Señal: entrar en <strong>compra (CALL)</strong> en la siguiente vela.</li>
+    </ul>
+
+    <div class="carousel-container">
+      <button class="carousel-outside" type="button"
+              data-bs-target="#carouselCompra" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+
+      <div class="carousel-wrapper">
+        <div id="carouselCompra" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="assets/img/strategies/zone fill/zone-fill-buy-1.png"
+                   alt="Ejemplo de operación de compra con relleno inferior" />
+            </div>
+            <div class="carousel-item">
+              <img src="assets/img/strategies/zone fill/zone-fill-buy-2.png"
+                   alt="Segundo ejemplo de operación de compra con relleno inferior" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="carousel-outside" type="button"
+              data-bs-target="#carouselCompra" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+    </div>
+    <p class="explicacion">💡 Señal de agotamiento bajista y mayor probabilidad de rebote alcista.</p>
+  </article>
+
+  <hr />
+
+  <!-- Confirmaciones extra -->
+  <article>
+    <h2>✅ Confirmaciones Extra</h2>
+    <ul>
+      <li>📌 Mecha del latigazo clara y dominante.</li>
+      <li>📏 Cuerpo nunca rompe la Banda de Bollinger.</li>
+      <li>🏛️ Señal cerca de nivel institucional (número redondo).</li>
+      <li>🕒 Se mantiene sin volver al centro antes de cerrar.</li>
+    </ul>
+  </article>
+
+  <hr />
+
+  <!-- No operar -->
+  <article>
+    <h2>❌ No Operar Si...</h2>
+    <ul>
+      <li>⚠️ La vela se encuentra en la EMA central.</li>
+      <li>⚠️ El spike rellena el rango antes de cerrar.</li>
+      <li>⚠️ No hay consolidación real (bandas inclinadas o tendencia marcada).</li>
+      <li>⚠️ No ocurre spike en tiempo preciso (40s-34s).</li>
+      <li>⚠️ Mecha o cuerpo poco dominantes.</li>
+    </ul>
+  </article>
+
+  <hr />
+
+  <!-- Consejos -->
+  <article>
+    <h2>💡 Consejos Avanzados</h2>
+    <ul>
+      <li>🎭 El spike suele ser una trampa para traders novatos.</li>
+      <li>📏 Esperar siempre la señal completa: entrada, spike y cierre válido.</li>
+      <li>🧘‍♂️ La paciencia es la clave para filtrar falsas entradas.</li>
+    </ul>
+  </article>
+
+  <hr />
+
+  <!-- Frase -->
+  <article>
+    <h2>📚 Frase del Entrenador</h2>
+    <blockquote>
+      <em>“El relleno de zona no es ruptura fallida, es falsa intención.”</em><br />
+      Aprende a identificar velas trampa y operarás con ventaja.
+    </blockquote>
+  </article>
+
+  <hr />
+
+  <!-- Resumen -->
+  <article>
+    <h2>📌 Resumen Rápido</h2>
+    <ul>
+      <li>📐 Bandas de Bollinger horizontales.</li>
+      <li>📊 Vela se forma dentro del rango.</li>
+      <li>⚡ Spike fuerte entre 40s y 34s.</li>
+      <li>📉 Cuerpo dentro del rango con mecha dominante.</li>
+      <li>🚫 No rellena antes de cierre.</li>
+      <li>🏛️ Señal cerca de número redondo institucional.</li>
+    </ul>
+  </article>
+
+    <hr />
+
+  <!-- Video -->
+  <article>
+    <h2>🎥 Próximamente: Video Demostrativo</h2>
+    <p>
+      Pronto tendrás un video con <strong>casos reales, entradas en vivo y explicación paso a paso</strong>.  
+      🔗 El enlace estará disponible aquí.
+    </p>
+  </article>
+</section>
+
+<section class="general" id="consejos-adicionales">
+  <header>
+    <h1>📌 Consejos Adicionales</h1>
+  </header>
+
+  <article>
+    <h2>⚠️ Errores que no hay que hacer</h2>
+    <ul>
+      <li><strong>No uses tarjetas ni cuentas de otra persona:</strong> Siempre pagá con tus datos. Si usás cuentas ajenas, podés tener líos y problemas para comprobar pagos.</li>
+      <li><strong>No subas capturas editadas o cortadas:</strong> Las pruebas tienen que ser claras y completas. Si las modificás, te pueden rechazar o desconfiar.</li>
+      <li><strong>Tener plata en la cuenta para pagar:</strong> No intentes pagar si no tenés saldo. Eso puede traer problemas y perder oportunidades.</li>
+    </ul>
+  </article>
+
+  <article>
+    <h2>💡 Consejos de Coaching</h2>
+    <p><strong>Usá tus propios métodos y comprobá que funcionan:</strong> No copies sin entender. Así tenés más control y confianza.</p>
+    <p><strong>Mantené tus datos siempre reales y guardá todo respaldo:</strong> Esto te ayuda si necesitás hacer reclamos o probar algo.</p>
+    <p><em>Ser honesto y ordenado te va a llevar lejos, en el trading y en la vida.</em></p>
+  </article>
+</section>
+
+<section class="general" id="glosario">
+  <header>
+    <h1>📖 Glosario de Términos de Trading en Opciones Binarias</h1>
+  </header>
+
+  <dl>
+    <dt>Trading</dt>
+    <dd>Comprar y vender activos financieros, como acciones o divisas, para ganar dinero con sus cambios de precio.</dd>
+
+    <dt>Opciones Binarias</dt>
+    <dd>Un tipo de inversión donde se predice si el precio de un activo subirá o bajará en un tiempo determinado, con dos resultados posibles: ganar o perder.</dd>
+
+    <dt>Gestión de Riesgos</dt>
+    <dd>Formas y técnicas para evitar grandes pérdidas cuando operás con opciones binarias.</dd>
+
+    <dt>Volatilidad</dt>
+    <dd>Cuánto y qué tan rápido cambia el precio de un activo en un tiempo específico.</dd>
+
+    <dt>Broker</dt>
+    <dd>Empresa o plataforma que te permite comprar y vender opciones binarias en el mercado.</dd>
+
+    <dt>Leverage (Apalancamiento)</dt>
+    <dd>Usar dinero prestado para aumentar el tamaño de tu inversión y potencialmente ganar más.</dd>
+
+    <dt>Margin (Margen)</dt>
+    <dd>Dinero que necesitás tener en tu cuenta para usar apalancamiento y abrir operaciones.</dd>
+
+    <dt>Spread</dt>
+    <dd>La diferencia entre el precio para comprar y el precio para vender un activo.</dd>
+
+    <dt>FOMO (Miedo a Perderse Algo)</dt>
+    <dd>Cuando sentís miedo de no aprovechar una oportunidad y tomás decisiones rápidas sin pensar.</dd>
+
+    <dt>Martingala</dt>
+    <dd>Estrategia donde se aumenta la inversión después de una pérdida para intentar recuperar el dinero.</dd>
+
+    <dt>Call Option (Opción de Compra)</dt>
+    <dd>Una apuesta a que el precio de un activo subirá en un tiempo determinado.</dd>
+
+    <dt>Put Option (Opción de Venta)</dt>
+    <dd>Una apuesta a que el precio de un activo bajará en un tiempo determinado.</dd>
+
+    <dt>Expiration Time (Tiempo de Expiración)</dt>
+    <dd>El tiempo que dura una operación, después del cual se sabe si ganaste o perdiste.</dd>
+
+    <dt>In the Money (En el Dinero)</dt>
+    <dd>Cuando tu predicción fue correcta y ganaste la operación.</dd>
+
+    <dt>Out of the Money (Fuera del Dinero)</dt>
+    <dd>Cuando tu predicción fue incorrecta y perdiste la operación.</dd>
+
+    <dt>Risk/Reward Ratio (Relación Riesgo/Recompensa)</dt>
+    <dd>Comparación entre cuánto arriesgás y cuánto podés ganar en una operación.</dd>
+
+    <dt>Market Sentiment (Sentimiento del Mercado)</dt>
+    <dd>La opinión general de los inversores sobre un activo o mercado que afecta los precios.</dd>
+
+    <dt>Trade (Operación)</dt>
+    <dd>Comprar o vender una opción binaria, intentando ganar según cómo se mueva el precio.</dd>
+
+    <dt>Order (Orden)</dt>
+    <dd>Instrucción para comprar o vender en un precio específico o al precio del mercado.</dd>
+
+    <dt>Market Order (Orden de Mercado)</dt>
+    <dd>Comprar o vender al mejor precio disponible en ese momento.</dd>
+
+    <dt>Limit Order (Orden Límite)</dt>
+    <dd>Comprar o vender solo si el precio llega a un valor que vos elegiste.</dd>
+
+    <dt>Stop Loss (Orden de Detención)</dt>
+    <dd>Una orden para detener una operación y limitar las pérdidas si el precio baja demasiado.</dd>
+
+    <dt>Take Profit (Toma de Ganancias)</dt>
+    <dd>Una orden para cerrar una operación y asegurar las ganancias cuando el precio llega a un nivel deseado.</dd>
+
+    <dt>Expiry (Expiración)</dt>
+    <dd>Momento en que termina la operación y se decide si ganaste o perdiste.</dd>
+
+    <dt>Demo Account (Cuenta Demo)</dt>
+    <dd>Una cuenta para practicar operaciones sin usar dinero real, con fondos ficticios.</dd>
+
+    <dt>Signal (Señal)</dt>
+    <dd>Una recomendación o aviso sobre cuándo comprar o vender una opción binaria.</dd>
+
+    <dt>Broker de Opciones Binarias</dt>
+    <dd>Plataforma que te permite operar con opciones binarias y manejar tus operaciones.</dd>
+  </dl>
+</section>
+
+<div id="footer"></div>
+<script src="assets/js/footer.js"></script>
+    </main>
+
+    <script>
+        (function actualizarAnio() {
+            const elementoAnio = document.getElementById('anio-actual');
+            if (elementoAnio) elementoAnio.textContent = new Date().getFullYear();
+        })();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('main');
+
+            if (!menuToggle || !sidebar) return;
+
+            menuToggle.addEventListener('click', e => {
+                e.stopPropagation();
+                sidebar.classList.toggle('active');
+                mainContent.classList.toggle('shifted'); // Cambia la clase del contenido principal
+            });
+
+            document.addEventListener('click', e => {
+                if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+                    sidebar.classList.remove('active');
+                    mainContent.classList.remove('shifted'); // Restablece la clase del contenido principal
+                }
+            });
+
+            sidebar.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    sidebar.classList.remove('active');
+                    mainContent.classList.remove('shifted'); // Restablece la clase del contenido principal
+                });
+            });
+
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape') {
+                    sidebar.classList.remove('active');
+                    mainContent.classList.remove('shifted'); // Restablece la clase del contenido principal
+                }
+            });
+        });
+    </script>
+    <!-- Bootstrap 5 JS Bundle (incluye Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

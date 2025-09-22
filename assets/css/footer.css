@@ -1,0 +1,86 @@
+/* ----------- ESTILOS DEL FOOTER -------------- */
+
+/* Estilos para el footer */
+.footer {
+  background: linear-gradient(135deg, #0d1117, #1c1f24); /* Degradado de fondo */
+  color: #ffffff; /* Color del texto */
+  text-align: center; /* Alineación centrada */
+  padding: 3rem 1rem; /* Espaciado interno */
+  font-size: 0.95rem; /* Tamaño de fuente para pie de página */
+  border-top: 1px solid rgba(255, 255, 255, 0.1); /* Borde superior */
+}
+
+.footer-container {
+  max-width: 1200px; /* Ancho máximo del contenedor */
+  margin: 0 auto; /* Centrar el contenedor */
+  display: flex; /* Usar flexbox */
+  flex-direction: column; /* Dirección de columnas */
+  align-items: center; /* Alinear elementos al centro */
+}
+
+.footer-logo img {
+  max-width: 150px; /* Ancho máximo del logo */
+  margin-bottom: 1rem; /* Espaciado inferior */
+}
+
+.footer-columns {
+  display: flex; /* Usar flexbox para columnas */
+  justify-content: space-between; /* Espacio entre columnas */
+  width: 100%; /* Ancho completo */
+  margin: 1.5rem 0; /* Margen superior e inferior */
+}
+
+.footer-column {
+  flex: 1; /* Cada columna ocupa el mismo espacio */
+  margin: 0 1rem; /* Margen lateral entre columnas */
+  min-width: 200px; /* Ancho mínimo de las columnas */
+}
+
+.footer-column h4 {
+  font-size: 1.2rem; /* Tamaño de fuente para encabezados de columna */
+  color: #4be213; /* Color del encabezado */
+  margin-bottom: 0.5rem; /* Margen inferior */
+  border-bottom: 2px solid #4be213; /* Línea inferior para los encabezados */
+  padding-bottom: 0.5rem; /* Espaciado inferior */
+}
+
+.footer-column ul {
+  list-style: none; /* Sin viñetas */
+  padding: 0; /* Sin padding */
+}
+
+.footer-column li {
+  margin: 0.5rem 0; /* Espaciado entre los elementos de la lista */
+}
+
+.footer-link {
+  color: #ffffff; /* Color de los enlaces */
+  text-decoration: none; /* Sin subrayado */
+  transition: color 0.3s ease, transform 0.3s ease; /* Transición suave para color y transformación */
+}
+
+.footer-link:hover {
+  color: #4be213; /* Color de enlace al pasar el ratón */
+  transform: translateY(-2px); /* Efecto de elevación al pasar el ratón */
+}
+
+.footer p {
+  margin: 1rem 0 0; /* Margen superior e inferior */
+  font-size: 0.85rem; /* Tamaño de fuente más pequeño para el texto */
+  border-top: 1px solid rgba(255, 255, 255, 0.1); /* Línea superior sutil */
+  padding-top: 1rem; /* Espaciado superior */
+}
+
+/* ----------- ESTILOS DEL FOOTER CELU -------------- */
+@media (max-width: 768px) {
+  .footer-columns {
+    flex-direction: column;
+    margin: 1.5rem 0;
+    gap: 1.5rem;
+  }
+
+  .footer-column {
+    margin: 0;
+    min-width: 100%;
+  }
+}

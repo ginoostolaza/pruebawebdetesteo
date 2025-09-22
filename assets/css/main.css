@@ -1,0 +1,748 @@
+/* ----------- ESTILOS BASE PARA PC Y RESET DE ESTILOS  ------------ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif; /* Fuente del cuerpo */
+  background-color: #0d1117; /* Color de fondo */
+  color: #ffffff; /* Color del texto */
+  line-height: 1.6; /* Altura de línea */
+}
+
+/* ----------- ESTILOS DE NAVEGACIÓN ----------- */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: clamp(0.5rem, 1.5vw, 1rem) clamp(0.75rem, 3vw, 2rem);
+  background-color: #0d1117;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  flex-wrap: nowrap;
+  gap: clamp(0.3rem, 1vw, 1rem);
+  transition: background 0.3s ease, padding 0.3s ease;
+}
+
+nav h1 {
+  font-size: clamp(1.2rem, 1.5vw, 1.5rem);
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: clamp(0.5rem, 1vw, 1.2rem);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #e0e0e0; /* Color más claro para mejor visibilidad */
+  font-weight: 500;
+  font-size: clamp(0.75rem, 1vw, 0.95rem);
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+nav ul li a:hover {
+  color: #00c6ff;
+  transform: translateY(-2px);
+}
+
+/* ----------- AJUSTE GENERAL DE SECCIONES ----- */
+section, .nav-link-target, .nav-target {
+  scroll-margin-top: clamp(60px, 8vw, 100px); /* Ajuste automático al alto del header */
+  padding: 6rem 2rem;                         /* Espacio interno amplio */
+  margin-bottom: 10rem;                       /* Separación vertical profesional */
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+section h2 {
+  font-size: clamp(2rem, 2.5vw, 2.8rem);
+  color: #00c6ff;
+  text-align: center;
+  font-weight: 800;
+  margin-bottom: 3rem;
+}
+
+section p {
+  font-size: clamp(1rem, 1.2vw, 1.2rem);
+  line-height: 1.8;
+  color: #d9d9d9;
+  margin: 2rem 0;
+  max-width: 900px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---------- SEPARACIÓN VISUAL PROFESIONAL ----- */
+
+/* ---------- ESTILO DEL WIDGET DÓLAR ---------- */
+#dolar-hoy-widget {
+  display: flex;                   /* Flex para centrar */
+  flex-direction: column;          /* Coloca contenido en columna */
+  justify-content: center;         /* Centrado vertical */
+  align-items: center;             /* Centrado horizontal */
+  max-width: 75%;                  /* Responsivo */
+  margin: 5rem auto 10rem auto;    /* Separación arriba y abajo */
+  text-align: center;              /* Centrar contenido texto */
+  scroll-margin-top: 120px;        /* Ajuste de scroll */
+}
+
+/* ----------- SECCIÓN SOBRE MÍ --------------- */
+#sobre-mi {
+  display: flex;                   /* Flex para centrar */
+  flex-direction: column;          /* Coloca contenido en columna */
+  justify-content: center;         /* Centrado vertical */
+  align-items: center;             /* Centrado horizontal */
+  max-width: 1100px;              /* Ancho máximo */
+  width: 90%;                      /* Responsivo */
+  margin: 8rem auto 10rem;        /* Separación arriba y abajo */
+  text-align: center;              /* Centrar contenido texto */
+  scroll-margin-top: 120px;        /* Ajuste de scroll */
+  padding: 2rem;                  /* Espaciado interno para mayor confort */
+}
+
+#sobre-mi h2 {
+  font-size: 2rem;               /* Tamaño de fuente más grande para el encabezado */
+  color: #00c6ff;                  /* Color atractivo para el encabezado */
+  margin-bottom: 1rem;             /* Margen inferior para separación */
+}
+
+#sobre-mi p {
+  font-size: 1.1rem;               /* Tamaño de fuente para párrafos */
+  color: #d9d9d9;                  /* Color de texto suave */
+  line-height: 1.6;                /* Altura de línea para mejor legibilidad */
+  max-width: 800px;                /* Ancho máximo para el texto */
+  margin: 0 auto;                  /* Centrar el párrafo */
+}
+
+section + section {
+  margin-top: 10rem; /* Espacio extra entre secciones consecutivas */
+}
+
+/* Destacados opcionales dentro de secciones */
+.highlight-box {
+  padding: 3rem;
+  margin: 3rem 0;
+  border-radius: 10px;
+  border-left: 4px solid #00c6ff; /* Línea sutil para destacar sin fondo */
+  transition: transform 0.25s ease;
+}
+
+.highlight-box:hover {
+  transform: translateY(-5px);
+}
+
+
+nav h1 {
+  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: clamp(0.5rem, 1vw, 1.2rem);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #d9d9d9;
+  font-weight: 500;
+  font-size: clamp(0.75rem, 1vw, 0.9rem);
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #00c6ff;
+}
+
+/* Estilos para el botón de menú hamburguesa */
+.hamburger {
+  display: none; /* Ocultar por defecto */
+  font-size: 2rem; /* Tamaño de fuente */
+  background: none; /* Sin fondo */
+  border: none; /* Sin borde */
+  cursor: pointer; /* Cambiar cursor al pasar */
+  color: white; /* Color del texto */
+}
+
+/* -------------------- FASES ------------------ */
+.highlight-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: white;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+/* ----------- ESTILOS DEL HEADER -------------- */
+header {
+  background: #0d1117, 
+              url('https://images.unsplash.com/photo-1565371372210-04eabe4e0b66?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat; /* Fondo con imagen */
+  height: 100vh; /* Altura completa de la ventana */
+  display: flex; /* Usar flexbox */
+  align-items: center; /* Alinear verticalmente */
+  justify-content: center; /* Centrar horizontalmente */
+  text-align: center; /* Alineación centrada */
+  padding: 2rem; /* Espaciado interno */
+}
+
+h1 a{
+  text-decoration: none;
+}
+
+header h1 {
+  font-size: 2.8rem; /* Tamaño de fuente para H1 */
+  background: linear-gradient(90deg, #00c6ff, #0072ff); /* Degradado */
+  -webkit-background-clip: text; /* Recortar fondo en el texto */
+  -webkit-text-fill-color: transparent; /* Texto transparente */
+  font-weight: 800; /* Peso de la fuente */
+}
+
+header p {
+  font-size: 1.3rem; /* Tamaño de fuente para precios / destacados */
+  margin: 1rem auto; /* Margen */
+  max-width: 600px; /* Ancho máximo */
+}
+
+/*CONTENEDOR TEXTO Y FLECHA*/
+.contenedor-texto-y-flecha {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px; /* Reduce el espacio entre el texto y la flecha */
+  font-weight: 600; /* Opcional: para que el texto se vea más profesional */
+  font-size: 1rem;
+  color: #007BFF; /* ejemplo color profesional */
+}
+
+.contenedor-texto-y-flecha .flecha {
+  font-size: 1.2rem; /* Ajusta tamaño de la flecha */
+  margin: 0; /* Elimina márgenes adicionales */
+  line-height: 1;
+  cursor: pointer; /* si es clickeable */
+  transition: transform 0.3s ease;
+}
+
+.contenedor-texto-y-flecha .flecha:hover {
+  transform: translateY(2px); /* pequeño efecto visual */
+}
+
+/* ------------ PARRAFO DEL HEADER ------------- */
+.italic-gray {
+  font-style: italic;
+  color: #ccc;
+}
+
+/*boton red sociales*/
+.boton-red {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  font-size: 1.3rem;
+  margin: 0 6px;
+  border-radius: 50%;
+  background-color: #0072ff; /* Color sólido para mejor legibilidad */
+  color: white;
+  box-shadow: 0 6px 12px rgba(0, 198, 255, 0.2);
+  border: 1.5px solid #00c6ff;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  position: relative;
+  overflow: hidden;
+}
+
+.boton-red::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: rotate(25deg);
+  transition: all 0.4s ease;
+}
+
+.boton-red:hover::after {
+  top: -20%;
+  left: -20%;
+}
+
+.boton-red:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 16px rgba(0, 114, 255, 0.3);
+  border-color: white;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+}
+
+/* ------------ ESTILOS DE BOTONES ------------- */
+
+/* ------------ ESTILO UNIFICADO DE BOTONES ----- */
+.boton {
+  background-color: #0072ff; /* Color sólido para mejor legibilidad */
+  color: white;
+  margin-top: 1.5rem; /* Separación del texto */
+  padding: 0.9rem 2rem;
+  border-radius: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1.05rem; /* Tamaño de fuente estándar */
+  font-weight: 600; /* Peso de la fuente */
+  border: none; /* Sin borde */
+  display: inline-block; /* Para que se comporten como un bloque */
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease; /* Transiciones suaves */
+  box-shadow: 0 4px 12px rgba(0, 114, 255, 0.25); /* Sombra por defecto */
+}
+
+.boton:hover {
+  transform: scale(1.05); /* Efecto de aumento al pasar el ratón */
+  box-shadow: 0 6px 16px rgba(0, 114, 255, 0.35); /* Sombra más intensa al pasar el ratón */
+}
+
+/* Estilo para indicar que el botón está bloqueado */
+.boton.bloqueado {
+  background-color: #0072ff; /* Color sólido para mejor legibilidad */
+  color: white;
+  opacity: 0.2; /* Opacidad reducida */
+  cursor: pointer; /* Cambiar cursor */
+  box-shadow: 0 4px 12px rgba(0, 114, 255, 0.25); /* Sombra por defecto */
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease; /* Transiciones suaves */
+}
+
+/* ----------- ESTILOS DE SECCIONES ------------ */
+section {
+  padding: 5rem 1rem;                  /* Espacio interno vertical */
+  margin-bottom: 3rem;                 /* Separación entre secciones */
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  scroll-margin-top: clamp(60px, 8vw, 100px); /* Ajuste automático al header */
+}
+
+section h2 {
+  font-size: 2rem; /* Tamaño de fuente para H2 */
+  color: #00c6ff; /* Color del texto */
+  text-align: center; /* Alineación centrada */
+  font-weight: 800; /* Peso de la fuente */
+}
+
+/* Estilo para párrafos en secciones específicas */
+section p {
+  font-size: 1.1rem; /* Tamaño de fuente uniforme para párrafos */
+  line-height: 1.6; /* Altura de línea */
+  margin: 1rem 0; /* Margen superior e inferior */
+}
+
+.highlight-box {
+  background-color: #161b22; /* Color de fondo */
+  padding: 2rem; /* Espaciado interno */
+  border-radius: 10px; /* Bordes redondeados */
+  margin-top: 1rem; /* Margen superior */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Borde */
+}
+
+.benefits li {
+  list-style: none;
+  margin-bottom: 1rem; /* Margen inferior */
+  font-size: 1.1rem; /* Tamaño de fuente para precios / destacados */
+}
+
+/* Estilos para la biografía */
+.bio {
+  display: flex; /* Usar flexbox */
+  gap: 2rem; /* Espacio entre elementos */
+  flex-wrap: wrap; /* Permitir que se envuelvan */
+}
+
+.bio img {
+  width: 200px; /* Ancho de la imagen */
+  border-radius: 12px; /* Bordes redondeados */
+}
+
+.bio-text {
+  max-width: 700px; /* Ancho máximo */
+  margin: auto; /* Centrar horizontalmente */
+  font-size: 1.1rem; /* Tamaño de fuente para párrafos comunes */
+  line-height: 1.5; /* Altura de línea */
+}
+
+/* Estilo del testimonio */
+.testimonial {
+  background-color: #161b22; /* Color de fondo */
+  padding: 2.5rem; /* Espaciado interno */
+  border-radius: 15px; /* Bordes redondeados */
+  margin-bottom: 2rem; /* Margen inferior */
+  font-style: italic; /* Cursiva */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Borde más visible */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Sombra para profundidad */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+}
+
+.testimonial:hover {
+  transform: translateY(-5px); /* Efecto de elevación al pasar el ratón */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* Sombra más intensa al pasar el ratón */
+}
+
+/* Estilos para los elementos de la FAQ */
+.faq-item {
+  margin-bottom: 2rem; /* Margen inferior */
+  transition: transform 0.3s ease; /* Transición suave */
+}
+
+.faq-item:hover {
+  transform: scale(1.02); /* Efecto de aumento al pasar el ratón */
+}
+
+.faq-item h3 {
+  color: #00c6ff; /* Color del texto */
+  font-size: 1.5rem; /* Tamaño de fuente para H3 */
+  margin-bottom: 0.5rem; /* Margen inferior */
+  border-bottom: 1px solid rgba(0, 198, 255, 0.3); /* Línea inferior sutil */
+  padding-bottom: 0.5rem; /* Espaciado inferior */
+}
+
+.faq-item p {
+  font-size: 1.05rem; /* Tamaño de fuente para respuestas de FAQ */
+  color: #e0e0e0; /* Color de texto más suave para mejorar la legibilidad */
+}
+
+.faq-item ul {
+  padding-left: 1.5rem; /* Espaciado a la izquierda para listas */
+  color: #e0e0e0; /* Color de texto más suave para mejorar la legibilidad */
+  font-size: 1.05rem; /* Tamaño de fuente para listas */
+}
+
+/* Estilos para el widget del dólar */
+.dolar-widget {
+  background-color: #2e2e2e; /* Color de fondo oscuro para elegancia */
+  color: #f5f5f5; /* Color de texto claro para mejor legibilidad */
+  border-radius: 12px; /* Bordes redondeados */
+  padding: 2.5rem; /* Espaciado interno */
+  max-width: 900px; /* Ancho máximo */
+  margin: 3rem auto; /* Margen superior e inferior */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25); /* Sombra más intensa */
+  font-family: 'Segoe UI', sans-serif; /* Fuente moderna */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones suaves */
+}
+
+.dolar-widget:hover {
+  transform: translateY(-5px); /* Efecto de elevación al pasar el ratón */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35); /* Sombra más intensa al pasar el ratón */
+}
+
+.dolar-widget-header {
+  display: flex; /* Usar flexbox */
+  align-items: center; /* Alinear verticalmente */
+  justify-content: center;
+  gap: 2rem; /* opcional para separar los elementos */
+  flex-wrap: wrap; /* Permitir que se envuelvan */
+  row-gap: 1rem; /* Espacio entre filas */
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1); /* Línea inferior sutil */
+  padding-bottom: 1rem; /* Espaciado inferior */
+}
+
+.dolar-titulo {
+  font-size: 1.8rem; /* Tamaño de fuente aumentado */
+  font-weight: 700; /* Peso de la fuente fuerte */
+  margin: 0; /* Sin margen */
+  color: #ffffff; /* Color del título */
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Sombra de texto para mayor legibilidad */
+}
+
+.dolar-valor {
+  font-size: 1.8rem; /* Tamaño de fuente aumentado */
+  font-weight: 800; /* Peso de la fuente más fuerte */
+  color: #4be213; /* Color del valor */
+  background-color: rgba(75, 226, 19, 0.15); /* Fondo ligero para el valor */
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 0.75rem; /* Espaciado interno */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Transiciones suaves */
+}
+
+.dolar-valor:hover {
+  background-color: rgba(75, 226, 19, 0.25); /* Cambio de fondo al pasar el ratón */
+  transform: scale(1.05); /* Efecto de aumento al pasar el ratón */
+}
+
+.dolar-descripcion {
+  margin-top: 1.5rem; /* Margen superior aumentado */
+  font-size: 1rem; /* Tamaño de fuente aumentado */
+  line-height: 1.6; /* Altura de línea ajustada */
+  color: #d9d9d9; /* Color del texto */
+  padding-top: 1rem; /* Espaciado superior */
+  border-top: 1px solid rgba(255, 255, 255, 0.1); /* Línea superior sutil */
+}
+
+/* Estilos de accesibilidad */
+.dolar-widget a {
+  color: #4be213; /* Color de enlaces */
+  text-decoration: none; /* Sin subrayado para un diseño más limpio */
+  transition: color 0.3s ease; /* Transición suave para enlaces */
+}
+
+.dolar-widget a:hover {
+  color: #3c9f1b; /* Color de enlace al pasar el ratón */
+}
+
+/* ----------- ESTILOS PARA CELULAR ------------ */
+@media (max-width: 768px) {
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 99;
+    background-color: #0d1117;
+    padding: 0.75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .hamburger {
+    display: block; /* Mostrar el botón de menú */
+    font-size: 2rem; /* Tamaño del botón */
+    background: none; /* Sin fondo */
+    border: none; /* Sin borde */
+    cursor: pointer; /* Cambiar cursor al pasar */
+    color: white; /* Color del texto */
+  }
+
+.nav-links {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  right: 1rem;
+  background: rgba(28, 31, 36, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+  padding: 1rem 1.5rem;
+  gap: 1rem;
+  min-width: 200px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  z-index: 99;
+}
+
+.nav-links.active {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav-links li a {
+  color: #f0f0f0;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  transition: background 0.25s ease, transform 0.25s ease, color 0.25s ease;
+}
+
+.nav-links li a:hover {
+  background: rgba(0, 198, 255, 0.2);
+  transform: translateX(4px);
+  color: #00c6ff;
+}
+
+header {
+  padding: 0.2rem 1rem 0.5rem; /* Menos padding arriba */
+  text-align: center;
+  max-width: 92%;
+  margin: -1rem auto 0 auto; /* Lo sube más hacia arriba */
+}
+
+header h1 {
+  font-size: clamp(1.6rem, 5vw, 2rem); /* Tamaño responsivo y destacado */
+  line-height: 1.15; /* Más compacto para subir visualmente */
+  margin-bottom: 0.4rem; /* Reduce espacio debajo */
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+}
+
+header p {
+  font-size: clamp(1rem, 2.8vw, 1.05rem); /* Texto claro y profesional */
+  color: #ffffff;
+  line-height: 1.4; /* Compacto */
+  max-width: 85%; /* Evita que sea muy ancho */
+  margin: 0 auto 0.4rem auto; /* Centrado con margen reducido */
+  opacity: 0.95;
+}
+
+section {
+  padding: 4rem 1rem;           /* Más espacio arriba y abajo */
+  margin-bottom: 3rem;          /* Separación mayor entre secciones */
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  scroll-margin-top: clamp(60px, 8vw, 100px); /* Ajusta para que quede centrado al navegar */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+  section h2 {
+    margin-top: 0.4rem;
+    font-size: clamp(1.4rem, 5vw, 1.8rem);
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.3px;
+    line-height: 1.3;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    margin-top: 1.25rem;
+    padding: 0.75rem 1.4rem;
+    font-size: 0.95rem; /* Tamaño de fuente para botones en móvil */
+    font-weight: 600;
+    background-color: #0072ff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: #005ed6;
+  }
+
+  .highlight-box,
+  .faq-item,
+  .testimonial {
+    padding: 1.2rem;
+    border-radius: 12px;
+    margin-bottom: 1.8rem;
+    background: linear-gradient(145deg, #1a1f27, #202632);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .highlight-box:hover,
+  .faq-item:hover,
+  .testimonial:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+  }
+
+  .highlight-box h3,
+  .faq-item summary,
+  .testimonial h4 {
+    font-size: clamp(1.3rem, 4.5vw, 1.5rem);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #4be213; /* Color de acento */
+  }
+
+  .highlight-box p,
+  .faq-item p,
+  .testimonial p {
+    font-size: clamp(0.88rem, 3.5vw, 0.95rem);
+    line-height: 1.6;
+    color: #e0e0e0;
+  }
+  
+/*TESTIMONIOS CARRUSEL*/
+
+.testimonial-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: all 0.6s ease;
+  opacity: 0;
+  transform: scale(0.7);
+  text-align: center;
+}
+
+.testimonial-card img {
+  border-radius: 24px;
+  object-fit: cover;
+  width: 100%;
+  height: 400px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+.testimonial-carousel {
+  position: relative;
+  width: 400px;
+  margin: 0 auto;
+  overflow: hidden;
+  min-height: 520px; /* asegura espacio, pero crece si el texto es más largo */
+}
+
+.testimonial-card figcaption {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #fff;
+  text-align: center;
+  max-width: 90%;
+  margin-inline: auto;
+  line-height: 1.4;
+}
+
+.testimonial-card.active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 2;
+}
+/*FIN DEL CARRUSEL DIGAMOS*/
+
+
+  #dolar-hoy-widget {
+  display: flex;                   /* Flex para centrar */
+  flex-direction: column;          /* Coloca contenido en columna */
+  justify-content: center;         /* Centrado vertical */
+  align-items: center;             /* Centrado horizontal */
+  max-width: 80%;                  /* Responsivo */
+  margin: 5rem auto 10rem auto;    /* Separación arriba y abajo */
+  text-align: center;              /* Centrar contenido texto */
+}
+}
+
+/* Animación fade-in mejorada */
+@keyframes fadeIn {
+  0% {
+    opacity: 0; /* Comienza invisible */
+    transform: translateY(-10px); /* Desplazamiento inicial hacia arriba */
+  }
+  50% {
+    opacity: 0.5; /* Semi-transparente en el medio de la animación */
+    transform: translateY(-5px); /* Desplazamiento intermedio */
+  }
+  100% {
+    opacity: 1; /* Completamente visible al final */
+    transform: translateY(0); /* Regresa a su posición original */
+  }
+}

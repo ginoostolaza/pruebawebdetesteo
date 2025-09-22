@@ -1,0 +1,355 @@
+/* ===============================
+   🌐 Variables globales
+   =============================== */
+:root {
+  --ui-primary: #0072ff;
+  --ui-accent: #6C23DA;
+  --ui-success: #4be213;
+  --ui-warning: #FF8C00;
+  --ui-error: #FF4C4C;
+
+  /* Light mode default */
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --text: #201139;
+  --text-muted: rgba(32, 17, 57, 0.7);
+
+  --font-main: 'Poppins', system-ui, sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.25);
+
+  --fast: 0.2s ease;
+  --smooth: 0.35s ease;
+  --bounce: 0.6s cubic-bezier(.68,-0.55,.27,1.55);
+}
+
+/* Dark mode variables */
+body.dark {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --text: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.7);
+}
+
+/* ===============================
+   🔄 Reset + base
+   =============================== */
+*,
+*::before,
+*::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg);
+  font-family: var(--font-main);
+  color: var(--text);
+  line-height: 1.6;
+  padding: 1rem;
+  transition: background var(--smooth), color var(--smooth);
+}
+
+/* ===============================
+   🖼️ Contenedor principal
+   =============================== */
+.container {
+  background: var(--surface);
+  padding: clamp(2rem, 5vw, 3rem);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  width: 100%;
+  max-width: 460px;
+  text-align: center;
+  animation: fadeInUp var(--smooth);
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Animación */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+/* ===============================
+   ✍️ Tipografía
+   =============================== */
+h1 {
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, #00c6ff, #6C23DA);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+}
+
+/* ===============================
+   📝 Inputs
+   =============================== */
+input {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(0,0,0,0.1);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1rem;
+  margin-bottom: 1.2rem;
+  transition: border var(--fast), box-shadow var(--fast), background var(--smooth), color var(--smooth);
+  box-shadow: var(--shadow-sm);
+}
+
+input::placeholder { color: var(--text-muted); }
+
+input:focus {
+  border: 1px solid var(--ui-primary);
+  box-shadow: 0 0 0 3px rgba(0, 114, 255, .25);
+  outline: none;
+}
+
+/* ===============================
+    🔒 Secure section
+   =============================== */
+.secure-section {
+  background: var(--surface);
+  border-left: 3px solid var(--ui-primary);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
+  box-shadow: var(--shadow-sm);
+  text-align: left;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: var(--text-muted);
+  transition: background var(--smooth), color var(--smooth), border var(--smooth);
+}
+
+.secure-section h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: var(--text);
+}
+
+.secure-section p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ===============================
+   🪟 Modal Personalizado
+   =============================== */
+.custom-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.custom-modal-content {
+  background: var(--surface);
+  color: var(--text);
+  padding: 2rem;
+  border-radius: var(--radius-md);
+  max-width: 400px;
+  width: 90%;
+  position: relative;
+  text-align: left;
+  box-shadow: var(--shadow-md);
+  animation: slideIn 0.3s ease;
+  transition: background var(--smooth), color var(--smooth);
+}
+
+/* Barra lateral de error */
+.error-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 100%;
+  background: var(--ui-error);
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+  animation: growBar 0.4s ease;
+}
+
+/* Animaciones */
+@keyframes slideIn {
+  from { transform: translateY(-20px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes growBar {
+  from { height: 0; }
+  to   { height: 100%; }
+}
+
+/* Botón en modal */
+.custom-modal-content button {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  background: var(--ui-error);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-weight: bold;
+  transition: background var(--fast);
+}
+
+.custom-modal-content button:hover {
+  background: #c53030;
+}
+
+/* ===============================
+   👁️ Password Toggle
+   =============================== */
+.password-wrapper { position: relative; }
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 55%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-password:hover { color: var(--ui-primary); }
+
+.toggle-password:focus-visible {
+  outline: 3px solid var(--ui-accent);
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+.icon-eye-open,
+.icon-eye-closed {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+/* ===============================
+   🔘 Botón CTA
+   =============================== */
+.cta-button {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, var(--ui-primary), var(--ui-accent));
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform var(--fast), box-shadow var(--fast), background var(--fast);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: var(--shadow-md);
+  background: linear-gradient(135deg, #0066e6, #5e1fd6);
+}
+
+.cta-button:focus-visible {
+  outline: 3px solid var(--ui-accent);
+  outline-offset: 3px;
+}
+
+/* ===============================
+   ⚡ Botón Dark/Light Mode
+   =============================== */
+.theme-toggle {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  border: 2px solid var(--ui-primary);
+  border-radius: 50%;
+  cursor: pointer;
+  overflow: hidden;
+  transition: background var(--smooth), transform var(--bounce);
+}
+
+.theme-toggle:hover { transform: rotate(20deg) scale(1.06); }
+
+.theme-toggle svg {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  transition: opacity var(--smooth), transform var(--smooth), color var(--smooth);
+  color: var(--ui-primary);
+}
+
+#icon-sun { opacity: 1; transform: rotate(0) scale(1); }
+#icon-moon { opacity: 0; transform: rotate(-90deg) scale(0.6); }
+
+body.dark #icon-sun { opacity: 0; transform: rotate(90deg) scale(0.6); }
+body.dark #icon-moon { opacity: 1; transform: rotate(0) scale(1); }
+
+/* ===============================
+   ⚠️ Errores
+   =============================== */
+#error-message {
+  min-height: 1.2em;
+  font-size: 0.9rem;
+  color: var(--ui-error);
+  opacity: 0;
+  transition: opacity var(--smooth);
+  text-align: left;
+  margin-bottom: 1rem;
+}
+#error-message.visible { opacity: 1; }
+
+/* ===============================
+   📱 Responsividad
+   =============================== */
+@media (max-width: 500px) {
+  .container { padding: 2rem 1rem; }
+  h1 { font-size: 1.6rem; }
+  .cta-button { padding: 0.9rem; font-size: 0.95rem; }
+}
+
+/* ===============================
+   👀 Password Eye Anim
+   =============================== */
+.icon-eye { width: 22px; height: 22px; }
+#eye-pupil { transition: transform var(--smooth), opacity var(--smooth); transform-origin: center; }
+#eye-shape { transition: transform var(--smooth); transform-origin: center; }
+
+.toggle-password:not(.is-visible) #eye-pupil { transform: scale(0); opacity: .3; }
+.toggle-password:not(.is-visible) #eye-shape { transform: scaleY(0.9); }
+.toggle-password.is-visible #eye-pupil { transform: scale(1); opacity: 1; }
+.toggle-password.is-visible #eye-shape { transform: scaleY(1); }
+
+/* ===============================
+   🌀 Motion reduced
+   =============================== */
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle, .theme-toggle svg, .toggle-password, #eye-pupil, #eye-shape {
+    transition: none !important;
+  }
+}

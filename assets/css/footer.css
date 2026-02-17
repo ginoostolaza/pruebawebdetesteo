@@ -1,86 +1,125 @@
-/* ----------- ESTILOS DEL FOOTER -------------- */
+/* ============================================================
+   FOOTER - Professional Design
+   ============================================================ */
 
-/* Estilos para el footer */
 .footer {
-  background: linear-gradient(135deg, #0d1117, #1c1f24); /* Degradado de fondo */
-  color: #ffffff; /* Color del texto */
-  text-align: center; /* Alineación centrada */
-  padding: 3rem 1rem; /* Espaciado interno */
-  font-size: 0.95rem; /* Tamaño de fuente para pie de página */
-  border-top: 1px solid rgba(255, 255, 255, 0.1); /* Borde superior */
+  background: linear-gradient(180deg, var(--color-bg, #0a0e17), #060a12);
+  color: #e8edf5;
+  text-align: center;
+  padding: 4rem 1.5rem 2rem;
+  font-size: 0.95rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 400px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.5), transparent);
 }
 
 .footer-container {
-  max-width: 1200px; /* Ancho máximo del contenedor */
-  margin: 0 auto; /* Centrar el contenedor */
-  display: flex; /* Usar flexbox */
-  flex-direction: column; /* Dirección de columnas */
-  align-items: center; /* Alinear elementos al centro */
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .footer-logo img {
-  max-width: 150px; /* Ancho máximo del logo */
-  margin-bottom: 1rem; /* Espaciado inferior */
+  max-width: 120px;
+  margin-bottom: 1.5rem;
+  border-radius: 12px;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+.footer-logo img:hover {
+  opacity: 1;
 }
 
 .footer-columns {
-  display: flex; /* Usar flexbox para columnas */
-  justify-content: space-between; /* Espacio entre columnas */
-  width: 100%; /* Ancho completo */
-  margin: 1.5rem 0; /* Margen superior e inferior */
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 2rem 0;
+  gap: 2rem;
 }
 
 .footer-column {
-  flex: 1; /* Cada columna ocupa el mismo espacio */
-  margin: 0 1rem; /* Margen lateral entre columnas */
-  min-width: 200px; /* Ancho mínimo de las columnas */
+  flex: 1;
+  min-width: 200px;
 }
 
 .footer-column h4 {
-  font-size: 1.2rem; /* Tamaño de fuente para encabezados de columna */
-  color: #4be213; /* Color del encabezado */
-  margin-bottom: 0.5rem; /* Margen inferior */
-  border-bottom: 2px solid #4be213; /* Línea inferior para los encabezados */
-  padding-bottom: 0.5rem; /* Espaciado inferior */
+  font-size: 1rem;
+  font-weight: 700;
+  color: #3b82f6;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+  letter-spacing: 0.5px;
 }
 
 .footer-column ul {
-  list-style: none; /* Sin viñetas */
-  padding: 0; /* Sin padding */
+  list-style: none;
+  padding: 0;
 }
 
 .footer-column li {
-  margin: 0.5rem 0; /* Espaciado entre los elementos de la lista */
+  margin: 0.4rem 0;
+  font-size: 0.9rem;
+  color: #8b95a8;
+}
+
+.footer-column p {
+  font-size: 0.85rem;
+  color: #8b95a8;
+  line-height: 1.6;
+  margin: 0;
 }
 
 .footer-link {
-  color: #ffffff; /* Color de los enlaces */
-  text-decoration: none; /* Sin subrayado */
-  transition: color 0.3s ease, transform 0.3s ease; /* Transición suave para color y transformación */
+  color: #8b95a8;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  font-weight: 500;
 }
 
 .footer-link:hover {
-  color: #4be213; /* Color de enlace al pasar el ratón */
-  transform: translateY(-2px); /* Efecto de elevación al pasar el ratón */
+  color: #3b82f6;
 }
 
-.footer p {
-  margin: 1rem 0 0; /* Margen superior e inferior */
-  font-size: 0.85rem; /* Tamaño de fuente más pequeño para el texto */
-  border-top: 1px solid rgba(255, 255, 255, 0.1); /* Línea superior sutil */
-  padding-top: 1rem; /* Espaciado superior */
+.footer > .footer-container > p,
+.footer p:last-child {
+  margin: 2rem 0 0;
+  font-size: 0.8rem;
+  color: #5a6478;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 1.5rem;
+  width: 100%;
 }
 
-/* ----------- ESTILOS DEL FOOTER CELU -------------- */
+/* --- Responsive --- */
 @media (max-width: 768px) {
   .footer-columns {
     flex-direction: column;
-    margin: 1.5rem 0;
-    gap: 1.5rem;
+    gap: 2rem;
+    text-align: center;
   }
 
   .footer-column {
-    margin: 0;
     min-width: 100%;
+  }
+
+  .footer-column h4 {
+    border-bottom: none;
+    padding-bottom: 0;
   }
 }

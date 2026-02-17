@@ -1,823 +1,484 @@
-/* =========================
-   Estilos Generales
-   ========================= */
-* {
-    margin: 0; /* Sin margen por defecto */
-    padding: 0; /* Sin padding por defecto */
-    box-sizing: border-box; /* Incluir padding y borde en el ancho total */
+/* ============================================================
+   CHECKOUT PAGE - Professional Design
+   ============================================================ */
+
+/* --- Reuse Design Tokens --- */
+:root {
+  --color-bg: #0a0e17;
+  --color-surface: #131a2b;
+  --color-border: rgba(255, 255, 255, 0.06);
+  --color-border-hover: rgba(255, 255, 255, 0.12);
+  --color-text: #e8edf5;
+  --color-text-muted: #8b95a8;
+  --color-text-dim: #5a6478;
+  --color-primary: #3b82f6;
+  --color-primary-glow: rgba(59, 130, 246, 0.4);
+  --color-secondary: #8b5cf6;
+  --color-accent: #06b6d4;
+  --color-success: #22c55e;
+  --gradient-primary: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  --gradient-accent: linear-gradient(135deg, #06b6d4, #3b82f6);
+  --glass-bg: rgba(19, 26, 43, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --transition-base: 0.3s ease;
 }
 
-body { 
-    font-family: 'Poppins', sans-serif; /* Fuente del cuerpo */
-    background-color: #0d1117; /* Color de fondo, un tono oscuro */
-    color: #ffffff; /* Color del texto, blanco */
-    line-height: 1.6; /* Altura de línea para mejorar la legibilidad */
-    overflow-x: hidden; /* Evitar desplazamiento horizontal */
+/* --- Reset --- */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* =========================
-   Estilos para el Logo
-   ========================= */
-.logo-img {
-    max-width: 150px; /* Ancho máximo del logo */
-    display: block; /* Mostrar como bloque para centrar */
-    margin: 0 auto 20px; /* Centrar y margen inferior de 20px */
-    border-radius: 10px; /* Bordes redondeados para suavizar el logo */
+body {
+  font-family: var(--font-family);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.7;
+  overflow-x: hidden;
 }
 
-/* =========================
-   Estilos del Encabezado
-   ========================= */
-header {
-    background: linear-gradient(to bottom, rgba(13,17,23,0.9), rgba(13,17,23,0.95)), 
-                url('https://images.unsplash.com/photo-1565371372210-04eabe4e0b66?auto=format&fit=crop&w=1500&q=80') center/cover no-repeat; /* Fondo con imagen y degradado */
-    height: 100vh; /* Altura completa de la ventana */
-    display: flex; /* Usar flexbox */
-    align-items: center; /* Alinear verticalmente */
-    justify-content: center; /* Centrar horizontalmente */
-    text-align: center; /* Alineación centrada del texto */
-    padding: 2rem; /* Espaciado interno de 2rem */
-    position: relative; /* Posición relativa para elementos hijos */
-    color: #f0f0f0; /* Color del texto, gris claro */
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; height: auto; display: block; }
+
+::selection {
+  background: var(--color-primary);
+  color: #fff;
 }
 
-header h1 {
-    font-size: 2.8rem; /* Tamaño de fuente del título principal */
-    background: linear-gradient(90deg, #6C23DA, #00c6ff); /* Degradado de color para el texto */
-    -webkit-background-clip: text; /* Clip de fondo para el texto (solo en WebKit) */
-    -webkit-text-fill-color: transparent; /* Hacer el color del texto transparente para mostrar el degradado */
-    letter-spacing: 1px; /* Espaciado entre letras */
-    margin-bottom: 1rem; /* Margen inferior de 1rem */
-    -webkit-background-clip: text; /* Recortar fondo en el texto */
-    -webkit-text-fill-color: transparent; /* Texto transparente */
-    font-weight: 800; /* Peso de la fuente */
-}
-
-header p {
-    font-size: 1.25rem; /* Tamaño de fuente del subtítulo */
-    max-width: 600px; /* Ancho máximo del subtítulo */
-    margin: 0 auto; /* Centrar horizontalmente */
-    line-height: 1.6; /* Altura de línea para mejorar la legibilidad */
-    color: #d1d1d1; /* Color del texto, gris claro */
-}
-
-/* =========================
-   Estilos de Títulos
-   ========================= */
-h2, section h2 {
-    font-size: 2.5rem; /* Tamaño de fuente para subtítulos */
-    color: #00c6ff; /* Color del texto, azul */
-    text-align: center; /* Alineación centrada */
-    font-weight: 800; /* Peso de la fuente */
-}
-
-h3 {
-    color: #007BFF; /* Color del texto, azul más oscuro */
-    text-align: center; /* Centrar títulos */
-}
-
-/* =========================
-   Estilos para las Secciones
-   ========================= */
-section {
-    padding: 3rem 2rem; /* Espaciado interno de 3rem arriba y abajo, 2rem a los lados */
-    max-width: 900px; /* Ancho máximo de la sección */
-    margin: auto; /* Centrar horizontalmente */
-}
-
-/* =========================
-   Estilos para Beneficios y Contenido
-   ========================= */
-.beneficios, .verificacion, .ul {
-    background: #161b22; /* Color de fondo, gris oscuro */
-    border-radius: 8px; /* Bordes redondeados */
-    padding: 20px; /* Espaciado interno */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    margin-bottom: 30px; /* Margen inferior de 30px */
-}
-
-/* =========================
-   Estilos de Listas en Beneficios
-   ========================= */
-.beneficios ul {
-    list-style-type: none; /* Eliminar las viñetas de la lista */
-    padding: 0; /* Eliminar el padding por defecto */
-    margin: 0; /* Eliminar el margen por defecto */
-    text-align: center; /* Centrar el texto de la lista */
-}
-
-/* =========================
-   Estilos de Botones de Acordeón
-   ========================= */
-.accordion-button {
-    background-color: #0056b3; /* Color de fondo del botón, azul profesional */
-    color: #fff; /* Color del texto, blanco */
-    border: none; /* Sin borde */
-    padding: 12px 16px; /* Espaciado interno */
-    width: 100%; /* Ancho completo */
-    text-align: left; /* Alinear texto a la izquierda */
-    cursor: pointer; /* Cambiar cursor al pasar */
-    font-size: 1rem; /* Tamaño de fuente */
-    border-radius: 10px; /* Bordes redondeados */
-    transition: background-color 0.3s ease; /* Transición suave para el fondo */
-    margin-bottom: 8px; /* Margen inferior de 8px */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Sombra para el botón */
-}
-
-.accordion-button:hover {
-    transform: translateY(-2px); /* Mover hacia arriba al pasar el ratón */
-    background-color: #003f7f; /* Color de fondo al pasar */
-}
-
-/* =========================
-   Estilos de Divisores
-   ========================= */
-.divider {
-    margin: 15px 0; /* Margen superior e inferior de 15px */
-}
-
-/* =========================
-   Estilos del Footer
-   ========================= */
-.footer-payment {
-    background: linear-gradient(135deg, #0d1117, #1c1f24); /* Degradado de fondo */
-    color: #ffffff; /* Color del texto */
-    text-align: center; /* Alineación centrada */
-    padding: 3rem 1rem; /* Espaciado interno */
-    font-size: 0.95rem; /* Tamaño de fuente para pie de página */
-    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Borde superior */
-}
-
-.footer-payment-container {
-    max-width: 1200px; /* Ancho máximo del contenedor */
-    margin: 0 auto; /* Centrar el contenedor */
-    display: flex; /* Usar flexbox */
-    flex-direction: column; /* Dirección de columnas */
-    align-items: center; /* Alinear elementos al centro */
-}
-
-.footer-payment-logo img {
-    max-width: 150px; /* Ancho máximo del logo */
-    margin-bottom: 1rem; /* Espaciado inferior */
-}
-
-.footer-payment-columns {
-    display: flex; /* Usar flexbox para columnas */
-    justify-content: space-between; /* Espacio entre columnas */
-    width: 100%; /* Ancho completo */
-    margin: 1.5rem 0; /* Margen superior e inferior */
-}
-
-.footer-payment-column {
-    flex: 1; /* Cada columna ocupa el mismo espacio */
-    margin: 0 1rem; /* Margen lateral entre columnas */
-    min-width: 200px; /* Ancho mínimo de las columnas */
-}
-
-.footer-payment-column h4 {
-    font-size: 1.2rem; /* Tamaño de fuente para encabezados de columna */
-    color: #4be213; /* Color del encabezado */
-    margin-bottom: 0.5rem; /* Margen inferior */
-    border-bottom: 2px solid #4be213; /* Línea inferior para los encabezados */
-    padding-bottom: 0.5rem; /* Espaciado inferior */
-}
-
-.footer-payment-column ul {
-    list-style: none; /* Sin viñetas */
-    padding: 0; /* Sin padding */
-}
-
-.footer-payment-column li {
-    margin: 0.5rem 0; /* Espaciado entre los elementos de la lista */
-}
-
-.footer-payment-link {
-    color: #ffffff; /* Color de los enlaces */
-    text-decoration: none; /* Sin subrayado */
-    transition: color 0.3s ease, transform 0.3s ease; /* Transición suave para color y transformación */
-}
-
-.footer-payment-link:hover {
-    color: #4be213; /* Color de enlace al pasar el ratón */
-    transform: translateY(-2px); /* Efecto de elevación al pasar el ratón */
-}
-
-.footer-payment p {
-    margin: 1rem 0 0; /* Margen superior e inferior */
-    font-size: 0.85rem; /* Tamaño de fuente más pequeño para el texto */
-    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Línea superior sutil */
-    padding-top: 1rem; /* Espaciado superior */
-}
-
-.footer-contact-info {
-    margin: 4px auto; /* Mayor espacio superior e inferior y centrar horizontalmente */
-    padding: 20px; /* Espaciado interno para mayor separación */
-    background-color: transparent; /* Color de fondo transparente */
-    border-radius: 10px; /* Bordes redondeados */
-    text-align: center; /* Centrar el texto */
-    max-width: 600px; /* Ancho máximo para mantener el contenido centrado */
-}
-
-.texto-info {
-    font-size: 18px; /* Aumentar tamaño de fuente */
-    line-height: 1.6; /* Mejorar altura de línea para legibilidad */
-    color: white; /* Color del texto */
-    margin: 10px 0; /* Espaciado entre párrafos */
-}
-
-.footer-contact-info a {
-    color: #4be213; /* Color del enlace */
-    text-decoration: none; /* Eliminar subrayado */
-    font-weight: bold; /* Negrita para destacar el enlace */
-    transition: color 0.3s ease; /* Transición suave para el color */
-}
-
-.footer-contact-info a:hover {
-    text-decoration: underline; /* Subrayar al pasar el ratón */
-    color: #3a9e1d; /* Color más oscuro al pasar el ratón */
-}
-
-/* =========================
-   Estilos de la Sección de Beneficios
-   ========================= */
-.beneficios-container {
-    display: grid; /* Usar grid para organizar los beneficios */
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Columnas responsivas */
-    gap: 20px; /* Espacio entre tarjetas */
-    margin: 20px 0; /* Margen superior e inferior */
-}
-
-.beneficio {
-    background-color: #1e2125; /* Color de fondo de las tarjetas */
-    border-radius: 8px; /* Bordes redondeados */
-    padding: 15px; /* Espaciado interno */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
-    transition: transform 0.2s; /* Transición suave para el hover */
-}
-
-.beneficio:hover {
-    transform: translateY(-5px); /* Efecto de elevación al pasar el ratón */
-}
-
-.beneficio h4 {
-    color: #00c6ff; /* Color para los títulos de beneficios */
-    margin: 0 0 10px; /* Margen inferior */
-    font-size: 1.2rem; /* Tamaño de fuente */
-}
-
-.beneficio p {
-    color: #d1d1d1; /* Color del texto, gris claro */
-    margin: 0; /* Sin margen */
-    line-height: 1.5; /* Altura de línea */
-}
-
-/* =========================
-   Estilos para Títulos en el Pie de Página
-   ========================= */
-.footer h4 {
-    margin-bottom: 12px; /* Margen inferior */
-    font-weight: 600; /* Peso de la fuente */
-    color: white; /* Color del texto */
-}
-
-/* =========================
-   Estilos para Párrafos y Listas en el Pie de Página
-   ========================= */
-.footer p, .footer ul {
-    line-height: 1.8; /* Altura de línea */
-    margin: 0; /* Sin margen */
-    padding: 0; /* Sin padding */
-}
-
-.footer ul {
-    list-style: none; /* Sin viñetas */
-    padding: 0; /* Sin padding */
-}
-
-/* =========================
-   Estilos de Botones
-   ========================= */
-.token-button {
-    background-color: #007BFF; /* Color del botón igual al del footer */
-    color: transparent; /* Hacer el texto transparente */
-    border: none; /* Sin borde */
-    padding: 10px; /* Espaciado interno */
-    border-radius: 5px; /* Bordes redondeados */
-    position: absolute; /* Posición absoluta para colocarlo en el footer */
-    bottom: -20px; /* Ajustar para que solo una pequeña parte sea visible */
-    right: 20px; /* Alinear a la derecha */
-    width: 50px; /* Ancho del botón */
-    height: 50px; /* Altura del botón */
-    cursor: pointer; /* Cambiar cursor al pasar */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Sombra para destacar */
-    z-index: 1000; /* Asegurarse de que esté por encima de otros elementos */
-}
-
-.token-button:hover {
-    background-color: #0056b3; /* Color al pasar el ratón */
-}
-
-/* Estilos para el botón */
-.button-container {
-    text-align: center; /* Centrar el botón */
-    margin-top: 20px; /* Espacio superior para el botón */
-}
-
+/* --- Back Button --- */
 .back-button {
-    display: inline-block; /* Mostrar como bloque en línea */
-    padding: 10px 20px; /* Espaciado interno del botón */
-    background-color: #007BFF; /* Color de fondo del botón */
-    color: white; /* Color del texto del botón */
-    text-decoration: none; /* Sin subrayado */
-    border-radius: 5px; /* Bordes redondeados */
-    transition: background-color 0.3s; /* Transición suave para el hover */
-    margin: 20px 0px 20px 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  margin: 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(10px);
+  transition: all var(--transition-base);
+  position: relative;
+  z-index: 10;
 }
 
 .back-button:hover {
-    background-color: #0056b3; /* Color del botón al pasar el mouse */
+  border-color: var(--color-primary);
+  background: rgba(59, 130, 246, 0.1);
+  transform: translateX(-4px);
 }
 
-.login-button {
-  display: block;               /* para que tome el ancho completo posible */
-  max-width: 220px;             /* ancho máximo */
-  min-width: 140px;             /* ancho mínimo */
-  width: clamp(140px, 30vw, 220px); /* ancho responsivo */
-  margin: 0 auto;               /* centrado horizontal */
-  background-color: #007BFF;
-  color: white;
-  padding: clamp(10px, 2vw, 14px) clamp(16px, 3vw, 22px);
-  border-radius: 8px;
-  font-size: clamp(14px, 2vw, 18px);
-  font-weight: bold;
-  text-decoration: none;
+/* --- Hero Header --- */
+.hero {
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  padding: 4rem 2rem;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0a0e17 0%, #131a2b 50%, #0d1220 100%);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(ellipse, var(--color-primary-glow), transparent 70%);
+  filter: blur(80px);
+  opacity: 0.5;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+}
+
+.logo-img {
+  max-width: 130px;
+  margin: 0 auto 2rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.hero h1 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.hero p, .hero-text p {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  color: var(--color-text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* --- Section Styles --- */
+section {
+  padding: clamp(3rem, 6vw, 5rem) clamp(1rem, 4vw, 2rem);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+h2, .titulo-fase {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* --- Fase Transformacion --- */
+.fase-transformacion {
+  text-align: center;
+  padding: clamp(4rem, 8vw, 6rem) 2rem;
+  background: radial-gradient(ellipse at 50% 0%, rgba(59, 130, 246, 0.08), transparent 60%);
+  border-radius: var(--radius-xl);
+}
+
+.subtitulo-fase {
+  font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+  color: var(--color-text-muted);
+  max-width: 700px;
+  margin: 0 auto 1rem;
+  line-height: 1.7;
+}
+
+/* --- Accordion (Fase) --- */
+.acordeones {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.acordeon {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.acordeon:hover {
+  border-color: var(--color-border-hover);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.1);
+}
+
+.acordeon-header {
+  background: var(--gradient-primary);
+  color: #fff;
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   cursor: pointer;
-  box-sizing: border-box;
+  gap: 1rem;
+}
+
+.acordeon-header h2 {
+  margin: 0;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 700;
+  background: none;
+  -webkit-text-fill-color: #fff;
+  text-align: left;
+  flex: 1;
+}
+
+.precio-fase {
+  font-weight: 800;
+  font-size: 1.1rem;
+  white-space: nowrap;
+}
+
+.accordion-toggle {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  font-size: 1.3rem;
+  color: #fff;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-base), background var(--transition-base);
+  flex-shrink: 0;
+}
+
+.accordion-toggle[aria-expanded="true"] {
+  transform: rotate(45deg);
+  background: rgba(255,255,255,0.3);
+}
+
+.acordeon-content {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 1.5rem;
+  background: var(--color-surface);
+  transition: max-height 0.5s ease, padding 0.5s ease;
+}
+
+.beneficios-list {
+  list-style: none;
+  padding: 0;
+}
+
+.beneficios-list li {
+  padding: 0.6rem 0;
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.beneficios-list li:last-child { border-bottom: none; }
+.beneficios-list li strong { color: var(--color-text); }
+
+.frase-final {
+  font-style: italic;
+  color: var(--color-text-dim);
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+
+/* --- Payment Methods --- */
+.accordion-item.metodo-pago {
+  max-width: 700px;
+  margin: 1rem auto;
+}
+
+.accordion-button {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  font-weight: 600;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.accordion-button:hover {
+  border-color: var(--color-primary);
+  background: rgba(59, 130, 246, 0.05);
+  transform: translateY(-2px);
+}
+
+.accordion-content {
+  display: none;
+  padding: 1.5rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  margin-top: -4px;
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+.accordion-content ul {
+  padding-left: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.accordion-content li {
+  margin-bottom: 0.4rem;
+}
+
+.accordion-content a {
+  color: var(--color-primary);
+  font-weight: 600;
+  transition: color var(--transition-base);
+}
+
+.accordion-content a:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+.accordion-content strong { color: var(--color-text); }
+
+.divider {
+  border: none;
+  height: 1px;
+  background: var(--color-border);
+  margin: 1rem 0;
+}
+
+.nota {
+  font-size: 0.9rem;
+  color: var(--color-success);
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+.resultado-transferencia {
+  font-weight: 800;
+  color: var(--color-primary);
+  font-size: 1.2rem;
+}
+
+/* --- Note Container --- */
+.nota-container {
+  max-width: 600px;
+  margin: 2rem auto 4rem;
+  padding: 2rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.nota-general {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.nota-general strong { color: var(--color-text); }
+.nota-general em { color: var(--color-accent); }
+
+.info-dolar {
+  font-size: 0.9rem;
+  color: var(--color-text-dim);
+  border-top: 1px solid var(--color-border);
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+.info-dolar strong { color: var(--color-text-muted); }
+
+.dolar-blue {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--color-success);
+  text-align: center;
+  margin-top: 1rem;
+  padding: 0.8rem;
+  background: rgba(34, 197, 94, 0.08);
+  border-radius: var(--radius-sm);
+}
+
+/* --- Footer Contact Info --- */
+.footer-contact-info {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.texto-info {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: 0.5rem;
+}
+
+.footer-contact-info a {
+  color: var(--color-success);
+  font-weight: 700;
+  transition: color var(--transition-base);
+}
+
+.footer-contact-info a:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+/* --- Login Button --- */
+.login-button {
+  display: block;
+  max-width: 240px;
+  margin: 0 auto 3rem;
+  padding: 0.9rem 1.8rem;
+  background: var(--gradient-primary);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  box-shadow: 0 4px 20px var(--color-primary-glow);
 }
 
 .login-button:hover {
-  background-color: #0056b3; /* Hover */
-  transform: scale(1.05);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px var(--color-primary-glow);
 }
 
 .login-button:active {
   transform: scale(0.97);
 }
 
-/* =========================
-   Estilos de Emojis
-   ========================= */
-.emoji {
-    width: 25px; /* Ajusta el tamaño del emoji */
-    height: 25px; /* Mantiene la proporción */
-    vertical-align: middle; /* Alinea el emoji con el texto */
-    margin-right: 5px; /* Espacio entre el emoji y el texto */
-}
-
-.hamburguer-abrir-menu,
-.hamburguer-cerrar-menu,
-.chincheta,
-.fuego,
-.boton-de-verificacion,
-.cohete,
-.prohibido,
-.tarjeta-credito,
-.sobre-cerrado-flecha-encima,
-.señal-advertencia,
-.efectivo,
-.candado-cerrado-llave, 
-.bolsa-dinero, 
-.banco,
-.celular-con-una-flecha, 
-.hoja-con-lapiz, 
-.mundo-digital {
-    display: inline-block; /* Permite que se ajuste al texto */
-    width: 25px; /* Ajusta el tamaño del ícono */
-    height: 25px; /* Mantiene la proporción */
-    background-size: contain; /* Asegura que la imagen se ajuste */
-    background-repeat: no-repeat; /* Evita que se repita la imagen */
-    vertical-align: middle; /* Alinea verticalmente con el texto */
-    margin-right: 5px; /* Espacio entre el ícono y el texto */
-}
-
-.chincheta {
-    background-image: url('https://em-content.zobj.net/source/apple/155/pushpin_1f4cc.png'); /* Imagen de fondo del ícono */
-}
-
-.fuego {
-    background-image: url('https://em-content.zobj.net/source/apple/419/fire_1f525.png'); /* Imagen de fondo del ícono */
-}
-
-.boton-de-verificacion {
-    background-image: url('https://em-content.zobj.net/source/apple/419/check-mark-button_2705.png'); /* Imagen de fondo del ícono */
-}
-
-.cohete {
-    background-image: url('https://em-content.zobj.net/source/apple/419/rocket_1f680.png'); /* Imagen de fondo del ícono */
-}
-
-.prohibido {
-    background-image: url('https://em-content.zobj.net/source/apple/419/prohibited_1f6ab.png'); /* Imagen de fondo del ícono */
-}
-
-.tarjeta-credito {
-    background-image: url('https://em-content.zobj.net/source/apple/419/credit-card_1f4b3.png'); /* Imagen de fondo del ícono */
-}
-
-.sobre-cerrado-flecha-encima {
-    background-image: url('https://em-content.zobj.net/source/apple/419/envelope-with-arrow_1f4e9.png'); /* Imagen de fondo del ícono */
-}
-
-.señal-advertencia {
-    background-image: url('https://em-content.zobj.net/source/apple/419/warning_26a0-fe0f.png'); /* Imagen de fondo del ícono */
-}
-
-.efectivo {
-    background-image: url('https://em-content.zobj.net/source/apple/419/dollar-banknote_1f4b5.png'); /* Imagen de fondo del ícono */
-}
-
-.candado-cerrado-llave {
-    background-image: url('https://em-content.zobj.net/source/apple/419/locked-with-key_1f510.png'); /* Imagen de fondo del ícono */
-}
-
-.bolsa-dinero {
-    background-image: url('https://em-content.zobj.net/source/apple/419/money-bag_1f4b0.png'); /* Imagen de fondo del ícono */
-}
-
-.banco {
-    background-image: url('https://em-content.zobj.net/source/apple/419/bank_1f3e6.png'); /* Imagen de fondo del ícono */
-}
-
-.celular-con-una-flecha {
-    background-image: url('https://em-content.zobj.net/source/apple/419/mobile-phone-with-arrow_1f4f2.png'); /* Imagen de fondo del ícono */
-}
-
-.hoja-con-lapiz {
-    background-image: url('https://em-content.zobj.net/source/apple/419/leaves_1f33f.png'); /* Imagen de fondo del ícono */
-}
-
-.mundo-digital {
-    background-image: url('https://em-content.zobj.net/source/apple/419/globe-with-meridians_1f310.png'); /* Imagen de fondo del ícono */
-}
-
-.bloqueado {
-    opacity: 0.4; /* Opacidad para indicar que está bloqueado */
-    border-left: 6px solid #ccc; /* Borde izquierdo para destacar */
-}
-
-/* Estilo general para el acordeón */
-.acordeon {
-    border: 1px solid #007BFF; /* Borde azul para resaltar el acordeón */
-    border-radius: 8px; /* Bordes redondeados para un aspecto más moderno */
-    margin: 20px 0; /* Espacio vertical entre acordeones */
-    overflow: hidden; /* Evita que el contenido sobresalga */
-    transition: box-shadow 0.3s ease; /* Efecto suave al cambiar la sombra */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra sutil para profundidad */
-}
-
-/* Estilo del encabezado del acordeón */
-.acordeon-header {
-    background-color: #007BFF; /* Color de fondo azul para el encabezado */
-    color: #fff; /* Color del texto en blanco para contraste */
-    padding: 20px; /* Espaciado interno para el encabezado */
-    display: flex; /* Usar flexbox para alinear elementos */
-    justify-content: space-between; /* Espacio entre el título y el botón */
-    align-items: center; /* Centrar verticalmente los elementos */
-    cursor: pointer; /* Cambiar el cursor a puntero para indicar interactividad */
-    position: relative; /* Posicionamiento relativo para elementos internos */
-}
-
-/* Estilo del título del acordeón */
-.acordeon-header h2 {
-    margin: 0; /* Eliminar margen por defecto */
-    font-size: 1.75rem; /* Tamaño de fuente grande para el título */
-    font-weight: 600; /* Peso de fuente semi-negrita */
-}
-
-/* Estilo del precio en el encabezado */
-.acordeon-header .precio-fase {
-    font-weight: bold; /* Negrita para destacar el precio */
-    font-size: 1.25rem; /* Tamaño de fuente ligeramente mayor */
-}
-
-/* Estilo del botón de alternar del acordeón */
-.accordion-toggle {
-    background: none; /* Sin fondo para un aspecto limpio */
-    border: none; /* Sin borde para evitar distracciones */
-    font-size: 1.5rem; /* Tamaño de fuente grande para visibilidad */
-    color: #fff; /* Color del texto en blanco */
-    cursor: pointer; /* Cambiar a puntero para indicar clickeable */
-    transition: transform 0.3s ease; /* Efecto suave al rotar el icono */
-}
-
-/* Estilo para el enfoque del botón */
-.accordion-toggle:focus {
-    outline: none; /* Eliminar el contorno por defecto al enfocar */
-}
-
-/* Rotación del botón cuando el acordeón está abierto */
-.accordion-toggle[aria-expanded="true"] {
-    transform: rotate(45deg); /* Rotar el icono para indicar estado abierto */
-}
-
-/* Estilo del contenido del acordeón */
-.acordeon-content {
-    max-height: 0; /* Altura máxima inicial (colapsada) */
-    overflow: hidden; /* Ocultar contenido que exceda la altura */
-    padding: 0 20px; /* Espaciado horizontal para el contenido */
-    background-color: #161b22; /* Color de fondo claro para el contenido */
-    transition: max-height 0.5s ease, padding 0.5s ease; /* Transición suave para la altura y el padding */
-}
-
-/* Estilo de la lista de beneficios */
-.beneficios-list {
-    list-style-type: none; /* Sin viñetas en la lista */
-    padding: 0; /* Eliminar padding por defecto */
-}
-
-/* Estilo de cada elemento de la lista */
-.beneficios-list li {
-    margin: 15px 0; /* Espacio vertical entre elementos */
-    font-size: 1.1rem; /* Tamaño de fuente para los beneficios */
-    position: relative; /* Posicionamiento relativo para iconos */
-    padding-left: 25px; /* Espacio para el icono a la izquierda */
-}
-
-/* Estilo del icono de verificación */
-.beneficios-list li .boton-de-verificacion {
-    position: absolute; /* Posicionar absolutamente dentro del li */
-    left: 0; /* Alinear a la izquierda */
-    top: 50%; /* Centrar verticalmente */
-    transform: translateY(-50%); /* Ajustar para centrar completamente */
-    color: #007BFF; /* Color azul para el icono */
-}
-
-/* Estilo de la frase final */
-.frase-final {
-    font-style: italic; /* Estilo cursivo para la frase final */
-    margin-top: 20px; /* Espacio superior para separación */
-    color: #555; /* Color gris para el texto */
-    font-size: 1.15rem; /* Tamaño de fuente ligeramente mayor */
-}
-
-/* Efecto de sombra al pasar el mouse sobre el acordeón */
-.acordeon:hover {
-    box-shadow: 0 4px 20px rgba(0, 123, 255, 0.2); /* Sombra más pronunciada al pasar el mouse */
-}
-
-/* =========================
-   Estilos de Precio
-   ========================= */
-.precio-ars {
-    font-size: 1.5em; /* Tamaño de fuente */
-    font-weight: bold; /* Peso de la fuente */
-    color: #007BFF; /* Color del texto */
-}
-
-/* =========================
-   Métodos de Pago
-   ========================= */
-.metodo-pago {
-    max-width: 600px; /* Limitar el ancho del contenedor de métodos de pago */
-    margin: 2rem auto; /* Centrado con espacio arriba y abajo */
-    padding: 1rem; /* Espaciado interno */
-    border-radius: 12px; /* Bordes redondeados */
-    box-shadow: 0 4px 12px rgba(252, 252, 252, 0.05); /* Sombra sutil */
-    font-size: 1rem; /* Tamaño legible */
-    line-height: 1.6; /* Mejor lectura */
-}
-
-.metodo-pago h3 {
-    font-size: 1.3rem; /* Tamaño de fuente para subtítulos de métodos de pago */
-    margin-bottom: 1rem; /* Margen inferior */
-    text-align: center; /* Centrado */
-}
-
-.metodo-pago h4 {
-    color: #007BFF; /* Color del título */
-}
-
-.metodo-pago p {
-    margin: 0; /* Sin margen */
-}
-
-/* Estilos para listas de métodos de pago */
-.metodo-pago ul {
-    padding-left: 1.5rem; /* Espaciado a la izquierda */
-    list-style-type: disc; /* Viñetas de tipo disco */
-}
-
-.metodo-pago li {
-    margin-bottom: 0.5rem; /* Margen inferior entre elementos */
-}
-
-/* Estilos para enlaces en métodos de pago */
-.metodo-pago a {
-    color: #007BFF; /* Color del enlace */
-    text-decoration: none; /* Quitar subrayado */
-}
-
-.metodo-pago a:hover {
-    text-decoration: underline; /* Subrayar al pasar el ratón */
-}
-
-/* =========================
-   Estilos de Texto Informativo
-   ========================= */
-.texto-info {
-    font-weight: bold; /* Peso de la fuente */
-    margin-top: 20px; /* Margen superior */
-    text-align: center; /* Centrar texto informativo */
-}
-
-/* Estilo general para el contenedor de la nota */
-.nota-container {
-    max-width: 600px; /* Ancho máximo del contenedor */
-    margin: 20px auto; /* Centrar el contenedor horizontalmente */
-    padding: 20px; /* Espaciado interno */
-    background-color: #ffffff; /* Color de fondo blanco */
-    border: 1px solid #007BFF; /* Borde azul para resaltar */
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-    font-family: 'Arial', sans-serif; /* Fuente moderna */
-    margin-bottom: 130px;
-}
-
-/* Estilo para la nota general */
-.nota-general {
-    font-size: 1.2rem; /* Tamaño de fuente mayor para la nota */
-    color: #333; /* Color del texto */
-    line-height: 1.5; /* Espaciado entre líneas */
-    margin-bottom: 15px; /* Espacio inferior */
-}
-
-/* Estilo para la información sobre el dólar */
-.info-dolar {
-    font-size: 1rem; /* Tamaño de fuente normal */
-    color: #555; /* Color gris para el texto */
-    line-height: 1.5; /* Espaciado entre líneas */
-    border-top: 1px solid #e0e0e0; /* Línea superior para separación */
-    padding-top: 10px; /* Espaciado superior */
-    margin-top: 15px; /* Espacio superior */
-}
-
-/* Estilo para la cotización del dólar */
-.dolar-blue {
-    font-size: 1.1rem; /* Tamaño de fuente ligeramente mayor */
-    color: #007BFF; /* Color azul para destacar la cotización */
-    margin-top: 10px; /* Espacio superior */
-    font-weight: bold; /* Negrita para destacar */
-    text-align: center; /* Centrar el texto */
-}
-
-/* =========================
-   Estilos Adicionales para Secciones
-   ========================= */
-section {
-    padding: 40px 20px; /* Espaciado interno */
-    margin-bottom: 40px; /* Margen inferior */
-}
-
-/* Estilos para márgenes de títulos */
-h1, h2, h3 {
-    margin-bottom: 20px; /* Margen inferior */
-}
-
-.fase-transformacion {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center; /* vertical centering if section has height */
-  text-align: center;
-  border-radius: 12px;
-  padding: 80px 20px;
-  background-color: #0d0d0d; /* Fondo oscuro elegante */
-  color: white;
-}
-
-.titulo-fase {
-  font-size: 2rem; /* Tamaño de fuente para H2 */
-  font-weight: 800; /* Peso de la fuente */
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  text-align: center; /* Alineación centrada */
-  letter-spacing: 1.2px;
-  color: #00c6ff; /* Color del texto */
-}
-
-.subtitulo-fase {
-  font-size: 1.25rem;
-  max-width: 700px;
-  line-height: 1.6;
-  color: #D9D9D9; /* Gris claro, profesional y legible */
-}
-
-/* ==================== MEDIA QUERIES ==================== */
-@media (max-width: 1200px) {
-    .titulo-fase { font-size: 1.8rem; } /* Tamaño de fuente reducido para pantallas grandes */
-    .subtitulo-fase { font-size: 1rem; margin-bottom: 1.5rem; } /* Tamaño y margen ajustados */
-    .acordeon-header { font-size: 1.1rem; } /* Tamaño de fuente reducido para acordeones */
-}
-
-@media (max-width: 992px) {
-    .titulo-fase { font-size: 1.6rem; } /* Tamaño de fuente reducido */
-    .subtitulo-fase { font-size: 0.95rem; margin-bottom: 1rem; } /* Tamaño y margen ajustados */
-    .acordeon-header { font-size: 1rem; } /* Tamaño de fuente reducido */
-    .acordeon-content { padding: 1rem; } /* Espaciado frno reducido */
-    .precio-fase { font-size: 1.2rem; } /* Tamaño de fuente reducido */
-}
-
+/* --- Responsive --- */
 @media (max-width: 768px) {
-    .titulo-fase { font-size: 1.4rem; } /* Tamaño de fuente reducido */
-    .subtitulo-fase { font-size: 0.9rem; } /* Tamaño de fuente reducido */
-    .acordeon-header { font-size: 1rem; padding: 0.8rem; } /* Tamaño y padding ajustados */
-    .acordeon-content { padding: 1rem; } /* Espaciado interno reducido */
-    .beneficios-list li { font-size: 0.9rem; } /* Tamaño de fuente reducido */
-    .frase-final { font-size: 0.9rem; } /* Tamaño de fuente reducido */
-    section { padding: 1rem; } /* Espaciado interno reducido */
-    button { font-size: 1rem; padding: 0.5rem; } /* Tamaño y padding ajustados */
+  .hero {
+    min-height: 60vh;
+    padding: 3rem 1.5rem;
+  }
+
+  .acordeon-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .acordeon-header h2 {
+    font-size: 1rem;
+  }
 }
 
-@media (max-width: 576px) {
-    .titulo-fase { font-size: 1.2rem; } /* Tamaño de fuente aún más reducido */
-    .subtitulo-fase { font-size: 0.85rem; } /* Tamaño de fuente reducido */
-    .acordeon-header { font-size: 0.9rem; } /* Tamaño de fuente reducido */
-    .precio-fase { font-size: 1rem; } /* Tamaño de fuente reducido */
-    .beneficios-list li { margin-bottom: 0.5rem; } /* Margen inferior reducido */
-    .frase-final { font-size: 0.85rem; } /* Tamaño de fuente reducido */
-    
-    /*footer*/
-    /* --------------------------------------------- */
-    /* ----------- ESTILOS DEL FOOTER -------------- */
-    /* --------------------------------------------- */
+@media (max-width: 480px) {
+  .hero {
+    min-height: 50vh;
+    padding: 2rem 1rem;
+  }
 
-    /* Estilos para el footer */
-    .footer {
-    background: linear-gradient(135deg, #0d1117, #1c1f24); /* Degradado de fondo */
-    color: #ffffff; /* Color del texto */
-    text-align: center; /* Alineación centrada */
-    padding: 2rem 1rem; /* Espaciado interno */
-    font-size: 0.95rem; /* Tamaño de fuente para pie de página */
-    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Borde superior */
-    }
+  section {
+    padding: 2rem 1rem;
+  }
+}
 
-    .footer-container {
-    max-width: 1200px; /* Ancho máximo del contenedor */
-    margin: 0 auto; /* Centrar el contenedor */
-    display: flex; /* Usar flexbox */
-    flex-direction: column; /* Dirección de columnas (vertical) */
-    }
-
-    .footer-logo {
-    display: flex; /* Usar flexbox para el logo */
-    justify-content: center; /* Centrar el logo */
-    margin-bottom: 1rem; /* Margen inferior para el logo */
-    }
-
-    .footer-columns {
-    display: flex; /* Usar flexbox para las columnas */
-    flex-direction: column; /* Asegurar que las columnas estén en vertical */
-    width: 100%; /* Ancho completo */
-    }
-
-    .footer-column {
-    margin: 1rem 0; /* Margen superior e inferior para las columnas */
-    }
-
-    .footer-column h4 {
-    font-size: 1.2rem; /* Tamaño de fuente para encabezados de columna */
-    color: #4be213; /* Color del encabezado */
-    margin-bottom: 0.5rem; /* Margen inferior */
-    border-bottom: 2px solid #4be213; /* Línea inferior para los encabezados */
-    padding-bottom: 0.5rem; /* Espaciado inferior */
-    }
-
-    .footer-column ul {
-    list-style: none; /* Sin viñetas */
-    padding: 0; /* Sin padding */
-    }
-
-    .footer-column li {
-    margin: 0.5rem 0; /* Espaciado entre los elementos de la lista */
-    }
-
-    .footer-link {
-    color: #ffffff; /* Color de los enlaces */
-    text-decoration: none; /* Sin subrayado */
-    transition: color 0.3s ease, transform 0.3s ease; /* Transición suave para color y transformación */
-    }
-
-    .footer-link:hover {
-    color: #4be213; /* Color de enlace al pasar el ratón */
-    transform: translateY(-2px); /* Efecto de elevación al pasar el ratón */
-    }
-
-    .footer p {
-    margin: 1rem 0 0; /* Margen superior e inferior */
-    font-size: 0.85rem; /* Tamaño de fuente más pequeño para el texto */
-    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Línea superior sutil */
-    padding-top: 1rem; /* Espaciado superior */
-    }
+/* --- Reduced Motion --- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -4,295 +4,349 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Pago | Comunidad de Trading y Desarrollo Personal</title>
+  <title>Pago Seguro | Gino Ostolaza</title>
 
-  <!-- Favicon -->
   <link rel="icon" href="assets/img/branding/logo-favicon.png" type="image/png">
 
-  <!-- Tipografia -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Estilos -->
   <link rel="stylesheet" href="assets/css/checkout.css">
   <link rel="stylesheet" href="assets/css/footer.css">
 
-  <!-- Meta SEO -->
-  <meta name="description" content="Accede a la comunidad de trading de Gino Ostolaza. Aprende trading, fortalece tu mentalidad y conecta con un entorno que potencia tu crecimiento.">
-
-  <!-- Open Graph -->
+  <meta name="description" content="Pago seguro para acceder a la comunidad de trading de Gino Ostolaza.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Comunidad | Gino Ostolaza">
+  <meta property="og:title" content="Pago Seguro | Gino Ostolaza">
   <meta property="og:image" content="assets/img/branding/logo.png">
-  <meta property="og:description" content="Ingresa a la comunidad y descubri sistemas de trading efectivos, desarrollo personal y acompanamiento cercano.">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Comunidad de Trading | Gino Ostolaza">
-  <meta name="twitter:description" content="Aprende trading paso a paso, gana claridad y forma parte de una comunidad en crecimiento.">
-  <meta name="twitter:image" content="assets/img/branding/logo.png">
-
-  <!-- Theme color -->
-  <meta name="theme-color" content="#0d1117">
+  <meta name="theme-color" content="#0a0e17">
 </head>
 <body>
-<a href="index.html" class="back-button">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-  Regresar al inicio
-</a>
 
-<header class="hero">
-  <div class="hero-content">
-    <img
-      class="logo-img"
-      src="assets/img/branding/logo.png"
-      alt="Logo de Gino Ostolaza Coaching"
-      width="180" loading="lazy"
-    >
-    <div class="hero-text" id="hero-text">
-      <h1 id="hero-title">Inicia tu Proceso de Transformacion</h1>
-      <p id="hero-description">
-        Sumate a una <strong>metodologia clara y practica</strong> disenada para que aprendas a
-        <em>operar con confianza</em>, fortalezcas tu <strong>mentalidad</strong> y construyas
-        las bases de un <em>futuro con proposito</em>.
-        Este es tu primer paso para dejar atras la duda y empezar con direccion.
-      </p>
-    </div>
+<!-- ============================================================
+     TOP BAR
+     ============================================================ -->
+<header class="checkout-topbar">
+  <div class="topbar-left">
+    <img class="topbar-logo" src="assets/img/branding/logo-favicon.png" alt="Logo" width="36" height="36">
+    <span class="topbar-brand">Gino Ostolaza</span>
+    <span class="topbar-secure">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Pago seguro
+    </span>
   </div>
+  <a href="index.html" class="topbar-back">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Volver
+  </a>
 </header>
 
-<!-- Contenido Fase 1 (por defecto) -->
-<div id="content-fase1">
-  <section class="fase-transformacion">
-    <h2 class="titulo-fase">Inicia tu Fase de Transformacion</h2>
-    <p class="subtitulo-fase">
-      Aprende a <strong>operar con claridad</strong>, fortalecer tu <strong>disciplina</strong> y adoptar
-      habitos que respalden tu crecimiento tanto en el <em>trading</em> como en tu vida personal.
-    </p>
-    <p class="subtitulo-fase">
-      Esta etapa esta pensada para que desarrolles <strong>confianza real</strong>, evites los errores
-      mas comunes y construyas la mentalidad de un trader en evolucion, paso a paso.
-    </p>
-  </section>
+<!-- ============================================================
+     MAIN CHECKOUT LAYOUT
+     ============================================================ -->
+<div class="checkout-wrapper">
 
-  <section class="acordeones">
-    <div class="acordeon">
-      <div class="acordeon-header">
-        <h2>Fase 1 — Comunidad de Trading y Desarrollo</h2>
-        <span class="precio-fase" aria-label="Precio de la Fase 1"><strong>$50 USD</strong></span>
-        <button class="accordion-toggle" aria-expanded="false" aria-controls="fase1-contenido">+</button>
+  <!-- LEFT: Payment Methods -->
+  <div class="checkout-main">
+
+    <div>
+      <div class="checkout-steps">
+        <div class="step completed">
+          <span class="step-number">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+          </span>
+          <span>Elegir plan</span>
+        </div>
+        <div class="step-line done"></div>
+        <div class="step active">
+          <span class="step-number">2</span>
+          <span>Metodo de pago</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step">
+          <span class="step-number">3</span>
+          <span>Confirmacion</span>
+        </div>
       </div>
-      <div class="acordeon-content" id="fase1-contenido">
-        <ul class="beneficios-list">
-          <li><strong>Aprende trading</strong> con <em>2 sistemas probados</em>, claros y efectivos.</li>
-          <li><strong>Desarrollo personal</strong>: crea habitos solidos, mentalidad ganadora y metas claras.</li>
-          <li><strong>Acceso exclusivo</strong> a la comunidad para transformar tu entorno y rodearte de traders motivados.</li>
-          <li><strong>Psicotrading inicial</strong>: foco, confianza y accion para evitar bloqueos mentales.</li>
-          <li><strong>Elimina tus miedos y vicios</strong> que frenan tu progreso.</li>
-          <li>Casos practicos: <em>ejemplos reales</em> y errores comunes que tenes que evitar.</li>
-          <li><strong>Material premium</strong> y tacticas disenadas para traders en crecimiento.</li>
-        </ul>
-        <p class="frase-final">Ideal si buscas <strong>consistencia, foco</strong> y un entorno cercano que te potencie al maximo.</p>
-      </div>
+      <h1 class="checkout-title">Elegir metodo de pago</h1>
+      <p class="checkout-subtitle">Selecciona como queres realizar tu pago</p>
     </div>
-  </section>
-</div>
 
-<!-- Contenido Bot (se muestra si plan=bot) -->
-<div id="content-bot" style="display: none;">
-  <section class="fase-transformacion">
-    <h2 class="titulo-fase">Bot de Trading Automatizado</h2>
-    <p class="subtitulo-fase">
-      Un bot de trading desarrollado y configurado por <strong>Gino Ostolaza</strong>, listo para operar.
-      Conectalo, dejalo trabajar y dedica tu tiempo a lo que realmente importa.
-    </p>
-  </section>
-
-  <section class="acordeones">
-    <div class="acordeon">
-      <div class="acordeon-header">
-        <h2>Trading Bot — Suscripcion Mensual</h2>
-        <span class="precio-fase" aria-label="Precio del Bot"><strong>$5 USD/mes</strong></span>
-        <button class="accordion-toggle" aria-expanded="false" aria-controls="bot-contenido">+</button>
-      </div>
-      <div class="acordeon-content" id="bot-contenido">
-        <ul class="beneficios-list">
-          <li>Opera de forma <strong>automatica 24/7</strong> sin que estes presente.</li>
-          <li>Configurado y optimizado por <strong>Gino</strong> personalmente.</li>
-          <li><strong>Actualizaciones incluidas</strong> mientras tu suscripcion este activa.</li>
-          <li>Soporte directo para <strong>instalacion y configuracion</strong>.</li>
-          <li>Cancela cuando quieras, <strong>sin permanencia</strong>.</li>
-        </ul>
-        <p class="frase-final">Compatible con las principales plataformas de trading. Solo necesitas una cuenta activa.</p>
-      </div>
-    </div>
-  </section>
-</div>
-
-<div class="nota-container">
-  <p class="nota-general">
-    <strong>Nota importante:</strong>
-    Al realizar tu pago, escribi el siguiente mensaje para identificar tu transaccion correctamente:
-    <br>
-    <em id="nota-mensaje">"Hola Gino, te envio el pago de la Fase 1. Mi nombre es: [Tu nombre]"</em>
-  </p>
-
-  <p class="info-dolar">
-    <strong>Referencia de moneda en Argentina:</strong>
-    La cotizacion utilizada es la del <strong>dolar blue</strong>, que sirve como referencia habitual para operaciones en moneda extranjera.
-  </p>
-
-  <div id="dolar-blue" class="dolar-blue" aria-live="polite">
-    Consultando la cotizacion actual del dolar blue...
-  </div>
-</div>
-
-<h2 class="titulo-fase">METODOS DE PAGO</h2>
-
-<section class="acordeones">
-  <!-- Banco argentino -->
-  <div class="accordion-item metodo-pago">
-    <button class="accordion-button">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-      Banco argentino
-    </button>
-    <div class="accordion-content">
-      <p><strong>Monto a abonar:</strong> <span class="monto-usd">USD 50,00</span> o al tipo de cambio:</p>
-      <p><span class="resultado-transferencia">Cargando...</span> ARS</p>
-
-      <hr class="divider">
-
-      <p><strong>Banco Galicia — Cuenta en dolares</strong></p>
-      <ul>
-        <li><strong>Alias:</strong> GINO.OSTOLAZA.GON</li>
-        <li><strong>Titular:</strong> Gonzalez Gino Ostolaza</li>
-        <li><strong>CBU:</strong> 0070100230004026120398</li>
-        <li><strong>CUIT:</strong> 20-48637004-2</li>
-      </ul>
-
-      <hr class="divider">
-
-      <p><strong>Mercado Pago — Cuenta en pesos (alternativa)</strong></p>
-      <ul>
-        <li><strong>Alias:</strong> gino.ostolaza</li>
-        <li><strong>Titular:</strong> Gino Ostolaza Gonzalez</li>
-        <li><strong>CVU:</strong> 0000003100052857370471</li>
-        <li><strong>CUIT:</strong> 20-48637004-2</li>
-      </ul>
-
-      <p class="nota">
-        Podes usar la cuenta en dolares o la de Mercado Pago en pesos segun tu comodidad. Una vez hecho el pago, envia el comprobante por mensaje directo.
+    <!-- Note -->
+    <div class="note-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      <p>
+        Al realizar tu pago, envia un mensaje con:
+        <em id="nota-mensaje">"Hola Gino, te envio el pago de la Fase 1. Mi nombre es: [Tu nombre]"</em>
       </p>
     </div>
-  </div>
 
-  <!-- Cripto -->
-  <div class="accordion-item metodo-pago">
-    <button class="accordion-button">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r=".5"/></svg>
-      Cripto (Bitcoin, Ethereum, USDT)
-    </button>
-    <div class="accordion-content">
-      <p><strong>Monto a abonar:</strong> <span class="monto-usd">USD 50,00</span></p>
+    <!-- Payment Methods -->
+    <div>
+      <h2 class="payment-section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Metodos disponibles
+      </h2>
 
-      <hr class="divider">
+      <div class="payment-methods">
 
-      <p><strong>Bitcoin (BTC)</strong></p>
-      <ul>
-        <li>Transferi el monto a una direccion segura de BTC.</li>
-        <li>La wallet sera enviada por mensaje directo para mayor seguridad.</li>
-      </ul>
+        <!-- Banco Argentino -->
+        <div class="payment-method" data-method="banco">
+          <div class="payment-method-header">
+            <div class="payment-radio"><div class="payment-radio-inner"></div></div>
+            <div class="payment-method-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg>
+            </div>
+            <div class="payment-method-info">
+              <div class="payment-method-name">Transferencia bancaria (ARS/USD)</div>
+              <div class="payment-method-desc">Banco Galicia o Mercado Pago</div>
+            </div>
+            <span class="payment-method-badge">Argentina</span>
+          </div>
+          <div class="payment-details">
+            <div class="payment-details-inner">
 
-      <hr class="divider">
+              <div class="detail-block">
+                <div class="detail-block-title">Banco Galicia — Cuenta en dolares</div>
+                <div class="detail-row">
+                  <span class="detail-label">Alias</span>
+                  <span class="detail-value">GINO.OSTOLAZA.GON</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">Titular</span>
+                  <span class="detail-value">Gonzalez Gino Ostolaza</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">CBU</span>
+                  <span class="detail-value">0070100230004026120398</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">CUIT</span>
+                  <span class="detail-value">20-48637004-2</span>
+                </div>
+              </div>
 
-      <p><strong>Ethereum (ETH)</strong></p>
-      <ul>
-        <li>Podes abonar en Ethereum.</li>
-        <li>Te enviaremos la direccion ETH al confirmar el pago.</li>
-      </ul>
+              <div class="payment-divider"></div>
 
-      <hr class="divider">
+              <div class="detail-block">
+                <div class="detail-block-title">Mercado Pago — Cuenta en pesos</div>
+                <div class="detail-row">
+                  <span class="detail-label">Alias</span>
+                  <span class="detail-value">gino.ostolaza</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">Titular</span>
+                  <span class="detail-value">Gino Ostolaza Gonzalez</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">CVU</span>
+                  <span class="detail-value">0000003100052857370471</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">CUIT</span>
+                  <span class="detail-value">20-48637004-2</span>
+                </div>
+              </div>
 
-      <p><strong>USDT (Tether)</strong></p>
-      <ul>
-        <li>Aceptamos USDT por redes <strong>TRC20</strong> y <strong>ERC20</strong>.</li>
-        <li>Indica que red vas a usar para enviarte la wallet correspondiente.</li>
-      </ul>
+              <div class="ars-conversion">
+                Equivalente en pesos: <strong class="resultado-transferencia">Cargando...</strong> ARS
+              </div>
 
-      <hr class="divider">
+              <div class="detail-note">
+                Podes usar la cuenta en dolares o Mercado Pago en pesos. Una vez hecho el pago, envia el comprobante por Instagram.
+              </div>
+            </div>
+          </div>
+        </div>
 
-      <p><strong>Seguridad</strong></p>
-      <ul>
-        <li>Las direcciones se comparten exclusivamente por mensaje privado.</li>
-        <li>Asi protegemos ambas partes ante posibles fraudes.</li>
-      </ul>
+        <!-- Cripto -->
+        <div class="payment-method" data-method="cripto">
+          <div class="payment-method-header">
+            <div class="payment-radio"><div class="payment-radio-inner"></div></div>
+            <div class="payment-method-icon cripto">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11.767 19.089c4.924.868 6.14-6.025 1.216-6.894m-1.216 6.894L5.86 18.047m5.908 1.042-.347 1.97m1.563-8.864c4.924.869 6.14-6.025 1.215-6.893m-1.215 6.893-6.083-1.072m6.083 1.072.347-1.971m-1.562 8.864-6.083-1.072m7.645-7.893L5.514 9.204m7.645 7.892 1.043-5.922M5.86 18.047l1.043-5.922m0 0-1.389-7.921"/></svg>
+            </div>
+            <div class="payment-method-info">
+              <div class="payment-method-name">Criptomonedas</div>
+              <div class="payment-method-desc">Bitcoin, Ethereum o USDT</div>
+            </div>
+            <span class="payment-method-badge">Global</span>
+          </div>
+          <div class="payment-details">
+            <div class="payment-details-inner">
 
-      <hr class="divider">
+              <div class="detail-block">
+                <div class="detail-block-title">Redes aceptadas</div>
+                <div class="detail-row">
+                  <span class="detail-label">Bitcoin</span>
+                  <span class="detail-value">BTC Network</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">Ethereum</span>
+                  <span class="detail-value">ERC-20</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">USDT</span>
+                  <span class="detail-value">TRC-20 / ERC-20</span>
+                </div>
+              </div>
 
-      <p><strong>Solicita la wallet por mensaje directo:</strong><br>
-        Instagram:
-        <a href="https://instagram.com/ginoostolaza_" target="_blank" rel="noopener noreferrer">
-          @ginoostolaza_
-        </a>
-      </p>
+              <div class="detail-note">
+                Las direcciones de wallet se comparten exclusivamente por mensaje privado para proteger ambas partes.
+              </div>
 
-      <p class="nota">Transaccion rapida y sin comisiones ocultas. Ideal si estas en el exterior o manejas activos digitales.</p>
+              <div class="detail-block">
+                <p style="font-size: 0.85rem; color: var(--color-text-muted);">
+                  Solicita la wallet por Instagram:
+                  <a href="https://instagram.com/ginoostolaza_" target="_blank" rel="noopener noreferrer" class="detail-link">@ginoostolaza_</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Internacional -->
+        <div class="payment-method" data-method="intl">
+          <div class="payment-method-header">
+            <div class="payment-radio"><div class="payment-radio-inner"></div></div>
+            <div class="payment-method-icon intl">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <div class="payment-method-info">
+              <div class="payment-method-name">Pago internacional (USD)</div>
+              <div class="payment-method-desc">PayPal o Skrill</div>
+            </div>
+            <span class="payment-method-badge">Internacional</span>
+          </div>
+          <div class="payment-details">
+            <div class="payment-details-inner">
+
+              <div class="detail-block">
+                <div class="detail-block-title">PayPal</div>
+                <div class="detail-row">
+                  <span class="detail-label">Link de pago</span>
+                  <a href="https://paypal.me/GinoOstolaza/" target="_blank" rel="noopener noreferrer" class="detail-link">paypal.me/GinoOstolaza</a>
+                </div>
+                <p style="font-size:0.8rem;color:var(--color-text-dim);margin-top:0.3rem;">Coloca tu nombre completo en las notas del pago.</p>
+              </div>
+
+              <div class="payment-divider"></div>
+
+              <div class="detail-block">
+                <div class="detail-block-title">Skrill</div>
+                <div class="detail-row">
+                  <span class="detail-label">Email</span>
+                  <span class="detail-value">ginitoostolaza1@gmail.com</span>
+                </div>
+                <p style="font-size:0.8rem;color:var(--color-text-dim);margin-top:0.3rem;">Indica tu nombre completo en el campo de mensaje.</p>
+              </div>
+
+              <div class="detail-note">
+                Para confirmar tu pago o ante cualquier duda, contactame por Instagram.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
+
+    <!-- Trust badges -->
+    <div class="trust-badges">
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Datos protegidos
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Pago verificado
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
+        Soporte directo
+      </div>
+    </div>
+
   </div>
 
-  <!-- Pagos Internacionales -->
-  <div class="accordion-item metodo-pago">
-    <button class="accordion-button">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-      Pagos Internacionales (USD)
-    </button>
-    <div class="accordion-content">
-      <p><strong>Monto a abonar:</strong> <span class="monto-usd">USD 50,00</span></p>
+  <!-- RIGHT: Order Summary Sidebar -->
+  <aside class="checkout-sidebar">
 
-      <hr class="divider">
+    <div class="order-summary">
+      <h2 class="summary-title">Resumen del pedido</h2>
 
-      <p><strong>Opcion 1: PayPal</strong></p>
-      <ul>
-        <li>Accede directamente al link de pago:</li>
+      <div class="summary-product" id="summary-product">
+        <div class="summary-product-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <div class="summary-product-info">
+          <div class="summary-product-name" id="summary-name">Fase 1 — Comunidad de Trading</div>
+          <div class="summary-product-desc" id="summary-desc">Acceso completo al curso + comunidad</div>
+        </div>
+      </div>
+
+      <div class="summary-row">
+        <span class="summary-label">Subtotal</span>
+        <span class="summary-value monto-usd">USD 50,00</span>
+      </div>
+      <div class="summary-row">
+        <span class="summary-label">Comision</span>
+        <span class="summary-value" style="color: var(--color-success);">$0,00</span>
+      </div>
+
+      <div class="summary-divider"></div>
+
+      <div class="summary-total">
+        <span class="summary-total-label">Total</span>
+        <span class="summary-total-value monto-usd">USD 50,00</span>
+      </div>
+
+      <div class="summary-divider"></div>
+
+      <ul class="summary-benefits" id="summary-benefits">
         <li>
-          <a href="https://paypal.me/GinoOstolaza/" target="_blank" rel="noopener noreferrer">
-            paypal.me/GinoOstolaza
-          </a>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          2 sistemas de trading probados
         </li>
-        <li>Asegurate de colocar tu nombre completo en la seccion de notas.</li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          Desarrollo personal y psicotrading
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          Acceso a comunidad exclusiva
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          Material premium y tacticas
+        </li>
       </ul>
-
-      <hr class="divider">
-
-      <p><strong>Opcion 2: Skrill</strong></p>
-      <ul>
-        <li>Envia el monto a la siguiente direccion:</li>
-        <li><strong>ginitoostolaza1@gmail.com</strong></li>
-        <li>Indica tu nombre completo en el campo de mensaje.</li>
-      </ul>
-
-      <hr class="divider">
-
-      <p class="nota">Para confirmar tu pago o ante cualquier duda, podes contactarme por Instagram.</p>
     </div>
-  </div>
-</section>
 
-<section class="footer-contact-info">
-  <p class="texto-info">
-    Si ya realizaste el pago o estas por hacerlo y tenes alguna duda, no dudes en comunicarte conmigo. Estoy para ayudarte en todo el proceso.
-  </p>
-  <p class="texto-info">
-    <a href="https://instagram.com/ginoostolaza_" target="_blank" rel="noopener noreferrer">Hace clic aca para hablarme por Instagram</a>.
-  </p>
-</section>
+    <!-- Dolar Blue -->
+    <div class="dolar-card">
+      <div class="dolar-card-title">Cotizacion de referencia</div>
+      <div class="dolar-card-value" id="dolar-blue">Consultando dolar blue...</div>
+      <div class="dolar-card-note">Referencia: dolar blue (venta)</div>
+    </div>
 
-<section>
-  <div>
-    <a href="iniciar-sesion.html" class="login-button">Login Alumnos</a>
-  </div>
-</section>
+    <!-- Contact -->
+    <div class="contact-card">
+      <p>Ya pagaste o tenes dudas? Escribime directamente.</p>
+      <a href="https://instagram.com/ginoostolaza_" target="_blank" rel="noopener noreferrer" class="contact-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        Contactar por Instagram
+      </a>
+    </div>
+
+    <!-- Login -->
+    <a href="iniciar-sesion.html" class="login-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
+      Ya soy alumno — Iniciar sesion
+    </a>
+
+  </aside>
+</div>
 
 <div id="footer"></div>
 <script src="assets/js/footer.js"></script>
@@ -304,100 +358,71 @@
     const plan = params.get('plan');
     const isBot = plan === 'bot';
     const usdBase = isBot ? 5 : 50;
-    const planLabel = isBot ? 'el Bot de Trading' : 'la Fase 1';
 
+    // --- Actualizar contenido segun plan ---
     if (isBot) {
-      // Mostrar contenido del bot, ocultar fase 1
-      const fase1Content = document.getElementById('content-fase1');
-      const botContent = document.getElementById('content-bot');
-      if (fase1Content) fase1Content.style.display = 'none';
-      if (botContent) botContent.style.display = 'block';
+      document.getElementById('summary-name').textContent = 'Bot de Trading — Suscripcion Mensual';
+      document.getElementById('summary-desc').textContent = 'Bot automatizado configurado por Gino';
+      document.getElementById('nota-mensaje').textContent =
+        '"Hola Gino, te envio el pago del Bot de Trading. Mi nombre es: [Tu nombre]"';
+      document.title = 'Bot de Trading | Pago Seguro';
 
-      // Actualizar hero
-      const heroTitle = document.getElementById('hero-title');
-      const heroDesc = document.getElementById('hero-description');
-      if (heroTitle) heroTitle.textContent = 'Suscribite al Bot de Trading';
-      if (heroDesc) heroDesc.innerHTML = 'Un bot automatizado desarrollado por <strong>Gino Ostolaza</strong>, listo para operar por vos <strong>24/7</strong>. Configura, conecta y deja que trabaje.';
+      // Cambiar icono del producto
+      document.querySelector('.summary-product-icon').innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.07A7 7 0 0 1 14 23h-4a7 7 0 0 1-6.93-4H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/><circle cx="9" cy="16" r="1" fill="currentColor"/><circle cx="15" cy="16" r="1" fill="currentColor"/></svg>';
 
-      // Actualizar nota de pago
-      const notaMensaje = document.getElementById('nota-mensaje');
-      if (notaMensaje) notaMensaje.textContent = '"Hola Gino, te envio el pago del Bot de Trading. Mi nombre es: [Tu nombre]"';
+      // Actualizar beneficios
+      const benefits = document.getElementById('summary-benefits');
+      benefits.innerHTML = `
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Opera automaticamente 24/7</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Configurado por Gino personalmente</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Actualizaciones incluidas</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Sin permanencia, cancela cuando quieras</li>
+      `;
     }
 
-    // Actualizar montos USD en metodos de pago
-    const montoLabels = document.querySelectorAll('.monto-usd');
-    montoLabels.forEach(el => {
-      el.textContent = isBot ? 'USD 5,00' : 'USD 50,00';
+    // Actualizar montos
+    const montoStr = isBot ? 'USD 5,00' : 'USD 50,00';
+    document.querySelectorAll('.monto-usd').forEach(el => {
+      el.textContent = montoStr;
     });
 
-    // --- Acordeon principal (Fase/Bot) ---
-    document.querySelectorAll('.acordeon-header').forEach(header => {
-      header.addEventListener('click', () => {
-        const content = header.nextElementSibling;
-        const toggle = header.querySelector('.accordion-toggle');
-        const isOpen = content.style.maxHeight;
-
-        if (isOpen) {
-          content.style.maxHeight = null;
-          content.style.padding = '0 1.5rem';
-          if (toggle) {
-            toggle.setAttribute('aria-expanded', 'false');
-            toggle.textContent = '+';
-          }
-        } else {
-          content.style.padding = '1.5rem';
-          content.style.maxHeight = content.scrollHeight + 100 + 'px';
-          if (toggle) {
-            toggle.setAttribute('aria-expanded', 'true');
-            toggle.textContent = '\u2212';
-          }
-        }
-      });
-    });
-
-    // --- Acordeones metodos de pago ---
-    document.querySelectorAll('.accordion-button').forEach(button => {
-      button.addEventListener('click', () => {
-        const content = button.nextElementSibling;
-        const isVisible = content.style.display === 'block';
-        content.style.display = isVisible ? 'none' : 'block';
+    // --- Payment method selection ---
+    document.querySelectorAll('.payment-method').forEach(method => {
+      method.addEventListener('click', () => {
+        document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+        method.classList.add('selected');
       });
     });
 
     // --- Dolar Blue API ---
     fetch("https://api.bluelytics.com.ar/v2/latest")
-      .then(response => response.json())
+      .then(r => r.json())
       .then(data => {
         const dolarBlue = data.blue.value_sell;
 
-        // Mostrar cotizacion
         const dolarEl = document.getElementById("dolar-blue");
         if (dolarEl) {
-          dolarEl.textContent = 'Dolar Blue hoy (venta): $' + dolarBlue.toFixed(2) + ' ARS';
+          dolarEl.textContent = '$' + dolarBlue.toFixed(2) + ' ARS';
         }
 
-        // Calcular en ARS
-        const resultadoTransferencia = usdBase * dolarBlue;
-        const formatNumber = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
+        const resultado = usdBase * dolarBlue;
+        const fmt = (n) => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         document.querySelectorAll(".resultado-transferencia").forEach(span => {
-          span.textContent = '$' + formatNumber(Math.round(resultadoTransferencia));
+          span.textContent = '$' + fmt(Math.round(resultado));
         });
       })
-      .catch(error => {
+      .catch(() => {
         const dolarEl = document.getElementById("dolar-blue");
-        if (dolarEl) {
-          dolarEl.textContent = "Error cargando el dolar blue";
-        }
-        console.error("Error al obtener la cotizacion:", error);
+        if (dolarEl) dolarEl.textContent = "No disponible";
       });
 
-    // --- Titulo dinamico de pestana ---
+    // --- Tab title ---
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
-        document.title = "Finalizar Compra";
+        document.title = "Completar pago";
       } else {
-        document.title = isBot ? "Bot de Trading | Gino Ostolaza" : "Pago | Comunidad";
+        document.title = isBot ? "Bot de Trading | Pago Seguro" : "Pago Seguro | Gino Ostolaza";
       }
     });
   });

@@ -27,19 +27,23 @@
     try {
         if (typeof acceso !== "string" || acceso !== "true") {
         sessionStorage.removeItem("accesoAutorizado");
-        window.location.replace("iniciar-sesion");
+        window.location.replace("iniciar-sesion.html");
         }
     } catch (err) {
         console.error("Error validando acceso:", err);
-        window.location.replace("iniciar-sesion");
+        window.location.replace("iniciar-sesion.html");
     }
     })();
     </script>
     
-    <link rel="icon" href="assets/img/branding/logo-favicon.png" type="image/png" class="favicon"/>
+    <link rel="icon" href="assets/img/branding/logo-favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/community.css"/> <!-- CSS externo -->
-    <link rel="stylesheet" href="assets/css/footer.css"/>
+    <link rel="stylesheet" href="assets/css/community.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
+    <meta name="theme-color" content="#0d1117">
 </head>
 <body>
     <nav class="sidebar">
@@ -70,36 +74,36 @@
     <main>
 <section class="bienvenida" id="fase-1">
   <header>
-    <h1 class="bienvenida__titulo">👋 Bienvenido/a a la Fase 1 del Trading</h1>
+    <h1 class="bienvenida__titulo">Bienvenido/a a la Fase 1 del Trading</h1>
     <p class="bienvenida__subtitulo">
-      Comenzamos un recorrido <strong>claro, progresivo y práctico</strong> para que aprendas a operar con seguridad y confianza.
+      Comenzamos un recorrido <strong>claro, progresivo y practico</strong> para que aprendas a operar con seguridad y confianza.
     </p>
   </header>
 
-  <hr class="bienvenida__divider" />
+  <hr class="bienvenida__divider">
 
   <article class="bienvenida__contenido">
     <p>
-      Te guiaré paso a paso, mostrando <strong>lo que realmente importa</strong>.  
-      Cada acción que hagas te acercará a <strong>tomar decisiones inteligentes y consistentes</strong> en el mercado. 🚀
+      Te guiare paso a paso, mostrando <strong>lo que realmente importa</strong>.
+      Cada accion que hagas te acercara a <strong>tomar decisiones inteligentes y consistentes</strong> en el mercado.
     </p>
 
     <p>
-      La clave del éxito es la <strong>constancia y la paciencia</strong>: los resultados no aparecen de la noche a la mañana, pero con disciplina y enfoque, se logran de manera sostenida. ⏳
+      La clave del exito es la <strong>constancia y la paciencia</strong>: los resultados no aparecen de la noche a la manana, pero con disciplina y enfoque, se logran de manera sostenida.
     </p>
 
     <p>
-      Durante este proceso contarás con <strong>orientación clara y apoyo estratégico</strong>.  
-      Aquí eliminamos la información innecesaria y el ruido del mercado: hacemos un <em>detox de información</em> para que aprendas solo lo esencial.  
-      Aplicando correctamente lo aprendido, podrás <strong>generar ingresos de forma sólida y consistente</strong>. 💸
+      Durante este proceso contaras con <strong>orientacion clara y apoyo estrategico</strong>.
+      Aqui eliminamos la informacion innecesaria y el ruido del mercado: hacemos un <em>detox de informacion</em> para que aprendas solo lo esencial.
+      Aplicando correctamente lo aprendido, podras <strong>generar ingresos de forma solida y consistente</strong>.
     </p>
   </article>
 
-  <hr class="bienvenida__divider" />
+  <hr class="bienvenida__divider">
 
-  <footer class="bienvenida__motivacion">
-    <p>💡 <strong>Tip:</strong> La simplicidad es poder. Aprende lo justo, aplica con precisión y deja que los resultados hablen por sí mismos.</p>
-  </footer>
+  <div class="bienvenida__motivacion">
+    <p><strong>Tip:</strong> La simplicidad es poder. Aprende lo justo, aplica con precision y deja que los resultados hablen por si mismos.</p>
+  </div>
 </section>
 
 <section class="que-es-trading" id="introduccion">
@@ -211,17 +215,17 @@
     </ol>
 
     <div>
-      <figure class="image-container" style="max-width:600px;">
-        <img src="assets/img/course/instrumento del gráfico.png" alt="Botón para cambiar tipo de gráfico en la plataforma de trading" />
-        <figcaption>1️⃣ Botón de tipo de gráfico</figcaption>
+      <figure class="image-container">
+        <img src="assets/img/course/instrumento del gráfico.png" alt="Boton para cambiar tipo de grafico en la plataforma de trading">
+        <figcaption>1. Boton de tipo de grafico</figcaption>
       </figure>
-      <figure class="image-container" style="max-width:600px;">
-        <img src="assets/img/course/cambiando tipo de gráfico.png" alt="Menú de selección de velas japonesas en la plataforma" />
-        <figcaption>2️⃣ Selección de velas japonesas</figcaption>
+      <figure class="image-container">
+        <img src="assets/img/course/cambiando tipo de gráfico.png" alt="Menu de seleccion de velas japonesas en la plataforma">
+        <figcaption>2. Seleccion de velas japonesas</figcaption>
       </figure>
-      <figure class="image-container" style="max-width:600px;">
-        <img src="assets/img/course/velas japonesas.png" alt="Gráfico mostrando velas japonesas activadas" />
-        <figcaption>3️⃣ Velas japonesas aplicadas</figcaption>
+      <figure class="image-container">
+        <img src="assets/img/course/velas japonesas.png" alt="Grafico mostrando velas japonesas activadas">
+        <figcaption>3. Velas japonesas aplicadas</figcaption>
       </figure>
     </div>
 
@@ -229,9 +233,9 @@
 
     <h3>2.2 Ajustar temporalidad</h3>
     <p>Configurá el gráfico en <strong>1 minuto (1m)</strong> para capturar micro-movimientos sin ruido.</p>
-    <figure class="image-container" style="max-width:500px;">
-      <img src="assets/img/course/1 minuto.png" alt="Temporalidad ajustada a 1 minuto en el gráfico de trading" />
-      <figcaption>⏳ Temporalidad en 1 minuto</figcaption>
+    <figure class="image-container">
+      <img src="assets/img/course/1 minuto.png" alt="Temporalidad ajustada a 1 minuto en el grafico de trading">
+      <figcaption>Temporalidad en 1 minuto</figcaption>
     </figure>
 
     <hr />
@@ -258,9 +262,9 @@
       <li>📏 Bandas externas claras y visibles.</li>
       <li>🎯 EMA central destacada.</li>
     </ul>
-    <figure class="image-container" style="max-width:650px;">
-      <img src="assets/img/course/vista previa.png" alt="Gráfico final con velas japonesas y Bandas de Bollinger configuradas" />
-      <figcaption>✅ Vista final lista para operar</figcaption>
+    <figure class="image-container">
+      <img src="assets/img/course/vista previa.png" alt="Grafico final con velas japonesas y Bandas de Bollinger configuradas">
+      <figcaption>Vista final lista para operar</figcaption>
     </figure>
   </article>
 
@@ -337,31 +341,10 @@
 
     <!-- Flexzone Superior -->
     <article>
-      <h3 class="text-center mb-4">🔽 Flexzone Superior – Venta</h3>
+      <h3 class="text-center mb-4">Flexzone Superior - Venta</h3>
 
-      <div class="carousel-container">
-        <button class="carousel-outside" type="button" data-bs-target="#carouselVenta" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon"></span>
-          <span class="visually-hidden">Anterior</span>
-        </button>
-
-        <div class="carousel-wrapper">
-          <div id="carouselVenta" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="assets/img/strategies/flexzone/flexzone-sell-1.png" alt="Ejemplo de venta en Flexzone superior" />
-              </div>
-              <div class="carousel-item">
-                <img src="assets/img/strategies/flexzone/flexzone-sell-2.png" alt="Ejemplo adicional venta Flexzone superior" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <button class="carousel-outside" type="button" data-bs-target="#carouselVenta" data-bs-slide="next">
-          <span class="carousel-control-next-icon"></span>
-          <span class="visually-hidden">Siguiente</span>
-        </button>
+      <div class="image-container">
+        <img src="assets/img/strategies/flexzone/flexzone-sell-1.png" alt="Ejemplo de venta en Flexzone superior">
       </div>
 
       <p class="explicacion">
@@ -377,28 +360,28 @@
 
     <!-- Flexzone Inferior -->
     <article>
-      <h3 class="text-center mb-4">🔼 Flexzone Inferior – Compra</h3>
+      <h3 class="text-center mb-4">Flexzone Inferior - Compra</h3>
 
       <div class="carousel-container">
-        <button class="carousel-outside" type="button" data-bs-target="#carouselCompra" data-bs-slide="prev">
+        <button class="carousel-outside" type="button" data-bs-target="#carouselFlexCompra" data-bs-slide="prev">
           <span class="carousel-control-prev-icon"></span>
           <span class="visually-hidden">Anterior</span>
         </button>
 
         <div class="carousel-wrapper">
-          <div id="carouselCompra" class="carousel slide" data-bs-ride="carousel">
+          <div id="carouselFlexCompra" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="assets/img/strategies/flexzone/flexzone-buy-1.png" alt="Ejemplo de compra en Flexzone inferior" />
+                <img src="assets/img/strategies/flexzone/flexzone-buy-1.png" alt="Ejemplo de compra en Flexzone inferior">
               </div>
               <div class="carousel-item">
-                <img src="assets/img/strategies/flexzone/flexzone-buy-2.png" alt="Ejemplo adicional compra Flexzone inferior" />
+                <img src="assets/img/strategies/flexzone/flexzone-buy-2.png" alt="Ejemplo adicional compra Flexzone inferior">
               </div>
             </div>
           </div>
         </div>
 
-        <button class="carousel-outside" type="button" data-bs-target="#carouselCompra" data-bs-slide="next">
+        <button class="carousel-outside" type="button" data-bs-target="#carouselFlexCompra" data-bs-slide="next">
           <span class="carousel-control-next-icon"></span>
           <span class="visually-hidden">Siguiente</span>
         </button>
@@ -439,27 +422,24 @@
 
     <div class="no-operar-container">
       <div class="no-operar-card">
-        <h3>1. Bandas abiertas o inclinadas ❌</h3>
+        <h3>1. Bandas abiertas o inclinadas</h3>
         <p>Indica tendencia; Flexzone <strong>NO funciona</strong> en este contexto.</p>
-        <img src="MAL ejemplo 1.png" alt="Ejemplo incorrecto: bandas abiertas" />
       </div>
 
       <div class="no-operar-card">
-        <h3>2. Velas de otro color intermedio ❌</h3>
+        <h3>2. Velas de otro color intermedio</h3>
         <p>
-          Una vela opuesta invalida la secuencia.  
-          <span style="color:gray;">Dojis ⚪</span> sí son aceptables.
+          Una vela opuesta invalida la secuencia.
+          Los Dojis si son aceptables.
         </p>
-        <img src="MAL ejemplo 2.png" alt="Ejemplo incorrecto: velas intermedias" />
       </div>
 
       <div class="no-operar-card">
-        <h3>3. Sin vela de agotamiento ❌</h3>
+        <h3>3. Sin vela de agotamiento</h3>
         <p>
-          La señal es inválida sin vela de agotamiento clara.  
+          La senal es invalida sin vela de agotamiento clara.
           Paciencia: <strong>no se fuerza</strong>.
         </p>
-        <img src="MAL ejemplo 3.png" alt="Ejemplo incorrecto: sin agotamiento" />
       </div>
     </div>
   </article>
@@ -542,16 +522,15 @@
       <li>Entre segundos 40 y 34 aparece un latigazo rápido fuera del rango.</li>
       <li>El cuerpo de la vela permanece dentro del canal.</li>
       <li>La mecha dominante corresponde al latigazo.</li>
-      <li>La señal es válida si la vela se mantiene así hasta el cierre.</li>
-      <br>
+      <li>La senal es valida si la vela se mantiene asi hasta el cierre.</li>
       <li>Plus: Soporte o resistencia institucional a favor.</li>
     </ol>
 
     <div class="image-container">
-      <img src="/mi-frontend/assets/img/strategies/zone fill/zone-fill-sell-1.png"
-           alt="Ejemplo visual de la estrategia Relleno de Zona en mercado lateral" />
+      <img src="assets/img/strategies/zone fill/zone-fill-sell-1.png"
+           alt="Ejemplo visual de la estrategia Relleno de Zona en mercado lateral">
     </div>
-    <p class="caption">Ejemplo gráfico: operaciones válidas de compra y venta.</p>
+    <p class="caption">Ejemplo grafico: operaciones validas de compra y venta.</p>
   </article>
 
   <hr />
@@ -570,33 +549,33 @@
 
     <div class="carousel-container">
       <button class="carousel-outside" type="button"
-              data-bs-target="#carouselVenta" data-bs-slide="prev">
+              data-bs-target="#carouselZoneVenta" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Anterior</span>
       </button>
 
       <div class="carousel-wrapper">
-        <div id="carouselVenta" class="carousel slide" data-bs-ride="carousel">
+        <div id="carouselZoneVenta" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active">
               <img src="assets/img/strategies/zone fill/zone-fill-sell-1.png"
-                   alt="Ejemplo de operación de venta con relleno superior" />
+                   alt="Ejemplo de operacion de venta con relleno superior">
             </div>
             <div class="carousel-item">
               <img src="assets/img/strategies/zone fill/zone-fill-sell-2.png"
-                   alt="Segundo ejemplo de operación de venta con relleno superior" />
+                   alt="Segundo ejemplo de operacion de venta con relleno superior">
             </div>
           </div>
         </div>
       </div>
 
       <button class="carousel-outside" type="button"
-              data-bs-target="#carouselVenta" data-bs-slide="next">
+              data-bs-target="#carouselZoneVenta" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Siguiente</span>
       </button>
     </div>
-    <p class="explicacion">💡 Indica agotamiento del impulso alcista y alta probabilidad de retroceso bajista inmediato.</p>
+    <p class="explicacion">Indica agotamiento del impulso alcista y alta probabilidad de retroceso bajista inmediato.</p>
 
     <hr />
 
@@ -608,35 +587,11 @@
       <li>✅ Señal: entrar en <strong>compra (CALL)</strong> en la siguiente vela.</li>
     </ul>
 
-    <div class="carousel-container">
-      <button class="carousel-outside" type="button"
-              data-bs-target="#carouselCompra" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Anterior</span>
-      </button>
-
-      <div class="carousel-wrapper">
-        <div id="carouselCompra" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="assets/img/strategies/zone fill/zone-fill-buy-1.png"
-                   alt="Ejemplo de operación de compra con relleno inferior" />
-            </div>
-            <div class="carousel-item">
-              <img src="assets/img/strategies/zone fill/zone-fill-buy-2.png"
-                   alt="Segundo ejemplo de operación de compra con relleno inferior" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <button class="carousel-outside" type="button"
-              data-bs-target="#carouselCompra" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Siguiente</span>
-      </button>
+    <div class="image-container">
+      <img src="assets/img/strategies/zone fill/zone-fill-buy-1.png"
+           alt="Ejemplo de operacion de compra con relleno inferior">
     </div>
-    <p class="explicacion">💡 Señal de agotamiento bajista y mayor probabilidad de rebote alcista.</p>
+    <p class="explicacion">Senal de agotamiento bajista y mayor probabilidad de rebote alcista.</p>
   </article>
 
   <hr />
@@ -827,9 +782,10 @@
   </dl>
 </section>
 
+    </main>
+
 <div id="footer"></div>
 <script src="assets/js/footer.js"></script>
-    </main>
 
     <script>
         (function actualizarAnio() {

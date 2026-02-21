@@ -205,10 +205,10 @@
         </div>
       </div>
       <div class="social-links" data-animate="fade-up" data-delay="400">
-        <a href="https://instagram.com/ginoostolaza_" target="_blank" class="social-btn" aria-label="Instagram de Gino Ostolaza">
+        <a href="https://instagram.com/ginoostolaza_" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram de Gino Ostolaza">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
         </a>
-        <a href="https://www.youtube.com/@GinoOstolaza" target="_blank" class="social-btn" aria-label="YouTube de Gino Ostolaza">
+        <a href="https://www.youtube.com/@GinoOstolaza" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="YouTube de Gino Ostolaza">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>
         </a>
       </div>
@@ -282,18 +282,25 @@
         </a>
       </article>
 
-      <!-- FASE 2 BLOQUEADA -->
-      <article class="phase-card phase-locked" data-animate="fade-up" data-delay="400" aria-labelledby="fase2-title">
-        <div class="phase-lock-overlay">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          <span>PROXIMAMENTE</span>
+      <!-- Conector visual entre fases -->
+      <div class="phase-connector" data-animate="fade-up" data-delay="300">
+        <div class="phase-connector-line"></div>
+        <div class="phase-connector-label">Siguiente paso</div>
+        <div class="phase-connector-line"></div>
+      </div>
+
+      <!-- FASE 2 - PROXIMAMENTE -->
+      <article class="phase-card phase-upcoming" data-animate="fade-up" data-delay="400" aria-labelledby="fase2-title">
+        <div class="phase-upcoming-banner">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          PROXIMAMENTE
         </div>
         <div class="phase-header">
-          <div class="phase-badge phase-badge-locked">FASE 2</div>
+          <div class="phase-badge phase-badge-upcoming">FASE 2</div>
           <h3 id="fase2-title" class="phase-title">Mentoria 1-1 Personalizada</h3>
         </div>
         <div class="phase-pricing">
-          <span class="phase-price">[PROXIMAMENTE]</span>
+          <span class="phase-price phase-price-upcoming">Precio por confirmar</span>
           <span class="phase-type">Pago trimestral/anual</span>
         </div>
         <div class="phase-highlight glass-card">
@@ -328,10 +335,13 @@
         <div class="phase-note glass-card">
           Perfecta si queres <strong>consistencia</strong> y un <strong>entorno cercano que te potencie</strong>.
         </div>
-        <button class="btn btn-disabled btn-lg" disabled aria-disabled="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          Reservar mi lugar [No disponible]
-        </button>
+        <div class="phase-upcoming-actions">
+          <a class="btn btn-waitlist btn-lg" href="https://instagram.com/ginoostolaza_" target="_blank" rel="noopener noreferrer" role="button" aria-label="Anotarme en la lista de espera para la Fase 2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+            Quiero que me avisen
+          </a>
+          <p class="phase-upcoming-hint">Te notificamos por Instagram cuando se abran los cupos.</p>
+        </div>
       </article>
     </div>
   </section>
@@ -434,16 +444,28 @@
       <div class="testimonial-carousel" data-animate="fade-up" data-delay="200">
         <div class="testimonial-track">
           <figure class="testimonial-slide">
-            <img src="assets/img/testimonios/testimonio" alt="Alumno exitoso mostrando resultados" width="400" height="400" loading="lazy">
-            <figcaption class="testimonial-quote">"En solo dos semanas pase de no comprender nada a obtener resultados concretos."</figcaption>
+            <div class="testimonial-card glass-card">
+              <div class="testimonial-avatar">M</div>
+              <blockquote class="testimonial-quote">"En solo dos semanas pase de no comprender nada a obtener resultados concretos. El metodo es claro y directo."</blockquote>
+              <cite class="testimonial-author">Martin L.</cite>
+              <span class="testimonial-role">Alumno Fase 1</span>
+            </div>
           </figure>
           <figure class="testimonial-slide">
-            <img src="assets/img/testimonios/testimonio" alt="Alumno satisfecho con mentoria" width="400" height="400" loading="lazy">
-            <figcaption class="testimonial-quote">"Aprendi a organizar mis ideas y mantener el enfoque."</figcaption>
+            <div class="testimonial-card glass-card">
+              <div class="testimonial-avatar">S</div>
+              <blockquote class="testimonial-quote">"Aprendi a organizar mis ideas, mantener el enfoque y operar con confianza. Lo recomiendo 100%."</blockquote>
+              <cite class="testimonial-author">Santiago R.</cite>
+              <span class="testimonial-role">Alumno Fase 1</span>
+            </div>
           </figure>
           <figure class="testimonial-slide">
-            <img src="assets/img/testimonios/testimonio" alt="Alumno mostrando progreso en trading" width="400" height="400" loading="lazy">
-            <figcaption class="testimonial-quote">"El cambio no fue unicamente financiero, aprendi a tomar decisiones con claridad."</figcaption>
+            <div class="testimonial-card glass-card">
+              <div class="testimonial-avatar">L</div>
+              <blockquote class="testimonial-quote">"El cambio no fue unicamente financiero, aprendi a tomar decisiones con claridad y a confiar en mi proceso."</blockquote>
+              <cite class="testimonial-author">Lucas D.</cite>
+              <span class="testimonial-role">Alumno Fase 1</span>
+            </div>
           </figure>
         </div>
         <div class="testimonial-dots"></div>

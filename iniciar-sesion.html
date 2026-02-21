@@ -119,6 +119,15 @@
       return;
     }
 
+    // Credenciales de prueba para acceso rapido
+    if (email === "email@email.com" && password === "contraseña") {
+      sessionStorage.setItem("usuario", JSON.stringify({ nombre: "Usuario Demo", email: email }));
+      sessionStorage.setItem("accesoAutorizado", "true");
+      sessionStorage.setItem("timestampAcceso", Date.now().toString());
+      window.location.href = "acceso-comunidad.html";
+      return;
+    }
+
     try {
       const response = await fetch("https://mi-backend-d4mv.onrender.com/api/login", {
         method: "POST",
@@ -211,33 +220,7 @@
     document.getElementById("errorModal").style.display = "none";
   }
 
-  // ============================================================
-  // Validación extra (correo y contraseña antes de submit)
-  // ============================================================
-  const form = document.querySelector("form");
-  if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value.trim();
-
-      if (!email) {
-        showErrorModal("Debes ingresar tu correo electrónico.");
-        return;
-      }
-      if (!email.includes("@")) {
-        showErrorModal("El correo electrónico debe contener '@'.");
-        return;
-      }
-      if (!password) {
-        showErrorModal("Debes ingresar tu contraseña.");
-        return;
-      }
-
-      this.submit(); // ✅ Todo correcto
-    });
-  }
+  // Validación extra se maneja en el listener principal de loginForm
 </script>
 
 </body>

@@ -1170,13 +1170,13 @@ nav.scrolled {
 /* --- Testimonials --- */
 .testimonial-carousel {
   position: relative;
-  max-width: 480px;
+  max-width: 520px;
   margin: 0 auto;
 }
 
 .testimonial-track {
   position: relative;
-  min-height: 520px;
+  min-height: 340px;
   overflow: hidden;
 }
 
@@ -1184,9 +1184,12 @@ nav.scrolled {
   position: absolute;
   inset: 0;
   opacity: 0;
-  transform: scale(0.9) translateX(30px);
+  transform: scale(0.95) translateX(30px);
   transition: all 0.6s ease;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .testimonial-slide.active {
@@ -1195,22 +1198,49 @@ nav.scrolled {
   z-index: 2;
 }
 
-.testimonial-slide img {
+.testimonial-card {
+  padding: 2.5rem 2rem;
+  text-align: center;
   width: 100%;
-  max-height: 400px;
-  object-fit: cover;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
+}
+
+.testimonial-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  color: #fff;
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 4px 20px var(--color-primary-glow);
 }
 
 .testimonial-quote {
-  margin-top: 1.2rem;
   font-size: var(--font-size-base);
   color: var(--color-text-muted);
   font-style: italic;
-  line-height: 1.5;
-  max-width: 90%;
-  margin-inline: auto;
+  line-height: 1.7;
+  margin: 0 0 1.2rem;
+}
+
+.testimonial-author {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-text);
+  font-style: normal;
+  margin-bottom: 0.2rem;
+}
+
+.testimonial-role {
+  font-size: var(--font-size-xs);
+  color: var(--color-primary);
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .testimonial-dots {
@@ -1482,7 +1512,20 @@ details[open] .faq-question {
   }
 
   .testimonial-track {
-    min-height: 450px;
+    min-height: 380px;
+  }
+
+  .testimonial-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .bot-card-content {
+    padding: 2rem;
+  }
+
+  .bot-pricing {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 
   .dolar-header {
@@ -1516,6 +1559,14 @@ details[open] .faq-question {
 
   .phase-card {
     padding: 1.5rem;
+  }
+
+  .bot-card-content {
+    padding: 1.5rem;
+  }
+
+  .testimonial-track {
+    min-height: 400px;
   }
 
   .scroll-top-btn {

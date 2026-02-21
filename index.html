@@ -282,18 +282,25 @@
         </a>
       </article>
 
-      <!-- FASE 2 BLOQUEADA -->
-      <article class="phase-card phase-locked" data-animate="fade-up" data-delay="400" aria-labelledby="fase2-title">
-        <div class="phase-lock-overlay">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          <span>PROXIMAMENTE</span>
+      <!-- Conector visual entre fases -->
+      <div class="phase-connector" data-animate="fade-up" data-delay="300">
+        <div class="phase-connector-line"></div>
+        <div class="phase-connector-label">Siguiente paso</div>
+        <div class="phase-connector-line"></div>
+      </div>
+
+      <!-- FASE 2 - PROXIMAMENTE -->
+      <article class="phase-card phase-upcoming" data-animate="fade-up" data-delay="400" aria-labelledby="fase2-title">
+        <div class="phase-upcoming-banner">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          PROXIMAMENTE
         </div>
         <div class="phase-header">
-          <div class="phase-badge phase-badge-locked">FASE 2</div>
+          <div class="phase-badge phase-badge-upcoming">FASE 2</div>
           <h3 id="fase2-title" class="phase-title">Mentoria 1-1 Personalizada</h3>
         </div>
         <div class="phase-pricing">
-          <span class="phase-price">[PROXIMAMENTE]</span>
+          <span class="phase-price phase-price-upcoming">Precio por confirmar</span>
           <span class="phase-type">Pago trimestral/anual</span>
         </div>
         <div class="phase-highlight glass-card">
@@ -328,10 +335,13 @@
         <div class="phase-note glass-card">
           Perfecta si queres <strong>consistencia</strong> y un <strong>entorno cercano que te potencie</strong>.
         </div>
-        <button class="btn btn-disabled btn-lg" disabled aria-disabled="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          Reservar mi lugar [No disponible]
-        </button>
+        <div class="phase-upcoming-actions">
+          <a class="btn btn-waitlist btn-lg" href="https://instagram.com/ginoostolaza_" target="_blank" rel="noopener noreferrer" role="button" aria-label="Anotarme en la lista de espera para la Fase 2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+            Quiero que me avisen
+          </a>
+          <p class="phase-upcoming-hint">Te notificamos por Instagram cuando se abran los cupos.</p>
+        </div>
       </article>
     </div>
   </section>

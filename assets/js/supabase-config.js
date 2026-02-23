@@ -20,4 +20,4 @@
    ============================================================ */
 
 const SUPABASE_URL = 'https://fabfhxreglyonjehvneu.supabase.co';
-const SUPABASE_ANON_KEY = 'TU_SUPABASE_ANON_KEY_AQUI'; // Pega tu anon key aqui (empieza con eyJ...)
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZhYmZoeHJlZ2x5b25qZWh2bmV1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE4NTQxNTQsImV4cCI6MjA4NzQzMDE1NH0.MZenwU19S7hVBF4O6JIOTqRURW5_tucNjAMtR19M2Jk';

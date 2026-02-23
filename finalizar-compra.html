@@ -68,30 +68,116 @@
           <span>Confirmacion</span>
         </div>
       </div>
-      <h1 class="checkout-title">Elegir metodo de pago</h1>
-      <p class="checkout-subtitle">Selecciona como queres realizar tu pago</p>
+      <h1 class="checkout-title">Elegir moneda y metodo de pago</h1>
+      <p class="checkout-subtitle">Selecciona en que moneda queres pagar y elegí el metodo</p>
     </div>
 
-    <!-- Note -->
-    <div class="note-card">
+    <!-- Currency Toggle -->
+    <div>
+      <h2 class="payment-section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Moneda de pago
+      </h2>
+      <div class="currency-toggle" id="currency-toggle">
+        <button class="currency-btn active" data-currency="ars" id="btn-ars">
+          <span class="currency-flag">🇦🇷</span> Pesos (ARS)
+        </button>
+        <button class="currency-btn" data-currency="usd" id="btn-usd">
+          <span class="currency-flag">🇺🇸</span> Dolares (USD)
+        </button>
+      </div>
+    </div>
+
+    <!-- Login required notice (shown if not logged in) -->
+    <div class="login-required" id="login-notice" style="display:none;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-      <p>
-        Al realizar tu pago, envia un mensaje con:
-        <em id="nota-mensaje">"Hola Gino, te envio el pago de la Fase 1. Mi nombre es: [Tu nombre]"</em>
-      </p>
+      <p>Para pagar con pasarela automatica, necesitas <a href="iniciar-sesion.html">iniciar sesion</a>. Si no tenes cuenta, <a href="iniciar-sesion.html">registrate gratis</a>.</p>
     </div>
 
     <!-- Payment Methods -->
     <div>
       <h2 class="payment-section-title">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-        Metodos disponibles
+        Pago automatico
       </h2>
 
       <div class="payment-methods">
 
+        <!-- MercadoPago (ARS) -->
+        <div class="payment-method" data-method="mercadopago" id="method-mp">
+          <div class="payment-method-header">
+            <div class="payment-radio"><div class="payment-radio-inner"></div></div>
+            <div class="payment-method-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <div class="payment-method-info">
+              <div class="payment-method-name">MercadoPago</div>
+              <div class="payment-method-desc">Tarjeta, transferencia, efectivo — en pesos argentinos</div>
+            </div>
+            <span class="payment-method-badge">Automatico</span>
+          </div>
+          <div class="payment-details">
+            <div class="payment-details-inner">
+              <div class="detail-note">
+                Seras redirigido a MercadoPago para completar el pago de forma segura. Una vez aprobado, tu acceso se habilita automaticamente.
+              </div>
+              <button class="btn-pay btn-pay-mp" id="btn-pay-mp" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                Pagar con MercadoPago — <span id="mp-price">$9.999 ARS</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stripe (USD) -->
+        <div class="payment-method" data-method="stripe" id="method-stripe" style="display:none;">
+          <div class="payment-method-header">
+            <div class="payment-radio"><div class="payment-radio-inner"></div></div>
+            <div class="payment-method-icon intl">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <div class="payment-method-info">
+              <div class="payment-method-name">Stripe (Tarjeta internacional)</div>
+              <div class="payment-method-desc">Visa, Mastercard, AMEX — en dolares</div>
+            </div>
+            <span class="payment-method-badge">Automatico</span>
+          </div>
+          <div class="payment-details">
+            <div class="payment-details-inner">
+              <div class="detail-note">
+                Seras redirigido a Stripe para completar el pago con tarjeta internacional. Una vez aprobado, tu acceso se habilita automaticamente.
+              </div>
+              <button class="btn-pay btn-pay-stripe" id="btn-pay-stripe" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                Pagar con tarjeta — <span id="stripe-price">USD 10,00</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="payment-or">o paga manualmente</div>
+
+    <!-- Manual Payment Methods -->
+    <div>
+      <h2 class="payment-section-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Pago manual (con comprobante)
+      </h2>
+
+      <div class="note-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <p>
+          Al realizar tu pago manual, envia un mensaje con:
+          <em id="nota-mensaje">"Hola Gino, te envio el pago de la Fase 1. Mi nombre es: [Tu nombre]"</em>
+        </p>
+      </div>
+
+      <div class="payment-methods" style="margin-top: 0.75rem;">
+
         <!-- Banco Argentino -->
-        <div class="payment-method" data-method="banco">
+        <div class="payment-method" data-method="banco" id="method-banco">
           <div class="payment-method-header">
             <div class="payment-radio"><div class="payment-radio-inner"></div></div>
             <div class="payment-method-icon">
@@ -148,7 +234,7 @@
                 </div>
               </div>
 
-              <div class="ars-conversion">
+              <div class="ars-conversion" id="conversion-banco">
                 Equivalente en pesos: <strong class="resultado-transferencia">Cargando...</strong> ARS
               </div>
 
@@ -160,7 +246,7 @@
         </div>
 
         <!-- Cripto -->
-        <div class="payment-method" data-method="cripto">
+        <div class="payment-method" data-method="cripto" id="method-cripto">
           <div class="payment-method-header">
             <div class="payment-radio"><div class="payment-radio-inner"></div></div>
             <div class="payment-method-icon cripto">
@@ -206,15 +292,15 @@
         </div>
 
         <!-- Internacional -->
-        <div class="payment-method" data-method="intl">
+        <div class="payment-method" data-method="intl" id="method-intl">
           <div class="payment-method-header">
             <div class="payment-radio"><div class="payment-radio-inner"></div></div>
             <div class="payment-method-icon intl">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
             </div>
             <div class="payment-method-info">
-              <div class="payment-method-name">Pago internacional (USD)</div>
-              <div class="payment-method-desc">PayPal o Skrill</div>
+              <div class="payment-method-name">PayPal / Skrill (USD)</div>
+              <div class="payment-method-desc">Pago internacional manual</div>
             </div>
             <span class="payment-method-badge">Internacional</span>
           </div>
@@ -263,7 +349,7 @@
       </div>
       <div class="trust-badge">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
-        Soporte directo
+        Acceso inmediato
       </div>
     </div>
 
@@ -287,7 +373,7 @@
 
       <div class="summary-row">
         <span class="summary-label">Subtotal</span>
-        <span class="summary-value monto-usd">USD 50,00</span>
+        <span class="summary-value" id="summary-subtotal">$9.999 ARS</span>
       </div>
       <div class="summary-row">
         <span class="summary-label">Comision</span>
@@ -298,7 +384,7 @@
 
       <div class="summary-total">
         <span class="summary-total-label">Total</span>
-        <span class="summary-total-value monto-usd">USD 50,00</span>
+        <span class="summary-total-value" id="summary-total">$9.999 ARS</span>
       </div>
 
       <div class="summary-divider"></div>
@@ -318,7 +404,7 @@
         </li>
         <li>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          Material premium y tacticas
+          Acceso se habilita al instante
         </li>
       </ul>
     </div>
@@ -340,7 +426,7 @@
     </div>
 
     <!-- Login -->
-    <a href="iniciar-sesion.html" class="login-link">
+    <a href="iniciar-sesion.html" class="login-link" id="sidebar-login">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
       Ya soy alumno — Iniciar sesion
     </a>
@@ -351,15 +437,41 @@
 <div id="footer"></div>
 <script src="assets/js/footer.js"></script>
 
+<!-- Supabase (to check login state) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/auth.js"></script>
+
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    // --- Detectar plan desde URL ---
+    // --- Detect plan from URL ---
     const params = new URLSearchParams(window.location.search);
-    const plan = params.get('plan');
+    const plan = params.get('plan') || 'fase1';
     const isBot = plan === 'bot';
-    const usdBase = isBot ? 5 : 50;
 
-    // --- Actualizar contenido segun plan ---
+    // --- Pricing ---
+    const PRICES = {
+      fase1: { ars: 9999, usd: 10 },
+      bot:   { ars: 7500, usd: 5 }
+    };
+    const prices = PRICES[plan] || PRICES.fase1;
+    let currentCurrency = 'ars';
+
+    // --- Check if user is logged in ---
+    Auth.init();
+    let userData = null;
+    const storedUser = sessionStorage.getItem('usuario');
+    const isLoggedIn = sessionStorage.getItem('accesoAutorizado') === 'true' && storedUser;
+
+    if (isLoggedIn) {
+      userData = JSON.parse(storedUser);
+      document.getElementById('login-notice').style.display = 'none';
+      document.getElementById('sidebar-login').style.display = 'none';
+    } else {
+      document.getElementById('login-notice').style.display = 'flex';
+    }
+
+    // --- Update product info based on plan ---
     if (isBot) {
       document.getElementById('summary-name').textContent = 'Bot de Trading — Suscripcion Mensual';
       document.getElementById('summary-desc').textContent = 'Bot automatizado configurado por Gino';
@@ -367,25 +479,51 @@
         '"Hola Gino, te envio el pago del Bot de Trading. Mi nombre es: [Tu nombre]"';
       document.title = 'Bot de Trading | Pago Seguro';
 
-      // Cambiar icono del producto
       document.querySelector('.summary-product-icon').innerHTML =
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.07A7 7 0 0 1 14 23h-4a7 7 0 0 1-6.93-4H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/><circle cx="9" cy="16" r="1" fill="currentColor"/><circle cx="15" cy="16" r="1" fill="currentColor"/></svg>';
 
-      // Actualizar beneficios
       const benefits = document.getElementById('summary-benefits');
-      benefits.innerHTML = `
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Opera automaticamente 24/7</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Configurado por Gino personalmente</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Actualizaciones incluidas</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Sin permanencia, cancela cuando quieras</li>
-      `;
+      benefits.innerHTML =
+        '<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Opera automaticamente 24/7</li>' +
+        '<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Configurado por Gino personalmente</li>' +
+        '<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Actualizaciones incluidas</li>' +
+        '<li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>Acceso se habilita al instante</li>';
     }
 
-    // Actualizar montos
-    const montoStr = isBot ? 'USD 5,00' : 'USD 50,00';
-    document.querySelectorAll('.monto-usd').forEach(el => {
-      el.textContent = montoStr;
+    // --- Format helpers ---
+    function fmtARS(n) { return '$' + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' ARS'; }
+    function fmtUSD(n) { return 'USD ' + n.toFixed(2).replace('.', ','); }
+
+    // --- Update displayed prices ---
+    function updatePrices() {
+      const isARS = currentCurrency === 'ars';
+      const priceStr = isARS ? fmtARS(prices.ars) : fmtUSD(prices.usd);
+
+      document.getElementById('summary-subtotal').textContent = priceStr;
+      document.getElementById('summary-total').textContent = priceStr;
+      document.getElementById('mp-price').textContent = fmtARS(prices.ars);
+      document.getElementById('stripe-price').textContent = fmtUSD(prices.usd);
+
+      // Show/hide payment methods based on currency
+      document.getElementById('method-mp').style.display = isARS ? 'block' : 'none';
+      document.getElementById('method-stripe').style.display = isARS ? 'none' : 'block';
+
+      // Deselect current method when currency changes
+      document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+    }
+
+    // --- Currency toggle ---
+    document.querySelectorAll('.currency-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.currency-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCurrency = btn.dataset.currency;
+        updatePrices();
+      });
     });
+
+    // Initial price update
+    updatePrices();
 
     // --- Payment method selection ---
     document.querySelectorAll('.payment-method').forEach(method => {
@@ -393,6 +531,88 @@
         document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
         method.classList.add('selected');
       });
+    });
+
+    // --- MercadoPago payment ---
+    document.getElementById('btn-pay-mp').addEventListener('click', async (e) => {
+      e.stopPropagation();
+
+      if (!isLoggedIn) {
+        alert('Necesitas iniciar sesion para pagar. Registrate o ingresa con tu cuenta.');
+        window.location.href = 'iniciar-sesion.html';
+        return;
+      }
+
+      const btn = e.currentTarget;
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Procesando...';
+
+      try {
+        const response = await fetch('/api/mercadopago-create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            producto_id: plan,
+            user_id: userData.id,
+            user_email: userData.email,
+            user_nombre: userData.nombre
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.init_point) {
+          window.location.href = data.init_point;
+        } else {
+          throw new Error(data.error || 'Error al procesar');
+        }
+      } catch (err) {
+        console.error('MercadoPago error:', err);
+        alert('Hubo un error al procesar el pago. Intenta de nuevo o usa otro metodo.');
+        btn.disabled = false;
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> Pagar con MercadoPago — <span id="mp-price">' + fmtARS(prices.ars) + '</span>';
+      }
+    });
+
+    // --- Stripe payment ---
+    document.getElementById('btn-pay-stripe').addEventListener('click', async (e) => {
+      e.stopPropagation();
+
+      if (!isLoggedIn) {
+        alert('Necesitas iniciar sesion para pagar. Registrate o ingresa con tu cuenta.');
+        window.location.href = 'iniciar-sesion.html';
+        return;
+      }
+
+      const btn = e.currentTarget;
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Procesando...';
+
+      try {
+        const response = await fetch('/api/stripe-create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            producto_id: plan,
+            user_id: userData.id,
+            user_email: userData.email,
+            user_nombre: userData.nombre
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          throw new Error(data.error || 'Error al procesar');
+        }
+      } catch (err) {
+        console.error('Stripe error:', err);
+        alert('Hubo un error al procesar el pago. Intenta de nuevo o usa otro metodo.');
+        btn.disabled = false;
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> Pagar con tarjeta — <span id="stripe-price">' + fmtUSD(prices.usd) + '</span>';
+      }
     });
 
     // --- Dolar Blue API ---
@@ -406,8 +626,9 @@
           dolarEl.textContent = '$' + dolarBlue.toFixed(2) + ' ARS';
         }
 
-        const resultado = usdBase * dolarBlue;
-        const fmt = (n) => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        // Show ARS equivalent for bank transfer
+        const resultado = prices.usd * dolarBlue;
+        const fmt = (n) => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         document.querySelectorAll(".resultado-transferencia").forEach(span => {
           span.textContent = '$' + fmt(Math.round(resultado));
         });

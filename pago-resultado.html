@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultado del Pago | Gino Ostolaza</title>
+
+  <link rel="icon" href="assets/img/branding/logo-favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta name="theme-color" content="#0a0e17">
+
+  <style>
+    :root {
+      --color-bg: #0a0e17;
+      --color-surface: #131a2b;
+      --color-border: rgba(255, 255, 255, 0.06);
+      --color-text: #e8edf5;
+      --color-text-muted: #8b95a8;
+      --color-text-dim: #5a6478;
+      --color-primary: #3b82f6;
+      --color-success: #22c55e;
+      --color-warning: #f59e0b;
+      --color-danger: #ef4444;
+      --font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-family);
+      background: var(--color-bg);
+      color: var(--color-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .result-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: 3rem 2.5rem;
+      text-align: center;
+      max-width: 480px;
+      width: 100%;
+    }
+
+    .result-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+
+    .result-icon svg {
+      width: 40px;
+      height: 40px;
+    }
+
+    .result-icon.success {
+      background: rgba(34, 197, 94, 0.12);
+      color: var(--color-success);
+    }
+
+    .result-icon.failure {
+      background: rgba(239, 68, 68, 0.12);
+      color: var(--color-danger);
+    }
+
+    .result-icon.pending {
+      background: rgba(245, 158, 11, 0.12);
+      color: var(--color-warning);
+    }
+
+    .result-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+
+    .result-desc {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .result-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .btn-result {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.5rem;
+      border-radius: var(--radius-md);
+      font-family: var(--font-family);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-result svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(59, 130, 246, 0.4);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--color-text-muted);
+      border: 1px solid var(--color-border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+
+    .result-note {
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--color-text-dim);
+    }
+
+    @media (max-width: 500px) {
+      .result-card {
+        padding: 2rem 1.5rem;
+      }
+      .result-title {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="result-card" id="result-card">
+  <!-- Filled by JS -->
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const status = params.get('status') || 'failure';
+    const provider = params.get('provider') || '';
+    const producto = params.get('producto') || '';
+    const card = document.getElementById('result-card');
+
+    const productoName = producto === 'bot' ? 'Bot de Trading' : 'Curso de Trading — Fase 1';
+
+    if (status === 'success') {
+      card.innerHTML =
+        '<div class="result-icon success">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>' +
+        '</div>' +
+        '<h1 class="result-title">Pago confirmado</h1>' +
+        '<p class="result-desc">Tu pago por <strong>' + productoName + '</strong> fue procesado exitosamente. Tu acceso ya esta habilitado en tu cuenta.</p>' +
+        '<div class="result-actions">' +
+          '<a href="dashboard.html" class="btn-result btn-primary">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>' +
+            'Ir al Dashboard' +
+          '</a>' +
+          '<a href="index.html" class="btn-result btn-secondary">Volver al inicio</a>' +
+        '</div>' +
+        '<p class="result-note">Si no ves el acceso habilitado, cerra sesion e ingresa de nuevo.</p>';
+      document.title = 'Pago Confirmado | Gino Ostolaza';
+    } else if (status === 'pending') {
+      card.innerHTML =
+        '<div class="result-icon pending">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>' +
+        '</div>' +
+        '<h1 class="result-title">Pago en proceso</h1>' +
+        '<p class="result-desc">Tu pago por <strong>' + productoName + '</strong> esta siendo procesado. Una vez confirmado, tu acceso se habilitara automaticamente.</p>' +
+        '<div class="result-actions">' +
+          '<a href="dashboard.html" class="btn-result btn-primary">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>' +
+            'Ir al Dashboard' +
+          '</a>' +
+          '<a href="https://instagram.com/ginoostolaza_" target="_blank" rel="noopener noreferrer" class="btn-result btn-secondary">' +
+            'Contactar por Instagram' +
+          '</a>' +
+        '</div>' +
+        '<p class="result-note">Esto puede tardar unos minutos. Si el pago fue por efectivo o transferencia, puede demorar hasta 24hs.</p>';
+      document.title = 'Pago Pendiente | Gino Ostolaza';
+    } else {
+      card.innerHTML =
+        '<div class="result-icon failure">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>' +
+        '</div>' +
+        '<h1 class="result-title">Pago no completado</h1>' +
+        '<p class="result-desc">Tu pago no pudo ser procesado. No se realizo ningun cobro. Podes intentar de nuevo o elegir otro metodo de pago.</p>' +
+        '<div class="result-actions">' +
+          '<a href="finalizar-compra.html?plan=' + (producto || 'fase1') + '" class="btn-result btn-primary">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>' +
+            'Intentar de nuevo' +
+          '</a>' +
+          '<a href="https://instagram.com/ginoostolaza_" target="_blank" rel="noopener noreferrer" class="btn-result btn-secondary">' +
+            'Necesito ayuda' +
+          '</a>' +
+        '</div>';
+      document.title = 'Pago Fallido | Gino Ostolaza';
+    }
+  });
+</script>
+
+</body>
+</html>

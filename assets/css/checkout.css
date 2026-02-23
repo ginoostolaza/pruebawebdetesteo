@@ -825,6 +825,168 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* ============================================================
+   CURRENCY TOGGLE
+   ============================================================ */
+.currency-toggle {
+  display: flex;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 4px;
+  gap: 4px;
+}
+
+.currency-btn {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-dim);
+  font-family: var(--font-family);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.currency-btn.active {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 2px 12px var(--color-primary-glow);
+}
+
+.currency-btn:not(.active):hover {
+  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.currency-flag {
+  font-size: 1rem;
+}
+
+/* Payment action button */
+.btn-pay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-family);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  margin-top: 0.75rem;
+}
+
+.btn-pay svg {
+  width: 18px;
+  height: 18px;
+}
+
+.btn-pay-mp {
+  background: linear-gradient(135deg, #009ee3, #00b1ea);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(0, 158, 227, 0.3);
+}
+
+.btn-pay-mp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0, 158, 227, 0.4);
+}
+
+.btn-pay-stripe {
+  background: linear-gradient(135deg, #635bff, #7c75ff);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(99, 91, 255, 0.3);
+}
+
+.btn-pay-stripe:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(99, 91, 255, 0.4);
+}
+
+.btn-pay:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.btn-pay .spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Login required notice */
+.login-required {
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.login-required svg {
+  width: 20px;
+  height: 20px;
+  color: var(--color-warning);
+  flex-shrink: 0;
+}
+
+.login-required p {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.login-required a {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.login-required a:hover {
+  text-decoration: underline;
+}
+
+/* Payment methods separator */
+.payment-or {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.5rem 0;
+  color: var(--color-text-dim);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.payment-or::before,
+.payment-or::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* ============================================================
    REDUCED MOTION
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {

@@ -42,7 +42,8 @@ const Auth = (function () {
       email: user.email,
       rol: profile?.rol || 'alumno',
       fase: profile?.fase || null,
-      estado: profile?.estado || 'activo'
+      estado: profile?.estado || 'activo',
+      bot_activo: profile?.bot_activo || false
     };
 
     sessionStorage.setItem('usuario', JSON.stringify(userData));
@@ -96,7 +97,8 @@ const Auth = (function () {
   // ---- GET PROFILE ----
   async function getProfile(userId) {
     if (!supabase) return null;
-    const { data } = await supabase.from('profiles').select('*').eq('id', userId).single();
+    const { data, error } = await supabase.from('profiles').select('*').eq('id', userId).single();
+    if (error) console.error('[Auth] Error fetching profile:', error.message);
     return data;
   }
 
@@ -151,7 +153,8 @@ const Auth = (function () {
         email: user.email,
         rol: profile?.rol || 'alumno',
         fase: profile?.fase || null,
-        estado: profile?.estado || 'activo'
+        estado: profile?.estado || 'activo',
+        bot_activo: profile?.bot_activo || false
       };
 
       sessionStorage.setItem('usuario', JSON.stringify(userData));
@@ -162,6 +165,7 @@ const Auth = (function () {
   }
 
   // ---- GUARD: redirect if not authenticated ----
+  // Always re-fetches profile from DB to pick up role/fase/estado changes
   async function guard() {
     const quickCheck = sessionStorage.getItem('accesoAutorizado');
     if (!quickCheck || quickCheck !== 'true') {

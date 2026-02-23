@@ -44,66 +44,134 @@
     <div class="branding-glow"></div>
   </div>
 
-  <!-- Right: Login form -->
+  <!-- Right: Auth forms -->
   <div class="login-form-panel">
     <div class="login-form-container">
 
-      <div class="form-header">
-        <h2>Bienvenido de vuelta</h2>
-        <p>Ingresa tus credenciales para acceder</p>
+      <!-- ============ LOGIN FORM ============ -->
+      <div id="view-login" class="auth-view active">
+        <div class="form-header">
+          <h2>Bienvenido de vuelta</h2>
+          <p>Ingresa tus credenciales para acceder</p>
+        </div>
+
+        <form id="loginForm" role="form" novalidate>
+          <div class="input-group">
+            <label for="login-email">Correo electronico</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+              <input type="email" id="login-email" placeholder="tu@correo.com" required autocomplete="email">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="login-password">Contrasena</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <input type="password" id="login-password" placeholder="Tu contrasena" required autocomplete="current-password">
+              <button type="button" class="toggle-password" aria-label="Mostrar contrasena" data-target="login-password">
+                <svg class="icon-eye" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-options">
+            <button type="button" class="link-btn" onclick="showView('reset')">Olvidaste tu contrasena?</button>
+          </div>
+
+          <div id="login-error" class="error-msg" role="alert"></div>
+
+          <button type="submit" class="btn-login" id="btnLogin">
+            <span class="btn-text">Ingresar</span>
+            <span class="btn-loader"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></span>
+          </button>
+        </form>
+
+        <div class="auth-switch">
+          <p>No tenes cuenta? <button type="button" class="link-btn" onclick="showView('register')">Crear cuenta</button></p>
+        </div>
       </div>
 
-      <form id="loginForm" role="form" novalidate aria-describedby="error-message">
-
-        <div class="input-group">
-          <label for="email">Correo electronico</label>
-          <div class="input-wrapper">
-            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="tu@correo.com"
-              required
-              autocomplete="email"
-              aria-required="true"
-            >
-          </div>
+      <!-- ============ REGISTER FORM ============ -->
+      <div id="view-register" class="auth-view">
+        <div class="form-header">
+          <h2>Crear cuenta</h2>
+          <p>Registrate para acceder al contenido</p>
         </div>
 
-        <div class="input-group">
-          <label for="password">Contrasena</label>
-          <div class="input-wrapper">
-            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Tu contrasena"
-              required
-              autocomplete="current-password"
-              aria-required="true"
-            >
-            <button type="button" class="toggle-password" aria-label="Mostrar contrasena" aria-pressed="false">
-              <svg class="icon-eye" viewBox="0 0 24 24" aria-hidden="true">
-                <path id="eye-shape" d="M12 5c-6.5 0-10 7-10 7s3.5 7 10 7 10-7 10-7-3.5-7-10-7z" fill="none" stroke="currentColor" stroke-width="2"/>
-                <circle id="eye-pupil" cx="12" cy="12" r="3" fill="currentColor"/>
-              </svg>
-            </button>
+        <form id="registerForm" role="form" novalidate>
+          <div class="input-group">
+            <label for="reg-name">Nombre completo</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <input type="text" id="reg-name" placeholder="Tu nombre" required autocomplete="name">
+            </div>
           </div>
+
+          <div class="input-group">
+            <label for="reg-email">Correo electronico</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+              <input type="email" id="reg-email" placeholder="tu@correo.com" required autocomplete="email">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="reg-password">Contrasena</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <input type="password" id="reg-password" placeholder="Minimo 6 caracteres" required autocomplete="new-password" minlength="6">
+              <button type="button" class="toggle-password" aria-label="Mostrar contrasena" data-target="reg-password">
+                <svg class="icon-eye" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div id="register-error" class="error-msg" role="alert"></div>
+          <div id="register-success" class="success-msg" role="status"></div>
+
+          <button type="submit" class="btn-login" id="btnRegister">
+            <span class="btn-text">Crear cuenta</span>
+            <span class="btn-loader"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></span>
+          </button>
+        </form>
+
+        <div class="auth-switch">
+          <p>Ya tenes cuenta? <button type="button" class="link-btn" onclick="showView('login')">Iniciar sesion</button></p>
+        </div>
+      </div>
+
+      <!-- ============ RESET PASSWORD FORM ============ -->
+      <div id="view-reset" class="auth-view">
+        <div class="form-header">
+          <h2>Recuperar contrasena</h2>
+          <p>Te enviaremos un enlace para restablecerla</p>
         </div>
 
-        <div id="error-message" class="error-msg" role="alert" aria-live="polite" aria-atomic="true"></div>
+        <form id="resetForm" role="form" novalidate>
+          <div class="input-group">
+            <label for="reset-email">Correo electronico</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+              <input type="email" id="reset-email" placeholder="tu@correo.com" required autocomplete="email">
+            </div>
+          </div>
 
-        <button type="submit" class="btn-login" id="btnLogin">
-          <span class="btn-text">Ingresar</span>
-          <span class="btn-loader" style="display:none;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-          </span>
-        </button>
+          <div id="reset-error" class="error-msg" role="alert"></div>
+          <div id="reset-success" class="success-msg" role="status"></div>
 
-      </form>
+          <button type="submit" class="btn-login" id="btnReset">
+            <span class="btn-text">Enviar enlace</span>
+            <span class="btn-loader"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></span>
+          </button>
+        </form>
 
+        <div class="auth-switch">
+          <p><button type="button" class="link-btn" onclick="showView('login')">Volver a iniciar sesion</button></p>
+        </div>
+      </div>
+
+      <!-- Footer -->
       <div class="login-footer">
         <div class="secure-badge">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -117,118 +185,188 @@
 
 </div>
 
-<!-- Error Modal -->
-<div id="errorModal" class="modal-overlay">
-  <div class="modal-card">
-    <div class="modal-bar"></div>
-    <h3 id="errorTitle">Error</h3>
-    <p id="errorMessage">Ocurrio un error.</p>
-    <button onclick="closeErrorModal()">Cerrar</button>
-  </div>
-</div>
+<!-- Supabase CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/auth.js"></script>
 
 <script>
   // ============================================================
-  // Login
+  // View switching (Login / Register / Reset)
   // ============================================================
-  const loginForm = document.getElementById("loginForm");
-  const errorMsg = document.getElementById("error-message");
-  const btnLogin = document.getElementById("btnLogin");
+  function showView(view) {
+    document.querySelectorAll('.auth-view').forEach(v => v.classList.remove('active'));
+    document.getElementById('view-' + view).classList.add('active');
+    // Clear messages
+    document.querySelectorAll('.error-msg, .success-msg').forEach(el => {
+      el.textContent = '';
+      el.classList.remove('visible');
+    });
+  }
 
-  loginForm.addEventListener("submit", async (e) => {
+  // ============================================================
+  // Loading state helpers
+  // ============================================================
+  function setLoading(btn, loading) {
+    const text = btn.querySelector('.btn-text');
+    const loader = btn.querySelector('.btn-loader');
+    if (loading) {
+      btn.classList.add('loading');
+      text.style.display = 'none';
+      loader.style.display = 'inline-flex';
+    } else {
+      btn.classList.remove('loading');
+      text.style.display = '';
+      loader.style.display = 'none';
+    }
+  }
+
+  function showError(id, msg) {
+    const el = document.getElementById(id);
+    el.textContent = msg;
+    el.classList.add('visible');
+  }
+
+  function showSuccess(id, msg) {
+    const el = document.getElementById(id);
+    el.textContent = msg;
+    el.classList.add('visible');
+  }
+
+  // ============================================================
+  // Init Auth
+  // ============================================================
+  Auth.init();
+
+  // ============================================================
+  // LOGIN
+  // ============================================================
+  document.getElementById('loginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-    errorMsg.textContent = "";
-    errorMsg.classList.remove("visible");
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value.trim();
+    const btn = document.getElementById('btnLogin');
 
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
+    document.getElementById('login-error').classList.remove('visible');
 
     if (!email || !password) {
-      errorMsg.textContent = "Por favor completa todos los campos.";
-      errorMsg.classList.add("visible");
+      showError('login-error', 'Por favor completa todos los campos.');
       return;
     }
 
-    // Show loading state
-    btnLogin.classList.add("loading");
-    btnLogin.querySelector(".btn-text").style.display = "none";
-    btnLogin.querySelector(".btn-loader").style.display = "inline-flex";
-
-    // Credenciales de prueba para acceso rapido
-    if (email === "email@email.com" && password === "contraseña") {
-      sessionStorage.setItem("usuario", JSON.stringify({ nombre: "Usuario Demo", email: email }));
-      sessionStorage.setItem("accesoAutorizado", "true");
-      sessionStorage.setItem("timestampAcceso", Date.now().toString());
-      window.location.href = "dashboard.html";
-      return;
-    }
+    setLoading(btn, true);
 
     try {
-      const response = await fetch("https://mi-backend-d4mv.onrender.com/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        sessionStorage.setItem("usuario", JSON.stringify(data.usuario));
-        sessionStorage.setItem("accesoAutorizado", "true");
-        sessionStorage.setItem("timestampAcceso", Date.now().toString());
-        window.location.href = "dashboard.html";
+      const result = await Auth.login(email, password);
+      if (result.success) {
+        window.location.href = 'dashboard.html';
       } else {
-        errorMsg.textContent = data.message || "Email o contrasena incorrectos";
-        errorMsg.classList.add("visible");
+        showError('login-error', result.message);
       }
-
     } catch (err) {
       console.error(err);
-      errorMsg.textContent = "Error de conexion con el servidor.";
-      errorMsg.classList.add("visible");
+      showError('login-error', 'Error de conexion. Intenta nuevamente.');
     } finally {
-      btnLogin.classList.remove("loading");
-      btnLogin.querySelector(".btn-text").style.display = "";
-      btnLogin.querySelector(".btn-loader").style.display = "none";
+      setLoading(btn, false);
     }
   });
 
   // ============================================================
-  // Password toggle
+  // REGISTER
   // ============================================================
-  (function () {
-    const $pwdInput = document.getElementById("password");
-    const $pwdBtn = document.querySelector(".toggle-password");
+  document.getElementById('registerForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const nombre = document.getElementById('reg-name').value.trim();
+    const email = document.getElementById('reg-email').value.trim();
+    const password = document.getElementById('reg-password').value.trim();
+    const btn = document.getElementById('btnRegister');
 
-    if ($pwdBtn && $pwdInput) {
-      const syncEye = () => {
-        const visible = $pwdInput.type === "text";
-        $pwdBtn.classList.toggle("is-visible", visible);
-        $pwdBtn.setAttribute("aria-pressed", visible ? "true" : "false");
-        $pwdBtn.setAttribute("aria-label", visible ? "Ocultar contrasena" : "Mostrar contrasena");
-      };
+    document.getElementById('register-error').classList.remove('visible');
+    document.getElementById('register-success').classList.remove('visible');
 
-      $pwdBtn.addEventListener("click", () => {
-        $pwdInput.type = $pwdInput.type === "password" ? "text" : "password";
-        syncEye();
-        $pwdInput.focus({ preventScroll: true });
-      });
+    if (!nombre || !email || !password) {
+      showError('register-error', 'Por favor completa todos los campos.');
+      return;
+    }
 
-      syncEye();
+    if (password.length < 6) {
+      showError('register-error', 'La contrasena debe tener al menos 6 caracteres.');
+      return;
+    }
+
+    setLoading(btn, true);
+
+    try {
+      const result = await Auth.register(email, password, nombre);
+      if (result.success) {
+        showSuccess('register-success', result.message);
+      } else {
+        showError('register-error', result.message);
+      }
+    } catch (err) {
+      console.error(err);
+      showError('register-error', 'Error de conexion. Intenta nuevamente.');
+    } finally {
+      setLoading(btn, false);
+    }
+  });
+
+  // ============================================================
+  // RESET PASSWORD
+  // ============================================================
+  document.getElementById('resetForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('reset-email').value.trim();
+    const btn = document.getElementById('btnReset');
+
+    document.getElementById('reset-error').classList.remove('visible');
+    document.getElementById('reset-success').classList.remove('visible');
+
+    if (!email) {
+      showError('reset-error', 'Ingresa tu correo electronico.');
+      return;
+    }
+
+    setLoading(btn, true);
+
+    try {
+      const result = await Auth.resetPassword(email);
+      if (result.success) {
+        showSuccess('reset-success', result.message);
+      } else {
+        showError('reset-error', result.message);
+      }
+    } catch (err) {
+      console.error(err);
+      showError('reset-error', 'Error de conexion. Intenta nuevamente.');
+    } finally {
+      setLoading(btn, false);
+    }
+  });
+
+  // ============================================================
+  // Password toggle (all toggle buttons)
+  // ============================================================
+  document.querySelectorAll('.toggle-password').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-target');
+      const input = document.getElementById(targetId);
+      const isVisible = input.type === 'text';
+      input.type = isVisible ? 'password' : 'text';
+      btn.classList.toggle('is-visible', !isVisible);
+      input.focus({ preventScroll: true });
+    });
+  });
+
+  // ============================================================
+  // Redirect if already logged in
+  // ============================================================
+  (async function () {
+    const session = await Auth.getSession();
+    if (session) {
+      window.location.replace('dashboard.html');
     }
   })();
-
-  // ============================================================
-  // Error Modal
-  // ============================================================
-  function showErrorModal(message) {
-    document.getElementById("errorMessage").textContent = message;
-    document.getElementById("errorModal").style.display = "flex";
-  }
-
-  function closeErrorModal() {
-    document.getElementById("errorModal").style.display = "none";
-  }
 </script>
 
 </body>

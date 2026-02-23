@@ -17,7 +17,7 @@ create table if not exists public.profiles (
   nombre text,
   email text,
   rol text default 'alumno' check (rol in ('alumno', 'admin')),
-  fase text default 'fase-1' check (fase in ('fase-1', 'fase-2', 'ambas')),
+  fase text default null check (fase is null or fase in ('fase-1', 'fase-2', 'ambas')),
   estado text default 'activo' check (estado in ('activo', 'suspendido', 'inactivo')),
   fecha_registro timestamptz default now(),
   ultimo_acceso timestamptz default now(),
@@ -180,28 +180,10 @@ create trigger on_auth_user_created
   for each row execute procedure public.handle_new_user();
 
 -- ============================================================
--- DEFAULT COURSE MODULES (for progress tracking)
+-- NOTE: Progress entries are NOT auto-created on signup.
+-- They are created when an admin assigns a phase to a user
+-- via the admin panel (after payment confirmation).
 -- ============================================================
-
--- Function to initialize progress for a new user
-create or replace function public.init_user_progress()
-returns trigger as $$
-begin
-  insert into public.progreso (user_id, modulo) values
-    (new.id, 'preparacion-grafico'),
-    (new.id, 'flexzone'),
-    (new.id, 'relleno-zona'),
-    (new.id, 'glosario'),
-    (new.id, 'consejos');
-  return new;
-end;
-$$ language plpgsql security definer;
-
--- Trigger: auto-create progress entries when profile is created
-drop trigger if exists on_profile_created on public.profiles;
-create trigger on_profile_created
-  after insert on public.profiles
-  for each row execute procedure public.init_user_progress();
 
 -- ============================================================
 -- HELPER: Make yourself admin

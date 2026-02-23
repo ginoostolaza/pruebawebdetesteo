@@ -41,7 +41,7 @@ const Auth = (function () {
       nombre: profile?.nombre || user.user_metadata?.nombre || user.email.split('@')[0],
       email: user.email,
       rol: profile?.rol || 'alumno',
-      fase: profile?.fase || 'fase-1',
+      fase: profile?.fase || null,
       estado: profile?.estado || 'activo'
     };
 
@@ -102,6 +102,9 @@ const Auth = (function () {
 
   // ---- GET USER PROGRESS ----
   async function getProgress(userId) {
+    const userData = JSON.parse(sessionStorage.getItem('usuario') || '{}');
+    if (!userData.fase) return [];
+
     if (!supabase) {
       return [
         { modulo: 'preparacion-grafico', completado: true },
@@ -147,7 +150,7 @@ const Auth = (function () {
         nombre: profile?.nombre || user.user_metadata?.nombre || user.email.split('@')[0],
         email: user.email,
         rol: profile?.rol || 'alumno',
-        fase: profile?.fase || 'fase-1',
+        fase: profile?.fase || null,
         estado: profile?.estado || 'activo'
       };
 
@@ -172,6 +175,27 @@ const Auth = (function () {
         window.location.replace('iniciar-sesion.html');
         return false;
       }
+    }
+    return true;
+  }
+
+  // ---- CHECK COURSE ACCESS ----
+  function hasAccess(requiredFase) {
+    const userData = JSON.parse(sessionStorage.getItem('usuario') || '{}');
+    const fase = userData.fase;
+    if (!fase) return false;
+    if (fase === 'ambas') return true;
+    return fase === requiredFase;
+  }
+
+  // ---- COURSE GUARD: redirect if no course access ----
+  async function courseGuard(requiredFase) {
+    const isAuth = await guard();
+    if (!isAuth) return false;
+
+    if (!hasAccess(requiredFase)) {
+      window.location.replace('dashboard.html');
+      return false;
     }
     return true;
   }
@@ -217,6 +241,15 @@ const Auth = (function () {
     return data || [];
   }
 
+  // ---- ADMIN: Initialize progress for a user ----
+  async function initProgress(userId) {
+    if (!supabase) return { success: false };
+    const modules = ['preparacion-grafico', 'flexzone', 'relleno-zona', 'glosario', 'consejos'];
+    const rows = modules.map(m => ({ user_id: userId, modulo: m, completado: false }));
+    const { error } = await supabase.from('progreso').upsert(rows, { onConflict: 'user_id,modulo', ignoreDuplicates: true });
+    return { success: !error, error: error?.message };
+  }
+
   // ---- ADMIN: Add payment ----
   async function addPayment(payment) {
     if (!supabase) return { success: false };
@@ -236,7 +269,7 @@ const Auth = (function () {
     }
     if (email === 'email@email.com' && password === 'contraseña') {
       sessionStorage.setItem('usuario', JSON.stringify({
-        nombre: 'Usuario Demo', email, rol: 'alumno', fase: 'fase-1', estado: 'activo'
+        nombre: 'Usuario Demo', email, rol: 'alumno', fase: null, estado: 'activo'
       }));
       sessionStorage.setItem('accesoAutorizado', 'true');
       sessionStorage.setItem('timestampAcceso', Date.now().toString());
@@ -263,7 +296,7 @@ const Auth = (function () {
     init, isConfigured, getClient,
     login, register, resetPassword, logout,
     getSession, getProfile, getProgress, updateProgress, getPayments,
-    guard, adminGuard,
-    getAllUsers, updateUser, getAllProgress, getAllPayments, addPayment
+    guard, courseGuard, adminGuard, hasAccess,
+    getAllUsers, updateUser, getAllProgress, getAllPayments, addPayment, initProgress
   };
 })();

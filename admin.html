@@ -165,6 +165,7 @@
       <div class="modal-field">
         <label>Fase</label>
         <select id="edit-user-fase">
+          <option value="">Sin acceso</option>
           <option value="fase-1">Fase 1</option>
           <option value="fase-2">Fase 2</option>
           <option value="ambas">Ambas</option>
@@ -285,13 +286,15 @@
                           u.estado === 'suspendido' ? 'status-suspended' : 'status-inactive';
       const roleClass = u.rol === 'admin' ? 'role-admin' : 'role-student';
       const faseMap = { 'fase-1': 'Fase 1', 'fase-2': 'Fase 2', 'ambas': 'Ambas' };
+      const faseText = faseMap[u.fase] || 'Sin acceso';
+      const faseClass = u.fase ? '' : 'text-dim';
       const fecha = u.fecha_registro ? new Date(u.fecha_registro).toLocaleDateString('es-AR') : '-';
 
       return '<tr>' +
         '<td><div class="user-cell"><div class="user-avatar-sm">' + (u.nombre || 'U').charAt(0).toUpperCase() + '</div><span>' + (u.nombre || 'Sin nombre') + '</span></div></td>' +
         '<td class="td-email">' + (u.email || '-') + '</td>' +
         '<td><span class="badge ' + roleClass + '">' + (u.rol || 'alumno') + '</span></td>' +
-        '<td>' + (faseMap[u.fase] || 'Fase 1') + '</td>' +
+        '<td class="' + faseClass + '">' + faseText + '</td>' +
         '<td><span class="badge ' + statusClass + '">' + (u.estado || 'activo') + '</span></td>' +
         '<td class="td-date">' + fecha + '</td>' +
         '<td><button class="btn-edit" onclick="openEditUser(\'' + u.id + '\')">Editar</button></td>' +
@@ -362,15 +365,25 @@
     document.getElementById("form-edit-user").addEventListener("submit", async (e) => {
       e.preventDefault();
       const userId = document.getElementById("edit-user-id").value;
+      const newFase = document.getElementById("edit-user-fase").value || null;
       const updates = {
         nombre: document.getElementById("edit-user-name").value,
         rol: document.getElementById("edit-user-role").value,
-        fase: document.getElementById("edit-user-fase").value,
+        fase: newFase,
         estado: document.getElementById("edit-user-status").value,
         notas: document.getElementById("edit-user-notes").value
       };
+
+      // Check if phase is being assigned (was null, now has a value)
+      const oldUser = allUsers.find(u => u.id === userId);
+      const phaseAssigned = newFase && (!oldUser || !oldUser.fase);
+
       const result = await Auth.updateUser(userId, updates);
       if (result.success) {
+        // Create progress entries when assigning phase for the first time
+        if (phaseAssigned) {
+          await Auth.initProgress(userId);
+        }
         closeModal("modal-edit-user");
         await loadData();
       } else {
@@ -433,7 +446,7 @@
     document.getElementById("edit-user-id").value = user.id;
     document.getElementById("edit-user-name").value = user.nombre || '';
     document.getElementById("edit-user-role").value = user.rol || 'alumno';
-    document.getElementById("edit-user-fase").value = user.fase || 'fase-1';
+    document.getElementById("edit-user-fase").value = user.fase || '';
     document.getElementById("edit-user-status").value = user.estado || 'activo';
     document.getElementById("edit-user-notes").value = user.notas || '';
     openModal("modal-edit-user");

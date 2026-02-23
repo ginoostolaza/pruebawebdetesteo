@@ -481,6 +481,47 @@ img { max-width: 100%; height: auto; display: block; }
   opacity: 0.6;
 }
 
+/* Locked card state */
+.course-card.card-locked {
+  opacity: 0.7;
+  border-color: rgba(255, 255, 255, 0.03);
+}
+
+.course-card.card-locked::before {
+  opacity: 0.3;
+}
+
+.course-card.card-locked:hover {
+  opacity: 0.85;
+  transform: translateY(-2px);
+}
+
+.course-card.card-locked .card-features li svg {
+  color: var(--color-text-dim);
+}
+
+.badge-locked {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--color-error);
+}
+
+.action-locked {
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: var(--color-error);
+  gap: 0.5rem;
+}
+
+.action-locked:hover {
+  border-color: var(--color-error);
+  background: rgba(239, 68, 68, 0.05);
+  color: var(--color-error);
+}
+
+.action-locked svg {
+  width: 16px;
+  height: 16px;
+}
+
 /* ============================================================
    ADMIN BUTTON (nav)
    ============================================================ */

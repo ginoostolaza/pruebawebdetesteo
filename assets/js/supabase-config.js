@@ -19,5 +19,5 @@
 
    ============================================================ */
 
-const SUPABASE_URL = 'TU_SUPABASE_URL_AQUI';
-const SUPABASE_ANON_KEY = 'TU_SUPABASE_ANON_KEY_AQUI';
+const SUPABASE_URL = 'https://fabfhxreglyonjehvneu.supabase.co';
+const SUPABASE_ANON_KEY = 'TU_SUPABASE_ANON_KEY_AQUI'; // Pega tu anon key aqui (empieza con eyJ...)

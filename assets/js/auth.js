@@ -1,5 +1,5 @@
 /* ============================================================
-   AUTH MODULE - Supabase Authentication
+   AUTH MODULE - Supabase Authentication + Profile Management
    ============================================================ */
 
 const Auth = (function () {
@@ -10,6 +10,10 @@ const Auth = (function () {
       console.warn('[Auth] Supabase no configurado. Usando modo demo.');
       return false;
     }
+    if (typeof SUPABASE_ANON_KEY === 'undefined' || SUPABASE_ANON_KEY === 'TU_SUPABASE_ANON_KEY_AQUI') {
+      console.warn('[Auth] Anon key no configurada. Usando modo demo.');
+      return false;
+    }
     supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     return true;
   }
@@ -18,90 +22,112 @@ const Auth = (function () {
     return supabase !== null;
   }
 
+  function getClient() {
+    return supabase;
+  }
+
   // ---- LOGIN ----
   async function login(email, password) {
-    if (!supabase) {
-      return demoLogin(email, password);
-    }
+    if (!supabase) return demoLogin(email, password);
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password
-    });
-
-    if (error) {
-      return { success: false, message: translateError(error.message) };
-    }
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) return { success: false, message: translateError(error.message) };
 
     const user = data.user;
-    const nombre = user.user_metadata?.nombre || user.email.split('@')[0];
+    const profile = await getProfile(user.id);
 
-    sessionStorage.setItem('usuario', JSON.stringify({
-      nombre: nombre,
+    const userData = {
+      id: user.id,
+      nombre: profile?.nombre || user.user_metadata?.nombre || user.email.split('@')[0],
       email: user.email,
-      id: user.id
-    }));
+      rol: profile?.rol || 'alumno',
+      fase: profile?.fase || 'fase-1',
+      estado: profile?.estado || 'activo'
+    };
+
+    sessionStorage.setItem('usuario', JSON.stringify(userData));
     sessionStorage.setItem('accesoAutorizado', 'true');
     sessionStorage.setItem('timestampAcceso', Date.now().toString());
 
-    return { success: true };
+    // Update last access
+    if (profile) {
+      await supabase.from('profiles').update({ ultimo_acceso: new Date().toISOString() }).eq('id', user.id);
+    }
+
+    return { success: true, user: userData };
   }
 
   // ---- REGISTER ----
   async function register(email, password, nombre) {
-    if (!supabase) {
-      return { success: false, message: 'Registro no disponible en modo demo. Configura Supabase.' };
-    }
+    if (!supabase) return { success: false, message: 'Registro no disponible en modo demo. Configura Supabase.' };
 
     const { data, error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-      options: {
-        data: { nombre: nombre }
-      }
+      email,
+      password,
+      options: { data: { nombre } }
     });
 
-    if (error) {
-      return { success: false, message: translateError(error.message) };
-    }
-
+    if (error) return { success: false, message: translateError(error.message) };
     if (data.user && data.user.identities && data.user.identities.length === 0) {
       return { success: false, message: 'Este correo ya esta registrado.' };
     }
 
-    return {
-      success: true,
-      message: 'Cuenta creada. Revisa tu correo para confirmar tu cuenta.',
-      needsConfirmation: true
-    };
+    return { success: true, message: 'Cuenta creada. Revisa tu correo para confirmar tu cuenta.', needsConfirmation: true };
   }
 
   // ---- RESET PASSWORD ----
   async function resetPassword(email) {
-    if (!supabase) {
-      return { success: false, message: 'Recuperacion no disponible en modo demo.' };
-    }
+    if (!supabase) return { success: false, message: 'Recuperacion no disponible en modo demo.' };
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: window.location.origin + '/iniciar-sesion.html'
     });
 
-    if (error) {
-      return { success: false, message: translateError(error.message) };
-    }
-
-    return {
-      success: true,
-      message: 'Si el correo esta registrado, recibiras un enlace para restablecer tu contrasena.'
-    };
+    if (error) return { success: false, message: translateError(error.message) };
+    return { success: true, message: 'Si el correo esta registrado, recibiras un enlace para restablecer tu contrasena.' };
   }
 
   // ---- LOGOUT ----
   async function logout() {
-    if (supabase) {
-      await supabase.auth.signOut();
-    }
+    if (supabase) await supabase.auth.signOut();
     sessionStorage.clear();
+  }
+
+  // ---- GET PROFILE ----
+  async function getProfile(userId) {
+    if (!supabase) return null;
+    const { data } = await supabase.from('profiles').select('*').eq('id', userId).single();
+    return data;
+  }
+
+  // ---- GET USER PROGRESS ----
+  async function getProgress(userId) {
+    if (!supabase) {
+      return [
+        { modulo: 'preparacion-grafico', completado: true },
+        { modulo: 'flexzone', completado: false },
+        { modulo: 'relleno-zona', completado: false },
+        { modulo: 'glosario', completado: false },
+        { modulo: 'consejos', completado: false }
+      ];
+    }
+    const { data } = await supabase.from('progreso').select('*').eq('user_id', userId).order('id');
+    return data || [];
+  }
+
+  // ---- UPDATE PROGRESS ----
+  async function updateProgress(userId, modulo, completado) {
+    if (!supabase) return;
+    await supabase.from('progreso')
+      .update({ completado, fecha_completado: completado ? new Date().toISOString() : null })
+      .eq('user_id', userId).eq('modulo', modulo);
+  }
+
+  // ---- GET PAYMENTS ----
+  async function getPayments(userId) {
+    if (!supabase) return [];
+    const { data } = await supabase.from('pagos').select('*').eq('user_id', userId).order('fecha', { ascending: false });
+    return data || [];
   }
 
   // ---- CHECK SESSION ----
@@ -114,15 +140,21 @@ const Auth = (function () {
     const { data } = await supabase.auth.getSession();
     if (data.session) {
       const user = data.session.user;
-      sessionStorage.setItem('usuario', JSON.stringify({
-        nombre: user.user_metadata?.nombre || user.email.split('@')[0],
-        email: user.email,
-        id: user.id
-      }));
-      sessionStorage.setItem('accesoAutorizado', 'true');
-      return { user: user };
-    }
+      const profile = await getProfile(user.id);
 
+      const userData = {
+        id: user.id,
+        nombre: profile?.nombre || user.user_metadata?.nombre || user.email.split('@')[0],
+        email: user.email,
+        rol: profile?.rol || 'alumno',
+        fase: profile?.fase || 'fase-1',
+        estado: profile?.estado || 'activo'
+      };
+
+      sessionStorage.setItem('usuario', JSON.stringify(userData));
+      sessionStorage.setItem('accesoAutorizado', 'true');
+      return { user: userData };
+    }
     return null;
   }
 
@@ -133,7 +165,6 @@ const Auth = (function () {
       window.location.replace('iniciar-sesion.html');
       return false;
     }
-
     if (supabase) {
       const session = await getSession();
       if (!session) {
@@ -142,14 +173,71 @@ const Auth = (function () {
         return false;
       }
     }
-
     return true;
   }
 
-  // ---- DEMO LOGIN (fallback when Supabase not configured) ----
+  // ---- ADMIN GUARD ----
+  async function adminGuard() {
+    const isAuth = await guard();
+    if (!isAuth) return false;
+
+    const userData = JSON.parse(sessionStorage.getItem('usuario') || '{}');
+    if (userData.rol !== 'admin') {
+      window.location.replace('dashboard.html');
+      return false;
+    }
+    return true;
+  }
+
+  // ---- ADMIN: Get all users ----
+  async function getAllUsers() {
+    if (!supabase) return [];
+    const { data } = await supabase.from('profiles').select('*').order('fecha_registro', { ascending: false });
+    return data || [];
+  }
+
+  // ---- ADMIN: Update user profile ----
+  async function updateUser(userId, updates) {
+    if (!supabase) return { success: false };
+    const { error } = await supabase.from('profiles').update(updates).eq('id', userId);
+    return { success: !error, error: error?.message };
+  }
+
+  // ---- ADMIN: Get all progress ----
+  async function getAllProgress() {
+    if (!supabase) return [];
+    const { data } = await supabase.from('progreso').select('*, profiles(nombre, email)').order('user_id');
+    return data || [];
+  }
+
+  // ---- ADMIN: Get all payments ----
+  async function getAllPayments() {
+    if (!supabase) return [];
+    const { data } = await supabase.from('pagos').select('*, profiles(nombre, email)').order('fecha', { ascending: false });
+    return data || [];
+  }
+
+  // ---- ADMIN: Add payment ----
+  async function addPayment(payment) {
+    if (!supabase) return { success: false };
+    const { error } = await supabase.from('pagos').insert(payment);
+    return { success: !error, error: error?.message };
+  }
+
+  // ---- DEMO LOGIN ----
   function demoLogin(email, password) {
+    if (email === 'admin@admin.com' && password === 'admin123') {
+      sessionStorage.setItem('usuario', JSON.stringify({
+        nombre: 'Gino Ostolaza', email, rol: 'admin', fase: 'ambas', estado: 'activo'
+      }));
+      sessionStorage.setItem('accesoAutorizado', 'true');
+      sessionStorage.setItem('timestampAcceso', Date.now().toString());
+      return { success: true };
+    }
     if (email === 'email@email.com' && password === 'contraseña') {
-      sessionStorage.setItem('usuario', JSON.stringify({ nombre: 'Usuario Demo', email: email }));
+      sessionStorage.setItem('usuario', JSON.stringify({
+        nombre: 'Usuario Demo', email, rol: 'alumno', fase: 'fase-1', estado: 'activo'
+      }));
       sessionStorage.setItem('accesoAutorizado', 'true');
       sessionStorage.setItem('timestampAcceso', Date.now().toString());
       return { success: true };
@@ -159,7 +247,7 @@ const Auth = (function () {
 
   // ---- ERROR TRANSLATION ----
   function translateError(msg) {
-    const translations = {
+    const t = {
       'Invalid login credentials': 'Email o contrasena incorrectos.',
       'Email not confirmed': 'Debes confirmar tu correo antes de iniciar sesion.',
       'User already registered': 'Este correo ya esta registrado.',
@@ -168,8 +256,14 @@ const Auth = (function () {
       'Signup requires a valid password': 'Debes ingresar una contrasena valida.',
       'For security purposes, you can only request this once every 60 seconds': 'Por seguridad, solo puedes solicitar esto una vez por minuto.'
     };
-    return translations[msg] || msg;
+    return t[msg] || msg;
   }
 
-  return { init, isConfigured, login, register, resetPassword, logout, getSession, guard };
+  return {
+    init, isConfigured, getClient,
+    login, register, resetPassword, logout,
+    getSession, getProfile, getProgress, updateProgress, getPayments,
+    guard, adminGuard,
+    getAllUsers, updateUser, getAllProgress, getAllPayments, addPayment
+  };
 })();

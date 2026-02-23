@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Admin | Gino Ostolaza</title>
+
+  <!-- Auth + Admin guard -->
+  <script>
+    (function () {
+      var acceso = sessionStorage.getItem("accesoAutorizado");
+      var usuario = JSON.parse(sessionStorage.getItem("usuario") || "{}");
+      if (!acceso || acceso !== "true") { window.location.replace("iniciar-sesion.html"); }
+      if (usuario.rol !== "admin") { window.location.replace("dashboard.html"); }
+    })();
+  </script>
+
+  <link rel="icon" href="assets/img/branding/logo-favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/admin.css">
+  <meta name="theme-color" content="#0a0e17">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="admin-nav">
+  <div class="admin-nav-left">
+    <img src="assets/img/branding/logo-favicon.png" alt="Logo" width="32" height="32" style="border-radius:8px">
+    <span class="admin-nav-brand">Panel de Administracion</span>
+    <span class="admin-nav-tag">Admin</span>
+  </div>
+  <div class="admin-nav-right">
+    <a href="dashboard.html" class="nav-link-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Dashboard
+    </a>
+    <button class="btn-logout" id="btn-logout">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+      Salir
+    </button>
+  </div>
+</nav>
+
+<div class="admin-container">
+
+  <!-- Stats Overview -->
+  <div class="admin-stats" id="admin-stats">
+    <div class="admin-stat">
+      <div class="admin-stat-value" id="stat-total-users">-</div>
+      <div class="admin-stat-label">Usuarios totales</div>
+    </div>
+    <div class="admin-stat">
+      <div class="admin-stat-value" id="stat-active-users">-</div>
+      <div class="admin-stat-label">Usuarios activos</div>
+    </div>
+    <div class="admin-stat">
+      <div class="admin-stat-value" id="stat-total-payments">-</div>
+      <div class="admin-stat-label">Pagos registrados</div>
+    </div>
+    <div class="admin-stat">
+      <div class="admin-stat-value" id="stat-revenue">-</div>
+      <div class="admin-stat-label">Ingresos totales</div>
+    </div>
+  </div>
+
+  <!-- Tab Navigation -->
+  <div class="admin-tabs">
+    <button class="admin-tab active" data-tab="users">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Usuarios
+    </button>
+    <button class="admin-tab" data-tab="payments">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Pagos
+    </button>
+  </div>
+
+  <!-- ============ USERS TAB ============ -->
+  <div class="admin-panel active" id="panel-users">
+    <div class="panel-header">
+      <h2>Gestion de Usuarios</h2>
+      <div class="panel-actions">
+        <input type="text" id="user-search" class="admin-search" placeholder="Buscar por nombre o email...">
+        <select id="user-filter" class="admin-select">
+          <option value="all">Todos</option>
+          <option value="activo">Activos</option>
+          <option value="suspendido">Suspendidos</option>
+          <option value="inactivo">Inactivos</option>
+          <option value="admin">Admins</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Email</th>
+            <th>Rol</th>
+            <th>Fase</th>
+            <th>Estado</th>
+            <th>Registro</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="users-table-body">
+          <tr><td colspan="7" class="table-loading">Cargando usuarios...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ============ PAYMENTS TAB ============ -->
+  <div class="admin-panel" id="panel-payments">
+    <div class="panel-header">
+      <h2>Registro de Pagos</h2>
+      <button class="btn-primary" id="btn-add-payment">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Registrar pago
+      </button>
+    </div>
+
+    <div class="table-container">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Monto</th>
+            <th>Metodo</th>
+            <th>Concepto</th>
+            <th>Estado</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody id="payments-table-body">
+          <tr><td colspan="6" class="table-loading">Cargando pagos...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============ MODAL: Edit User ============ -->
+<div class="modal-overlay" id="modal-edit-user">
+  <div class="modal-card">
+    <div class="modal-bar-blue"></div>
+    <h3>Editar Usuario</h3>
+    <form id="form-edit-user">
+      <input type="hidden" id="edit-user-id">
+      <div class="modal-field">
+        <label>Nombre</label>
+        <input type="text" id="edit-user-name">
+      </div>
+      <div class="modal-field">
+        <label>Rol</label>
+        <select id="edit-user-role">
+          <option value="alumno">Alumno</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+      <div class="modal-field">
+        <label>Fase</label>
+        <select id="edit-user-fase">
+          <option value="fase-1">Fase 1</option>
+          <option value="fase-2">Fase 2</option>
+          <option value="ambas">Ambas</option>
+        </select>
+      </div>
+      <div class="modal-field">
+        <label>Estado</label>
+        <select id="edit-user-status">
+          <option value="activo">Activo</option>
+          <option value="suspendido">Suspendido</option>
+          <option value="inactivo">Inactivo</option>
+        </select>
+      </div>
+      <div class="modal-field">
+        <label>Notas</label>
+        <textarea id="edit-user-notes" rows="3" placeholder="Notas internas..."></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" onclick="closeModal('modal-edit-user')">Cancelar</button>
+        <button type="submit" class="btn-primary">Guardar cambios</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============ MODAL: Add Payment ============ -->
+<div class="modal-overlay" id="modal-add-payment">
+  <div class="modal-card">
+    <div class="modal-bar-green"></div>
+    <h3>Registrar Pago</h3>
+    <form id="form-add-payment">
+      <div class="modal-field">
+        <label>Usuario</label>
+        <select id="payment-user" required></select>
+      </div>
+      <div class="modal-row">
+        <div class="modal-field">
+          <label>Monto</label>
+          <input type="number" id="payment-amount" step="0.01" required placeholder="0.00">
+        </div>
+        <div class="modal-field">
+          <label>Moneda</label>
+          <select id="payment-currency">
+            <option value="USD">USD</option>
+            <option value="ARS">ARS</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-field">
+        <label>Metodo de pago</label>
+        <select id="payment-method">
+          <option value="MercadoPago">MercadoPago</option>
+          <option value="Transferencia">Transferencia</option>
+          <option value="PayPal">PayPal</option>
+          <option value="Skrill">Skrill</option>
+          <option value="Cripto">Criptomonedas</option>
+          <option value="Efectivo">Efectivo</option>
+        </select>
+      </div>
+      <div class="modal-field">
+        <label>Concepto</label>
+        <input type="text" id="payment-concept" placeholder="Ej: Fase 1 - Pago unico">
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" onclick="closeModal('modal-add-payment')">Cancelar</button>
+        <button type="submit" class="btn-primary">Registrar pago</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/auth.js"></script>
+
+<script>
+  let allUsers = [];
+  let allPayments = [];
+
+  document.addEventListener("DOMContentLoaded", async () => {
+    Auth.init();
+    await Auth.adminGuard();
+    await loadData();
+    setupEventListeners();
+  });
+
+  // ---- Load all data ----
+  async function loadData() {
+    allUsers = await Auth.getAllUsers();
+    allPayments = await Auth.getAllPayments();
+    renderStats();
+    renderUsers(allUsers);
+    renderPayments(allPayments);
+    populateUserSelect();
+  }
+
+  // ---- Render Stats ----
+  function renderStats() {
+    document.getElementById("stat-total-users").textContent = allUsers.length;
+    document.getElementById("stat-active-users").textContent = allUsers.filter(u => u.estado === 'activo').length;
+    document.getElementById("stat-total-payments").textContent = allPayments.length;
+    const revenue = allPayments.filter(p => p.estado === 'completado')
+      .reduce((sum, p) => sum + parseFloat(p.monto || 0), 0);
+    document.getElementById("stat-revenue").textContent = '$' + revenue.toFixed(2);
+  }
+
+  // ---- Render Users Table ----
+  function renderUsers(users) {
+    const tbody = document.getElementById("users-table-body");
+    if (!users.length) {
+      tbody.innerHTML = '<tr><td colspan="7" class="table-empty">No hay usuarios registrados</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = users.map(u => {
+      const statusClass = u.estado === 'activo' ? 'status-active' :
+                          u.estado === 'suspendido' ? 'status-suspended' : 'status-inactive';
+      const roleClass = u.rol === 'admin' ? 'role-admin' : 'role-student';
+      const faseMap = { 'fase-1': 'Fase 1', 'fase-2': 'Fase 2', 'ambas': 'Ambas' };
+      const fecha = u.fecha_registro ? new Date(u.fecha_registro).toLocaleDateString('es-AR') : '-';
+
+      return '<tr>' +
+        '<td><div class="user-cell"><div class="user-avatar-sm">' + (u.nombre || 'U').charAt(0).toUpperCase() + '</div><span>' + (u.nombre || 'Sin nombre') + '</span></div></td>' +
+        '<td class="td-email">' + (u.email || '-') + '</td>' +
+        '<td><span class="badge ' + roleClass + '">' + (u.rol || 'alumno') + '</span></td>' +
+        '<td>' + (faseMap[u.fase] || 'Fase 1') + '</td>' +
+        '<td><span class="badge ' + statusClass + '">' + (u.estado || 'activo') + '</span></td>' +
+        '<td class="td-date">' + fecha + '</td>' +
+        '<td><button class="btn-edit" onclick="openEditUser(\'' + u.id + '\')">Editar</button></td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  // ---- Render Payments Table ----
+  function renderPayments(payments) {
+    const tbody = document.getElementById("payments-table-body");
+    if (!payments.length) {
+      tbody.innerHTML = '<tr><td colspan="6" class="table-empty">No hay pagos registrados</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = payments.map(p => {
+      const nombre = p.profiles?.nombre || 'Desconocido';
+      const statusClass = p.estado === 'completado' ? 'status-active' :
+                          p.estado === 'pendiente' ? 'status-pending' : 'status-suspended';
+      const fecha = p.fecha ? new Date(p.fecha).toLocaleDateString('es-AR') : '-';
+
+      return '<tr>' +
+        '<td>' + nombre + '</td>' +
+        '<td class="td-amount">$' + parseFloat(p.monto).toFixed(2) + ' ' + (p.moneda || 'USD') + '</td>' +
+        '<td>' + (p.metodo || '-') + '</td>' +
+        '<td>' + (p.concepto || '-') + '</td>' +
+        '<td><span class="badge ' + statusClass + '">' + (p.estado || 'completado') + '</span></td>' +
+        '<td class="td-date">' + fecha + '</td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  // ---- Populate user select for payment modal ----
+  function populateUserSelect() {
+    const select = document.getElementById("payment-user");
+    select.innerHTML = '<option value="">Seleccionar usuario...</option>' +
+      allUsers.map(u => '<option value="' + u.id + '">' + (u.nombre || u.email) + '</option>').join('');
+  }
+
+  // ---- Setup Event Listeners ----
+  function setupEventListeners() {
+    // Tab switching
+    document.querySelectorAll('.admin-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+      });
+    });
+
+    // User search
+    document.getElementById("user-search").addEventListener("input", filterUsers);
+    document.getElementById("user-filter").addEventListener("change", filterUsers);
+
+    // Logout
+    document.getElementById("btn-logout").addEventListener("click", async () => {
+      await Auth.logout();
+      window.location.href = "iniciar-sesion.html";
+    });
+
+    // Add payment button
+    document.getElementById("btn-add-payment").addEventListener("click", () => {
+      openModal("modal-add-payment");
+    });
+
+    // Edit user form
+    document.getElementById("form-edit-user").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const userId = document.getElementById("edit-user-id").value;
+      const updates = {
+        nombre: document.getElementById("edit-user-name").value,
+        rol: document.getElementById("edit-user-role").value,
+        fase: document.getElementById("edit-user-fase").value,
+        estado: document.getElementById("edit-user-status").value,
+        notas: document.getElementById("edit-user-notes").value
+      };
+      const result = await Auth.updateUser(userId, updates);
+      if (result.success) {
+        closeModal("modal-edit-user");
+        await loadData();
+      } else {
+        alert("Error: " + (result.error || "No se pudo actualizar"));
+      }
+    });
+
+    // Add payment form
+    document.getElementById("form-add-payment").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const payment = {
+        user_id: document.getElementById("payment-user").value,
+        monto: parseFloat(document.getElementById("payment-amount").value),
+        moneda: document.getElementById("payment-currency").value,
+        metodo: document.getElementById("payment-method").value,
+        concepto: document.getElementById("payment-concept").value,
+        estado: 'completado'
+      };
+      if (!payment.user_id || !payment.monto) {
+        alert("Completa usuario y monto.");
+        return;
+      }
+      const result = await Auth.addPayment(payment);
+      if (result.success) {
+        closeModal("modal-add-payment");
+        document.getElementById("form-add-payment").reset();
+        await loadData();
+      } else {
+        alert("Error: " + (result.error || "No se pudo registrar"));
+      }
+    });
+  }
+
+  // ---- Filter users ----
+  function filterUsers() {
+    const search = document.getElementById("user-search").value.toLowerCase();
+    const filter = document.getElementById("user-filter").value;
+
+    let filtered = allUsers;
+    if (search) {
+      filtered = filtered.filter(u =>
+        (u.nombre || '').toLowerCase().includes(search) ||
+        (u.email || '').toLowerCase().includes(search)
+      );
+    }
+    if (filter !== 'all') {
+      if (filter === 'admin') {
+        filtered = filtered.filter(u => u.rol === 'admin');
+      } else {
+        filtered = filtered.filter(u => u.estado === filter);
+      }
+    }
+    renderUsers(filtered);
+  }
+
+  // ---- Open edit user modal ----
+  function openEditUser(userId) {
+    const user = allUsers.find(u => u.id === userId);
+    if (!user) return;
+    document.getElementById("edit-user-id").value = user.id;
+    document.getElementById("edit-user-name").value = user.nombre || '';
+    document.getElementById("edit-user-role").value = user.rol || 'alumno';
+    document.getElementById("edit-user-fase").value = user.fase || 'fase-1';
+    document.getElementById("edit-user-status").value = user.estado || 'activo';
+    document.getElementById("edit-user-notes").value = user.notas || '';
+    openModal("modal-edit-user");
+  }
+
+  // ---- Modal helpers ----
+  function openModal(id) {
+    document.getElementById(id).classList.add('active');
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
+  }
+
+  // Close modal on overlay click
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal-overlay')) {
+      e.target.classList.remove('active');
+    }
+  });
+</script>
+
+</body>
+</html>

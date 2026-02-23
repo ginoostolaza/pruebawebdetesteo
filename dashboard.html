@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard | Gino Ostolaza</title>
 
-  <!-- Auth guard -->
+  <!-- Auth guard (quick check) -->
   <script>
     (function () {
-      const acceso = sessionStorage.getItem("accesoAutorizado");
+      var acceso = sessionStorage.getItem("accesoAutorizado");
       if (!acceso || acceso !== "true") {
         window.location.replace("iniciar-sesion.html");
       }
@@ -31,9 +31,13 @@
   <div class="dash-nav-left">
     <img class="dash-nav-logo" src="assets/img/branding/logo-favicon.png" alt="Logo" width="32" height="32">
     <span class="dash-nav-brand">Gino Ostolaza</span>
-    <span class="dash-nav-tag">Alumno</span>
+    <span class="dash-nav-tag" id="user-role-tag">Alumno</span>
   </div>
   <div class="dash-nav-right">
+    <a href="admin.html" class="btn-admin" id="btn-admin" style="display:none;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Panel Admin
+    </a>
     <div class="dash-nav-user">
       <div class="user-avatar" id="user-avatar">U</div>
       <span id="user-name-nav">Usuario</span>
@@ -55,7 +59,7 @@
     <div class="welcome-row">
       <div class="welcome-text">
         <h1>Bienvenido, <span id="user-name">Usuario</span></h1>
-        <p>Tu centro de aprendizaje y crecimiento en trading</p>
+        <p id="welcome-subtitle">Tu centro de aprendizaje y crecimiento en trading</p>
       </div>
       <div class="welcome-date" id="welcome-date">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -76,14 +80,14 @@
       <div class="stat-icon green">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
       </div>
-      <div class="stat-value">Activo</div>
+      <div class="stat-value" id="stat-status">Activo</div>
       <div class="stat-label">Estado de tu cuenta</div>
     </div>
     <div class="stat-card">
       <div class="stat-icon purple">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       </div>
-      <div class="stat-value">Fase 1</div>
+      <div class="stat-value" id="stat-fase">Fase 1</div>
       <div class="stat-label">Tu nivel actual</div>
     </div>
     <div class="stat-card">
@@ -95,6 +99,27 @@
     </div>
   </div>
 
+  <!-- Progress Section -->
+  <h2 class="section-title">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+    Tu progreso
+  </h2>
+
+  <div class="progress-section">
+    <div class="progress-header">
+      <div class="progress-stats">
+        <span class="progress-completed" id="progress-count">0 / 5</span>
+        <span class="progress-label">modulos completados</span>
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+      </div>
+    </div>
+    <div class="progress-modules" id="progress-modules">
+      <!-- Filled by JS -->
+    </div>
+  </div>
+
   <!-- Course Cards -->
   <h2 class="section-title">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
@@ -102,7 +127,6 @@
   </h2>
 
   <div class="dash-grid">
-
     <!-- Curso de Trading -->
     <div class="course-card card-blue">
       <div class="card-header">
@@ -157,9 +181,7 @@
           Psicotrading y desarrollo personal
         </li>
       </ul>
-      <span class="card-action action-disabled">
-        Disponible pronto
-      </span>
+      <span class="card-action action-disabled">Disponible pronto</span>
     </div>
 
     <!-- Comunidad -->
@@ -186,9 +208,7 @@
           Soporte entre pares
         </li>
       </ul>
-      <span class="card-action action-disabled">
-        Disponible pronto
-      </span>
+      <span class="card-action action-disabled">Disponible pronto</span>
     </div>
 
     <!-- Bot de Trading -->
@@ -220,7 +240,6 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </div>
-
   </div>
 
   <!-- Quick Links -->
@@ -269,25 +288,54 @@
 <script src="assets/js/auth.js"></script>
 
 <script>
+  const MODULE_NAMES = {
+    'preparacion-grafico': 'Preparacion del Grafico',
+    'flexzone': 'Sistema Flexzone',
+    'relleno-zona': 'Sistema Relleno de Zona',
+    'glosario': 'Glosario de Trading',
+    'consejos': 'Consejos y Errores a Evitar'
+  };
+
   document.addEventListener("DOMContentLoaded", async () => {
-    // --- Validate session with Supabase ---
     Auth.init();
     await Auth.guard();
 
-    // --- Load user data ---
     const userData = JSON.parse(sessionStorage.getItem("usuario") || "{}");
     const nombre = userData.nombre || "Usuario";
     const inicial = nombre.charAt(0).toUpperCase();
 
+    // --- User info ---
     document.getElementById("user-name").textContent = nombre;
     document.getElementById("user-name-nav").textContent = nombre;
     document.getElementById("user-avatar").textContent = inicial;
+
+    // --- Role tag ---
+    const roleTag = document.getElementById("user-role-tag");
+    if (userData.rol === 'admin') {
+      roleTag.textContent = 'Admin';
+      roleTag.classList.add('tag-admin');
+      document.getElementById("btn-admin").style.display = 'inline-flex';
+    }
+
+    // --- Status ---
+    const statusEl = document.getElementById("stat-status");
+    const estado = userData.estado || 'activo';
+    statusEl.textContent = estado.charAt(0).toUpperCase() + estado.slice(1);
+    if (estado === 'suspendido') statusEl.style.color = '#ef4444';
+
+    // --- Phase ---
+    const faseMap = { 'fase-1': 'Fase 1', 'fase-2': 'Fase 2', 'ambas': 'Fase 1 + 2' };
+    document.getElementById("stat-fase").textContent = faseMap[userData.fase] || 'Fase 1';
 
     // --- Date ---
     const now = new Date();
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const dateStr = now.toLocaleDateString('es-AR', options);
     document.getElementById("welcome-date").insertAdjacentText('beforeend', dateStr.charAt(0).toUpperCase() + dateStr.slice(1));
+
+    // --- Progress ---
+    const progress = await Auth.getProgress(userData.id);
+    renderProgress(progress, userData.id);
 
     // --- Logout ---
     document.getElementById("btn-logout").addEventListener("click", async () => {
@@ -300,6 +348,35 @@
       document.title = document.hidden ? "Volvemos pronto..." : "Dashboard | Gino Ostolaza";
     });
   });
+
+  function renderProgress(progress, userId) {
+    const container = document.getElementById("progress-modules");
+    const completed = progress.filter(p => p.completado).length;
+    const total = progress.length || 5;
+    const pct = Math.round((completed / total) * 100);
+
+    document.getElementById("progress-count").textContent = completed + " / " + total;
+    document.getElementById("progress-bar").style.width = pct + "%";
+
+    container.innerHTML = progress.map(p => {
+      const name = MODULE_NAMES[p.modulo] || p.modulo;
+      const checked = p.completado ? 'checked' : '';
+      const doneClass = p.completado ? 'module-done' : '';
+      return '<label class="progress-module ' + doneClass + '">' +
+        '<input type="checkbox" ' + checked + ' onchange="toggleModule(\'' + p.modulo + '\', this.checked, \'' + userId + '\')">' +
+        '<span class="module-check">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>' +
+        '</span>' +
+        '<span class="module-name">' + name + '</span>' +
+      '</label>';
+    }).join('');
+  }
+
+  async function toggleModule(modulo, completado, userId) {
+    await Auth.updateProgress(userId, modulo, completado);
+    const progress = await Auth.getProgress(userId);
+    renderProgress(progress, userId);
+  }
 </script>
 
 </body>

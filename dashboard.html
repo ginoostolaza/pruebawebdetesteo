@@ -100,12 +100,12 @@
   </div>
 
   <!-- Progress Section -->
-  <h2 class="section-title">
+  <h2 class="section-title" id="progress-title">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
     Tu progreso
   </h2>
 
-  <div class="progress-section">
+  <div class="progress-section" id="progress-section">
     <div class="progress-header">
       <div class="progress-stats">
         <span class="progress-completed" id="progress-count">0 / 5</span>
@@ -127,13 +127,13 @@
   </h2>
 
   <div class="dash-grid">
-    <!-- Curso de Trading -->
-    <div class="course-card card-blue">
+    <!-- Curso de Trading (dynamic: locked/unlocked by JS) -->
+    <div class="course-card card-blue" id="card-fase1">
       <div class="card-header">
         <div class="card-icon blue">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
         </div>
-        <span class="card-badge badge-active">Disponible</span>
+        <span class="card-badge" id="badge-fase1">-</span>
       </div>
       <h3 class="card-title">Curso de Trading — Fase 1</h3>
       <p class="card-desc">Sistemas probados, preparacion del grafico, estrategias Flexzone y Relleno de Zona, glosario y consejos avanzados.</p>
@@ -151,10 +151,7 @@
           Consejos, glosario y errores a evitar
         </li>
       </ul>
-      <a href="acceso-comunidad.html" class="card-action action-primary">
-        Acceder al curso
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
+      <div id="action-fase1"><!-- Filled by JS --></div>
     </div>
 
     <!-- Mentoria -->
@@ -325,7 +322,9 @@
 
     // --- Phase ---
     const faseMap = { 'fase-1': 'Fase 1', 'fase-2': 'Fase 2', 'ambas': 'Fase 1 + 2' };
-    document.getElementById("stat-fase").textContent = faseMap[userData.fase] || 'Fase 1';
+    const faseEl = document.getElementById("stat-fase");
+    faseEl.textContent = faseMap[userData.fase] || 'Sin acceso';
+    if (!userData.fase) faseEl.style.color = 'var(--color-text-dim)';
 
     // --- Date ---
     const now = new Date();
@@ -333,9 +332,19 @@
     const dateStr = now.toLocaleDateString('es-AR', options);
     document.getElementById("welcome-date").insertAdjacentText('beforeend', dateStr.charAt(0).toUpperCase() + dateStr.slice(1));
 
+    // --- Fase 1 card (locked/unlocked) ---
+    renderFase1Card(userData);
+
     // --- Progress ---
-    const progress = await Auth.getProgress(userData.id);
-    renderProgress(progress, userData.id);
+    const progressSection = document.getElementById("progress-section");
+    const progressTitle = document.getElementById("progress-title");
+    if (!userData.fase) {
+      progressSection.style.display = 'none';
+      progressTitle.style.display = 'none';
+    } else {
+      const progress = await Auth.getProgress(userData.id);
+      renderProgress(progress, userData.id);
+    }
 
     // --- Logout ---
     document.getElementById("btn-logout").addEventListener("click", async () => {
@@ -348,6 +357,35 @@
       document.title = document.hidden ? "Volvemos pronto..." : "Dashboard | Gino Ostolaza";
     });
   });
+
+  function renderFase1Card(userData) {
+    const card = document.getElementById("card-fase1");
+    const badge = document.getElementById("badge-fase1");
+    const action = document.getElementById("action-fase1");
+    const hasAccess = Auth.hasAccess('fase-1');
+
+    if (hasAccess) {
+      badge.textContent = 'Activo';
+      badge.className = 'card-badge badge-active';
+      action.innerHTML = '<a href="acceso-comunidad.html" class="card-action action-primary">' +
+        'Acceder al curso' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
+        '</a>';
+    } else {
+      card.classList.add('card-locked');
+      badge.textContent = 'Bloqueado';
+      badge.className = 'card-badge badge-locked';
+      action.innerHTML = '<a href="finalizar-compra.html?plan=fase1" class="card-action action-locked">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>' +
+        'Adquirir Fase 1' +
+        '</a>';
+    }
+
+    // Update welcome subtitle
+    if (!userData.fase) {
+      document.getElementById("welcome-subtitle").textContent = 'Adquiri un curso para comenzar tu camino en trading';
+    }
+  }
 
   function renderProgress(progress, userId) {
     const container = document.getElementById("progress-modules");

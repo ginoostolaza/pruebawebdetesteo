@@ -263,8 +263,17 @@
 
 </div>
 
+<!-- Supabase Auth -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/auth.js"></script>
+
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", async () => {
+    // --- Validate session with Supabase ---
+    Auth.init();
+    await Auth.guard();
+
     // --- Load user data ---
     const userData = JSON.parse(sessionStorage.getItem("usuario") || "{}");
     const nombre = userData.nombre || "Usuario";
@@ -281,8 +290,8 @@
     document.getElementById("welcome-date").insertAdjacentText('beforeend', dateStr.charAt(0).toUpperCase() + dateStr.slice(1));
 
     // --- Logout ---
-    document.getElementById("btn-logout").addEventListener("click", () => {
-      sessionStorage.clear();
+    document.getElementById("btn-logout").addEventListener("click", async () => {
+      await Auth.logout();
       window.location.href = "iniciar-sesion.html";
     });
 

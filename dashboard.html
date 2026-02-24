@@ -36,7 +36,7 @@
   <div class="dash-nav-right">
     <a href="admin.html" class="btn-admin" id="btn-admin" style="display:none;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      Panel Admin
+      <span>Panel Admin</span>
     </a>
     <div class="dash-nav-user">
       <div class="user-avatar" id="user-avatar">U</div>
@@ -394,9 +394,10 @@
     if (botActivo) {
       badge.textContent = 'Activo';
       badge.className = 'card-badge badge-active';
-      action.innerHTML = '<span class="card-action action-primary" style="cursor:default;">' +
+      action.innerHTML = '<span class="card-action action-bot-active">' +
+        '<span class="bot-pulse"></span>' +
+        'Bot operando 24/7' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>' +
-        'Bot activo' +
         '</span>';
     } else {
       badge.textContent = 'Nuevo';

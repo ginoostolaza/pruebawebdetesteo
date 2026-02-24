@@ -220,16 +220,17 @@
         </div>
       </div>
 
-      <!-- Toggle Bot -->
+      <!-- Toggle Bot + License -->
       <div class="action-card">
         <div class="action-card-icon purple">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.07A7 7 0 0 1 14 23h-4a7 7 0 0 1-6.93-4H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/></svg>
         </div>
-        <h4>Activar Bot</h4>
-        <p>Activa o desactiva el bot de trading para un usuario</p>
+        <h4>Activar Bot + Licencia</h4>
+        <p>Activa el bot y asigna una licencia al usuario</p>
         <div class="action-card-form">
           <select id="qa-bot-user" class="admin-select qa-select"></select>
-          <button class="btn-primary btn-sm" id="btn-qa-bot-on">Activar</button>
+          <input type="text" id="qa-bot-license" class="admin-search qa-select" placeholder="Licencia (auto-genera si vacio)">
+          <button class="btn-primary btn-sm" id="btn-qa-bot-on">Activar + Licencia</button>
           <button class="btn-danger btn-sm" id="btn-qa-bot-off">Desactivar</button>
         </div>
       </div>
@@ -310,6 +311,15 @@
             </label>
             <span class="toggle-label" id="edit-bot-label">Inactivo</span>
           </div>
+        </div>
+      </div>
+      <div class="modal-field" id="edit-license-field" style="display:none">
+        <label>Licencia del Bot</label>
+        <div class="license-input-row">
+          <input type="text" id="edit-user-license" placeholder="Ej: GBOT-XXXX-XXXX-XXXX" class="input-license">
+          <button type="button" class="btn-generate-license" id="btn-generate-license" title="Generar licencia">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </button>
         </div>
       </div>
       <div class="modal-field">
@@ -512,12 +522,14 @@
       e.preventDefault();
       const userId = document.getElementById("edit-user-id").value;
       const newFase = document.getElementById("edit-user-fase").value || null;
+      const botActive = document.getElementById("edit-user-bot").checked;
       const updates = {
         nombre: document.getElementById("edit-user-name").value,
         rol: document.getElementById("edit-user-role").value,
         fase: newFase,
         estado: document.getElementById("edit-user-status").value,
-        bot_activo: document.getElementById("edit-user-bot").checked,
+        bot_activo: botActive,
+        bot_licencia: botActive ? (document.getElementById("edit-user-license").value || null) : null,
         notas: document.getElementById("edit-user-notes").value
       };
 
@@ -539,9 +551,15 @@
       }
     });
 
-    // Bot toggle label update
+    // Bot toggle label + license field visibility
     document.getElementById("edit-user-bot").addEventListener("change", (e) => {
       document.getElementById("edit-bot-label").textContent = e.target.checked ? 'Activo' : 'Inactivo';
+      document.getElementById("edit-license-field").style.display = e.target.checked ? 'block' : 'none';
+    });
+
+    // Generate license button
+    document.getElementById("btn-generate-license").addEventListener("click", () => {
+      document.getElementById("edit-user-license").value = generateLicense();
     });
 
     // Payment filter
@@ -626,6 +644,8 @@
     const botCheckbox = document.getElementById("edit-user-bot");
     botCheckbox.checked = !!user.bot_activo;
     document.getElementById("edit-bot-label").textContent = user.bot_activo ? 'Activo' : 'Inactivo';
+    document.getElementById("edit-user-license").value = user.bot_licencia || '';
+    document.getElementById("edit-license-field").style.display = user.bot_activo ? 'block' : 'none';
     openModal("modal-edit-user");
   }
 
@@ -678,13 +698,15 @@
       }
     });
 
-    // Activate bot
+    // Activate bot + license
     document.getElementById('btn-qa-bot-on').addEventListener('click', async function() {
       const userId = document.getElementById('qa-bot-user').value;
       if (!userId) { showToast('Selecciona un usuario', 'error'); return; }
-      const result = await Auth.updateUser(userId, { bot_activo: true });
+      const license = document.getElementById('qa-bot-license').value || generateLicense();
+      const result = await Auth.updateUser(userId, { bot_activo: true, bot_licencia: license });
       if (result.success) {
-        showToast('Bot activado correctamente');
+        showToast('Bot activado con licencia: ' + license);
+        document.getElementById('qa-bot-license').value = '';
         await loadData();
       } else {
         showToast('Error: ' + (result.error || 'No se pudo actualizar'), 'error');
@@ -695,9 +717,9 @@
     document.getElementById('btn-qa-bot-off').addEventListener('click', async function() {
       const userId = document.getElementById('qa-bot-user').value;
       if (!userId) { showToast('Selecciona un usuario', 'error'); return; }
-      const result = await Auth.updateUser(userId, { bot_activo: false });
+      const result = await Auth.updateUser(userId, { bot_activo: false, bot_licencia: null });
       if (result.success) {
-        showToast('Bot desactivado');
+        showToast('Bot desactivado y licencia removida');
         await loadData();
       } else {
         showToast('Error: ' + (result.error || 'No se pudo actualizar'), 'error');
@@ -762,6 +784,20 @@
       showToast('Pagos exportados');
     });
   });
+
+  // ---- Generate license key ----
+  function generateLicense() {
+    var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    var parts = [];
+    for (var p = 0; p < 3; p++) {
+      var segment = '';
+      for (var i = 0; i < 4; i++) {
+        segment += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      parts.push(segment);
+    }
+    return 'GBOT-' + parts.join('-');
+  }
 
   function downloadCSV(filename, content) {
     const blob = new Blob(['\ufeff' + content], { type: 'text/csv;charset=utf-8;' });

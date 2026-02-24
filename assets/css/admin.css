@@ -771,6 +771,47 @@ a { color: inherit; text-decoration: none; }
   color: var(--color-text-muted);
 }
 
+/* ---- License input ---- */
+.license-input-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.input-license {
+  flex: 1;
+  font-family: 'Courier New', monospace !important;
+  font-size: 0.92rem !important;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.btn-generate-license {
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  background: rgba(139, 92, 246, 0.08);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition);
+  flex-shrink: 0;
+}
+
+.btn-generate-license svg {
+  width: 16px;
+  height: 16px;
+  color: var(--color-secondary);
+}
+
+.btn-generate-license:hover {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: rgba(139, 92, 246, 0.35);
+  transform: scale(1.05);
+}
+
 /* ============================================================
    QUICK ACTIONS
    ============================================================ */

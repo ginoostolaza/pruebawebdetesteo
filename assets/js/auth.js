@@ -35,7 +35,8 @@ const Auth = (function () {
       rol: profile?.rol || fallback?.rol || 'alumno',
       fase: profile ? profile.fase : (fallback ? fallback.fase : null),
       estado: profile?.estado || fallback?.estado || 'activo',
-      bot_activo: profile ? !!profile.bot_activo : (fallback ? !!fallback.bot_activo : false)
+      bot_activo: profile ? !!profile.bot_activo : (fallback ? !!fallback.bot_activo : false),
+      bot_licencia: profile?.bot_licencia || fallback?.bot_licencia || null
     };
   }
 
@@ -214,7 +215,8 @@ const Auth = (function () {
         rol: profile.rol || existing.rol,
         fase: profile.fase,
         estado: profile.estado || existing.estado,
-        bot_activo: !!profile.bot_activo
+        bot_activo: !!profile.bot_activo,
+        bot_licencia: profile.bot_licencia || null
       };
       sessionStorage.setItem('usuario', JSON.stringify(userData));
       return userData;

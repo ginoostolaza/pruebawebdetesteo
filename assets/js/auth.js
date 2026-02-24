@@ -26,6 +26,19 @@ const Auth = (function () {
     return supabase;
   }
 
+  // ---- Build user data from profile, with fallbacks ----
+  function buildUserData(authUser, profile, fallback) {
+    return {
+      id: authUser.id,
+      nombre: profile?.nombre || fallback?.nombre || authUser.user_metadata?.nombre || authUser.email.split('@')[0],
+      email: authUser.email,
+      rol: profile?.rol || fallback?.rol || 'alumno',
+      fase: profile ? profile.fase : (fallback ? fallback.fase : null),
+      estado: profile?.estado || fallback?.estado || 'activo',
+      bot_activo: profile ? !!profile.bot_activo : (fallback ? !!fallback.bot_activo : false)
+    };
+  }
+
   // ---- LOGIN ----
   async function login(email, password) {
     if (!supabase) return demoLogin(email, password);
@@ -36,15 +49,11 @@ const Auth = (function () {
     const user = data.user;
     const profile = await getProfile(user.id);
 
-    const userData = {
-      id: user.id,
-      nombre: profile?.nombre || user.user_metadata?.nombre || user.email.split('@')[0],
-      email: user.email,
-      rol: profile?.rol || 'alumno',
-      fase: profile?.fase || null,
-      estado: profile?.estado || 'activo',
-      bot_activo: profile?.bot_activo || false
-    };
+    if (!profile) {
+      console.warn('[Auth] No se pudo leer el perfil del usuario. Verificar politicas RLS en la tabla profiles.');
+    }
+
+    const userData = buildUserData(user, profile, null);
 
     sessionStorage.setItem('usuario', JSON.stringify(userData));
     sessionStorage.setItem('accesoAutorizado', 'true');
@@ -98,7 +107,11 @@ const Auth = (function () {
   async function getProfile(userId) {
     if (!supabase) return null;
     const { data, error } = await supabase.from('profiles').select('*').eq('id', userId).single();
-    if (error) console.error('[Auth] Error fetching profile:', error.message);
+    if (error) {
+      console.error('[Auth] Error fetching profile:', error.message);
+      console.error('[Auth] Esto puede deberse a politicas RLS faltantes. Ejecuta en SQL de Supabase:');
+      console.error('  CREATE POLICY "Users can read own profile" ON profiles FOR SELECT USING (auth.uid() = id);');
+    }
     return data;
   }
 
@@ -147,15 +160,13 @@ const Auth = (function () {
       const user = data.session.user;
       const profile = await getProfile(user.id);
 
-      const userData = {
-        id: user.id,
-        nombre: profile?.nombre || user.user_metadata?.nombre || user.email.split('@')[0],
-        email: user.email,
-        rol: profile?.rol || 'alumno',
-        fase: profile?.fase || null,
-        estado: profile?.estado || 'activo',
-        bot_activo: profile?.bot_activo || false
-      };
+      // Use existing sessionStorage data as fallback if profile fetch fails
+      const existing = JSON.parse(sessionStorage.getItem('usuario') || '{}');
+      const userData = buildUserData(user, profile, existing);
+
+      if (!profile) {
+        console.warn('[Auth] Perfil no leido desde DB. Usando datos en cache. Rol actual:', userData.rol);
+      }
 
       sessionStorage.setItem('usuario', JSON.stringify(userData));
       sessionStorage.setItem('accesoAutorizado', 'true');
@@ -179,8 +190,36 @@ const Auth = (function () {
         window.location.replace('iniciar-sesion.html');
         return false;
       }
+      // Check if account is suspended
+      const userData = JSON.parse(sessionStorage.getItem('usuario') || '{}');
+      if (userData.estado === 'suspendido') {
+        sessionStorage.clear();
+        window.location.replace('iniciar-sesion.html');
+        return false;
+      }
     }
     return true;
+  }
+
+  // ---- REFRESH PROFILE: force re-fetch from DB ----
+  async function refreshProfile() {
+    if (!supabase) return null;
+    const existing = JSON.parse(sessionStorage.getItem('usuario') || '{}');
+    if (!existing.id) return null;
+    const profile = await getProfile(existing.id);
+    if (profile) {
+      const userData = {
+        ...existing,
+        nombre: profile.nombre || existing.nombre,
+        rol: profile.rol || existing.rol,
+        fase: profile.fase,
+        estado: profile.estado || existing.estado,
+        bot_activo: !!profile.bot_activo
+      };
+      sessionStorage.setItem('usuario', JSON.stringify(userData));
+      return userData;
+    }
+    return existing;
   }
 
   // ---- CHECK COURSE ACCESS ----
@@ -300,7 +339,7 @@ const Auth = (function () {
     init, isConfigured, getClient,
     login, register, resetPassword, logout,
     getSession, getProfile, getProgress, updateProgress, getPayments,
-    guard, courseGuard, adminGuard, hasAccess,
+    guard, courseGuard, adminGuard, hasAccess, refreshProfile,
     getAllUsers, updateUser, getAllProgress, getAllPayments, addPayment, initProgress
   };
 })();

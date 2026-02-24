@@ -306,7 +306,7 @@ const Auth = (function () {
   function demoLogin(email, password) {
     if (email === 'admin@admin.com' && password === 'admin123') {
       sessionStorage.setItem('usuario', JSON.stringify({
-        nombre: 'Gino Ostolaza', email, rol: 'admin', fase: 'ambas', estado: 'activo'
+        nombre: 'Admin', email, rol: 'admin', fase: 'ambas', estado: 'activo'
       }));
       sessionStorage.setItem('accesoAutorizado', 'true');
       sessionStorage.setItem('timestampAcceso', Date.now().toString());

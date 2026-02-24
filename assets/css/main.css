@@ -253,6 +253,25 @@ nav.scrolled {
   width: 100%;
 }
 
+.nav-login-btn {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent, #8b5cf6));
+  color: #fff !important;
+  padding: 0.45rem 1.1rem !important;
+  border-radius: 8px;
+  font-weight: 600 !important;
+  font-size: 0.82rem !important;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 12px rgba(59, 130, 246, 0.25);
+}
+
+.nav-login-btn::after { display: none !important; }
+
+.nav-login-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.35);
+  color: #fff !important;
+}
+
 /* Hamburger */
 .nav-toggle {
   display: none;

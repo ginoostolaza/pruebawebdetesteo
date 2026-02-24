@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bot de Trading | Gino Ostolaza</title>
+
+  <!-- Auth guard -->
+  <script>
+    (function () {
+      var acceso = sessionStorage.getItem("accesoAutorizado");
+      if (!acceso || acceso !== "true") {
+        window.location.replace("iniciar-sesion.html");
+      }
+    })();
+  </script>
+
+  <link rel="icon" href="assets/img/branding/logo-favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/bot.css">
+  <meta name="theme-color" content="#0a0e17">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="bot-nav">
+  <div class="bot-nav-left">
+    <img src="assets/img/branding/logo-favicon.png" alt="Logo" width="32" height="32" style="border-radius:8px">
+    <span class="bot-nav-brand">Bot de Trading</span>
+    <span class="bot-nav-tag">
+      <span class="bot-pulse-sm"></span>
+      Activo
+    </span>
+  </div>
+  <div class="bot-nav-right">
+    <a href="dashboard.html" class="nav-link-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Dashboard
+    </a>
+    <button class="btn-logout" id="btn-logout">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+      Salir
+    </button>
+  </div>
+</nav>
+
+<div class="bot-container">
+
+  <!-- Hero Status -->
+  <div class="bot-hero">
+    <div class="bot-hero-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.07A7 7 0 0 1 14 23h-4a7 7 0 0 1-6.93-4H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/></svg>
+      <span class="hero-pulse"></span>
+    </div>
+    <div class="bot-hero-text">
+      <h1>Tu bot esta <span class="text-gradient">operando</span></h1>
+      <p>El bot de trading automatizado esta activo y trabajando por vos las 24 horas del dia, los 7 dias de la semana.</p>
+    </div>
+    <div class="bot-hero-status">
+      <div class="status-pill active">
+        <span class="status-dot"></span>
+        Operativo
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="bot-stats">
+    <div class="bot-stat-card">
+      <div class="bot-stat-icon cyan">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      </div>
+      <div class="bot-stat-value">24/7</div>
+      <div class="bot-stat-label">Operacion continua</div>
+    </div>
+    <div class="bot-stat-card">
+      <div class="bot-stat-icon green">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
+      </div>
+      <div class="bot-stat-value">Auto</div>
+      <div class="bot-stat-label">Modo automatico</div>
+    </div>
+    <div class="bot-stat-card">
+      <div class="bot-stat-icon purple">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
+      <div class="bot-stat-value">Live</div>
+      <div class="bot-stat-label">Actualizaciones en vivo</div>
+    </div>
+  </div>
+
+  <!-- Info Sections -->
+  <div class="bot-sections">
+
+    <!-- How it works -->
+    <div class="bot-section">
+      <div class="section-header">
+        <div class="section-icon blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <h2>Como funciona</h2>
+      </div>
+      <div class="section-content">
+        <div class="step-list">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-text">
+              <strong>Configuracion inicial</strong>
+              <p>Gino configura el bot con las estrategias optimizadas para el mercado actual.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-text">
+              <strong>Conexion a tu cuenta</strong>
+              <p>Conectas el bot a tu cuenta de trading siguiendo las instrucciones de abajo.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-text">
+              <strong>Operacion automatica</strong>
+              <p>El bot opera automaticamente 24/7 ejecutando trades basados en las estrategias configuradas.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-text">
+              <strong>Actualizaciones</strong>
+              <p>Gino actualiza regularmente las estrategias del bot segun las condiciones del mercado.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Setup instructions -->
+    <div class="bot-section">
+      <div class="section-header">
+        <div class="section-icon green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <h2>Instrucciones de conexion</h2>
+      </div>
+      <div class="section-content">
+        <div class="instruction-cards">
+          <div class="instruction-card">
+            <div class="instruction-num">01</div>
+            <h4>Crea tu cuenta en el broker</h4>
+            <p>Registrate en el broker recomendado y completa la verificacion de tu identidad.</p>
+          </div>
+          <div class="instruction-card">
+            <div class="instruction-num">02</div>
+            <h4>Genera tu API Key</h4>
+            <p>En la seccion de seguridad o API de tu broker, genera una clave API con permisos de trading.</p>
+          </div>
+          <div class="instruction-card">
+            <div class="instruction-num">03</div>
+            <h4>Envia tus credenciales</h4>
+            <p>Contacta a Gino por Instagram y enviale tu API Key y Secret de forma segura.</p>
+          </div>
+          <div class="instruction-card">
+            <div class="instruction-num">04</div>
+            <h4>Listo para operar</h4>
+            <p>Gino conecta el bot a tu cuenta y comienza a operar automaticamente.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Important notes -->
+    <div class="bot-section">
+      <div class="section-header">
+        <div class="section-icon orange">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        </div>
+        <h2>Notas importantes</h2>
+      </div>
+      <div class="section-content">
+        <div class="notes-grid">
+          <div class="note-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div>
+              <strong>Seguridad</strong>
+              <p>Nunca compartas tu API Key publicamente. Solo envialas directamente a Gino.</p>
+            </div>
+          </div>
+          <div class="note-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <div>
+              <strong>Capital minimo</strong>
+              <p>Se recomienda un capital minimo para que el bot opere de forma efectiva. Consulta con Gino.</p>
+            </div>
+          </div>
+          <div class="note-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            <div>
+              <strong>Riesgo</strong>
+              <p>El trading conlleva riesgos. Los resultados pasados no garantizan resultados futuros.</p>
+            </div>
+          </div>
+          <div class="note-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            <div>
+              <strong>Soporte</strong>
+              <p>Para cualquier duda o problema con el bot, contacta directamente a Gino por Instagram.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="bot-cta">
+    <a href="https://instagram.com/ginoostolaza_" target="_blank" rel="noopener noreferrer" class="bot-cta-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      Contactar a Gino por Instagram
+    </a>
+    <a href="dashboard.html" class="bot-cta-secondary">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Volver al Dashboard
+    </a>
+  </div>
+
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/auth.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    Auth.init();
+    await Auth.guard();
+
+    const userData = JSON.parse(sessionStorage.getItem("usuario") || "{}");
+
+    // If bot not active, redirect to dashboard
+    if (!userData.bot_activo) {
+      window.location.replace("dashboard.html");
+      return;
+    }
+
+    // Logout
+    document.getElementById("btn-logout").addEventListener("click", async () => {
+      await Auth.logout();
+      window.location.href = "iniciar-sesion.html";
+    });
+  });
+</script>
+
+</body>
+</html>

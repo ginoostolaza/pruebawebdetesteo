@@ -394,11 +394,11 @@
     if (botActivo) {
       badge.textContent = 'Activo';
       badge.className = 'card-badge badge-active';
-      action.innerHTML = '<span class="card-action action-bot-active">' +
+      action.innerHTML = '<a href="bot.html" class="card-action action-bot-active">' +
         '<span class="bot-pulse"></span>' +
-        'Bot operando 24/7' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>' +
-        '</span>';
+        'Bot operando 24/7 — Ver detalles' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
+        '</a>';
     } else {
       badge.textContent = 'Nuevo';
       badge.className = 'card-badge badge-new';

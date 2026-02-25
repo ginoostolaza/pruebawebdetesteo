@@ -249,6 +249,29 @@
         </div>
       </div>
 
+      <!-- Send notification -->
+      <div class="action-card">
+        <div class="action-card-icon cyan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
+        <h4>Enviar notificacion</h4>
+        <p>Envia una notificacion a un usuario o a todos</p>
+        <div class="action-card-form">
+          <select id="qa-notif-user" class="admin-select qa-select">
+            <option value="all">Todos los usuarios</option>
+          </select>
+          <select id="qa-notif-type" class="admin-select qa-select">
+            <option value="info">Informacion</option>
+            <option value="success">Exito</option>
+            <option value="warning">Advertencia</option>
+            <option value="error">Urgente</option>
+          </select>
+          <input type="text" id="qa-notif-title" class="admin-search qa-select" placeholder="Titulo de la notificacion">
+          <textarea id="qa-notif-message" class="admin-search qa-select" rows="2" placeholder="Mensaje..." style="resize:vertical;min-height:60px;"></textarea>
+          <button class="btn-primary btn-sm" id="btn-qa-notif-send">Enviar notificacion</button>
+        </div>
+      </div>
+
       <!-- Export data -->
       <div class="action-card">
         <div class="action-card-icon green">
@@ -488,6 +511,11 @@
     document.getElementById("qa-access-user").innerHTML = options;
     document.getElementById("qa-bot-user").innerHTML = options;
     document.getElementById("qa-suspend-user").innerHTML = options;
+
+    // Notification select includes "all users" option
+    const notifOptions = '<option value="all">Todos los usuarios</option>' +
+      allUsers.map(u => '<option value="' + u.id + '">' + (u.nombre || u.email) + '</option>').join('');
+    document.getElementById("qa-notif-user").innerHTML = notifOptions;
   }
 
   // ---- Setup Event Listeners ----
@@ -750,6 +778,36 @@
         await loadData();
       } else {
         showToast('Error: ' + (result.error || 'No se pudo actualizar'), 'error');
+      }
+    });
+
+    // Send notification
+    document.getElementById('btn-qa-notif-send').addEventListener('click', async function() {
+      var targetUser = document.getElementById('qa-notif-user').value;
+      var titulo = document.getElementById('qa-notif-title').value.trim();
+      var mensaje = document.getElementById('qa-notif-message').value.trim();
+      var tipo = document.getElementById('qa-notif-type').value;
+
+      if (!titulo || !mensaje) {
+        showToast('Completa titulo y mensaje', 'error');
+        return;
+      }
+
+      var result;
+      if (targetUser === 'all') {
+        var userIds = allUsers.map(function(u) { return u.id; });
+        result = await Auth.sendBulkNotification(userIds, titulo, mensaje, tipo);
+      } else {
+        result = await Auth.sendNotification(targetUser, titulo, mensaje, tipo);
+      }
+
+      if (result.success) {
+        var count = targetUser === 'all' ? allUsers.length : 1;
+        showToast('Notificacion enviada a ' + count + ' usuario(s)');
+        document.getElementById('qa-notif-title').value = '';
+        document.getElementById('qa-notif-message').value = '';
+      } else {
+        showToast('Error: ' + (result.error || 'No se pudo enviar'), 'error');
       }
     });
 

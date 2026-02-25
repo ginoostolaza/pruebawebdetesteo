@@ -38,6 +38,24 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       <span>Panel Admin</span>
     </a>
+    <!-- Notification Bell -->
+    <div class="notif-wrapper" id="notif-wrapper">
+      <button class="notif-bell" id="notif-bell" title="Notificaciones">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="notif-badge" id="notif-badge" style="display:none;">0</span>
+      </button>
+      <div class="notif-dropdown" id="notif-dropdown">
+        <div class="notif-dropdown-header">
+          <h4>Notificaciones</h4>
+          <button class="notif-mark-all" id="notif-mark-all" title="Marcar todas como leidas">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
+          </button>
+        </div>
+        <div class="notif-list" id="notif-list">
+          <div class="notif-empty">No tienes notificaciones</div>
+        </div>
+      </div>
+    </div>
     <div class="dash-nav-user">
       <div class="user-avatar" id="user-avatar">U</div>
       <span id="user-name-nav">Usuario</span>
@@ -346,6 +364,10 @@
       renderProgress(progress, userData.id);
     }
 
+    // --- Notifications ---
+    await loadNotifications(userData.id);
+    setupNotificationListeners(userData.id);
+
     // --- Logout ---
     document.getElementById("btn-logout").addEventListener("click", async () => {
       await Auth.logout();
@@ -436,6 +458,98 @@
     await Auth.updateProgress(userId, modulo, completado);
     const progress = await Auth.getProgress(userId);
     renderProgress(progress, userId);
+  }
+
+  // ---- NOTIFICATIONS ----
+  async function loadNotifications(userId) {
+    const notifications = await Auth.getNotifications(userId);
+    const unreadCount = notifications.filter(n => !n.leida).length;
+    const badge = document.getElementById("notif-badge");
+    const list = document.getElementById("notif-list");
+
+    if (unreadCount > 0) {
+      badge.textContent = unreadCount > 9 ? '9+' : unreadCount;
+      badge.style.display = 'flex';
+    } else {
+      badge.style.display = 'none';
+    }
+
+    if (!notifications.length) {
+      list.innerHTML = '<div class="notif-empty">No tienes notificaciones</div>';
+      return;
+    }
+
+    list.innerHTML = notifications.map(function(n) {
+      var tipoIcon = {
+        info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>',
+        success: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>',
+        warning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+        error: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>'
+      };
+      var icon = tipoIcon[n.tipo] || tipoIcon.info;
+      var unreadClass = n.leida ? '' : ' notif-unread';
+      var timeAgo = getTimeAgo(n.created_at);
+
+      return '<div class="notif-item' + unreadClass + '" data-id="' + n.id + '">' +
+        '<div class="notif-icon notif-icon-' + (n.tipo || 'info') + '">' + icon + '</div>' +
+        '<div class="notif-content">' +
+          '<div class="notif-title">' + escapeHtml(n.titulo) + '</div>' +
+          '<div class="notif-message">' + escapeHtml(n.mensaje) + '</div>' +
+          '<div class="notif-time">' + timeAgo + '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  function setupNotificationListeners(userId) {
+    var bell = document.getElementById("notif-bell");
+    var dropdown = document.getElementById("notif-dropdown");
+    var wrapper = document.getElementById("notif-wrapper");
+
+    bell.addEventListener("click", function(e) {
+      e.stopPropagation();
+      dropdown.classList.toggle("open");
+    });
+
+    document.addEventListener("click", function(e) {
+      if (!wrapper.contains(e.target)) {
+        dropdown.classList.remove("open");
+      }
+    });
+
+    // Mark single notification as read on click
+    document.getElementById("notif-list").addEventListener("click", async function(e) {
+      var item = e.target.closest('.notif-item');
+      if (item && item.classList.contains('notif-unread')) {
+        var id = item.dataset.id;
+        await Auth.markNotificationRead(id);
+        item.classList.remove('notif-unread');
+        await loadNotifications(userId);
+      }
+    });
+
+    // Mark all as read
+    document.getElementById("notif-mark-all").addEventListener("click", async function() {
+      await Auth.markAllNotificationsRead(userId);
+      await loadNotifications(userId);
+    });
+  }
+
+  function getTimeAgo(dateStr) {
+    var now = new Date();
+    var date = new Date(dateStr);
+    var diff = Math.floor((now - date) / 1000);
+    if (diff < 60) return 'Hace un momento';
+    if (diff < 3600) return 'Hace ' + Math.floor(diff / 60) + ' min';
+    if (diff < 86400) return 'Hace ' + Math.floor(diff / 3600) + 'h';
+    if (diff < 604800) return 'Hace ' + Math.floor(diff / 86400) + 'd';
+    return date.toLocaleDateString('es-AR');
+  }
+
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.textContent = str || '';
+    return div.innerHTML;
   }
 </script>
 

@@ -84,7 +84,7 @@ exports.handler = async (event) => {
           producto_id,
           user_email
         },
-        statement_descriptor: 'GINO OSTOLAZA'
+        statement_descriptor: 'BINARY EDGE'
       }
     });
 

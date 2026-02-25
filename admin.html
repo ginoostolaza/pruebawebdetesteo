@@ -615,7 +615,7 @@
         showToast('Usuario actualizado correctamente');
         await loadData();
       } else {
-        alert("Error: " + (result.error || "No se pudo actualizar"));
+        showToast("Error: " + (result.error || "No se pudo actualizar"), 'error');
       }
     });
 
@@ -650,7 +650,7 @@
         estado: 'completado'
       };
       if (!payment.user_id || !payment.monto) {
-        alert("Completa usuario y monto.");
+        showToast("Completa usuario y monto.", 'error');
         return;
       }
       const result = await Auth.addPayment(payment);
@@ -659,7 +659,7 @@
         document.getElementById("form-add-payment").reset();
         await loadData();
       } else {
-        alert("Error: " + (result.error || "No se pudo registrar"));
+        showToast("Error: " + (result.error || "No se pudo registrar"), 'error');
       }
     });
   }

@@ -369,8 +369,11 @@ const Auth = (function () {
     return { success: !error, error: error?.message };
   }
 
-  // ---- DEMO LOGIN ----
+  // ---- DEMO LOGIN (development only) ----
   function demoLogin(email, password) {
+    var isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    if (!isDev) return { success: false, message: 'Servicio no disponible. Intenta de nuevo mas tarde.' };
+
     if (email === 'admin@admin.com' && password === 'admin123') {
       sessionStorage.setItem('usuario', JSON.stringify({
         nombre: 'Admin', email, rol: 'admin', fase: 'ambas', estado: 'activo'

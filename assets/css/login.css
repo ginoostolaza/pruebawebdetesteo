@@ -597,6 +597,33 @@ a { color: inherit; text-decoration: none; }
   to { transform: translateY(0); opacity: 1; }
 }
 
+/* Mobile back link (hidden on desktop, shown on mobile) */
+.mobile-back-link {
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-dim);
+  margin-bottom: 1.5rem;
+  padding: 0.3rem 0;
+  transition: all var(--transition);
+}
+
+.mobile-back-link:hover {
+  color: var(--color-primary);
+}
+
+.mobile-back-link svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--transition);
+}
+
+.mobile-back-link:hover svg {
+  transform: translateX(-3px);
+}
+
 /* ============================================================
    RESPONSIVE
    ============================================================ */
@@ -607,6 +634,10 @@ a { color: inherit; text-decoration: none; }
 
   .login-branding {
     display: none;
+  }
+
+  .mobile-back-link {
+    display: inline-flex;
   }
 
   .login-form-panel {

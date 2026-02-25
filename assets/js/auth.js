@@ -36,7 +36,8 @@ const Auth = (function () {
       fase: profile ? profile.fase : (fallback ? fallback.fase : null),
       estado: profile?.estado || fallback?.estado || 'activo',
       bot_activo: profile ? !!profile.bot_activo : (fallback ? !!fallback.bot_activo : false),
-      bot_licencia: profile?.bot_licencia || fallback?.bot_licencia || null
+      bot_licencia: profile?.bot_licencia || fallback?.bot_licencia || null,
+      comunidad_activa: profile ? !!profile.comunidad_activa : (fallback ? !!fallback.comunidad_activa : false)
     };
   }
 
@@ -216,7 +217,8 @@ const Auth = (function () {
         fase: profile.fase,
         estado: profile.estado || existing.estado,
         bot_activo: !!profile.bot_activo,
-        bot_licencia: profile.bot_licencia || null
+        bot_licencia: profile.bot_licencia || null,
+        comunidad_activa: !!profile.comunidad_activa
       };
       sessionStorage.setItem('usuario', JSON.stringify(userData));
       return userData;

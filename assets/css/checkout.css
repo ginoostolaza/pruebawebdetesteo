@@ -1118,6 +1118,60 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* ============================================================
+   MANUAL PAYMENT BANNER
+   ============================================================ */
+.manual-payment-banner {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.25rem 1.5rem;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(245, 158, 11, 0.03));
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: var(--radius-md);
+  margin-bottom: 0.5rem;
+}
+
+.manual-payment-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: rgba(245, 158, 11, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-warning);
+}
+
+.manual-payment-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.manual-payment-content h3 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-warning);
+  margin-bottom: 0.3rem;
+}
+
+.manual-payment-content p {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+}
+
+.manual-payment-content a {
+  color: var(--color-primary);
+  font-weight: 600;
+  transition: color var(--transition-base);
+}
+
+.manual-payment-content a:hover {
+  color: var(--color-accent);
+}
+
+/* ============================================================
    REDUCED MOTION
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {

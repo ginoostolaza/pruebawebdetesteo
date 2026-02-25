@@ -199,13 +199,13 @@
       <span class="card-action action-disabled">Disponible pronto</span>
     </div>
 
-    <!-- Comunidad -->
-    <div class="course-card card-green">
+    <!-- Comunidad (dynamic: active/locked by JS) -->
+    <div class="course-card card-green" id="card-comunidad">
       <div class="card-header">
         <div class="card-icon green">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
-        <span class="card-badge badge-soon">Proximamente</span>
+        <span class="card-badge" id="badge-comunidad">-</span>
       </div>
       <h3 class="card-title">Comunidad Privada</h3>
       <p class="card-desc">Conecta con otros traders, comparte analisis, resultados y crece en un entorno motivador y de alto nivel.</p>
@@ -223,7 +223,7 @@
           Soporte entre pares
         </li>
       </ul>
-      <span class="card-action action-disabled">Disponible pronto</span>
+      <div id="action-comunidad"><!-- Filled by JS --></div>
     </div>
 
     <!-- Bot de Trading (dynamic: active/locked by JS) -->
@@ -353,6 +353,9 @@
     // --- Bot card (active/locked) ---
     renderBotCard(userData);
 
+    // --- Comunidad card (active/locked) ---
+    renderComunidadCard(userData);
+
     // --- Progress ---
     const progressSection = document.getElementById("progress-section");
     const progressTitle = document.getElementById("progress-title");
@@ -428,6 +431,30 @@
         'Suscribirme — $7.500 ARS / USD 5' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
         '</a>';
+    }
+  }
+
+  function renderComunidadCard(userData) {
+    const badge = document.getElementById("badge-comunidad");
+    const action = document.getElementById("action-comunidad");
+    const card = document.getElementById("card-comunidad");
+    const hasAccess = !!userData.comunidad_activa;
+
+    if (hasAccess) {
+      badge.textContent = 'Activo';
+      badge.className = 'card-badge badge-active';
+      action.innerHTML = '<a href="comunidad-privada.html" class="card-action action-primary">' +
+        'Entrar a la comunidad' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
+        '</a>';
+    } else {
+      card.classList.add('card-locked');
+      badge.textContent = 'Bloqueado';
+      badge.className = 'card-badge badge-locked';
+      action.innerHTML = '<span class="card-action action-locked">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>' +
+        'Contacta a soporte para acceder' +
+        '</span>';
     }
   }
 

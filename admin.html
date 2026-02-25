@@ -99,6 +99,10 @@
       <span class="stat-mini-label">Pagos pendientes</span>
       <span class="stat-mini-value" id="stat-pending-payments">-</span>
     </div>
+    <div class="admin-stat-mini">
+      <span class="stat-mini-label">En comunidad</span>
+      <span class="stat-mini-value" id="stat-comunidad">-</span>
+    </div>
   </div>
 
   <!-- Tab Navigation -->
@@ -133,6 +137,7 @@
           <option value="fase-1">Con Fase 1</option>
           <option value="ambas">Con Ambas Fases</option>
           <option value="sin-acceso">Sin acceso</option>
+          <option value="comunidad">En comunidad</option>
         </select>
       </div>
     </div>
@@ -146,13 +151,14 @@
             <th>Rol</th>
             <th>Fase</th>
             <th>Bot</th>
+            <th>Comunidad</th>
             <th>Estado</th>
             <th>Registro</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody id="users-table-body">
-          <tr><td colspan="8" class="table-loading">Cargando usuarios...</td></tr>
+          <tr><td colspan="9" class="table-loading">Cargando usuarios...</td></tr>
         </tbody>
       </table>
     </div>
@@ -249,6 +255,20 @@
         </div>
       </div>
 
+      <!-- Community access -->
+      <div class="action-card">
+        <div class="action-card-icon green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h4>Acceso a Comunidad</h4>
+        <p>Otorga o revoca acceso a la comunidad privada</p>
+        <div class="action-card-form">
+          <select id="qa-comunidad-user" class="admin-select qa-select"></select>
+          <button class="btn-primary btn-sm" id="btn-qa-comunidad-on">Dar acceso</button>
+          <button class="btn-danger btn-sm" id="btn-qa-comunidad-off">Revocar acceso</button>
+        </div>
+      </div>
+
       <!-- Send notification -->
       <div class="action-card">
         <div class="action-card-icon cyan">
@@ -333,6 +353,18 @@
               <span class="toggle-slider"></span>
             </label>
             <span class="toggle-label" id="edit-bot-label">Inactivo</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-field">
+          <label>Comunidad Privada</label>
+          <div class="toggle-wrapper">
+            <label class="toggle-switch">
+              <input type="checkbox" id="edit-user-comunidad">
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label" id="edit-comunidad-label">Sin acceso</span>
           </div>
         </div>
       </div>
@@ -444,13 +476,14 @@
     document.getElementById("stat-no-access").textContent = allUsers.filter(u => !u.fase).length;
     document.getElementById("stat-completed-payments").textContent = completedPayments.length;
     document.getElementById("stat-pending-payments").textContent = allPayments.filter(p => p.estado === 'pendiente').length;
+    document.getElementById("stat-comunidad").textContent = allUsers.filter(u => u.comunidad_activa).length;
   }
 
   // ---- Render Users Table ----
   function renderUsers(users) {
     const tbody = document.getElementById("users-table-body");
     if (!users.length) {
-      tbody.innerHTML = '<tr><td colspan="8" class="table-empty">No hay usuarios registrados</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="9" class="table-empty">No hay usuarios registrados</td></tr>';
       return;
     }
 
@@ -463,6 +496,8 @@
       const faseClass = u.fase ? '' : 'text-dim';
       const botClass = u.bot_activo ? 'status-bot-on' : 'status-bot-off';
       const botText = u.bot_activo ? 'Activo' : 'No';
+      const comClass = u.comunidad_activa ? 'status-bot-on' : 'status-bot-off';
+      const comText = u.comunidad_activa ? 'Si' : 'No';
       const fecha = u.fecha_registro ? new Date(u.fecha_registro).toLocaleDateString('es-AR') : '-';
 
       return '<tr>' +
@@ -471,6 +506,7 @@
         '<td><span class="badge ' + roleClass + '">' + (u.rol || 'alumno') + '</span></td>' +
         '<td class="' + faseClass + '">' + faseText + '</td>' +
         '<td><span class="badge ' + botClass + '">' + botText + '</span></td>' +
+        '<td><span class="badge ' + comClass + '">' + comText + '</span></td>' +
         '<td><span class="badge ' + statusClass + '">' + (u.estado || 'activo') + '</span></td>' +
         '<td class="td-date">' + fecha + '</td>' +
         '<td><button class="btn-edit" onclick="openEditUser(\'' + u.id + '\')">Editar</button></td>' +
@@ -511,6 +547,7 @@
     document.getElementById("qa-access-user").innerHTML = options;
     document.getElementById("qa-bot-user").innerHTML = options;
     document.getElementById("qa-suspend-user").innerHTML = options;
+    document.getElementById("qa-comunidad-user").innerHTML = options;
 
     // Notification select includes "all users" option
     const notifOptions = '<option value="all">Todos los usuarios</option>' +
@@ -551,6 +588,7 @@
       const userId = document.getElementById("edit-user-id").value;
       const newFase = document.getElementById("edit-user-fase").value || null;
       const botActive = document.getElementById("edit-user-bot").checked;
+      const comunidadActive = document.getElementById("edit-user-comunidad").checked;
       const updates = {
         nombre: document.getElementById("edit-user-name").value,
         rol: document.getElementById("edit-user-role").value,
@@ -558,6 +596,7 @@
         estado: document.getElementById("edit-user-status").value,
         bot_activo: botActive,
         bot_licencia: botActive ? (document.getElementById("edit-user-license").value || null) : null,
+        comunidad_activa: comunidadActive,
         notas: document.getElementById("edit-user-notes").value
       };
 
@@ -583,6 +622,11 @@
     document.getElementById("edit-user-bot").addEventListener("change", (e) => {
       document.getElementById("edit-bot-label").textContent = e.target.checked ? 'Activo' : 'Inactivo';
       document.getElementById("edit-license-field").style.display = e.target.checked ? 'block' : 'none';
+    });
+
+    // Community toggle label
+    document.getElementById("edit-user-comunidad").addEventListener("change", (e) => {
+      document.getElementById("edit-comunidad-label").textContent = e.target.checked ? 'Con acceso' : 'Sin acceso';
     });
 
     // Generate license button
@@ -642,6 +686,8 @@
         filtered = filtered.filter(u => u.fase === 'ambas');
       } else if (filter === 'sin-acceso') {
         filtered = filtered.filter(u => !u.fase);
+      } else if (filter === 'comunidad') {
+        filtered = filtered.filter(u => u.comunidad_activa);
       } else {
         filtered = filtered.filter(u => u.estado === filter);
       }
@@ -674,6 +720,9 @@
     document.getElementById("edit-bot-label").textContent = user.bot_activo ? 'Activo' : 'Inactivo';
     document.getElementById("edit-user-license").value = user.bot_licencia || '';
     document.getElementById("edit-license-field").style.display = user.bot_activo ? 'block' : 'none';
+    const comunidadCheckbox = document.getElementById("edit-user-comunidad");
+    comunidadCheckbox.checked = !!user.comunidad_activa;
+    document.getElementById("edit-comunidad-label").textContent = user.comunidad_activa ? 'Con acceso' : 'Sin acceso';
     openModal("modal-edit-user");
   }
 
@@ -775,6 +824,32 @@
       const result = await Auth.updateUser(userId, { estado: 'activo' });
       if (result.success) {
         showToast('Usuario reactivado');
+        await loadData();
+      } else {
+        showToast('Error: ' + (result.error || 'No se pudo actualizar'), 'error');
+      }
+    });
+
+    // Give community access
+    document.getElementById('btn-qa-comunidad-on').addEventListener('click', async function() {
+      var userId = document.getElementById('qa-comunidad-user').value;
+      if (!userId) { showToast('Selecciona un usuario', 'error'); return; }
+      var result = await Auth.updateUser(userId, { comunidad_activa: true });
+      if (result.success) {
+        showToast('Acceso a comunidad otorgado');
+        await loadData();
+      } else {
+        showToast('Error: ' + (result.error || 'No se pudo actualizar'), 'error');
+      }
+    });
+
+    // Revoke community access
+    document.getElementById('btn-qa-comunidad-off').addEventListener('click', async function() {
+      var userId = document.getElementById('qa-comunidad-user').value;
+      if (!userId) { showToast('Selecciona un usuario', 'error'); return; }
+      var result = await Auth.updateUser(userId, { comunidad_activa: false });
+      if (result.success) {
+        showToast('Acceso a comunidad revocado');
         await loadData();
       } else {
         showToast('Error: ' + (result.error || 'No se pudo actualizar'), 'error');

@@ -91,19 +91,19 @@
     <!-- Login required notice (shown if not logged in) -->
     <div class="login-required" id="login-notice" style="display:none;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-      <p>Para pagar con pasarela automatica, necesitas <a href="iniciar-sesion.html">iniciar sesion</a>. Si no tenes cuenta, <a href="iniciar-sesion.html">registrate gratis</a>.</p>
+      <p>Para pagar necesitas <a href="iniciar-sesion.html">iniciar sesion</a>. Si no tenes cuenta, <a href="iniciar-sesion.html">registrate gratis</a>.</p>
     </div>
 
     <!-- Payment Methods -->
     <div>
       <h2 class="payment-section-title">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-        Pago automatico
+        Pagar con tarjeta
       </h2>
 
       <div class="payment-methods">
 
-        <!-- MercadoPago (ARS) -->
+        <!-- MercadoPago Embedded (ARS) -->
         <div class="payment-method" data-method="mercadopago" id="method-mp">
           <div class="payment-method-header">
             <div class="payment-radio"><div class="payment-radio-inner"></div></div>
@@ -111,25 +111,27 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
             </div>
             <div class="payment-method-info">
-              <div class="payment-method-name">MercadoPago</div>
-              <div class="payment-method-desc">Tarjeta, transferencia, efectivo — en pesos argentinos</div>
+              <div class="payment-method-name">Tarjeta de credito o debito</div>
+              <div class="payment-method-desc">Visa, Mastercard, AMEX — en pesos argentinos</div>
             </div>
-            <span class="payment-method-badge">Automatico</span>
+            <span class="payment-method-badge">Seguro</span>
           </div>
           <div class="payment-details">
             <div class="payment-details-inner">
               <div class="detail-note">
-                Seras redirigido a MercadoPago para completar el pago de forma segura. Una vez aprobado, tu acceso se habilita automaticamente.
+                Completa los datos de tu tarjeta directamente aqui. Tu pago se procesa de forma segura a traves de MercadoPago.
               </div>
-              <button class="btn-pay btn-pay-mp" id="btn-pay-mp" type="button">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-                Pagar con MercadoPago — <span id="mp-price">$9.999 ARS</span>
+              <div id="mp-brick-container" class="embedded-form-container"></div>
+              <div id="mp-error" class="payment-error-msg"></div>
+              <div id="mp-success" class="payment-success-msg" style="display:none;"></div>
+              <button class="fallback-toggle" id="mp-fallback-btn" type="button">
+                Prefiero pagar en la pagina de MercadoPago
               </button>
             </div>
           </div>
         </div>
 
-        <!-- Stripe (USD) -->
+        <!-- Stripe Embedded (USD) -->
         <div class="payment-method" data-method="stripe" id="method-stripe" style="display:none;">
           <div class="payment-method-header">
             <div class="payment-radio"><div class="payment-radio-inner"></div></div>
@@ -137,19 +139,29 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
             </div>
             <div class="payment-method-info">
-              <div class="payment-method-name">Stripe (Tarjeta internacional)</div>
+              <div class="payment-method-name">Tarjeta internacional</div>
               <div class="payment-method-desc">Visa, Mastercard, AMEX — en dolares</div>
             </div>
-            <span class="payment-method-badge">Automatico</span>
+            <span class="payment-method-badge">Seguro</span>
           </div>
           <div class="payment-details">
             <div class="payment-details-inner">
               <div class="detail-note">
-                Seras redirigido a Stripe para completar el pago con tarjeta internacional. Una vez aprobado, tu acceso se habilita automaticamente.
+                Completa los datos de tu tarjeta directamente aqui. Tu pago se procesa de forma segura a traves de Stripe.
               </div>
-              <button class="btn-pay btn-pay-stripe" id="btn-pay-stripe" type="button">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-                Pagar con tarjeta — <span id="stripe-price">USD 10,00</span>
+              <div id="stripe-form-container" class="embedded-form-container">
+                <div id="stripe-loading" class="payment-loading">
+                  <span class="spinner"></span> Cargando formulario de pago...
+                </div>
+                <div id="stripe-payment-element"></div>
+                <div id="stripe-error" class="payment-error-msg"></div>
+                <button class="btn-confirm-pay stripe" id="btn-confirm-stripe" type="button" style="display:none;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  Pagar <span id="stripe-confirm-price">USD 10,00</span>
+                </button>
+              </div>
+              <button class="fallback-toggle" id="stripe-fallback-btn" type="button">
+                Prefiero pagar en la pagina de Stripe
               </button>
             </div>
           </div>
@@ -437,13 +449,17 @@
 <div id="footer"></div>
 <script src="assets/js/footer.js"></script>
 
+<!-- Payment SDKs -->
+<script src="https://js.stripe.com/v3/"></script>
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+
 <!-- Supabase (to check login state) -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/supabase-config.js"></script>
 <script src="assets/js/auth.js"></script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", async () => {
     // --- Detect plan from URL ---
     const params = new URLSearchParams(window.location.search);
     const plan = params.get('plan') || 'fase1';
@@ -457,6 +473,14 @@
     const prices = PRICES[plan] || PRICES.fase1;
     let currentCurrency = 'ars';
 
+    // --- Payment SDK state ---
+    let paymentKeys = { stripe_publishable_key: '', mercadopago_public_key: '' };
+    let stripeInstance = null;
+    let stripeElements = null;
+    let stripeIntentCreated = false;
+    let mpBrickMounted = false;
+    let mpInstance = null;
+
     // --- Check if user is logged in ---
     Auth.init();
     let userData = null;
@@ -469,6 +493,16 @@
       document.getElementById('sidebar-login').style.display = 'none';
     } else {
       document.getElementById('login-notice').style.display = 'flex';
+    }
+
+    // --- Fetch payment config (public keys) ---
+    try {
+      const configRes = await fetch('/api/payment-config');
+      if (configRes.ok) {
+        paymentKeys = await configRes.json();
+      }
+    } catch (e) {
+      console.warn('Could not fetch payment config:', e);
     }
 
     // --- Update product info based on plan ---
@@ -501,8 +535,9 @@
 
       document.getElementById('summary-subtotal').textContent = priceStr;
       document.getElementById('summary-total').textContent = priceStr;
-      document.getElementById('mp-price').textContent = fmtARS(prices.ars);
-      document.getElementById('stripe-price').textContent = fmtUSD(prices.usd);
+
+      const confirmPrice = document.getElementById('stripe-confirm-price');
+      if (confirmPrice) confirmPrice.textContent = fmtUSD(prices.usd);
 
       // Show/hide payment methods based on currency
       document.getElementById('method-mp').style.display = isARS ? 'block' : 'none';
@@ -527,28 +562,49 @@
 
     // --- Payment method selection ---
     document.querySelectorAll('.payment-method').forEach(method => {
-      method.addEventListener('click', () => {
+      method.addEventListener('click', (e) => {
+        // Don't toggle if clicking inside the embedded form or a button
+        if (e.target.closest('.embedded-form-container') ||
+            e.target.closest('.btn-confirm-pay') ||
+            e.target.closest('.fallback-toggle')) return;
+
+        const wasSelected = method.classList.contains('selected');
         document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
-        method.classList.add('selected');
+
+        if (!wasSelected) {
+          method.classList.add('selected');
+          const methodType = method.dataset.method;
+
+          // Initialize embedded forms on first selection
+          if (methodType === 'stripe' && !stripeIntentCreated && isLoggedIn) {
+            initStripeEmbed();
+          }
+          if (methodType === 'mercadopago' && !mpBrickMounted && isLoggedIn) {
+            initMPBrick();
+          }
+        }
       });
     });
 
-    // --- MercadoPago payment ---
-    document.getElementById('btn-pay-mp').addEventListener('click', async (e) => {
-      e.stopPropagation();
-
+    // ============================================================
+    // STRIPE EMBEDDED PAYMENT ELEMENT
+    // ============================================================
+    async function initStripeEmbed() {
+      if (!paymentKeys.stripe_publishable_key) {
+        showError('stripe-error', 'Configuracion de Stripe no disponible. Usa el metodo alternativo.');
+        return;
+      }
       if (!isLoggedIn) {
-        alert('Necesitas iniciar sesion para pagar. Registrate o ingresa con tu cuenta.');
-        window.location.href = 'iniciar-sesion.html';
+        showError('stripe-error', 'Necesitas iniciar sesion para pagar.');
         return;
       }
 
-      const btn = e.currentTarget;
-      btn.disabled = true;
-      btn.innerHTML = '<span class="spinner"></span> Procesando...';
+      const loadingEl = document.getElementById('stripe-loading');
+      const confirmBtn = document.getElementById('btn-confirm-stripe');
 
       try {
-        const response = await fetch('/api/mercadopago-create', {
+        // Create PaymentIntent
+        const res = await fetch('/api/stripe-create-intent', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -559,61 +615,305 @@
           })
         });
 
-        const data = await response.json();
+        const data = await res.json();
+        if (!data.clientSecret) throw new Error(data.error || 'Error al crear intent');
 
-        if (data.init_point) {
-          window.location.href = data.init_point;
-        } else {
-          throw new Error(data.error || 'Error al procesar');
-        }
+        // Initialize Stripe
+        stripeInstance = Stripe(paymentKeys.stripe_publishable_key);
+        stripeElements = stripeInstance.elements({
+          clientSecret: data.clientSecret,
+          appearance: {
+            theme: 'night',
+            variables: {
+              colorPrimary: '#635bff',
+              colorBackground: '#0a0e17',
+              colorText: '#e8edf5',
+              colorTextSecondary: '#8b95a8',
+              colorDanger: '#ef4444',
+              fontFamily: 'Poppins, system-ui, sans-serif',
+              borderRadius: '8px',
+              spacingUnit: '4px'
+            },
+            rules: {
+              '.Input': {
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                backgroundColor: '#131a2b',
+                color: '#e8edf5',
+                padding: '12px'
+              },
+              '.Input:focus': {
+                border: '1px solid #635bff',
+                boxShadow: '0 0 0 1px #635bff'
+              },
+              '.Label': {
+                color: '#8b95a8',
+                fontWeight: '500'
+              }
+            }
+          }
+        });
+
+        // Mount Payment Element
+        const paymentElement = stripeElements.create('payment', {
+          layout: 'tabs'
+        });
+        paymentElement.mount('#stripe-payment-element');
+
+        paymentElement.on('ready', () => {
+          loadingEl.style.display = 'none';
+          confirmBtn.style.display = 'flex';
+          confirmBtn.disabled = false;
+          stripeIntentCreated = true;
+        });
+
+        paymentElement.on('change', (event) => {
+          if (event.error) {
+            showError('stripe-error', event.error.message);
+          } else {
+            hideError('stripe-error');
+          }
+        });
+
       } catch (err) {
-        console.error('MercadoPago error:', err);
-        alert('Hubo un error al procesar el pago. Intenta de nuevo o usa otro metodo.');
-        btn.disabled = false;
-        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> Pagar con MercadoPago — <span id="mp-price">' + fmtARS(prices.ars) + '</span>';
+        console.error('Stripe embed init error:', err);
+        loadingEl.innerHTML = 'No se pudo cargar el formulario. Usa el metodo alternativo.';
       }
-    });
+    }
 
-    // --- Stripe payment ---
-    document.getElementById('btn-pay-stripe').addEventListener('click', async (e) => {
-      e.stopPropagation();
+    // Stripe confirm payment
+    const confirmStripeBtn = document.getElementById('btn-confirm-stripe');
+    if (confirmStripeBtn) {
+      confirmStripeBtn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        if (!stripeInstance || !stripeElements) return;
 
+        confirmStripeBtn.disabled = true;
+        confirmStripeBtn.innerHTML = '<span class="spinner"></span> Procesando pago...';
+        hideError('stripe-error');
+
+        const siteUrl = window.location.origin;
+        const returnUrl = siteUrl + '/pago-resultado.html?status=success&provider=stripe&producto=' + plan;
+
+        const { error } = await stripeInstance.confirmPayment({
+          elements: stripeElements,
+          confirmParams: {
+            return_url: returnUrl
+          }
+        });
+
+        if (error) {
+          showError('stripe-error', error.message);
+          confirmStripeBtn.disabled = false;
+          confirmStripeBtn.innerHTML =
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Pagar ' + fmtUSD(prices.usd);
+        }
+        // If no error, Stripe redirects automatically
+      });
+    }
+
+    // Stripe fallback (redirect to hosted checkout)
+    const stripeFallbackBtn = document.getElementById('stripe-fallback-btn');
+    if (stripeFallbackBtn) {
+      stripeFallbackBtn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        if (!isLoggedIn) {
+          alert('Necesitas iniciar sesion para pagar.');
+          window.location.href = 'iniciar-sesion.html';
+          return;
+        }
+
+        stripeFallbackBtn.disabled = true;
+        stripeFallbackBtn.textContent = 'Redirigiendo...';
+
+        try {
+          const response = await fetch('/api/stripe-create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              producto_id: plan,
+              user_id: userData.id,
+              user_email: userData.email,
+              user_nombre: userData.nombre
+            })
+          });
+          const data = await response.json();
+          if (data.url) {
+            window.location.href = data.url;
+          } else {
+            throw new Error(data.error || 'Error');
+          }
+        } catch (err) {
+          alert('Error al redirigir. Intenta de nuevo.');
+          stripeFallbackBtn.disabled = false;
+          stripeFallbackBtn.textContent = 'Prefiero pagar en la pagina de Stripe';
+        }
+      });
+    }
+
+    // ============================================================
+    // MERCADOPAGO CHECKOUT BRICKS
+    // ============================================================
+    async function initMPBrick() {
+      if (!paymentKeys.mercadopago_public_key) {
+        showError('mp-error', 'Configuracion de MercadoPago no disponible. Usa el metodo alternativo.');
+        return;
+      }
       if (!isLoggedIn) {
-        alert('Necesitas iniciar sesion para pagar. Registrate o ingresa con tu cuenta.');
-        window.location.href = 'iniciar-sesion.html';
+        showError('mp-error', 'Necesitas iniciar sesion para pagar.');
         return;
       }
 
-      const btn = e.currentTarget;
-      btn.disabled = true;
-      btn.innerHTML = '<span class="spinner"></span> Procesando...';
+      const container = document.getElementById('mp-brick-container');
+      container.innerHTML = '<div class="payment-loading"><span class="spinner"></span> Cargando formulario de pago...</div>';
 
       try {
-        const response = await fetch('/api/stripe-create', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            producto_id: plan,
-            user_id: userData.id,
-            user_email: userData.email,
-            user_nombre: userData.nombre
-          })
+        mpInstance = new MercadoPago(paymentKeys.mercadopago_public_key, {
+          locale: 'es-AR'
         });
 
-        const data = await response.json();
+        const bricksBuilder = mpInstance.bricks();
 
-        if (data.url) {
-          window.location.href = data.url;
-        } else {
-          throw new Error(data.error || 'Error al procesar');
-        }
+        await bricksBuilder.create('cardPayment', 'mp-brick-container', {
+          initialization: {
+            amount: prices.ars
+          },
+          customization: {
+            visual: {
+              style: {
+                theme: 'dark',
+                customVariables: {
+                  formBackgroundColor: '#0a0e17',
+                  baseColor: '#3b82f6'
+                }
+              }
+            },
+            paymentMethods: {
+              maxInstallments: 12
+            }
+          },
+          callbacks: {
+            onReady: () => {
+              mpBrickMounted = true;
+            },
+            onSubmit: async (cardFormData) => {
+              hideError('mp-error');
+              try {
+                const response = await fetch('/api/mercadopago-process', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    ...cardFormData,
+                    transaction_amount: prices.ars,
+                    producto_id: plan,
+                    user_id: userData.id
+                  })
+                });
+
+                const result = await response.json();
+
+                if (result.status === 'approved') {
+                  window.location.href = 'pago-resultado.html?status=success&provider=mercadopago&producto=' + plan + '&payment_id=' + result.id;
+                } else if (result.status === 'in_process' || result.status === 'pending') {
+                  window.location.href = 'pago-resultado.html?status=pending&provider=mercadopago&producto=' + plan;
+                } else {
+                  const msg = getMPErrorMessage(result.status_detail);
+                  showError('mp-error', msg);
+                }
+              } catch (err) {
+                console.error('MP process error:', err);
+                showError('mp-error', 'Error al procesar el pago. Intenta de nuevo.');
+              }
+            },
+            onError: (error) => {
+              console.error('MP Brick error:', error);
+            }
+          }
+        });
+
       } catch (err) {
-        console.error('Stripe error:', err);
-        alert('Hubo un error al procesar el pago. Intenta de nuevo o usa otro metodo.');
-        btn.disabled = false;
-        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> Pagar con tarjeta — <span id="stripe-price">' + fmtUSD(prices.usd) + '</span>';
+        console.error('MP Brick init error:', err);
+        container.innerHTML = '<div style="text-align:center;padding:1rem;color:var(--color-text-muted);font-size:0.85rem;">No se pudo cargar el formulario. Usa el metodo alternativo.</div>';
       }
-    });
+    }
+
+    // MercadoPago error messages
+    function getMPErrorMessage(statusDetail) {
+      const messages = {
+        'cc_rejected_bad_filled_card_number': 'Revisa el numero de tarjeta.',
+        'cc_rejected_bad_filled_date': 'Revisa la fecha de vencimiento.',
+        'cc_rejected_bad_filled_other': 'Revisa los datos ingresados.',
+        'cc_rejected_bad_filled_security_code': 'Revisa el codigo de seguridad.',
+        'cc_rejected_blacklist': 'No pudimos procesar tu pago. Usa otra tarjeta.',
+        'cc_rejected_call_for_authorize': 'Debes autorizar el pago con tu banco.',
+        'cc_rejected_card_disabled': 'Tu tarjeta esta deshabilitada. Contacta a tu banco.',
+        'cc_rejected_duplicated_payment': 'Ya realizaste un pago con este monto. Si necesitas volver a pagar, espera unos minutos.',
+        'cc_rejected_high_risk': 'Tu pago fue rechazado. Usa otra tarjeta.',
+        'cc_rejected_insufficient_amount': 'Fondos insuficientes.',
+        'cc_rejected_invalid_installments': 'Tu tarjeta no acepta esta cantidad de cuotas.',
+        'cc_rejected_max_attempts': 'Llegaste al limite de intentos. Usa otra tarjeta.',
+        'cc_rejected_other_reason': 'Tu pago fue rechazado. Intenta con otra tarjeta.'
+      };
+      return messages[statusDetail] || 'El pago fue rechazado. Intenta con otra tarjeta o usa otro metodo.';
+    }
+
+    // MercadoPago fallback (redirect to Checkout Pro)
+    const mpFallbackBtn = document.getElementById('mp-fallback-btn');
+    if (mpFallbackBtn) {
+      mpFallbackBtn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        if (!isLoggedIn) {
+          alert('Necesitas iniciar sesion para pagar.');
+          window.location.href = 'iniciar-sesion.html';
+          return;
+        }
+
+        mpFallbackBtn.disabled = true;
+        mpFallbackBtn.textContent = 'Redirigiendo...';
+
+        try {
+          const response = await fetch('/api/mercadopago-create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              producto_id: plan,
+              user_id: userData.id,
+              user_email: userData.email,
+              user_nombre: userData.nombre
+            })
+          });
+          const data = await response.json();
+          if (data.init_point) {
+            window.location.href = data.init_point;
+          } else {
+            throw new Error(data.error || 'Error');
+          }
+        } catch (err) {
+          alert('Error al redirigir. Intenta de nuevo.');
+          mpFallbackBtn.disabled = false;
+          mpFallbackBtn.textContent = 'Prefiero pagar en la pagina de MercadoPago';
+        }
+      });
+    }
+
+    // ============================================================
+    // HELPERS
+    // ============================================================
+    function showError(id, msg) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.textContent = msg;
+        el.classList.add('visible');
+        el.style.display = 'block';
+      }
+    }
+
+    function hideError(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.classList.remove('visible');
+        el.style.display = 'none';
+      }
+    }
 
     // --- Dolar Blue API ---
     fetch("https://api.bluelytics.com.ar/v2/latest")

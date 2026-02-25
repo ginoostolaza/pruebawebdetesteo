@@ -394,7 +394,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .payment-method.selected .payment-details {
-  max-height: 600px;
+  max-height: 1200px;
 }
 
 .payment-details-inner {
@@ -984,6 +984,137 @@ img { max-width: 100%; height: auto; display: block; }
   flex: 1;
   height: 1px;
   background: var(--color-border);
+}
+
+/* ============================================================
+   EMBEDDED PAYMENT FORMS
+   ============================================================ */
+.embedded-form-container {
+  margin-top: 1rem;
+  padding: 1.25rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  min-height: 80px;
+}
+
+.embedded-form-container.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+}
+
+.payment-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1.5rem;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.payment-error-msg {
+  margin-top: 0.75rem;
+  padding: 0.6rem 0.85rem;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  color: #ef4444;
+  font-weight: 500;
+  display: none;
+}
+
+.payment-error-msg.visible {
+  display: block;
+}
+
+.payment-success-msg {
+  margin-top: 0.75rem;
+  padding: 1rem;
+  background: var(--color-success-dim);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  border-radius: var(--radius-sm);
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-success);
+  font-weight: 600;
+}
+
+.btn-confirm-pay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-family);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  margin-top: 1rem;
+  color: #fff;
+}
+
+.btn-confirm-pay:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.btn-confirm-pay.stripe {
+  background: linear-gradient(135deg, #635bff, #7c75ff);
+  box-shadow: 0 4px 16px rgba(99, 91, 255, 0.3);
+}
+
+.btn-confirm-pay.stripe:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(99, 91, 255, 0.4);
+}
+
+.btn-confirm-pay .spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+/* MercadoPago Bricks custom overrides */
+#mp-brick-container {
+  margin-top: 0.75rem;
+}
+
+/* Stripe Payment Element wrapper */
+#stripe-payment-element {
+  margin-bottom: 0.5rem;
+}
+
+/* Fallback method toggle */
+.fallback-toggle {
+  display: block;
+  margin-top: 0.75rem;
+  font-size: 0.78rem;
+  color: var(--color-text-dim);
+  text-align: center;
+  cursor: pointer;
+  transition: color var(--transition-base);
+  background: none;
+  border: none;
+  font-family: var(--font-family);
+  width: 100%;
+}
+
+.fallback-toggle:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
 }
 
 /* ============================================================

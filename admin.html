@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
   <title>Panel Admin | Binary Edge Academy</title>
 
   <!-- Auth + Admin guard -->
@@ -889,11 +890,12 @@
     // Export users CSV
     document.getElementById('btn-export-users').addEventListener('click', function() {
       if (!allUsers.length) { showToast('No hay usuarios para exportar', 'error'); return; }
-      const headers = ['Nombre', 'Email', 'Rol', 'Fase', 'Bot', 'Estado', 'Registro'];
+      const headers = ['Nombre', 'Email', 'Rol', 'Fase', 'Bot', 'Comunidad', 'Estado', 'Registro'];
       const rows = allUsers.map(function(u) {
         return [
           u.nombre || '', u.email || '', u.rol || 'alumno',
           u.fase || 'sin-acceso', u.bot_activo ? 'Si' : 'No',
+          u.comunidad_activa ? 'Si' : 'No',
           u.estado || 'activo',
           u.fecha_registro ? new Date(u.fecha_registro).toLocaleDateString('es-AR') : ''
         ].map(function(v) { return '"' + String(v).replace(/"/g, '""') + '"'; }).join(',');

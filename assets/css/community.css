@@ -767,6 +767,157 @@ main blockquote em {
 }
 
 /* ============================================================
+   TIP / WARNING / DANGER BOXES
+   ============================================================ */
+.tip-box {
+  background: rgba(34, 197, 94, 0.04);
+  border-left: 3px solid var(--color-success);
+  padding: 1rem 1.25rem;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.tip-box::before {
+  content: "Tip";
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.3rem;
+  color: var(--color-success);
+  font-style: normal;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.warning-box {
+  background: rgba(245, 158, 11, 0.04);
+  border-left: 3px solid var(--color-warning);
+  padding: 1rem 1.25rem;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.warning-box::before {
+  content: "Importante";
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.3rem;
+  color: var(--color-warning);
+  font-style: normal;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.danger-box {
+  background: rgba(239, 68, 68, 0.04);
+  border-left: 3px solid var(--color-error);
+  padding: 1rem 1.25rem;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.danger-box::before {
+  content: "Cuidado";
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.3rem;
+  color: var(--color-error);
+  font-style: normal;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tip-box p, .warning-box p, .danger-box p {
+  margin: 0;
+}
+
+/* Roadmap grid for course overview */
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+}
+
+.roadmap-item {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+  text-align: center;
+  transition: border-color var(--transition);
+}
+
+.roadmap-item:hover {
+  border-color: var(--color-primary);
+}
+
+.roadmap-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.roadmap-item h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.25rem;
+}
+
+.roadmap-item p {
+  font-size: 0.78rem;
+  color: var(--color-text-dim);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Math/formula display */
+.formula-box {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  text-align: center;
+  margin: 1rem 0;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* Key concept highlight */
+.key-concept {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.06), rgba(139, 92, 246, 0.06));
+  border: 1px solid rgba(59, 130, 246, 0.15);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  margin: 1.25rem 0;
+}
+
+.key-concept h3 {
+  color: var(--color-primary) !important;
+  margin-top: 0 !important;
+  margin-bottom: 0.5rem;
+}
+
+/* ============================================================
    SECTION INTRO
    ============================================================ */
 .section-intro {

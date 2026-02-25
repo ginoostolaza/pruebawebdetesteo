@@ -854,6 +854,7 @@ a { color: inherit; text-decoration: none; }
 .action-card-icon.purple { background: var(--gradient-purple); box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25); }
 .action-card-icon.orange { background: linear-gradient(135deg, var(--color-warning), var(--color-error)); box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25); }
 .action-card-icon.green { background: var(--gradient-success); box-shadow: 0 4px 12px rgba(34, 197, 94, 0.25); }
+.action-card-icon.cyan { background: linear-gradient(135deg, #06b6d4, #3b82f6); box-shadow: 0 4px 12px rgba(6, 182, 212, 0.25); }
 
 .action-card h4 {
   font-size: 0.95rem;

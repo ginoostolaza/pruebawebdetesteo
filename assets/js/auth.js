@@ -302,6 +302,71 @@ const Auth = (function () {
     return { success: !error, error: error?.message };
   }
 
+  // ---- NOTIFICATIONS: Get user notifications ----
+  async function getNotifications(userId) {
+    if (!supabase) return [];
+    const { data } = await supabase.from('notifications')
+      .select('*')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false })
+      .limit(20);
+    return data || [];
+  }
+
+  // ---- NOTIFICATIONS: Get unread count ----
+  async function getUnreadCount(userId) {
+    if (!supabase) return 0;
+    const { count } = await supabase.from('notifications')
+      .select('*', { count: 'exact', head: true })
+      .eq('user_id', userId)
+      .eq('leida', false);
+    return count || 0;
+  }
+
+  // ---- NOTIFICATIONS: Mark as read ----
+  async function markNotificationRead(notificationId) {
+    if (!supabase) return { success: false };
+    const { error } = await supabase.from('notifications')
+      .update({ leida: true })
+      .eq('id', notificationId);
+    return { success: !error, error: error?.message };
+  }
+
+  // ---- NOTIFICATIONS: Mark all as read ----
+  async function markAllNotificationsRead(userId) {
+    if (!supabase) return { success: false };
+    const { error } = await supabase.from('notifications')
+      .update({ leida: true })
+      .eq('user_id', userId)
+      .eq('leida', false);
+    return { success: !error, error: error?.message };
+  }
+
+  // ---- ADMIN: Send notification to one user ----
+  async function sendNotification(userId, titulo, mensaje, tipo) {
+    if (!supabase) return { success: false };
+    const { error } = await supabase.from('notifications').insert({
+      user_id: userId,
+      titulo: titulo,
+      mensaje: mensaje,
+      tipo: tipo || 'info'
+    });
+    return { success: !error, error: error?.message };
+  }
+
+  // ---- ADMIN: Send notification to multiple users ----
+  async function sendBulkNotification(userIds, titulo, mensaje, tipo) {
+    if (!supabase) return { success: false };
+    const rows = userIds.map(uid => ({
+      user_id: uid,
+      titulo: titulo,
+      mensaje: mensaje,
+      tipo: tipo || 'info'
+    }));
+    const { error } = await supabase.from('notifications').insert(rows);
+    return { success: !error, error: error?.message };
+  }
+
   // ---- DEMO LOGIN ----
   function demoLogin(email, password) {
     if (email === 'admin@admin.com' && password === 'admin123') {
@@ -342,6 +407,8 @@ const Auth = (function () {
     login, register, resetPassword, logout,
     getSession, getProfile, getProgress, updateProgress, getPayments,
     guard, courseGuard, adminGuard, hasAccess, refreshProfile,
-    getAllUsers, updateUser, getAllProgress, getAllPayments, addPayment, initProgress
+    getAllUsers, updateUser, getAllProgress, getAllPayments, addPayment, initProgress,
+    getNotifications, getUnreadCount, markNotificationRead, markAllNotificationsRead,
+    sendNotification, sendBulkNotification
   };
 })();

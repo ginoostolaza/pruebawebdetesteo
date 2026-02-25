@@ -1099,6 +1099,46 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* ============================================================
+   TELEGRAM JOIN BUTTON
+   ============================================================ */
+.telegram-join-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 1.1rem 2rem;
+  background: #0a0e17;
+  border: 2px solid #2AABEE;
+  border-radius: var(--radius-md);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  font-family: var(--font-family);
+  text-decoration: none;
+  transition: all 0.25s ease;
+  margin-bottom: 2.5rem;
+}
+
+.telegram-join-btn:hover {
+  background: #2AABEE;
+  color: #fff;
+  box-shadow: 0 0 24px rgba(42, 171, 238, 0.3);
+}
+
+.telegram-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: #2AABEE;
+  transition: color 0.25s ease;
+}
+
+.telegram-join-btn:hover .telegram-icon {
+  color: #fff;
+}
+
+/* ============================================================
    NOTIFICATION BELL
    ============================================================ */
 .notif-wrapper {

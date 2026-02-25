@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
   <title>Curso Fase 1 | Binary Edge Academy</title>
   <script>
     (function () {
@@ -837,7 +838,7 @@
 <script src="assets/js/auth.js"></script>
 <script>
   Auth.init();
-  Auth.courseGuard('fase-1');
+  (async () => { await Auth.courseGuard('fase-1'); })();
 </script>
 </body>
 </html>

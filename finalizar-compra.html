@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
 
   <title>Pago Seguro | Binary Edge Academy</title>
 
@@ -736,13 +737,13 @@
       stripeFallbackBtn.addEventListener('click', async (e) => {
         e.stopPropagation();
         if (!isLoggedIn) {
-          alert('Necesitas iniciar sesion para pagar.');
           window.location.href = 'iniciar-sesion.html';
           return;
         }
 
         stripeFallbackBtn.disabled = true;
         stripeFallbackBtn.textContent = 'Redirigiendo...';
+        hideError('stripe-error');
 
         try {
           const response = await fetch('/api/stripe-create', {
@@ -762,7 +763,7 @@
             throw new Error(data.error || 'Error');
           }
         } catch (err) {
-          alert('Error al redirigir. Intenta de nuevo.');
+          showError('stripe-error', 'Error al redirigir. Intenta de nuevo.');
           stripeFallbackBtn.disabled = false;
           stripeFallbackBtn.textContent = 'Prefiero pagar en la pagina de Stripe';
         }
@@ -881,13 +882,13 @@
       mpFallbackBtn.addEventListener('click', async (e) => {
         e.stopPropagation();
         if (!isLoggedIn) {
-          alert('Necesitas iniciar sesion para pagar.');
           window.location.href = 'iniciar-sesion.html';
           return;
         }
 
         mpFallbackBtn.disabled = true;
         mpFallbackBtn.textContent = 'Redirigiendo...';
+        hideError('mp-error');
 
         try {
           const response = await fetch('/api/mercadopago-create', {
@@ -907,7 +908,7 @@
             throw new Error(data.error || 'Error');
           }
         } catch (err) {
-          alert('Error al redirigir. Intenta de nuevo.');
+          showError('mp-error', 'Error al redirigir. Intenta de nuevo.');
           mpFallbackBtn.disabled = false;
           mpFallbackBtn.textContent = 'Prefiero pagar en la pagina de MercadoPago';
         }

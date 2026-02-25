@@ -3,14 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
   <title>Comunidad Privada | Binary Edge Academy</title>
 
-  <!-- Auth guard -->
+  <!-- Auth + Community guard -->
   <script>
     (function () {
       var acceso = sessionStorage.getItem("accesoAutorizado");
       if (!acceso || acceso !== "true") {
         window.location.replace("iniciar-sesion.html");
+        return;
+      }
+      var usuario = JSON.parse(sessionStorage.getItem("usuario") || "{}");
+      if (!usuario.comunidad_activa) {
+        window.location.replace("dashboard.html");
       }
     })();
   </script>

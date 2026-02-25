@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
   <title>Dashboard | Binary Edge Academy</title>
 
   <!-- Auth guard (quick check) -->
@@ -56,14 +57,48 @@
         </div>
       </div>
     </div>
-    <div class="dash-nav-user">
+    <div class="dash-nav-user" id="dash-nav-user">
       <div class="user-avatar" id="user-avatar">U</div>
       <span id="user-name-nav">Usuario</span>
+      <svg class="user-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+
+      <!-- Profile Dropdown -->
+      <div class="user-dropdown" id="user-dropdown">
+        <div class="dropdown-header">
+          <div class="dropdown-avatar" id="dropdown-avatar">U</div>
+          <div class="dropdown-user-info">
+            <span class="dropdown-name" id="dropdown-name">Usuario</span>
+            <span class="dropdown-email" id="dropdown-email">email@example.com</span>
+          </div>
+        </div>
+        <div class="dropdown-divider"></div>
+        <a href="perfil.html#personal" class="dropdown-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Perfil
+        </a>
+        <a href="perfil.html#preferencias" class="dropdown-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Configuracion
+        </a>
+        <a href="perfil.html#seguridad" class="dropdown-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Seguridad
+        </a>
+        <a href="perfil.html#notificaciones" class="dropdown-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          Notificaciones
+        </a>
+        <a href="perfil.html#preferencias" class="dropdown-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/></svg>
+          Preferencias
+        </a>
+        <div class="dropdown-divider"></div>
+        <button class="dropdown-item dropdown-logout" id="btn-logout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+          Cerrar sesion
+        </button>
+      </div>
     </div>
-    <button class="btn-logout" id="btn-logout">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
-      Salir
-    </button>
   </div>
 </nav>
 
@@ -320,6 +355,23 @@
     document.getElementById("user-name").textContent = nombre;
     document.getElementById("user-name-nav").textContent = nombre;
     document.getElementById("user-avatar").textContent = inicial;
+    document.getElementById("dropdown-avatar").textContent = inicial;
+    document.getElementById("dropdown-name").textContent = nombre;
+    document.getElementById("dropdown-email").textContent = userData.email || "";
+
+    // --- User dropdown ---
+    var navUser = document.getElementById("dash-nav-user");
+    var dropdown = document.getElementById("user-dropdown");
+    navUser.addEventListener("click", function(e) {
+      e.stopPropagation();
+      dropdown.classList.toggle("open");
+    });
+    document.addEventListener("click", function(e) {
+      if (!navUser.contains(e.target)) dropdown.classList.remove("open");
+    });
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape") dropdown.classList.remove("open");
+    });
 
     // --- Role tag ---
     const roleTag = document.getElementById("user-role-tag");

@@ -369,8 +369,11 @@ const Auth = (function () {
     return { success: !error, error: error?.message };
   }
 
-  // ---- DEMO LOGIN ----
+  // ---- DEMO LOGIN (development only) ----
   function demoLogin(email, password) {
+    var isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    if (!isDev) return { success: false, message: 'Servicio no disponible. Intenta de nuevo mas tarde.' };
+
     if (email === 'admin@admin.com' && password === 'admin123') {
       sessionStorage.setItem('usuario', JSON.stringify({
         nombre: 'Admin', email, rol: 'admin', fase: 'ambas', estado: 'activo'
@@ -404,11 +407,32 @@ const Auth = (function () {
     return t[msg] || msg;
   }
 
+  // ---- UPDATE OWN PROFILE ----
+  async function updateProfile(updates) {
+    if (!supabase) return { success: false, error: 'No disponible en modo demo.' };
+    var session = await supabase.auth.getSession();
+    var user = session?.data?.session?.user;
+    if (!user) return { success: false, error: 'No autenticado.' };
+
+    var { error } = await supabase.from('profiles').update(updates).eq('id', user.id);
+    if (error) return { success: false, error: error.message };
+    return { success: true };
+  }
+
+  // ---- UPDATE PASSWORD ----
+  async function updatePassword(newPassword) {
+    if (!supabase) return { success: false, error: 'No disponible en modo demo.' };
+    var { error } = await supabase.auth.updateUser({ password: newPassword });
+    if (error) return { success: false, error: translateError(error.message) };
+    return { success: true };
+  }
+
   return {
     init, isConfigured, getClient,
     login, register, resetPassword, logout,
     getSession, getProfile, getProgress, updateProgress, getPayments,
     guard, courseGuard, adminGuard, hasAccess, refreshProfile,
+    updateProfile, updatePassword,
     getAllUsers, updateUser, getAllProgress, getAllPayments, addPayment, initProgress,
     getNotifications, getUnreadCount, markNotificationRead, markAllNotificationsRead,
     sendNotification, sendBulkNotification

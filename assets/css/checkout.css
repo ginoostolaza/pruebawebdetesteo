@@ -221,6 +221,37 @@ img { max-width: 100%; height: auto; display: block; }
   background: var(--color-success);
 }
 
+/* Already student link (main area) */
+.already-student-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.85rem 1.5rem;
+  background: rgba(59, 130, 246, 0.06);
+  border: 2px solid rgba(59, 130, 246, 0.25);
+  border-radius: var(--radius-md);
+  color: var(--color-primary);
+  font-size: 0.88rem;
+  font-weight: 600;
+  font-family: var(--font-family);
+  text-decoration: none;
+  transition: all var(--transition-base);
+  margin-bottom: 0.25rem;
+}
+
+.already-student-link:hover {
+  background: rgba(59, 130, 246, 0.12);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.already-student-link svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
 /* Important note card */
 .note-card {
   background: rgba(59, 130, 246, 0.06);

@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Mi Perfil | Binary Edge Academy</title>
+
+  <!-- Auth guard -->
+  <script>
+    (function () {
+      var acceso = sessionStorage.getItem("accesoAutorizado");
+      if (!acceso || acceso !== "true") {
+        window.location.replace("iniciar-sesion.html");
+      }
+    })();
+  </script>
+
+  <link rel="icon" href="assets/img/branding/logo-favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/profile.css">
+  <meta name="theme-color" content="#0a0e17">
+</head>
+<body>
+
+<!-- ============================================================
+     TOP NAVIGATION
+     ============================================================ -->
+<nav class="profile-nav">
+  <div class="profile-nav-left">
+    <a href="dashboard.html" class="nav-back-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Dashboard
+    </a>
+  </div>
+  <div class="profile-nav-center">
+    <img class="nav-logo" src="assets/img/branding/logo-favicon.png" alt="Logo" width="28" height="28">
+    <span class="nav-brand">Mi Perfil</span>
+  </div>
+  <div class="profile-nav-right">
+    <button class="btn-logout-nav" id="btn-logout">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+      Salir
+    </button>
+  </div>
+</nav>
+
+<!-- ============================================================
+     PROFILE LAYOUT
+     ============================================================ -->
+<div class="profile-layout">
+
+  <!-- Sidebar -->
+  <aside class="profile-sidebar">
+    <div class="sidebar-user">
+      <div class="sidebar-avatar" id="sidebar-avatar">U</div>
+      <div class="sidebar-user-info">
+        <h3 id="sidebar-name">Usuario</h3>
+        <p id="sidebar-email">email@example.com</p>
+      </div>
+    </div>
+
+    <nav class="sidebar-menu">
+      <button class="sidebar-link active" data-section="personal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Informacion personal
+      </button>
+      <button class="sidebar-link" data-section="seguridad">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Seguridad
+      </button>
+      <button class="sidebar-link" data-section="notificaciones">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Notificaciones
+      </button>
+      <button class="sidebar-link" data-section="preferencias">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Preferencias
+      </button>
+      <button class="sidebar-link" data-section="cuenta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Cuenta
+      </button>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="profile-main">
+
+    <!-- ========== INFORMACION PERSONAL ========== -->
+    <section class="profile-section active" id="section-personal">
+      <div class="section-header">
+        <h2>Informacion personal</h2>
+        <p>Gestiona tu informacion basica y como te ven otros en la plataforma.</p>
+      </div>
+
+      <div class="profile-card">
+        <div class="profile-photo-section">
+          <div class="profile-photo-lg" id="profile-photo-lg">U</div>
+          <div class="profile-photo-actions">
+            <h4 id="photo-user-name">Usuario</h4>
+            <p class="text-dim">Imagen de perfil</p>
+            <div class="photo-btns">
+              <button class="btn-outline-sm" id="btn-change-photo">Cambiar foto</button>
+              <button class="btn-ghost-sm" id="btn-remove-photo">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <h3 class="card-section-title">Datos personales</h3>
+        <form id="form-personal" class="profile-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="input-nombre">Nombre</label>
+              <input type="text" id="input-nombre" placeholder="Tu nombre">
+            </div>
+            <div class="form-group">
+              <label for="input-apellido">Apellido</label>
+              <input type="text" id="input-apellido" placeholder="Tu apellido">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="input-email">Correo electronico</label>
+            <input type="email" id="input-email" placeholder="tu@correo.com" disabled>
+            <span class="form-hint">Para cambiar tu email, contacta a soporte.</span>
+          </div>
+          <div class="form-group">
+            <label for="input-telefono">Telefono</label>
+            <input type="tel" id="input-telefono" placeholder="+54 11 1234-5678">
+          </div>
+          <div class="form-group">
+            <label for="input-bio">Biografia</label>
+            <textarea id="input-bio" rows="3" placeholder="Cuentanos un poco sobre ti..." maxlength="200"></textarea>
+            <span class="form-hint"><span id="bio-count">0</span>/200 caracteres</span>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn-ghost" id="btn-cancel-personal">Cancelar</button>
+            <button type="submit" class="btn-primary-profile">Guardar cambios</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ========== SEGURIDAD ========== -->
+    <section class="profile-section" id="section-seguridad">
+      <div class="section-header">
+        <h2>Seguridad</h2>
+        <p>Protege tu cuenta con contrasena segura y autenticacion en dos pasos.</p>
+      </div>
+
+      <div class="profile-card">
+        <h3 class="card-section-title">Cambiar contrasena</h3>
+        <form id="form-password" class="profile-form">
+          <div class="form-group">
+            <label for="input-current-pass">Contrasena actual</label>
+            <div class="input-password-wrap">
+              <input type="password" id="input-current-pass" placeholder="Tu contrasena actual">
+              <button type="button" class="btn-toggle-pass" data-target="input-current-pass">
+                <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="input-new-pass">Nueva contrasena</label>
+              <input type="password" id="input-new-pass" placeholder="Minimo 6 caracteres">
+            </div>
+            <div class="form-group">
+              <label for="input-confirm-pass">Confirmar contrasena</label>
+              <input type="password" id="input-confirm-pass" placeholder="Repetir contrasena">
+            </div>
+          </div>
+          <div class="password-strength" id="password-strength" style="display:none">
+            <div class="strength-bar"><div class="strength-fill" id="strength-fill"></div></div>
+            <span class="strength-text" id="strength-text">Debil</span>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary-profile">Actualizar contrasena</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="profile-card">
+        <div class="security-item">
+          <div class="security-info">
+            <h3 class="card-section-title">Autenticacion en dos pasos</h3>
+            <p class="text-dim">Agrega una capa extra de seguridad a tu cuenta.</p>
+          </div>
+          <div class="security-action">
+            <span class="badge-status badge-inactive">Desactivado</span>
+            <button class="btn-outline-sm" disabled>Proximamente</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <h3 class="card-section-title">Sesiones activas</h3>
+        <p class="text-dim" style="margin-bottom:1rem">Dispositivos donde tienes sesion iniciada.</p>
+        <div class="session-list" id="session-list">
+          <div class="session-item session-current">
+            <div class="session-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <div class="session-info">
+              <span class="session-device" id="session-device">Este dispositivo</span>
+              <span class="session-details" id="session-details">Sesion actual</span>
+            </div>
+            <span class="badge-status badge-active-sm">Activa</span>
+          </div>
+        </div>
+        <button class="btn-danger-outline" id="btn-close-sessions" style="margin-top:1rem">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+          Cerrar otras sesiones
+        </button>
+      </div>
+    </section>
+
+    <!-- ========== NOTIFICACIONES ========== -->
+    <section class="profile-section" id="section-notificaciones">
+      <div class="section-header">
+        <h2>Notificaciones</h2>
+        <p>Configura como y cuando quieres recibir notificaciones.</p>
+      </div>
+
+      <div class="profile-card">
+        <h3 class="card-section-title">Notificaciones por correo</h3>
+        <div class="toggle-list">
+          <div class="toggle-item">
+            <div class="toggle-info">
+              <span class="toggle-title">Actualizaciones del curso</span>
+              <span class="toggle-desc">Nuevo contenido, modulos y materiales.</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="notif-email-course" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+          <div class="toggle-item">
+            <div class="toggle-info">
+              <span class="toggle-title">Pagos y facturacion</span>
+              <span class="toggle-desc">Confirmaciones de pago y recibos.</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="notif-email-billing" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+          <div class="toggle-item">
+            <div class="toggle-info">
+              <span class="toggle-title">Comunidad y eventos</span>
+              <span class="toggle-desc">Novedades de la comunidad y eventos en vivo.</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="notif-email-community" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+          <div class="toggle-item">
+            <div class="toggle-info">
+              <span class="toggle-title">Marketing y promociones</span>
+              <span class="toggle-desc">Ofertas especiales y descuentos.</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="notif-email-marketing">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <h3 class="card-section-title">Notificaciones en la plataforma</h3>
+        <div class="toggle-list">
+          <div class="toggle-item">
+            <div class="toggle-info">
+              <span class="toggle-title">Campana de notificaciones</span>
+              <span class="toggle-desc">Mostrar badge de notificaciones sin leer.</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="notif-platform-bell" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+          <div class="toggle-item">
+            <div class="toggle-info">
+              <span class="toggle-title">Sonido de notificacion</span>
+              <span class="toggle-desc">Reproducir un sonido al recibir notificaciones.</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="notif-platform-sound">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-primary-profile" id="btn-save-notif">Guardar preferencias</button>
+      </div>
+    </section>
+
+    <!-- ========== PREFERENCIAS ========== -->
+    <section class="profile-section" id="section-preferencias">
+      <div class="section-header">
+        <h2>Preferencias</h2>
+        <p>Personaliza tu experiencia en la plataforma.</p>
+      </div>
+
+      <div class="profile-card">
+        <h3 class="card-section-title">Apariencia</h3>
+        <div class="preference-group">
+          <label class="preference-label">Tema</label>
+          <div class="theme-selector">
+            <button class="theme-option active" data-theme="dark">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+              Oscuro
+            </button>
+            <button class="theme-option" data-theme="light" disabled>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+              Claro
+              <span class="badge-soon-sm">Pronto</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <h3 class="card-section-title">Idioma</h3>
+        <div class="preference-group">
+          <label class="preference-label">Idioma de la plataforma</label>
+          <select class="profile-select" id="select-language" disabled>
+            <option value="es" selected>Espanol</option>
+            <option value="en">English</option>
+            <option value="pt">Portugues</option>
+          </select>
+          <span class="form-hint">Mas idiomas proximamente.</span>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <h3 class="card-section-title">Zona horaria</h3>
+        <div class="preference-group">
+          <label class="preference-label">Zona horaria actual</label>
+          <select class="profile-select" id="select-timezone">
+            <option value="America/Argentina/Buenos_Aires">Buenos Aires (GMT-3)</option>
+            <option value="America/Mexico_City">Ciudad de Mexico (GMT-6)</option>
+            <option value="America/Bogota">Bogota (GMT-5)</option>
+            <option value="America/Santiago">Santiago (GMT-4)</option>
+            <option value="Europe/Madrid">Madrid (GMT+1)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-primary-profile" id="btn-save-prefs">Guardar preferencias</button>
+      </div>
+    </section>
+
+    <!-- ========== CUENTA ========== -->
+    <section class="profile-section" id="section-cuenta">
+      <div class="section-header">
+        <h2>Cuenta</h2>
+        <p>Administra tu cuenta y tus datos personales.</p>
+      </div>
+
+      <div class="profile-card">
+        <div class="account-item">
+          <div class="account-info">
+            <h3 class="card-section-title">Descargar mis datos</h3>
+            <p class="text-dim">Descarga una copia de tu informacion personal almacenada en la plataforma.</p>
+          </div>
+          <button class="btn-outline-sm" id="btn-download-data">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Descargar
+          </button>
+        </div>
+      </div>
+
+      <div class="profile-card card-warning">
+        <div class="account-item">
+          <div class="account-info">
+            <h3 class="card-section-title">Desactivar cuenta</h3>
+            <p class="text-dim">Tu cuenta sera desactivada temporalmente. Podras reactivarla en cualquier momento contactando a soporte.</p>
+          </div>
+          <button class="btn-warning-outline" id="btn-deactivate">Desactivar</button>
+        </div>
+      </div>
+
+      <div class="profile-card card-danger">
+        <div class="account-item">
+          <div class="account-info">
+            <h3 class="card-section-title">Eliminar cuenta</h3>
+            <p class="text-dim">Esta accion es permanente. Todos tus datos, progreso y accesos seran eliminados de forma irreversible.</p>
+          </div>
+          <button class="btn-danger-profile" id="btn-delete-account">Eliminar cuenta</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Toast -->
+<div class="profile-toast" id="profile-toast"></div>
+
+<!-- Confirm Modal -->
+<div class="modal-overlay" id="modal-confirm">
+  <div class="modal-card">
+    <div class="modal-bar-red"></div>
+    <h3 id="modal-confirm-title">Confirmar accion</h3>
+    <p id="modal-confirm-text" class="text-dim"></p>
+    <div class="modal-field" id="modal-confirm-input-wrap" style="display:none">
+      <label>Escribe <strong id="modal-confirm-keyword">ELIMINAR</strong> para confirmar</label>
+      <input type="text" id="modal-confirm-input" autocomplete="off">
+    </div>
+    <div class="modal-actions">
+      <button class="btn-ghost" id="modal-confirm-cancel">Cancelar</button>
+      <button class="btn-danger-profile" id="modal-confirm-ok">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/auth.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  Auth.init();
+  await Auth.guard();
+
+  const userData = JSON.parse(sessionStorage.getItem("usuario") || "{}");
+  const nombre = userData.nombre || "Usuario";
+  const inicial = nombre.charAt(0).toUpperCase();
+
+  // --- Fill user info ---
+  document.getElementById("sidebar-avatar").textContent = inicial;
+  document.getElementById("sidebar-name").textContent = nombre;
+  document.getElementById("sidebar-email").textContent = userData.email || "";
+  document.getElementById("profile-photo-lg").textContent = inicial;
+  document.getElementById("photo-user-name").textContent = nombre;
+
+  // --- Fill personal form ---
+  const parts = nombre.split(" ");
+  document.getElementById("input-nombre").value = parts[0] || "";
+  document.getElementById("input-apellido").value = parts.slice(1).join(" ") || "";
+  document.getElementById("input-email").value = userData.email || "";
+  document.getElementById("input-telefono").value = userData.telefono || "";
+  document.getElementById("input-bio").value = userData.bio || "";
+  updateBioCount();
+
+  // --- Session info ---
+  const ua = navigator.userAgent;
+  let deviceName = "Navegador desconocido";
+  if (ua.includes("Chrome") && !ua.includes("Edg")) deviceName = "Google Chrome";
+  else if (ua.includes("Firefox")) deviceName = "Mozilla Firefox";
+  else if (ua.includes("Safari") && !ua.includes("Chrome")) deviceName = "Safari";
+  else if (ua.includes("Edg")) deviceName = "Microsoft Edge";
+  document.getElementById("session-device").textContent = deviceName;
+  document.getElementById("session-details").textContent = "Sesion actual — " + new Date().toLocaleDateString("es-AR");
+
+  // --- Open section from URL hash ---
+  const hash = window.location.hash.replace("#", "");
+  if (hash) switchSection(hash);
+
+  // ============================================================
+  // SIDEBAR NAVIGATION
+  // ============================================================
+  document.querySelectorAll(".sidebar-link").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      switchSection(this.dataset.section);
+    });
+  });
+
+  function switchSection(sectionId) {
+    document.querySelectorAll(".sidebar-link").forEach(function(b) { b.classList.remove("active"); });
+    document.querySelectorAll(".profile-section").forEach(function(s) { s.classList.remove("active"); });
+
+    var btn = document.querySelector('[data-section="' + sectionId + '"]');
+    var sec = document.getElementById("section-" + sectionId);
+    if (btn) btn.classList.add("active");
+    if (sec) sec.classList.add("active");
+
+    window.history.replaceState(null, "", "#" + sectionId);
+  }
+
+  // ============================================================
+  // PERSONAL FORM
+  // ============================================================
+  document.getElementById("input-bio").addEventListener("input", updateBioCount);
+
+  function updateBioCount() {
+    var bio = document.getElementById("input-bio");
+    document.getElementById("bio-count").textContent = bio.value.length;
+  }
+
+  document.getElementById("form-personal").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    var fullName = (document.getElementById("input-nombre").value.trim() + " " + document.getElementById("input-apellido").value.trim()).trim();
+    if (!fullName) { showToast("Ingresa tu nombre.", "error"); return; }
+
+    var updates = {
+      nombre: fullName,
+      telefono: document.getElementById("input-telefono").value.trim() || null,
+      bio: document.getElementById("input-bio").value.trim() || null
+    };
+
+    var result = await Auth.updateProfile(updates);
+    if (result.success) {
+      showToast("Perfil actualizado correctamente.");
+      await Auth.refreshProfile();
+      var newData = JSON.parse(sessionStorage.getItem("usuario") || "{}");
+      var newNombre = newData.nombre || "Usuario";
+      document.getElementById("sidebar-name").textContent = newNombre;
+      document.getElementById("photo-user-name").textContent = newNombre;
+      var newInicial = newNombre.charAt(0).toUpperCase();
+      document.getElementById("sidebar-avatar").textContent = newInicial;
+      document.getElementById("profile-photo-lg").textContent = newInicial;
+    } else {
+      showToast("Error: " + (result.error || "No se pudo actualizar."), "error");
+    }
+  });
+
+  document.getElementById("btn-cancel-personal").addEventListener("click", function() {
+    var ud = JSON.parse(sessionStorage.getItem("usuario") || "{}");
+    var p = (ud.nombre || "").split(" ");
+    document.getElementById("input-nombre").value = p[0] || "";
+    document.getElementById("input-apellido").value = p.slice(1).join(" ") || "";
+    document.getElementById("input-telefono").value = ud.telefono || "";
+    document.getElementById("input-bio").value = ud.bio || "";
+    updateBioCount();
+  });
+
+  // ============================================================
+  // PASSWORD
+  // ============================================================
+  document.querySelectorAll(".btn-toggle-pass").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      var target = document.getElementById(this.dataset.target);
+      var isPass = target.type === "password";
+      target.type = isPass ? "text" : "password";
+      this.querySelector(".eye-open").style.display = isPass ? "none" : "";
+      this.querySelector(".eye-closed").style.display = isPass ? "" : "none";
+    });
+  });
+
+  document.getElementById("input-new-pass").addEventListener("input", function() {
+    var val = this.value;
+    var el = document.getElementById("password-strength");
+    var fill = document.getElementById("strength-fill");
+    var text = document.getElementById("strength-text");
+    if (!val) { el.style.display = "none"; return; }
+    el.style.display = "flex";
+    var score = 0;
+    if (val.length >= 6) score++;
+    if (val.length >= 10) score++;
+    if (/[A-Z]/.test(val)) score++;
+    if (/[0-9]/.test(val)) score++;
+    if (/[^A-Za-z0-9]/.test(val)) score++;
+    var levels = [
+      { w: "20%", c: "#ef4444", t: "Muy debil" },
+      { w: "40%", c: "#f59e0b", t: "Debil" },
+      { w: "60%", c: "#f59e0b", t: "Regular" },
+      { w: "80%", c: "#22c55e", t: "Buena" },
+      { w: "100%", c: "#22c55e", t: "Fuerte" }
+    ];
+    var lvl = levels[Math.min(score, 4)];
+    fill.style.width = lvl.w;
+    fill.style.background = lvl.c;
+    text.textContent = lvl.t;
+    text.style.color = lvl.c;
+  });
+
+  document.getElementById("form-password").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    var newPass = document.getElementById("input-new-pass").value;
+    var confirmPass = document.getElementById("input-confirm-pass").value;
+    if (!newPass || newPass.length < 6) { showToast("La contrasena debe tener al menos 6 caracteres.", "error"); return; }
+    if (newPass !== confirmPass) { showToast("Las contrasenas no coinciden.", "error"); return; }
+
+    var result = await Auth.updatePassword(newPass);
+    if (result.success) {
+      showToast("Contrasena actualizada correctamente.");
+      document.getElementById("form-password").reset();
+      document.getElementById("password-strength").style.display = "none";
+    } else {
+      showToast("Error: " + (result.error || "No se pudo cambiar la contrasena."), "error");
+    }
+  });
+
+  // ============================================================
+  // CLOSE SESSIONS
+  // ============================================================
+  document.getElementById("btn-close-sessions").addEventListener("click", function() {
+    showToast("No hay otras sesiones activas.");
+  });
+
+  // ============================================================
+  // NOTIFICATIONS PREFS
+  // ============================================================
+  document.getElementById("btn-save-notif").addEventListener("click", function() {
+    var prefs = {
+      email_course: document.getElementById("notif-email-course").checked,
+      email_billing: document.getElementById("notif-email-billing").checked,
+      email_community: document.getElementById("notif-email-community").checked,
+      email_marketing: document.getElementById("notif-email-marketing").checked,
+      platform_bell: document.getElementById("notif-platform-bell").checked,
+      platform_sound: document.getElementById("notif-platform-sound").checked
+    };
+    localStorage.setItem("notif_prefs", JSON.stringify(prefs));
+    showToast("Preferencias de notificaciones guardadas.");
+  });
+
+  // Load saved prefs
+  var savedNotifPrefs = JSON.parse(localStorage.getItem("notif_prefs") || "null");
+  if (savedNotifPrefs) {
+    if (savedNotifPrefs.email_course !== undefined) document.getElementById("notif-email-course").checked = savedNotifPrefs.email_course;
+    if (savedNotifPrefs.email_billing !== undefined) document.getElementById("notif-email-billing").checked = savedNotifPrefs.email_billing;
+    if (savedNotifPrefs.email_community !== undefined) document.getElementById("notif-email-community").checked = savedNotifPrefs.email_community;
+    if (savedNotifPrefs.email_marketing !== undefined) document.getElementById("notif-email-marketing").checked = savedNotifPrefs.email_marketing;
+    if (savedNotifPrefs.platform_bell !== undefined) document.getElementById("notif-platform-bell").checked = savedNotifPrefs.platform_bell;
+    if (savedNotifPrefs.platform_sound !== undefined) document.getElementById("notif-platform-sound").checked = savedNotifPrefs.platform_sound;
+  }
+
+  // ============================================================
+  // PREFERENCES
+  // ============================================================
+  document.getElementById("btn-save-prefs").addEventListener("click", function() {
+    var tz = document.getElementById("select-timezone").value;
+    localStorage.setItem("user_timezone", tz);
+    showToast("Preferencias guardadas.");
+  });
+
+  var savedTz = localStorage.getItem("user_timezone");
+  if (savedTz) document.getElementById("select-timezone").value = savedTz;
+
+  // ============================================================
+  // ACCOUNT ACTIONS
+  // ============================================================
+  document.getElementById("btn-download-data").addEventListener("click", function() {
+    var ud = JSON.parse(sessionStorage.getItem("usuario") || "{}");
+    var blob = new Blob([JSON.stringify(ud, null, 2)], { type: "application/json" });
+    var link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "mis-datos-binary-edge.json";
+    link.click();
+    URL.revokeObjectURL(link.href);
+    showToast("Datos descargados.");
+  });
+
+  document.getElementById("btn-deactivate").addEventListener("click", function() {
+    showConfirm(
+      "Desactivar cuenta",
+      "Tu cuenta sera desactivada temporalmente. No podras acceder hasta que soporte la reactive. ¿Deseas continuar?",
+      null,
+      function() { showToast("Solicitud enviada. Contacta a soporte para completar la desactivacion."); }
+    );
+  });
+
+  document.getElementById("btn-delete-account").addEventListener("click", function() {
+    showConfirm(
+      "Eliminar cuenta permanentemente",
+      "Esta accion es irreversible. Todos tus datos, progreso, accesos y pagos seran eliminados de forma permanente.",
+      "ELIMINAR",
+      function() { showToast("Solicitud enviada. Contacta a soporte para confirmar la eliminacion."); }
+    );
+  });
+
+  // ============================================================
+  // LOGOUT
+  // ============================================================
+  document.getElementById("btn-logout").addEventListener("click", async function() {
+    await Auth.logout();
+    window.location.href = "iniciar-sesion.html";
+  });
+
+  // ============================================================
+  // TOAST + CONFIRM HELPERS
+  // ============================================================
+  function showToast(msg, type) {
+    var t = document.getElementById("profile-toast");
+    t.textContent = msg;
+    t.className = "profile-toast show" + (type === "error" ? " toast-error" : " toast-success");
+    clearTimeout(t._timer);
+    t._timer = setTimeout(function() { t.className = "profile-toast"; }, 3500);
+  }
+
+  var confirmCallback = null;
+  function showConfirm(title, text, keyword, callback) {
+    confirmCallback = callback;
+    document.getElementById("modal-confirm-title").textContent = title;
+    document.getElementById("modal-confirm-text").textContent = text;
+    var inputWrap = document.getElementById("modal-confirm-input-wrap");
+    var input = document.getElementById("modal-confirm-input");
+    if (keyword) {
+      inputWrap.style.display = "";
+      document.getElementById("modal-confirm-keyword").textContent = keyword;
+      input.value = "";
+      document.getElementById("modal-confirm-ok").disabled = true;
+      input.oninput = function() {
+        document.getElementById("modal-confirm-ok").disabled = input.value !== keyword;
+      };
+    } else {
+      inputWrap.style.display = "none";
+      document.getElementById("modal-confirm-ok").disabled = false;
+    }
+    document.getElementById("modal-confirm").classList.add("active");
+  }
+
+  document.getElementById("modal-confirm-cancel").addEventListener("click", function() {
+    document.getElementById("modal-confirm").classList.remove("active");
+  });
+
+  document.getElementById("modal-confirm-ok").addEventListener("click", function() {
+    document.getElementById("modal-confirm").classList.remove("active");
+    if (confirmCallback) confirmCallback();
+  });
+
+  document.getElementById("modal-confirm").addEventListener("click", function(e) {
+    if (e.target === this) this.classList.remove("active");
+  });
+});
+</script>
+</body>
+</html>

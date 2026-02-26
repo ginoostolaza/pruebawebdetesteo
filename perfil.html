@@ -101,11 +101,7 @@
           <div class="profile-photo-lg" id="profile-photo-lg">U</div>
           <div class="profile-photo-actions">
             <h4 id="photo-user-name">Usuario</h4>
-            <p class="text-dim">Imagen de perfil</p>
-            <div class="photo-btns">
-              <button class="btn-outline-sm" id="btn-change-photo">Cambiar foto</button>
-              <button class="btn-ghost-sm" id="btn-remove-photo">Eliminar</button>
-            </div>
+            <p class="text-dim" id="photo-member-since">Miembro desde —</p>
           </div>
         </div>
       </div>
@@ -446,6 +442,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("profile-photo-lg").textContent = inicial;
   document.getElementById("photo-user-name").textContent = nombre;
 
+  // --- Member since date ---
+  if (userData.fecha_registro) {
+    var fecha = new Date(userData.fecha_registro);
+    var meses = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+    document.getElementById("photo-member-since").textContent = "Miembro desde " + meses[fecha.getMonth()] + " " + fecha.getFullYear();
+  }
+
   // --- Fill personal form ---
   const parts = nombre.split(" ");
   document.getElementById("input-nombre").value = parts[0] || "";
@@ -597,8 +600,17 @@ document.addEventListener("DOMContentLoaded", async () => {
   // ============================================================
   // CLOSE SESSIONS
   // ============================================================
-  document.getElementById("btn-close-sessions").addEventListener("click", function() {
-    showToast("No hay otras sesiones activas.");
+  document.getElementById("btn-close-sessions").addEventListener("click", async function() {
+    this.disabled = true;
+    this.textContent = "Cerrando...";
+    var result = await Auth.signOutOthers();
+    if (result.success) {
+      showToast("Otras sesiones cerradas correctamente.");
+    } else {
+      showToast("Error: " + (result.error || "No se pudieron cerrar las sesiones."), "error");
+    }
+    this.disabled = false;
+    this.textContent = "Cerrar otras sesiones";
   });
 
   // ============================================================
@@ -643,15 +655,23 @@ document.addEventListener("DOMContentLoaded", async () => {
   // ============================================================
   // ACCOUNT ACTIONS
   // ============================================================
-  document.getElementById("btn-download-data").addEventListener("click", function() {
-    var ud = JSON.parse(sessionStorage.getItem("usuario") || "{}");
-    var blob = new Blob([JSON.stringify(ud, null, 2)], { type: "application/json" });
+  document.getElementById("btn-download-data").addEventListener("click", async function() {
+    this.disabled = true;
+    showToast("Preparando descarga...");
+    var fullData = await Auth.getFullUserData();
+    if (!fullData) {
+      showToast("No se pudieron obtener los datos. Intenta de nuevo.", "error");
+      this.disabled = false;
+      return;
+    }
+    var blob = new Blob([JSON.stringify(fullData, null, 2)], { type: "application/json" });
     var link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
     link.download = "mis-datos-binary-edge.json";
     link.click();
     URL.revokeObjectURL(link.href);
-    showToast("Datos descargados.");
+    showToast("Datos descargados correctamente.");
+    this.disabled = false;
   });
 
   document.getElementById("btn-deactivate").addEventListener("click", function() {
@@ -659,7 +679,18 @@ document.addEventListener("DOMContentLoaded", async () => {
       "Desactivar cuenta",
       "Tu cuenta sera desactivada temporalmente. No podras acceder hasta que soporte la reactive. ¿Deseas continuar?",
       null,
-      function() { showToast("Solicitud enviada. Contacta a soporte para completar la desactivacion."); }
+      async function() {
+        var result = await Auth.deactivateAccount();
+        if (result.success) {
+          showToast("Cuenta desactivada. Cerrando sesion...");
+          setTimeout(async function() {
+            await Auth.logout();
+            window.location.href = "iniciar-sesion.html";
+          }, 1500);
+        } else {
+          showToast("Error: " + (result.error || "No se pudo desactivar la cuenta."), "error");
+        }
+      }
     );
   });
 
@@ -668,7 +699,22 @@ document.addEventListener("DOMContentLoaded", async () => {
       "Eliminar cuenta permanentemente",
       "Esta accion es irreversible. Todos tus datos, progreso, accesos y pagos seran eliminados de forma permanente.",
       "ELIMINAR",
-      function() { showToast("Solicitud enviada. Contacta a soporte para confirmar la eliminacion."); }
+      async function() {
+        if (!window.supabase) {
+          showToast("No disponible en modo demo.", "error");
+          return;
+        }
+        var session = await window.supabase.auth.getSession();
+        var user = session?.data?.session?.user;
+        if (!user) { showToast("No autenticado.", "error"); return; }
+        var { error } = await window.supabase.from("profiles").update({ estado: "eliminado" }).eq("id", user.id);
+        if (error) { showToast("Error: " + error.message, "error"); return; }
+        showToast("Cuenta marcada para eliminacion. Cerrando sesion...");
+        setTimeout(async function() {
+          await Auth.logout();
+          window.location.href = "iniciar-sesion.html";
+        }, 1500);
+      }
     );
   });
 

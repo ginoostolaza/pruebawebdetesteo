@@ -48,12 +48,12 @@
       <div class="notif-dropdown" id="notif-dropdown">
         <div class="notif-dropdown-header">
           <h4>Notificaciones</h4>
-          <button class="notif-mark-all" id="notif-mark-all" title="Marcar todas como leidas">
+          <button class="notif-mark-all" id="notif-mark-all" title="Marcar todas como le&iacute;das">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
           </button>
         </div>
         <div class="notif-list" id="notif-list">
-          <div class="notif-empty">No tienes notificaciones</div>
+          <div class="notif-empty">No ten&eacute;s notificaciones</div>
         </div>
       </div>
     </div>
@@ -78,7 +78,7 @@
         </a>
         <a href="perfil.html#preferencias" class="dropdown-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-          Configuracion
+          Configuraci&oacute;n
         </a>
         <a href="perfil.html#seguridad" class="dropdown-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -95,7 +95,7 @@
         <div class="dropdown-divider"></div>
         <button class="dropdown-item dropdown-logout" id="btn-logout">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
-          Cerrar sesion
+          Cerrar sesi&oacute;n
         </button>
       </div>
     </div>
@@ -107,17 +107,52 @@
      ============================================================ -->
 <div class="dash-container">
 
-  <!-- Welcome -->
+  <!-- Welcome Banner -->
   <div class="dash-welcome">
+    <div class="welcome-glow"></div>
     <div class="welcome-row">
       <div class="welcome-text">
+        <p class="welcome-greeting" id="welcome-greeting">Buenas tardes</p>
         <h1>Bienvenido, <span id="user-name">Usuario</span></h1>
         <p id="welcome-subtitle">Tu centro de aprendizaje y crecimiento en trading</p>
       </div>
-      <div class="welcome-date" id="welcome-date">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <div class="welcome-right">
+        <div class="welcome-date" id="welcome-date">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
       </div>
     </div>
+    <!-- Profile completion mini-bar -->
+    <div class="welcome-completion" id="welcome-completion" style="display:none;">
+      <div class="completion-info">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>Complet&aacute; tu perfil</span>
+        <span class="completion-pct" id="completion-pct">60%</span>
+      </div>
+      <div class="completion-bar">
+        <div class="completion-fill" id="completion-fill" style="width:60%"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="quick-actions" id="quick-actions">
+    <a href="acceso-comunidad.html" class="quick-action-btn qa-primary" id="qa-curso" style="display:none;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Continuar aprendiendo
+    </a>
+    <a href="comunidad-privada.html" class="quick-action-btn qa-green" id="qa-comunidad" style="display:none;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Ir a la comunidad
+    </a>
+    <a href="bot.html" class="quick-action-btn qa-cyan" id="qa-bot" style="display:none;">
+      <span class="qa-live-dot"></span>
+      Bot operando
+    </a>
+    <a href="finalizar-compra.html" class="quick-action-btn qa-outline" id="qa-comprar" style="display:none;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      Adquirir acceso
+    </a>
   </div>
 
   <!-- Quick Stats -->
@@ -152,6 +187,20 @@
     </div>
   </div>
 
+  <!-- Daily Trading Tip -->
+  <div class="daily-tip" id="daily-tip">
+    <div class="tip-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z"/><line x1="9" y1="21" x2="15" y2="21"/></svg>
+    </div>
+    <div class="tip-content">
+      <span class="tip-label">Consejo del d&iacute;a</span>
+      <p class="tip-text" id="tip-text">Oper&aacute; siempre con un plan. Defin&iacute; tu entrada, tu stop loss y tu take profit antes de ejecutar cualquier operaci&oacute;n.</p>
+    </div>
+    <button class="tip-refresh" id="tip-refresh" title="Otro consejo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+    </button>
+  </div>
+
   <!-- Progress Section -->
   <h2 class="section-title" id="progress-title">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
@@ -160,12 +209,21 @@
 
   <div class="progress-section" id="progress-section">
     <div class="progress-header">
-      <div class="progress-stats">
-        <span class="progress-completed" id="progress-count">0 / 5</span>
-        <span class="progress-label">modulos completados</span>
+      <div class="progress-ring-wrap">
+        <svg class="progress-ring" viewBox="0 0 80 80">
+          <circle class="progress-ring-bg" cx="40" cy="40" r="34" fill="none" stroke-width="6"/>
+          <circle class="progress-ring-fill" id="progress-ring-fill" cx="40" cy="40" r="34" fill="none" stroke-width="6" stroke-dasharray="213.6" stroke-dashoffset="213.6"/>
+        </svg>
+        <span class="progress-ring-text" id="progress-ring-text">0%</span>
       </div>
-      <div class="progress-bar-container">
-        <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+      <div class="progress-info">
+        <div class="progress-stats">
+          <span class="progress-completed" id="progress-count">0 / 5</span>
+          <span class="progress-label">m&oacute;dulos completados</span>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar" id="progress-bar" style="width: 0%"></div>
+        </div>
       </div>
     </div>
     <div class="progress-modules" id="progress-modules">
@@ -180,7 +238,7 @@
   </h2>
 
   <div class="dash-grid">
-    <!-- Curso de Trading (dynamic: locked/unlocked by JS) -->
+    <!-- Curso de Trading -->
     <div class="course-card card-blue" id="card-fase1">
       <div class="card-header">
         <div class="card-icon blue">
@@ -188,8 +246,8 @@
         </div>
         <span class="card-badge" id="badge-fase1">-</span>
       </div>
-      <h3 class="card-title">Curso de Trading — Fase 1</h3>
-      <p class="card-desc">2 sistemas de trading probados, preparacion del grafico paso a paso, gestion de riesgo, psicologia del trader, glosario y consejos avanzados.</p>
+      <h3 class="card-title">Curso de Trading &mdash; Fase 1</h3>
+      <p class="card-desc">2 sistemas de trading probados, preparaci&oacute;n del gr&aacute;fico paso a paso, gesti&oacute;n de riesgo, psicolog&iacute;a del trader, glosario y consejos avanzados.</p>
       <ul class="card-features">
         <li>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
@@ -197,7 +255,7 @@
         </li>
         <li>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          Preparacion del grafico paso a paso
+          Preparaci&oacute;n del gr&aacute;fico paso a paso
         </li>
         <li>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
@@ -213,14 +271,14 @@
         <div class="card-icon purple">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
         </div>
-        <span class="card-badge badge-soon">Proximamente</span>
+        <span class="card-badge badge-soon">Pr&oacute;ximamente</span>
       </div>
-      <h3 class="card-title">Mentoria Personalizada</h3>
+      <h3 class="card-title">Mentor&iacute;a Personalizada</h3>
       <p class="card-desc">Sesiones 1 a 1 con nuestro equipo para resolver dudas, revisar operaciones y potenciar tu crecimiento como trader.</p>
       <ul class="card-features">
         <li>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          Revision de operaciones en vivo
+          Revisi&oacute;n de operaciones en vivo
         </li>
         <li>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
@@ -234,7 +292,7 @@
       <span class="card-action action-disabled">Disponible pronto</span>
     </div>
 
-    <!-- Comunidad (dynamic: active/locked by JS) -->
+    <!-- Comunidad -->
     <div class="course-card card-green" id="card-comunidad">
       <div class="card-header">
         <div class="card-icon green">
@@ -243,7 +301,7 @@
         <span class="card-badge" id="badge-comunidad">-</span>
       </div>
       <h3 class="card-title">Comunidad Privada</h3>
-      <p class="card-desc">Conecta con otros traders, comparte analisis, resultados y crece en un entorno motivador y de alto nivel.</p>
+      <p class="card-desc">Conect&aacute; con otros traders, compart&iacute; an&aacute;lisis, resultados y crec&eacute; en un entorno motivador y de alto nivel.</p>
       <ul class="card-features">
         <li>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
@@ -251,7 +309,7 @@
         </li>
         <li>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          Analisis compartidos
+          An&aacute;lisis compartidos
         </li>
         <li>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
@@ -261,7 +319,7 @@
       <div id="action-comunidad"><!-- Filled by JS --></div>
     </div>
 
-    <!-- Bot de Trading (dynamic: active/locked by JS) -->
+    <!-- Bot de Trading -->
     <div class="course-card card-cyan" id="card-bot">
       <div class="card-header">
         <div class="card-icon cyan">
@@ -274,7 +332,7 @@
       <ul class="card-features">
         <li>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          Operacion automatica 24/7
+          Operaci&oacute;n autom&aacute;tica 24/7
         </li>
         <li>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
@@ -282,7 +340,7 @@
         </li>
         <li>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          Soporte de instalacion
+          Soporte de instalaci&oacute;n
         </li>
       </ul>
       <div id="action-bot"><!-- Filled by JS --></div>
@@ -292,7 +350,7 @@
   <!-- Quick Links -->
   <h2 class="section-title">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-    Accesos rapidos
+    Accesos r&aacute;pidos
   </h2>
 
   <div class="quick-links">
@@ -304,16 +362,29 @@
         <div class="quick-link-text">Contactar soporte</div>
         <div class="quick-link-sub">Instagram directo</div>
       </div>
+      <svg class="quick-link-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
 
-    <a href="acceso-comunidad.html#glosario" class="quick-link">
+    <a href="acceso-comunidad.html#glosario" class="quick-link" id="ql-glosario">
       <div class="quick-link-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
       </div>
       <div>
         <div class="quick-link-text">Glosario de Trading</div>
-        <div class="quick-link-sub">Terminos esenciales</div>
+        <div class="quick-link-sub">T&eacute;rminos esenciales</div>
       </div>
+      <svg class="quick-link-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+
+    <a href="perfil.html" class="quick-link">
+      <div class="quick-link-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div>
+        <div class="quick-link-text">Mi perfil</div>
+        <div class="quick-link-sub">Configuraci&oacute;n de cuenta</div>
+      </div>
+      <svg class="quick-link-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
 
     <a href="index.html" class="quick-link">
@@ -321,10 +392,18 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       </div>
       <div>
-        <div class="quick-link-text">Pagina principal</div>
+        <div class="quick-link-text">P&aacute;gina principal</div>
         <div class="quick-link-sub">Volver al inicio</div>
       </div>
+      <svg class="quick-link-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
+  </div>
+
+  <!-- Session footer -->
+  <div class="dash-footer">
+    <span>Binary Edge Academy &copy; <span id="footer-year"></span></span>
+    <span class="dash-footer-sep">&middot;</span>
+    <span id="session-info">Sesi&oacute;n activa</span>
   </div>
 
 </div>
@@ -336,12 +415,29 @@
 
 <script>
   const MODULE_NAMES = {
-    'preparacion-grafico': 'Preparacion del Grafico',
+    'preparacion-grafico': 'Preparaci\u00f3n del Gr\u00e1fico',
     'flexzone': 'Sistema Flexzone',
     'relleno-zona': 'Sistema Relleno de Zona',
     'glosario': 'Glosario de Trading',
     'consejos': 'Consejos y Errores a Evitar'
   };
+
+  const TRADING_TIPS = [
+    "Oper\u00e1 siempre con un plan. Defin\u00ed tu entrada, tu stop loss y tu take profit antes de ejecutar cualquier operaci\u00f3n.",
+    "La gesti\u00f3n de riesgo es m\u00e1s importante que la estrategia. Nunca arriesgues m\u00e1s del 1-2% de tu cuenta por operaci\u00f3n.",
+    "No operes por aburrimiento. Si no hay setup claro, la mejor operaci\u00f3n es no operar.",
+    "Llev\u00e1 un diario de trading. Registr\u00e1 cada operaci\u00f3n, tu emoci\u00f3n y el resultado. Es la clave para mejorar.",
+    "La paciencia es tu mayor ventaja competitiva. Los traders rentables esperan las mejores oportunidades.",
+    "Nunca muevas tu stop loss en contra de tu posici\u00f3n. Respet\u00e1 tu plan original.",
+    "No busques predecir el mercado, busc\u00e1 reaccionar a lo que el mercado te muestra.",
+    "Las rachas perdedoras son normales. Lo que importa es c\u00f3mo las gestion\u00e1s emocionalmente.",
+    "Aprend\u00e9 a cerrar la plataforma despu\u00e9s de una buena operaci\u00f3n. La euforia es tan peligrosa como el miedo.",
+    "Enfocat\u00e9 en el proceso, no en el dinero. Los resultados vienen solos cuando el proceso es s\u00f3lido.",
+    "No compares tu progreso con el de otros. Cada trader tiene su propio camino y su propio ritmo.",
+    "Antes de operar en real, practic\u00e1 en demo hasta que tu sistema sea consistente.",
+    "El mercado siempre va a estar ah\u00ed. No tengas urgencia por operar hoy.",
+    "Tu salud mental impacta directamente en tus resultados. Descans\u00e1 y cuid\u00e1 tu bienestar."
+  ];
 
   document.addEventListener("DOMContentLoaded", async () => {
     Auth.init();
@@ -373,6 +469,13 @@
       if (e.key === "Escape") dropdown.classList.remove("open");
     });
 
+    // --- Time-based greeting ---
+    var hour = new Date().getHours();
+    var greetEl = document.getElementById("welcome-greeting");
+    if (hour < 12) greetEl.textContent = "Buenos d\u00edas";
+    else if (hour < 19) greetEl.textContent = "Buenas tardes";
+    else greetEl.textContent = "Buenas noches";
+
     // --- Role tag ---
     const roleTag = document.getElementById("user-role-tag");
     if (userData.rol === 'admin') {
@@ -399,13 +502,48 @@
     const dateStr = now.toLocaleDateString('es-AR', options);
     document.getElementById("welcome-date").insertAdjacentText('beforeend', dateStr.charAt(0).toUpperCase() + dateStr.slice(1));
 
-    // --- Fase 1 card (locked/unlocked) ---
+    // --- Footer year & session ---
+    document.getElementById("footer-year").textContent = now.getFullYear();
+    var sessionStart = sessionStorage.getItem("timestampAcceso");
+    if (sessionStart) {
+      var diff = Math.floor((now - new Date(parseInt(sessionStart))) / 60000);
+      if (diff < 1) document.getElementById("session-info").textContent = "Sesi\u00f3n iniciada hace un momento";
+      else if (diff < 60) document.getElementById("session-info").textContent = "Sesi\u00f3n activa hace " + diff + " min";
+      else document.getElementById("session-info").textContent = "Sesi\u00f3n activa hace " + Math.floor(diff/60) + "h " + (diff%60) + "min";
+    }
+
+    // --- Quick actions (context-aware) ---
+    var hasAccess = Auth.hasAccess('fase-1');
+    if (hasAccess) {
+      document.getElementById("qa-curso").style.display = 'inline-flex';
+    } else {
+      document.getElementById("qa-comprar").style.display = 'inline-flex';
+    }
+    if (userData.comunidad_activa) {
+      document.getElementById("qa-comunidad").style.display = 'inline-flex';
+    }
+    if (userData.bot_activo) {
+      document.getElementById("qa-bot").style.display = 'inline-flex';
+    }
+
+    // --- Profile completion ---
+    var fields = ['nombre', 'email', 'telefono', 'bio'];
+    var filled = fields.filter(function(f) { return userData[f] && userData[f].toString().trim(); }).length;
+    var pct = Math.round((filled / fields.length) * 100);
+    if (pct < 100) {
+      var compEl = document.getElementById("welcome-completion");
+      compEl.style.display = 'flex';
+      document.getElementById("completion-pct").textContent = pct + "%";
+      document.getElementById("completion-fill").style.width = pct + "%";
+    }
+
+    // --- Fase 1 card ---
     renderFase1Card(userData);
 
-    // --- Bot card (active/locked) ---
+    // --- Bot card ---
     renderBotCard(userData);
 
-    // --- Comunidad card (active/locked) ---
+    // --- Comunidad card ---
     renderComunidadCard(userData);
 
     // --- Progress ---
@@ -418,6 +556,10 @@
       const progress = await Auth.getProgress(userData.id);
       renderProgress(progress, userData.id);
     }
+
+    // --- Trading tip ---
+    showRandomTip();
+    document.getElementById("tip-refresh").addEventListener("click", showRandomTip);
 
     // --- Notifications ---
     await loadNotifications(userData.id);
@@ -434,6 +576,16 @@
       document.title = document.hidden ? "Volvemos pronto..." : "Dashboard | Binary Edge Academy";
     });
   });
+
+  function showRandomTip() {
+    var idx = Math.floor(Math.random() * TRADING_TIPS.length);
+    var el = document.getElementById("tip-text");
+    el.style.opacity = '0';
+    setTimeout(function() {
+      el.textContent = TRADING_TIPS[idx];
+      el.style.opacity = '1';
+    }, 200);
+  }
 
   function renderFase1Card(userData) {
     const card = document.getElementById("card-fase1");
@@ -454,12 +606,12 @@
       badge.className = 'card-badge badge-locked';
       action.innerHTML = '<a href="finalizar-compra.html?plan=fase1" class="card-action action-locked">' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>' +
-        'Adquirir Fase 1 — $9.999 ARS / USD 10' +
+        'Adquirir Fase 1 \u2014 $9.999 ARS / USD 10' +
         '</a>';
     }
 
     if (!userData.fase) {
-      document.getElementById("welcome-subtitle").textContent = 'Adquiri un curso para comenzar tu camino en trading';
+      document.getElementById("welcome-subtitle").textContent = 'Adquir\u00ed un curso para comenzar tu camino en trading';
     }
   }
 
@@ -473,14 +625,14 @@
       badge.className = 'card-badge badge-active';
       action.innerHTML = '<a href="bot.html" class="card-action action-bot-active">' +
         '<span class="bot-pulse"></span>' +
-        'Bot operando 24/7 — Ver detalles' +
+        'Bot operando 24/7 \u2014 Ver detalles' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
         '</a>';
     } else {
       badge.textContent = 'Nuevo';
       badge.className = 'card-badge badge-new';
       action.innerHTML = '<a href="finalizar-compra.html?plan=bot" class="card-action action-outline">' +
-        'Suscribirme — $7.500 ARS / USD 5' +
+        'Suscribirme \u2014 $7.500 ARS / USD 5' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
         '</a>';
     }
@@ -505,7 +657,7 @@
       badge.className = 'card-badge badge-locked';
       action.innerHTML = '<span class="card-action action-locked">' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>' +
-        'Contacta a soporte para acceder' +
+        'Contact\u00e1 a soporte para acceder' +
         '</span>';
     }
   }
@@ -518,6 +670,12 @@
 
     document.getElementById("progress-count").textContent = completed + " / " + total;
     document.getElementById("progress-bar").style.width = pct + "%";
+
+    // Update ring
+    var circumference = 2 * Math.PI * 34;
+    var offset = circumference - (pct / 100) * circumference;
+    document.getElementById("progress-ring-fill").style.strokeDashoffset = offset;
+    document.getElementById("progress-ring-text").textContent = pct + "%";
 
     container.innerHTML = progress.map(p => {
       const name = MODULE_NAMES[p.modulo] || p.modulo;
@@ -554,7 +712,7 @@
     }
 
     if (!notifications.length) {
-      list.innerHTML = '<div class="notif-empty">No tienes notificaciones</div>';
+      list.innerHTML = '<div class="notif-empty">No ten\u00e9s notificaciones</div>';
       return;
     }
 
@@ -582,21 +740,20 @@
 
   function setupNotificationListeners(userId) {
     var bell = document.getElementById("notif-bell");
-    var dropdown = document.getElementById("notif-dropdown");
+    var ddropdown = document.getElementById("notif-dropdown");
     var wrapper = document.getElementById("notif-wrapper");
 
     bell.addEventListener("click", function(e) {
       e.stopPropagation();
-      dropdown.classList.toggle("open");
+      ddropdown.classList.toggle("open");
     });
 
     document.addEventListener("click", function(e) {
       if (!wrapper.contains(e.target)) {
-        dropdown.classList.remove("open");
+        ddropdown.classList.remove("open");
       }
     });
 
-    // Mark single notification as read on click
     document.getElementById("notif-list").addEventListener("click", async function(e) {
       var item = e.target.closest('.notif-item');
       if (item && item.classList.contains('notif-unread')) {
@@ -607,7 +764,6 @@
       }
     });
 
-    // Mark all as read
     document.getElementById("notif-mark-all").addEventListener("click", async function() {
       await Auth.markAllNotificationsRead(userId);
       await loadNotifications(userId);

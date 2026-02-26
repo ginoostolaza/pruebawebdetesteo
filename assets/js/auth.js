@@ -55,7 +55,7 @@ const Auth = (function () {
     const profile = await getProfile(user.id);
 
     if (!profile) {
-      console.warn('[Auth] No se pudo leer el perfil del usuario. Verificar politicas RLS en la tabla profiles.');
+      console.warn('[Auth] No se pudo leer el perfil del usuario. Verificar políticas RLS en la tabla profiles.');
     }
 
     const userData = buildUserData(user, profile, null);
@@ -84,22 +84,22 @@ const Auth = (function () {
 
     if (error) return { success: false, message: translateError(error.message) };
     if (data.user && data.user.identities && data.user.identities.length === 0) {
-      return { success: false, message: 'Este correo ya esta registrado.' };
+      return { success: false, message: 'Este correo ya está registrado.' };
     }
 
-    return { success: true, message: 'Cuenta creada. Revisa tu correo para confirmar tu cuenta.', needsConfirmation: true };
+    return { success: true, message: 'Cuenta creada. Revisá tu correo para confirmar tu cuenta.', needsConfirmation: true };
   }
 
   // ---- RESET PASSWORD ----
   async function resetPassword(email) {
-    if (!supabase) return { success: false, message: 'Recuperacion no disponible en modo demo.' };
+    if (!supabase) return { success: false, message: 'Recuperación no disponible en modo demo.' };
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: window.location.origin + '/iniciar-sesion.html'
     });
 
     if (error) return { success: false, message: translateError(error.message) };
-    return { success: true, message: 'Si el correo esta registrado, recibiras un enlace para restablecer tu contrasena.' };
+    return { success: true, message: 'Si el correo está registrado, recibirás un enlace para restablecer tu contraseña.' };
   }
 
   // ---- LOGOUT ----
@@ -114,7 +114,7 @@ const Auth = (function () {
     const { data, error } = await supabase.from('profiles').select('*').eq('id', userId).single();
     if (error) {
       console.error('[Auth] Error fetching profile:', error.message);
-      console.error('[Auth] Esto puede deberse a politicas RLS faltantes. Ejecuta en SQL de Supabase:');
+      console.error('[Auth] Esto puede deberse a políticas RLS faltantes. Ejecutá en SQL de Supabase:');
       console.error('  CREATE POLICY "Users can read own profile" ON profiles FOR SELECT USING (auth.uid() = id);');
     }
     return data;
@@ -170,7 +170,7 @@ const Auth = (function () {
       const userData = buildUserData(user, profile, existing);
 
       if (!profile) {
-        console.warn('[Auth] Perfil no leido desde DB. Usando datos en cache. Rol actual:', userData.rol);
+        console.warn('[Auth] Perfil no leído desde DB. Usando datos en caché. Rol actual:', userData.rol);
       }
 
       sessionStorage.setItem('usuario', JSON.stringify(userData));
@@ -378,7 +378,7 @@ const Auth = (function () {
   // ---- DEMO LOGIN (development only) ----
   function demoLogin(email, password) {
     var isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    if (!isDev) return { success: false, message: 'Servicio no disponible. Intenta de nuevo mas tarde.' };
+    if (!isDev) return { success: false, message: 'Servicio no disponible. Intentá de nuevo más tarde.' };
 
     if (email === 'admin@admin.com' && password === 'admin123') {
       sessionStorage.setItem('usuario', JSON.stringify({
@@ -396,18 +396,18 @@ const Auth = (function () {
       sessionStorage.setItem('timestampAcceso', Date.now().toString());
       return { success: true };
     }
-    return { success: false, message: 'Email o contrasena incorrectos.' };
+    return { success: false, message: 'Email o contraseña incorrectos.' };
   }
 
   // ---- ERROR TRANSLATION ----
   function translateError(msg) {
     const t = {
-      'Invalid login credentials': 'Email o contrasena incorrectos.',
-      'Email not confirmed': 'Debes confirmar tu correo antes de iniciar sesion.',
-      'User already registered': 'Este correo ya esta registrado.',
-      'Password should be at least 6 characters': 'La contrasena debe tener al menos 6 caracteres.',
-      'Unable to validate email address: invalid format': 'El formato del correo no es valido.',
-      'Signup requires a valid password': 'Debes ingresar una contrasena valida.',
+      'Invalid login credentials': 'Email o contraseña incorrectos.',
+      'Email not confirmed': 'Debés confirmar tu correo antes de iniciar sesión.',
+      'User already registered': 'Este correo ya está registrado.',
+      'Password should be at least 6 characters': 'La contraseña debe tener al menos 6 caracteres.',
+      'Unable to validate email address: invalid format': 'El formato del correo no es válido.',
+      'Signup requires a valid password': 'Debés ingresar una contraseña válida.',
       'For security purposes, you can only request this once every 60 seconds': 'Por seguridad, solo puedes solicitar esto una vez por minuto.'
     };
     return t[msg] || msg;

@@ -942,6 +942,52 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ============================================================
+   DESKTOP: Clean look (reduce decorative effects)
+   ============================================================ */
+@media (min-width: 901px) {
+  /* Remove blurred glow circles on stat cards */
+  .admin-stat::after {
+    display: none;
+  }
+
+  /* Reduce button glows */
+  .btn-primary {
+    box-shadow: 0 2px 6px rgba(59, 130, 246, 0.12);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.18);
+  }
+
+  .btn-danger {
+    box-shadow: 0 2px 6px rgba(239, 68, 68, 0.12);
+  }
+
+  .btn-danger:hover {
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.18);
+  }
+
+  /* Reduce active tab glow */
+  .admin-tab.active {
+    box-shadow: 0 2px 6px rgba(59, 130, 246, 0.12);
+  }
+
+  /* Reduce avatar glow */
+  .user-avatar-sm {
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.1);
+  }
+
+  /* Reduce card icon glows */
+  .action-card-icon.blue,
+  .action-card-icon.purple,
+  .action-card-icon.orange,
+  .action-card-icon.green,
+  .action-card-icon.cyan {
+    box-shadow: none;
+  }
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 900px) {

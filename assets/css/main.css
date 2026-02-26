@@ -1550,6 +1550,85 @@ details[open] .faq-question {
 }
 
 /* ============================================================
+   DESKTOP: Clean & professional (no decorative clutter)
+   ============================================================ */
+
+@media (min-width: 769px) {
+  /* Hide particle canvas on desktop */
+  #particles-canvas {
+    display: none;
+  }
+
+  /* Remove hero glow blurs on desktop */
+  .hero-bg-gradient::before,
+  .hero-bg-gradient::after {
+    display: none;
+  }
+
+  /* Remove scroll indicator on desktop (mouse users don't need it) */
+  .hero-scroll-indicator {
+    display: none;
+  }
+
+  /* Remove section alt glow on desktop */
+  .section-alt::before {
+    display: none;
+  }
+
+  /* Reduce button glow intensity on desktop */
+  .btn-primary {
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.25);
+  }
+
+  .btn-glow::before {
+    display: none;
+  }
+
+  /* Subtle glass card on desktop */
+  .glass-card {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Reduce glow on phase cards */
+  .phase-active:hover {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .phase-upcoming:hover {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Reduce bot card glow */
+  .bot-card:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Reduce social button glow */
+  .social-btn:hover {
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+  }
+
+  /* Clean testimonial avatar */
+  .testimonial-avatar {
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+  }
+
+  /* Cleaner scroll-to-top */
+  .scroll-top-btn {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .scroll-top-btn:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  }
+}
+
+/* ============================================================
    RESPONSIVE DESIGN
    ============================================================ */
 

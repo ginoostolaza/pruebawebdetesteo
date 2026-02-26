@@ -1203,6 +1203,19 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* ============================================================
+   DESKTOP: Clean look (reduce decorative effects)
+   ============================================================ */
+@media (min-width: 769px) {
+  .contact-link {
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.12);
+  }
+
+  .contact-link:hover {
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.18);
+  }
+}
+
+/* ============================================================
    REDUCED MOTION
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {

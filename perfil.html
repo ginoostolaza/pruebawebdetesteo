@@ -11,7 +11,7 @@
     (function () {
       var acceso = sessionStorage.getItem("accesoAutorizado");
       if (!acceso || acceso !== "true") {
-        window.location.replace("iniciar-sesion.html");
+        window.location.replace("iniciar-sesión.html");
       }
     })();
   </script>
@@ -65,7 +65,7 @@
     <nav class="sidebar-menu">
       <button class="sidebar-link active" data-section="personal">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        Informacion personal
+        Información personal
       </button>
       <button class="sidebar-link" data-section="seguridad">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -92,8 +92,8 @@
     <!-- ========== INFORMACION PERSONAL ========== -->
     <section class="profile-section active" id="section-personal">
       <div class="section-header">
-        <h2>Informacion personal</h2>
-        <p>Gestiona tu informacion basica y como te ven otros en la plataforma.</p>
+        <h2>Información personal</h2>
+        <p>Gestiona tu información básica y como te ven otros en la plataforma.</p>
       </div>
 
       <div class="profile-card">
@@ -120,17 +120,17 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="input-email">Correo electronico</label>
+            <label for="input-email">Correo electrónico</label>
             <input type="email" id="input-email" placeholder="tu@correo.com" disabled>
             <span class="form-hint">Para cambiar tu email, contacta a soporte.</span>
           </div>
           <div class="form-group">
-            <label for="input-telefono">Telefono</label>
+            <label for="input-telefono">Teléfono</label>
             <input type="tel" id="input-telefono" placeholder="+54 11 1234-5678">
           </div>
           <div class="form-group">
-            <label for="input-bio">Biografia</label>
-            <textarea id="input-bio" rows="3" placeholder="Cuentanos un poco sobre ti..." maxlength="200"></textarea>
+            <label for="input-bio">Biografía</label>
+            <textarea id="input-bio" rows="3" placeholder="Contanos un poco sobre vos..." maxlength="200"></textarea>
             <span class="form-hint"><span id="bio-count">0</span>/200 caracteres</span>
           </div>
           <div class="form-actions">
@@ -145,16 +145,16 @@
     <section class="profile-section" id="section-seguridad">
       <div class="section-header">
         <h2>Seguridad</h2>
-        <p>Protege tu cuenta con contrasena segura y autenticacion en dos pasos.</p>
+        <p>Protege tu cuenta con contraseña segura y autenticacion en dos pasos.</p>
       </div>
 
       <div class="profile-card">
-        <h3 class="card-section-title">Cambiar contrasena</h3>
+        <h3 class="card-section-title">Cambiar contraseña</h3>
         <form id="form-password" class="profile-form">
           <div class="form-group">
             <label for="input-current-pass">Contrasena actual</label>
             <div class="input-password-wrap">
-              <input type="password" id="input-current-pass" placeholder="Tu contrasena actual">
+              <input type="password" id="input-current-pass" placeholder="Tu contraseña actual">
               <button type="button" class="btn-toggle-pass" data-target="input-current-pass">
                 <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                 <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
@@ -163,20 +163,20 @@
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label for="input-new-pass">Nueva contrasena</label>
-              <input type="password" id="input-new-pass" placeholder="Minimo 6 caracteres">
+              <label for="input-new-pass">Nueva contraseña</label>
+              <input type="password" id="input-new-pass" placeholder="Mínimo 6 caracteres">
             </div>
             <div class="form-group">
-              <label for="input-confirm-pass">Confirmar contrasena</label>
-              <input type="password" id="input-confirm-pass" placeholder="Repetir contrasena">
+              <label for="input-confirm-pass">Confirmar contraseña</label>
+              <input type="password" id="input-confirm-pass" placeholder="Repetir contraseña">
             </div>
           </div>
           <div class="password-strength" id="password-strength" style="display:none">
             <div class="strength-bar"><div class="strength-fill" id="strength-fill"></div></div>
-            <span class="strength-text" id="strength-text">Debil</span>
+            <span class="strength-text" id="strength-text">Débil</span>
           </div>
           <div class="form-actions">
-            <button type="submit" class="btn-primary-profile">Actualizar contrasena</button>
+            <button type="submit" class="btn-primary-profile">Actualizar contraseña</button>
           </div>
         </form>
       </div>
@@ -184,19 +184,19 @@
       <div class="profile-card">
         <div class="security-item">
           <div class="security-info">
-            <h3 class="card-section-title">Autenticacion en dos pasos</h3>
+            <h3 class="card-section-title">Autenticación en dos pasos</h3>
             <p class="text-dim">Agrega una capa extra de seguridad a tu cuenta.</p>
           </div>
           <div class="security-action">
             <span class="badge-status badge-inactive">Desactivado</span>
-            <button class="btn-outline-sm" disabled>Proximamente</button>
+            <button class="btn-outline-sm" disabled>Próximamente</button>
           </div>
         </div>
       </div>
 
       <div class="profile-card">
         <h3 class="card-section-title">Sesiones activas</h3>
-        <p class="text-dim" style="margin-bottom:1rem">Dispositivos donde tienes sesion iniciada.</p>
+        <p class="text-dim" style="margin-bottom:1rem">Dispositivos donde tienes sesión iniciada.</p>
         <div class="session-list" id="session-list">
           <div class="session-item session-current">
             <div class="session-icon">
@@ -211,7 +211,7 @@
         </div>
         <button class="btn-danger-outline" id="btn-close-sessions" style="margin-top:1rem">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
-          Cerrar otras sesiones
+          Cerrar otras sesiónes
         </button>
       </div>
     </section>
@@ -568,7 +568,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (/[^A-Za-z0-9]/.test(val)) score++;
     var levels = [
       { w: "20%", c: "#ef4444", t: "Muy debil" },
-      { w: "40%", c: "#f59e0b", t: "Debil" },
+      { w: "40%", c: "#f59e0b", t: "Débil" },
       { w: "60%", c: "#f59e0b", t: "Regular" },
       { w: "80%", c: "#22c55e", t: "Buena" },
       { w: "100%", c: "#22c55e", t: "Fuerte" }
@@ -584,8 +584,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     e.preventDefault();
     var newPass = document.getElementById("input-new-pass").value;
     var confirmPass = document.getElementById("input-confirm-pass").value;
-    if (!newPass || newPass.length < 6) { showToast("La contrasena debe tener al menos 6 caracteres.", "error"); return; }
-    if (newPass !== confirmPass) { showToast("Las contrasenas no coinciden.", "error"); return; }
+    if (!newPass || newPass.length < 6) { showToast("La contraseña debe tener al menos 6 caracteres.", "error"); return; }
+    if (newPass !== confirmPass) { showToast("Las contraseñas no coinciden.", "error"); return; }
 
     var result = await Auth.updatePassword(newPass);
     if (result.success) {
@@ -593,7 +593,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       document.getElementById("form-password").reset();
       document.getElementById("password-strength").style.display = "none";
     } else {
-      showToast("Error: " + (result.error || "No se pudo cambiar la contrasena."), "error");
+      showToast("Error: " + (result.error || "No se pudo cambiar la contraseña."), "error");
     }
   });
 
@@ -605,12 +605,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     this.textContent = "Cerrando...";
     var result = await Auth.signOutOthers();
     if (result.success) {
-      showToast("Otras sesiones cerradas correctamente.");
+      showToast("Otras sesiónes cerradas correctamente.");
     } else {
-      showToast("Error: " + (result.error || "No se pudieron cerrar las sesiones."), "error");
+      showToast("Error: " + (result.error || "No se pudieron cerrar las sesiónes."), "error");
     }
     this.disabled = false;
-    this.textContent = "Cerrar otras sesiones";
+    this.textContent = "Cerrar otras sesiónes";
   });
 
   // ============================================================
@@ -682,10 +682,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       async function() {
         var result = await Auth.deactivateAccount();
         if (result.success) {
-          showToast("Cuenta desactivada. Cerrando sesion...");
+          showToast("Cuenta desactivada. Cerrando sesión...");
           setTimeout(async function() {
             await Auth.logout();
-            window.location.href = "iniciar-sesion.html";
+            window.location.href = "iniciar-sesión.html";
           }, 1500);
         } else {
           showToast("Error: " + (result.error || "No se pudo desactivar la cuenta."), "error");
@@ -709,10 +709,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (!user) { showToast("No autenticado.", "error"); return; }
         var { error } = await window.supabase.from("profiles").update({ estado: "eliminado" }).eq("id", user.id);
         if (error) { showToast("Error: " + error.message, "error"); return; }
-        showToast("Cuenta marcada para eliminacion. Cerrando sesion...");
+        showToast("Cuenta marcada para eliminacion. Cerrando sesión...");
         setTimeout(async function() {
           await Auth.logout();
-          window.location.href = "iniciar-sesion.html";
+          window.location.href = "iniciar-sesión.html";
         }, 1500);
       }
     );
@@ -723,7 +723,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // ============================================================
   document.getElementById("btn-logout").addEventListener("click", async function() {
     await Auth.logout();
-    window.location.href = "iniciar-sesion.html";
+    window.location.href = "iniciar-sesión.html";
   });
 
   // ============================================================

@@ -261,6 +261,33 @@
       <div id="action-fase1"><!-- Filled by JS --></div>
     </div>
 
+    <!-- Mentalidad & Psicotrading -->
+    <div class="course-card card-purple" id="card-mentalidad">
+      <div class="card-header">
+        <div class="card-icon purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        </div>
+        <span class="card-badge" id="badge-mentalidad">-</span>
+      </div>
+      <h3 class="card-title">Mentalidad &amp; Psicotrading</h3>
+      <p class="card-desc">Aprend&eacute; c&oacute;mo funciona tu mente, program&aacute; tu subconsciente a tu favor y domin&aacute; la psicolog&iacute;a del trading para operar con disciplina y claridad.</p>
+      <ul class="card-features">
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          Los 3 niveles de la mente
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          Manifestaci&oacute;n, paradigmas y creencias
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+          Psicotrading y rutina mental del trader
+        </li>
+      </ul>
+      <div id="action-mentalidad"><!-- Filled by JS --></div>
+    </div>
+
     <!-- Mentoria -->
     <div class="course-card card-purple">
       <div class="card-header">
@@ -357,6 +384,16 @@
       <div>
         <div class="quick-link-text">Contactar soporte</div>
         <div class="quick-link-sub">Instagram directo</div>
+      </div>
+    </a>
+
+    <a href="mentalidad.html" class="quick-link" id="ql-mentalidad">
+      <div class="quick-link-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+      </div>
+      <div>
+        <div class="quick-link-text">Mentalidad &amp; Psicotrading</div>
+        <div class="quick-link-sub">M&oacute;dulo de desarrollo mental</div>
       </div>
     </a>
 
@@ -532,6 +569,9 @@
     // --- Fase 1 card ---
     renderFase1Card(userData);
 
+    // --- Mentalidad card ---
+    renderMentalidadCard(userData);
+
     // --- Bot card ---
     renderBotCard(userData);
 
@@ -604,6 +644,30 @@
 
     if (!userData.fase) {
       document.getElementById("welcome-subtitle").textContent = 'Adquir\u00ed un curso para comenzar tu camino en trading';
+    }
+  }
+
+  function renderMentalidadCard(userData) {
+    const card = document.getElementById("card-mentalidad");
+    const badge = document.getElementById("badge-mentalidad");
+    const action = document.getElementById("action-mentalidad");
+    const hasAccess = Auth.hasAccess('fase-1');
+
+    if (hasAccess) {
+      badge.textContent = 'Activo';
+      badge.className = 'card-badge badge-active';
+      action.innerHTML = '<a href="mentalidad.html" class="card-action action-primary">' +
+        'Acceder al m\u00f3dulo' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
+        '</a>';
+    } else {
+      card.classList.add('card-locked');
+      badge.textContent = 'Bloqueado';
+      badge.className = 'card-badge badge-locked';
+      action.innerHTML = '<a href="finalizar-compra.html?plan=fase1" class="card-action action-locked">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>' +
+        'Adquirir Fase 1 para acceder' +
+        '</a>';
     }
   }
 

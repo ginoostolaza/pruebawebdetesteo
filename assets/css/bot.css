@@ -819,6 +819,59 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ============================================================
+   DESKTOP: Clean look (reduce decorative effects)
+   ============================================================ */
+@media (min-width: 701px) {
+  /* Remove hero glow blob */
+  .bot-hero::after {
+    display: none;
+  }
+
+  /* Remove float animation on hero icon */
+  .bot-hero-icon {
+    animation: none;
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.15);
+  }
+
+  /* Remove pulse ring effect */
+  .hero-pulse {
+    display: none;
+  }
+
+  /* Reduce button glows */
+  .bot-cta-btn {
+    box-shadow: 0 2px 8px rgba(6, 182, 212, 0.15);
+  }
+
+  .bot-cta-btn:hover {
+    box-shadow: 0 4px 16px rgba(6, 182, 212, 0.2);
+  }
+
+  .btn-download {
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.12);
+  }
+
+  .btn-download:hover:not(:disabled) {
+    box-shadow: 0 4px 16px rgba(34, 197, 94, 0.18);
+  }
+
+  /* Reduce card icon glows */
+  .license-icon {
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.12);
+  }
+
+  .download-icon {
+    box-shadow: 0 2px 8px rgba(34, 197, 94, 0.12);
+  }
+
+  /* Subtle hover on stat cards */
+  .bot-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 700px) {

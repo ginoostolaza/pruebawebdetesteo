@@ -1300,6 +1300,65 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 /* ============================================================
+   DESKTOP: Clean look (reduce decorative glows)
+   ============================================================ */
+@media (min-width: 901px) {
+  /* Reduce glow blobs on stat cards */
+  .stat-card::after {
+    display: none;
+  }
+
+  /* Reduce glow on course cards */
+  .course-card::after {
+    display: none;
+  }
+
+  /* Reduce welcome glow */
+  .welcome-glow {
+    opacity: 0.4;
+  }
+
+  /* Subtle hover effects for desktop */
+  .course-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .quick-link:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Reduce action button glows */
+  .action-primary {
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+  }
+
+  .action-primary:hover {
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.2);
+  }
+
+  /* Reduce avatar glow */
+  .user-avatar {
+    box-shadow: 0 2px 6px rgba(59, 130, 246, 0.15);
+  }
+
+  /* Reduce admin button glow */
+  .btn-admin {
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.15);
+  }
+
+  .btn-admin:hover {
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.2);
+  }
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 900px) {

@@ -15,10 +15,13 @@
     }
   });
 
-  // --- Particle Background ---
+  // --- Particle Background (mobile only) ---
   function initParticles() {
     const canvas = document.getElementById('particles-canvas');
     if (!canvas) return;
+
+    // Skip particles on desktop - only show on mobile
+    if (window.innerWidth > 768) return;
 
     const ctx = canvas.getContext('2d');
     let particles = [];

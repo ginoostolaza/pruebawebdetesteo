@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Mentalidad &amp; Psicotrading | Binary Edge Academy</title>
+  <script>
+    (function () {
+      const acceso = sessionStorage.getItem("accesoAutorizado");
+      if (!acceso || acceso !== "true") {
+        window.location.replace("iniciar-sesion.html");
+      }
+    })();
+  </script>
+
+  <link rel="icon" href="assets/img/branding/logo-favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/community.css">
+  <meta name="theme-color" content="#0a0e17">
+</head>
+<body>
+
+<!-- ============================================================
+     TOP BAR
+     ============================================================ -->
+<header class="course-topbar">
+  <div class="topbar-left">
+    <button class="menu-toggle" aria-label="Abrir men&uacute;">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+    <img class="topbar-logo" src="assets/img/branding/logo-favicon.png" alt="Logo" width="32" height="32">
+    <span class="topbar-title">Binary Edge Academy</span>
+    <span class="topbar-divider"></span>
+    <span class="topbar-course-name">Mentalidad &amp; Psicotrading</span>
+  </div>
+  <div class="topbar-right">
+    <a href="dashboard.html" class="topbar-btn topbar-btn-outline">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </a>
+  </div>
+</header>
+
+<!-- ============================================================
+     SIDEBAR
+     ============================================================ -->
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-label">M&oacute;dulo de Mentalidad</div>
+    <div class="sidebar-progress">
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <span class="progress-text">Fase 1</span>
+    </div>
+  </div>
+
+  <ul class="nav-links">
+    <div class="nav-section-label">Inicio</div>
+    <li>
+      <a href="#bienvenida">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        Bienvenida
+      </a>
+    </li>
+
+    <div class="nav-divider"></div>
+    <div class="nav-section-label">La Mente</div>
+    <li>
+      <a href="#niveles-mente">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        Niveles de la Mente
+      </a>
+    </li>
+    <li>
+      <a href="#consciente">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        Consciente
+      </a>
+    </li>
+    <li>
+      <a href="#subconsciente">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Subconsciente
+      </a>
+    </li>
+    <li>
+      <a href="#supraconsciente">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Supraconsciente
+      </a>
+    </li>
+
+    <div class="nav-divider"></div>
+    <div class="nav-section-label">Pr&aacute;ctica</div>
+    <li>
+      <a href="#manifestacion">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        Manifestaci&oacute;n y Acci&oacute;n
+      </a>
+    </li>
+    <li>
+      <a href="#ansiedad">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Ansiedad y Control
+      </a>
+    </li>
+    <li>
+      <a href="#paradigmas">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1.08z"/></svg>
+        Paradigmas y Creencias
+      </a>
+    </li>
+
+    <div class="nav-divider"></div>
+    <div class="nav-section-label">Trading</div>
+    <li>
+      <a href="#psicotrading">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 17l-5-8-4 5-3-3"/></svg>
+        Psicotrading
+      </a>
+    </li>
+
+    <div class="nav-divider"></div>
+    <li>
+      <a href="dashboard.html" class="btn-regresar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Volver al Dashboard
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<!-- ============================================================
+     MAIN CONTENT
+     ============================================================ -->
+<main>
+
+<!-- ========== BIENVENIDA ========== -->
+<section class="bienvenida" id="bienvenida">
+  <header>
+    <h1 class="bienvenida__titulo">Mentalidad &amp; Psicotrading</h1>
+    <p class="bienvenida__subtitulo">
+      Antes de operar el mercado, necesit&aacute;s aprender a operar tu mente. Este m&oacute;dulo es el cimiento sobre el que se construye todo lo dem&aacute;s.
+    </p>
+  </header>
+
+  <hr class="bienvenida__divider">
+
+  <article class="bienvenida__contenido">
+    <p>
+      La mayor&iacute;a de las personas buscan estrategias, indicadores y se&ntilde;ales. Pero los traders que realmente ganan de forma consistente entienden algo m&aacute;s profundo: <strong>todo empieza en la mente</strong>.
+    </p>
+    <p>
+      En este m&oacute;dulo vas a aprender c&oacute;mo funciona tu mente, c&oacute;mo programar tu subconsciente a tu favor, c&oacute;mo eliminar creencias limitantes y c&oacute;mo aplicar todo esto directamente al trading.
+    </p>
+    <p>
+      No es teor&iacute;a vac&iacute;a. Es un <strong>sistema pr&aacute;ctico de desarrollo mental</strong> que vas a poder aplicar cada d&iacute;a para transformar tus resultados financieros y personales.
+    </p>
+  </article>
+
+  <hr class="bienvenida__divider">
+
+  <div class="bienvenida__motivacion">
+    <p><strong>Recordatorio:</strong> Tu mente es tu herramienta m&aacute;s poderosa. Aprend&eacute; a usarla a tu favor y todo lo dem&aacute;s se acomoda.</p>
+  </div>
+</section>
+
+<!-- ========== NIVELES DE LA MENTE ========== -->
+<section id="niveles-mente">
+  <header>
+    <h1>La Mente, el Subconsciente y la Creaci&oacute;n de la Realidad</h1>
+    <p>
+      La mente humana funciona como un <strong>sistema de niveles</strong>: consciente, subconsciente y supraconsciente. Cada uno cumple un papel &uacute;nico en la construcci&oacute;n de tu realidad.
+    </p>
+  </header>
+
+  <hr>
+
+  <article>
+    <h2>Lo tangible y lo intangible</h2>
+    <p>
+      Tu mente opera en dos planos simult&aacute;neamente. Lo <strong>tangible</strong> es todo lo que pod&eacute;s ver, tocar y medir: tus acciones, tus h&aacute;bitos diarios, tus resultados financieros. Lo <strong>intangible</strong> es lo que no se ve pero lo controla todo: tus pensamientos, creencias, emociones y la programaci&oacute;n interna que define tus decisiones.
+    </p>
+    <p>
+      El error m&aacute;s com&uacute;n es intentar cambiar lo tangible (resultados) sin trabajar lo intangible (mentalidad). Cuando entend&eacute;s c&oacute;mo funciona este sistema, dej&aacute;s de pelear contra los s&iacute;ntomas y empez&aacute;s a trabajar en la causa ra&iacute;z.
+    </p>
+  </article>
+
+  <hr>
+
+  <div class="key-concept">
+    <h3>Los 3 Niveles de la Mente</h3>
+    <p>Entender estos tres niveles te da el control sobre c&oacute;mo cre&aacute;s tu realidad, tanto en el trading como en la vida.</p>
+  </div>
+</section>
+
+<!-- ========== CONSCIENTE ========== -->
+<section id="consciente">
+  <h1>Nivel 1: La Mente Consciente</h1>
+
+  <article>
+    <h2>&iquest;Qu&eacute; es?</h2>
+    <p>
+      Es el lugar donde <strong>pens&aacute;s, decid&iacute;s y analiz&aacute;s activamente</strong>. Es la parte de la mente que us&aacute;s cuando est&aacute;s despierto y atento: cuando le&eacute;s un gr&aacute;fico, cuando evalu&aacute;s si entrar o no a una operaci&oacute;n, cuando tom&aacute;s una decisi&oacute;n calculada.
+    </p>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Caracter&iacute;sticas clave</h2>
+    <ul>
+      <li><strong>An&aacute;lisis l&oacute;gico:</strong> procesa informaci&oacute;n de forma racional y secuencial.</li>
+      <li><strong>Foco limitado:</strong> solo puede manejar una cantidad reducida de informaci&oacute;n a la vez.</li>
+      <li><strong>Toma de decisiones:</strong> es donde eleg&iacute;s activamente qu&eacute; hacer.</li>
+      <li><strong>Filtro:</strong> decide qu&eacute; informaci&oacute;n pasa al subconsciente y qu&eacute; se descarta.</li>
+    </ul>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Aplicaci&oacute;n directa</h2>
+    <p>
+      Cuando operas, tu mente consciente es la que analiza el gr&aacute;fico, verifica las confirmaciones y ejecuta la operaci&oacute;n. Pero <strong>no es suficiente por s&iacute; sola</strong>. Si tu subconsciente tiene miedo o creencias limitantes, tu mente consciente va a sabotearte aunque sepas qu&eacute; hacer.
+    </p>
+
+    <div class="tip-box">
+      <p>Entren&aacute; tu mente consciente para ser un <strong>filtro</strong> de calidad: eleg&iacute; cuidadosamente qu&eacute; informaci&oacute;n consum&iacute;s, qu&eacute; personas escuch&aacute;s y qu&eacute; pensamientos permit&iacute;s que se queden.</p>
+    </div>
+  </article>
+</section>
+
+<!-- ========== SUBCONSCIENTE ========== -->
+<section id="subconsciente">
+  <h1>Nivel 2: El Subconsciente</h1>
+
+  <article>
+    <h2>El almac&eacute;n que crea tu realidad</h2>
+    <p>
+      El subconsciente es el <strong>almac&eacute;n de tus h&aacute;bitos, emociones y creencias</strong>. Todo lo que percib&iacute;s &mdash;lo que escuch&aacute;s, ves o incluso ignor&aacute;s&mdash; se graba ac&aacute; y materializa tu realidad.
+    </p>
+    <p>
+      Funciona como un disco r&iacute;gido que guarda <em>absolutamente todo</em> sin filtrar. No distingue entre lo real y lo imaginado, entre lo positivo y lo negativo. Simplemente graba y ejecuta.
+    </p>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Por qu&eacute; es tan importante</h2>
+    <ul>
+      <li>Controla el <strong>95% de tus decisiones diarias</strong> de forma autom&aacute;tica.</li>
+      <li>Genera tus <strong>reacciones emocionales</strong> instant&aacute;neas (miedo, euforia, ansiedad).</li>
+      <li>Almacena <strong>patrones de comportamiento</strong> que se repiten sin que te des cuenta.</li>
+      <li>Materializa tus creencias m&aacute;s profundas en resultados reales.</li>
+    </ul>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Proteg&eacute; tu energ&iacute;a</h2>
+    <p>
+      Por eso es <strong>vital proteger tu energ&iacute;a y cuidar lo que dej&aacute;s entrar en tu mente</strong>. Si te rod&eacute;as de negatividad, quejas o contenido basura, tu subconsciente lo absorbe y lo convierte en tu realidad.
+    </p>
+
+    <div class="warning-box">
+      <p>Si pas&aacute;s horas consumiendo contenido negativo, redes sociales t&oacute;xicas o conversaciones destructivas, tu subconsciente est&aacute; grabando todo eso y cre&aacute;ndote una realidad acorde. <strong>Cuid&aacute; lo que entra.</strong></p>
+    </div>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Las ventanas del subconsciente</h2>
+    <p>
+      El subconsciente es especialmente receptivo en <strong>dos momentos clave del d&iacute;a</strong>:
+    </p>
+    <ul>
+      <li><strong>Por la ma&ntilde;ana, justo al despertar,</strong> antes de agarrar el celular.</li>
+      <li><strong>Por la noche, antes de dormir.</strong></li>
+    </ul>
+    <p>
+      Durante estos per&iacute;odos, los primeros y &uacute;ltimos minutos del d&iacute;a act&uacute;an como <em>&ldquo;puertas abiertas&rdquo;</em> donde las ideas y afirmaciones entran con facilidad, moldeando creencias y resultados futuros.
+    </p>
+
+    <div class="tip-box">
+      <p>No agarres el celular apenas te despert&aacute;s. Esos primeros minutos son oro para programar tu mente. Us&aacute;los para visualizar tus objetivos, afirmar lo que quer&eacute;s lograr y conectarte con tu prop&oacute;sito.</p>
+    </div>
+  </article>
+</section>
+
+<!-- ========== SUPRACONSCIENTE ========== -->
+<section id="supraconsciente">
+  <h1>Nivel 3: El Supraconsciente</h1>
+
+  <article>
+    <h2>La conexi&oacute;n superior</h2>
+    <p>
+      El supraconsciente conecta con la <strong>creatividad, la intuici&oacute;n y la visi&oacute;n superior</strong>. Es el nivel que te permite tomar decisiones que van m&aacute;s all&aacute; de los h&aacute;bitos y patrones normales.
+    </p>
+    <p>
+      Es esa sensaci&oacute;n de <em>&ldquo;saber&rdquo;</em> algo sin poder explicar por qu&eacute;. Esos momentos donde una idea te llega de la nada, donde ves una oportunidad que otros no ven, donde sent&iacute;s una certeza profunda sobre una decisi&oacute;n.
+    </p>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Caracter&iacute;sticas</h2>
+    <ul>
+      <li><strong>Creatividad:</strong> genera soluciones originales e inesperadas.</li>
+      <li><strong>Intuici&oacute;n:</strong> te gu&iacute;a con informaci&oacute;n que tu mente consciente no procesa.</li>
+      <li><strong>Visi&oacute;n:</strong> te conecta con una perspectiva m&aacute;s amplia de tu vida y tu camino.</li>
+      <li><strong>Flujo:</strong> es el estado donde todo parece encajar sin esfuerzo.</li>
+    </ul>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>&iquest;C&oacute;mo acceder?</h2>
+    <p>
+      El supraconsciente se activa cuando tu mente consciente est&aacute; en calma y tu subconsciente est&aacute; alineado. Meditaci&oacute;n, silencios, caminatas sin celular y momentos de reflexi&oacute;n profunda son puertas de acceso.
+    </p>
+    <p>
+      En trading, los mejores traders describen un estado de <strong>&ldquo;flujo&rdquo;</strong> donde leen el mercado con claridad total. Eso es el supraconsciente actuando: cuando la estrategia, la disciplina y la intuici&oacute;n se alinean.
+    </p>
+  </article>
+</section>
+
+<!-- ========== MANIFESTACI&Oacute;N Y ACCI&Oacute;N ========== -->
+<section id="manifestacion">
+  <header>
+    <h1>Manifestaci&oacute;n y Acci&oacute;n</h1>
+    <p>
+      Manifestar no es &ldquo;pedir deseos al universo&rdquo;. Es <strong>programar tu subconsciente con intenci&oacute;n y respaldar esa programaci&oacute;n con acci&oacute;n diaria</strong>.
+    </p>
+  </header>
+
+  <hr>
+
+  <article>
+    <h2>La t&eacute;cnica de manifestaci&oacute;n consciente</h2>
+    <p>
+      Una t&eacute;cnica poderosa es la <strong>manifestaci&oacute;n consciente con acci&oacute;n</strong>. Consist&iacute;a en afirmar con emoci&oacute;n y en primera persona lo que quer&eacute;s lograr, como si ya fuera realidad:
+    </p>
+
+    <blockquote>
+      <em>&ldquo;Yo, [Nombre y Apellido], estoy tan feliz y agradecido ahora que [objetivo cumplido].&rdquo;</em>
+    </blockquote>
+
+    <p>Ejemplos concretos:</p>
+    <ul>
+      <li><em>&ldquo;Yo, Juan P&eacute;rez, estoy tan feliz y agradecido ahora que genero ingresos consistentes con mis operaciones de trading.&rdquo;</em></li>
+      <li><em>&ldquo;Yo, Mar&iacute;a Garc&iacute;a, estoy tan feliz y agradecida ahora que tengo disciplina total para seguir mi plan de trading sin excepciones.&rdquo;</em></li>
+    </ul>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Cu&aacute;ndo hacerlo</h2>
+    <p>Aprovech&aacute; las <strong>ventanas del subconsciente</strong>:</p>
+    <ol>
+      <li><strong>Al despertar:</strong> antes de mirar el celular, cerrr&aacute; los ojos y repet&iacute; tu afirmaci&oacute;n con emoci&oacute;n y visualizaci&oacute;n. Sent&iacute; como si ya fuera real.</li>
+      <li><strong>Antes de dormir:</strong> es el &uacute;ltimo pensamiento que le entreg&aacute;s a tu subconsciente. El va a trabajar con eso toda la noche.</li>
+    </ol>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Sin acci&oacute;n no hay manifestaci&oacute;n</h2>
+    <p>
+      Esto no solo <em>&ldquo;programa&rdquo;</em> la mente. <strong>Requiere acciones consistentes cada d&iacute;a</strong> para que el futuro que dese&aacute;s se haga real.
+    </p>
+    <p>
+      La afirmaci&oacute;n alinea tu mente. La acci&oacute;n materializa el resultado. Sin acci&oacute;n, es solo un deseo. Con acci&oacute;n, es una profec&iacute;a autocumplida.
+    </p>
+
+    <div class="danger-box">
+      <p>Manifestar sin actuar es so&ntilde;ar despierto. No esperes resultados si no pon&eacute;s el trabajo. <strong>La mente abre el camino, pero tus pies son los que caminan.</strong></p>
+    </div>
+  </article>
+</section>
+
+<!-- ========== ANSIEDAD Y CONTROL ========== -->
+<section id="ansiedad">
+  <header>
+    <h1>Ansiedad y Control del Futuro</h1>
+    <p>
+      La ansiedad es uno de los mayores enemigos del trader. Entender de d&oacute;nde viene te da el poder de eliminarla.
+    </p>
+  </header>
+
+  <hr>
+
+  <article>
+    <h2>&iquest;De d&oacute;nde viene la ansiedad?</h2>
+    <p>
+      La ansiedad surge de la <strong>preocupaci&oacute;n por el futuro y lo incierto</strong>. Cuando no sab&eacute;s qu&eacute; va a pasar, tu mente genera escenarios negativos para &ldquo;prepararte&rdquo;. Pero esa preparaci&oacute;n es una ilusi&oacute;n que solo te paraliza.
+    </p>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>La clave para eliminarla</h2>
+    <p>
+      La ansiedad desaparece cuando comprend&eacute;s algo fundamental: <strong>el futuro no es incierto, sino que lo cre&aacute;s vos con tus acciones diarias</strong>.
+    </p>
+    <p>
+      Cada h&aacute;bito, pensamiento y acci&oacute;n concreta es un ladrillo en la construcci&oacute;n de tu realidad. Si hoy estudi&aacute;s, practicn&aacute;s y segu&iacute;s tu plan, el futuro no es incierto &mdash; est&aacute; siendo construido activamente por vos.
+    </p>
+
+    <div class="key-concept">
+      <h3>Principio fundamental</h3>
+      <p>La ansiedad vive en la incertidumbre. La acci&oacute;n diaria destruye la incertidumbre. Por lo tanto, <strong>la acci&oacute;n disciplinada es el ant&iacute;doto contra la ansiedad</strong>.</p>
+    </div>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Aplicaci&oacute;n pr&aacute;ctica</h2>
+    <ol>
+      <li><strong>Defin&iacute; tus objetivos claros:</strong> un trader sin objetivos es un barco sin rumbo. La claridad elimina la ansiedad.</li>
+      <li><strong>Cre&aacute; una rutina diaria:</strong> cuando sab&eacute;s exactamente qu&eacute; hacer cada d&iacute;a, no hay espacio para la incertidumbre.</li>
+      <li><strong>Control&aacute; lo controlable:</strong> no pod&eacute;s controlar el mercado, pero s&iacute; pod&eacute;s controlar tu preparaci&oacute;n, tu gesti&oacute;n de riesgo y tu disciplina.</li>
+      <li><strong>Celebr&aacute; el proceso:</strong> cada d&iacute;a que segu&iacute;s tu plan es un d&iacute;a ganado, independientemente del resultado de las operaciones.</li>
+    </ol>
+  </article>
+</section>
+
+<!-- ========== PARADIGMAS Y CREENCIAS ========== -->
+<section id="paradigmas">
+  <header>
+    <h1>Paradigmas y Creencias</h1>
+    <p>
+      Tus resultados son un reflejo directo de lo que cre&eacute;s que es posible. Entender y cambiar tus paradigmas es la clave para transformar tu vida y tu trading.
+    </p>
+  </header>
+
+  <hr>
+
+  <article>
+    <h2>&iquest;Qu&eacute; es un paradigma?</h2>
+    <p>
+      Un <strong>paradigma</strong> es un patr&oacute;n de pensamiento que gu&iacute;a tus decisiones de forma autom&aacute;tica. Es un &ldquo;lente&rdquo; a trav&eacute;s del cual ves el mundo.
+    </p>
+    <p>
+      Las <strong>creencias</strong> son conjuntos de paradigmas que definen lo que consider&aacute;s posible o imposible. Si cre&eacute;s que &ldquo;el trading es suerte&rdquo;, vas a operar como si fuera un juego de azar. Si cre&eacute;s que &ldquo;es una habilidad que se entrena&rdquo;, vas a estudiar y mejorar cada d&iacute;a.
+    </p>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>El ciclo pensamientos &rarr; resultados</h2>
+    <p>Entender este ciclo te da el poder de cambiarlo:</p>
+    <ol>
+      <li><strong>Pensamientos</strong> generan <strong>emociones</strong>.</li>
+      <li><strong>Emociones</strong> generan <strong>acciones</strong>.</li>
+      <li><strong>Acciones</strong> generan <strong>resultados</strong>.</li>
+      <li><strong>Resultados</strong> refuerzan los <strong>pensamientos</strong> originales.</li>
+    </ol>
+
+    <div class="formula-box">
+      Pensamiento &rarr; Emoci&oacute;n &rarr; Acci&oacute;n &rarr; Resultado &rarr; (refuerza el pensamiento)
+    </div>
+
+    <p>
+      Si el pensamiento inicial es limitante (&ldquo;no soy capaz&rdquo;, &ldquo;siempre pierdo&rdquo;), el ciclo completo ser&aacute; negativo. Pero si lo cambi&aacute;s en la ra&iacute;z, todo el ciclo cambia.
+    </p>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Creencias limitantes comunes en trading</h2>
+    <div class="no-operar-container">
+      <div class="no-operar-card">
+        <h3>&ldquo;No soy lo suficientemente inteligente&rdquo;</h3>
+        <p>El trading no requiere ser un genio. Requiere disciplina, paciencia y un sistema claro. Si segu&iacute;s un proceso, los resultados llegan.</p>
+      </div>
+      <div class="no-operar-card">
+        <h3>&ldquo;Necesito mucho dinero para empezar&rdquo;</h3>
+        <p>Pod&eacute;s empezar con poco y crecer progresivamente. Lo importante es desarrollar la habilidad primero en demo, y luego escalar.</p>
+      </div>
+      <div class="no-operar-card">
+        <h3>&ldquo;Ya es muy tarde para m&iacute;&rdquo;</h3>
+        <p>Nunca es tarde para aprender una habilidad nueva. El mejor momento para empezar fue ayer. El segundo mejor momento es hoy.</p>
+      </div>
+    </div>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>C&oacute;mo cambiar creencias limitantes</h2>
+    <ol>
+      <li><strong>Identific&aacute; la creencia:</strong> &iquest;Qu&eacute; te est&aacute;s diciendo que te frena?</li>
+      <li><strong>Cuestion&aacute;la:</strong> &iquest;Es realmente verdad? &iquest;Ten&eacute;s pruebas concretas?</li>
+      <li><strong>Reemplaz&aacute;la:</strong> Cre&aacute; una nueva creencia basada en evidencia y en quien quer&eacute;s ser.</li>
+      <li><strong>Repet&iacute; y actu&aacute;:</strong> Us&aacute; la t&eacute;cnica de manifestaci&oacute;n y tomn&aacute; acciones alineadas con tu nueva creencia.</li>
+    </ol>
+
+    <div class="tip-box">
+      <p>La resiliencia ante los fracasos se construye cambiando el significado que les das. Un fracaso no es el fin: es informaci&oacute;n valiosa para ajustar tu proceso.</p>
+    </div>
+  </article>
+</section>
+
+<!-- ========== PSICOTRADING ========== -->
+<section id="psicotrading">
+  <header>
+    <h1>Aplicaci&oacute;n al Trading: Psicotrading</h1>
+    <p>
+      Todo lo que aprendiste en este m&oacute;dulo se aplica directamente al trading. Tu mentalidad define tus resultados financieros.
+    </p>
+  </header>
+
+  <hr>
+
+  <article>
+    <h2>La mentalidad define los resultados</h2>
+    <p>
+      En trading, la mentalidad lo es todo. Pod&eacute;s tener la mejor estrategia del mundo, pero si tu mente no est&aacute; alineada, vas a sabotearte una y otra vez.
+    </p>
+    <ul>
+      <li>Una mente <strong>disciplinada y consistente</strong> act&uacute;a sobre la base de objetivos claros, no de emociones pasajeras.</li>
+      <li>La <strong>manifestaci&oacute;n y la programaci&oacute;n del subconsciente</strong> funcionan como apoyo, alineando creencias y emociones con la acci&oacute;n diaria.</li>
+      <li>Los resultados financieros y profesionales son una <strong>consecuencia directa</strong> de tu estado mental.</li>
+    </ul>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Los enemigos emocionales del trader</h2>
+    <div class="no-operar-container">
+      <div class="no-operar-card">
+        <h3>Miedo</h3>
+        <p>Te paraliza y te impide tomar operaciones v&aacute;lidas. La soluci&oacute;n: confianza en tu sistema, respaldada por pr&aacute;ctica en demo.</p>
+      </div>
+      <div class="no-operar-card">
+        <h3>Euforia</h3>
+        <p>Despu&eacute;s de ganar, sent&iacute;s que sos invencible. Eso te lleva a sobreoperar y a tomar riesgos innecesarios. La soluci&oacute;n: cerrar la plataforma despu&eacute;s de una buena racha.</p>
+      </div>
+      <div class="no-operar-card">
+        <h3>Venganza</h3>
+        <p>Despu&eacute;s de perder, quer&eacute;s &ldquo;recuperar&rdquo; r&aacute;pido. Eso te lleva a operar fuera de tu plan. La soluci&oacute;n: aceptar la p&eacute;rdida como parte del proceso y respetar tu gesti&oacute;n de riesgo.</p>
+      </div>
+    </div>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Principios del psicotrading</h2>
+    <ol>
+      <li><strong>Oper&aacute; tu plan, no tus emociones:</strong> las emociones son informaci&oacute;n, no instrucciones. Registr&aacute;las pero no las sigas.</li>
+      <li><strong>Acept&aacute; las p&eacute;rdidas:</strong> son parte del juego. Ning&uacute;n sistema gana el 100% de las veces. Lo que importa es la consistencia a largo plazo.</li>
+      <li><strong>Enfocate en el proceso:</strong> si segu&iacute;s tu sistema con disciplina, los resultados vienen solos. No te obsesiones con el dinero.</li>
+      <li><strong>Llev&aacute; un diario:</strong> registr&aacute; cada operaci&oacute;n, tu estado emocional y qu&eacute; aprendiste. Es la herramienta m&aacute;s poderosa de mejora continua.</li>
+      <li><strong>Descanso estrat&eacute;gico:</strong> tu mente necesita pausas. Operar agotado es una receta para el desastre. Descans&aacute;, renov&aacute; y volv&eacute; con claridad.</li>
+    </ol>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Tu rutina mental como trader</h2>
+    <p>Integr&aacute; todo lo aprendido en una rutina diaria:</p>
+
+    <h3>Ma&ntilde;ana (al despertar)</h3>
+    <ol>
+      <li>No toques el celular por 5&ndash;10 minutos.</li>
+      <li>Repet&iacute; tu afirmaci&oacute;n de manifestaci&oacute;n con emoci&oacute;n.</li>
+      <li>Visualiz&aacute; tu d&iacute;a ideal: operaciones disciplinadas, resultados consistentes.</li>
+      <li>Revis&aacute; tus objetivos y tu plan del d&iacute;a.</li>
+    </ol>
+
+    <h3>Antes de operar</h3>
+    <ol>
+      <li>Revis&aacute; tu estado emocional. &iquest;Est&aacute;s tranquilo o alterado?</li>
+      <li>Si no est&aacute;s en condiciones, <strong>no operes</strong>. No hay obligaci&oacute;n de operar todos los d&iacute;as.</li>
+      <li>Repas&aacute; tu plan de trading y tus reglas.</li>
+    </ol>
+
+    <h3>Despu&eacute;s de operar</h3>
+    <ol>
+      <li>Registr&aacute; las operaciones en tu diario.</li>
+      <li>Anot&aacute; c&oacute;mo te sentiste y si seguiste el plan.</li>
+      <li>Identifici&aacute; qu&eacute; hiciste bien y qu&eacute; pod&eacute;s mejorar.</li>
+    </ol>
+
+    <h3>Noche (antes de dormir)</h3>
+    <ol>
+      <li>No consumas contenido negativo ni redes sociales.</li>
+      <li>Repet&iacute; tu afirmaci&oacute;n de manifestaci&oacute;n.</li>
+      <li>Visualiz&aacute; tus metas como si ya estuvieran cumplidas.</li>
+      <li>Agradec&eacute; por el d&iacute;a, haya sido bueno o malo. Cada d&iacute;a es aprendizaje.</li>
+    </ol>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Frase clave</h2>
+    <blockquote>
+      <em>&ldquo;El mercado no te vence. Te vence tu propia mente. Dominala, y el trading se convierte en tu aliado.&rdquo;</em>
+    </blockquote>
+  </article>
+</section>
+
+</main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    if (!menuToggle || !sidebar) return;
+
+    menuToggle.addEventListener('click', e => {
+      e.stopPropagation();
+      sidebar.classList.toggle('active');
+    });
+
+    document.addEventListener('click', e => {
+      if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+        sidebar.classList.remove('active');
+      }
+    });
+
+    sidebar.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        sidebar.classList.remove('active');
+      });
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') sidebar.classList.remove('active');
+    });
+
+    // Highlight active nav link on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => link.classList.remove('active'));
+          const activeLink = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+          if (activeLink) activeLink.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -75% 0px' });
+
+    sections.forEach(section => observer.observe(section));
+  });
+</script>
+
+<!-- Supabase Auth -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/auth.js"></script>
+<script>
+  Auth.init();
+  (async () => { await Auth.courseGuard('fase-1'); })();
+</script>
+</body>
+</html>

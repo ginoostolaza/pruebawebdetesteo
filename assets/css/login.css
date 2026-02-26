@@ -629,6 +629,37 @@ a { color: inherit; text-decoration: none; }
 }
 
 /* ============================================================
+   DESKTOP: Clean look (reduce decorative effects)
+   ============================================================ */
+@media (min-width: 901px) {
+  /* Remove floating glow animation */
+  .branding-glow {
+    animation: none;
+    filter: blur(100px);
+    opacity: 0.5;
+  }
+
+  /* Remove animated grid background */
+  .login-branding::before {
+    display: none;
+  }
+
+  /* Remove button shine effect */
+  .btn-login::before {
+    display: none;
+  }
+
+  /* Reduce button glow */
+  .btn-login {
+    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+  }
+
+  .btn-login:hover {
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.2);
+  }
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 900px) {

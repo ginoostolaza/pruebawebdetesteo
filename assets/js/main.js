@@ -312,9 +312,9 @@
       const response = await fetch('https://api.bluelytics.com.ar/v2/latest');
       const data = await response.json();
       const venta = data.blue.value_sell;
-      el.textContent = `Dolar Blue hoy (venta): $${venta.toFixed(2)} ARS`;
+      el.textContent = `Dólar Blue hoy (venta): $${venta.toFixed(2)} ARS`;
     } catch (error) {
-      el.textContent = 'Error cargando dolar blue.';
+      el.textContent = 'Error cargando dólar blue.';
       console.error('Dolar API error:', error);
     }
   }

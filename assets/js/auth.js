@@ -37,7 +37,10 @@ const Auth = (function () {
       estado: profile?.estado || fallback?.estado || 'activo',
       bot_activo: profile ? !!profile.bot_activo : (fallback ? !!fallback.bot_activo : false),
       bot_licencia: profile?.bot_licencia || fallback?.bot_licencia || null,
-      comunidad_activa: profile ? !!profile.comunidad_activa : (fallback ? !!fallback.comunidad_activa : false)
+      comunidad_activa: profile ? !!profile.comunidad_activa : (fallback ? !!fallback.comunidad_activa : false),
+      telefono: profile?.telefono || fallback?.telefono || null,
+      bio: profile?.bio || fallback?.bio || null,
+      fecha_registro: profile?.fecha_registro || fallback?.fecha_registro || null
     };
   }
 
@@ -218,7 +221,10 @@ const Auth = (function () {
         estado: profile.estado || existing.estado,
         bot_activo: !!profile.bot_activo,
         bot_licencia: profile.bot_licencia || null,
-        comunidad_activa: !!profile.comunidad_activa
+        comunidad_activa: !!profile.comunidad_activa,
+        telefono: profile.telefono || null,
+        bio: profile.bio || null,
+        fecha_registro: profile.fecha_registro || existing.fecha_registro || null
       };
       sessionStorage.setItem('usuario', JSON.stringify(userData));
       return userData;
@@ -407,6 +413,43 @@ const Auth = (function () {
     return t[msg] || msg;
   }
 
+  // ---- SIGN OUT OTHER SESSIONS ----
+  async function signOutOthers() {
+    if (!supabase) return { success: false, error: 'No disponible en modo demo.' };
+    var { error } = await supabase.auth.signOut({ scope: 'others' });
+    if (error) return { success: false, error: error.message };
+    return { success: true };
+  }
+
+  // ---- DEACTIVATE ACCOUNT ----
+  async function deactivateAccount() {
+    if (!supabase) return { success: false, error: 'No disponible en modo demo.' };
+    var session = await supabase.auth.getSession();
+    var user = session?.data?.session?.user;
+    if (!user) return { success: false, error: 'No autenticado.' };
+    var { error } = await supabase.from('profiles').update({ estado: 'suspendido' }).eq('id', user.id);
+    if (error) return { success: false, error: error.message };
+    return { success: true };
+  }
+
+  // ---- GET FULL USER DATA FOR EXPORT ----
+  async function getFullUserData() {
+    if (!supabase) return null;
+    var session = await supabase.auth.getSession();
+    var user = session?.data?.session?.user;
+    if (!user) return null;
+    var profile = await getProfile(user.id);
+    var progress = await getProgress(user.id);
+    var payments = await getPayments(user.id);
+    return {
+      perfil: profile || {},
+      email: user.email,
+      progreso: progress || [],
+      pagos: payments || [],
+      exportado_el: new Date().toISOString()
+    };
+  }
+
   // ---- UPDATE OWN PROFILE ----
   async function updateProfile(updates) {
     if (!supabase) return { success: false, error: 'No disponible en modo demo.' };
@@ -432,7 +475,7 @@ const Auth = (function () {
     login, register, resetPassword, logout,
     getSession, getProfile, getProgress, updateProgress, getPayments,
     guard, courseGuard, adminGuard, hasAccess, refreshProfile,
-    updateProfile, updatePassword,
+    updateProfile, updatePassword, signOutOthers, deactivateAccount, getFullUserData,
     getAllUsers, updateUser, getAllProgress, getAllPayments, addPayment, initProgress,
     getNotifications, getUnreadCount, markNotificationRead, markAllNotificationsRead,
     sendNotification, sendBulkNotification

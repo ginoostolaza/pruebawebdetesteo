@@ -370,8 +370,8 @@ img { max-width: 100%; height: auto; display: block; }
    WELCOME HEADER
    ============================================================ */
 .dash-welcome {
-  margin-bottom: 2rem;
-  padding: 2rem 2.25rem;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem 1.75rem;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -408,9 +408,9 @@ img { max-width: 100%; height: auto; display: block; }
 .welcome-completion {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin-top: 1.25rem;
-  padding-top: 1.25rem;
+  gap: 0.35rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
   border-top: 1px solid var(--color-border);
   position: relative;
   z-index: 1;
@@ -456,8 +456,8 @@ img { max-width: 100%; height: auto; display: block; }
   position: absolute;
   top: -40%;
   right: -15%;
-  width: 350px;
-  height: 350px;
+  width: 250px;
+  height: 250px;
   background: radial-gradient(ellipse, rgba(59, 130, 246, 0.08), transparent 70%);
   pointer-events: none;
 }
@@ -473,10 +473,10 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .welcome-text h1 {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   font-weight: 800;
   color: var(--color-text);
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.2rem;
   letter-spacing: -0.02em;
 }
 
@@ -521,8 +521,8 @@ img { max-width: 100%; height: auto; display: block; }
    ============================================================ */
 .quick-actions {
   display: flex;
-  gap: 0.65rem;
-  margin-bottom: 1.5rem;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
   flex-wrap: wrap;
   animation: fadeInUp 0.4s ease forwards;
 }
@@ -530,9 +530,9 @@ img { max-width: 100%; height: auto; display: block; }
 .quick-action-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.55rem 1.1rem;
-  font-size: 0.8rem;
+  gap: 0.35rem;
+  padding: 0.4rem 0.85rem;
+  font-size: 0.75rem;
   font-weight: 600;
   border-radius: var(--radius-full, 50px);
   border: 1px solid transparent;
@@ -542,8 +542,8 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .quick-action-btn svg {
-  width: 15px;
-  height: 15px;
+  width: 13px;
+  height: 13px;
 }
 
 .qa-primary {
@@ -588,21 +588,21 @@ img { max-width: 100%; height: auto; display: block; }
 .daily-tip {
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
-  padding: 1.1rem 1.4rem;
+  gap: 0.75rem;
+  padding: 0.85rem 1.1rem;
   background: var(--color-surface);
   border: 1px solid rgba(245, 158, 11, 0.12);
   border-left: 3px solid var(--color-warning);
   border-radius: var(--radius-md);
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   animation: fadeInUp 0.5s ease 0.15s forwards;
   opacity: 0;
 }
 
 .tip-icon {
   flex-shrink: 0;
-  width: 36px;
-  height: 36px;
+  width: 30px;
+  height: 30px;
   border-radius: var(--radius-sm);
   background: rgba(245, 158, 11, 0.1);
   display: flex;
@@ -612,8 +612,8 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .tip-icon svg {
-  width: 18px;
-  height: 18px;
+  width: 15px;
+  height: 15px;
 }
 
 .tip-content {
@@ -632,9 +632,9 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .tip-text {
-  font-size: 0.84rem;
+  font-size: 0.78rem;
   color: var(--color-text-muted);
-  line-height: 1.55;
+  line-height: 1.5;
   transition: opacity 0.2s ease;
 }
 
@@ -652,8 +652,8 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .tip-refresh svg {
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
 }
 
 .tip-refresh:hover {
@@ -669,15 +669,15 @@ img { max-width: 100%; height: auto; display: block; }
 .dash-stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  margin-bottom: 2rem;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
 }
 
 .stat-card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  padding: 1.25rem 1.35rem;
+  padding: 1rem 1.1rem;
   transition: all var(--transition);
   position: relative;
   overflow: hidden;
@@ -715,18 +715,18 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .stat-icon {
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.6rem;
 }
 
 .stat-icon svg {
-  width: 20px;
-  height: 20px;
+  width: 17px;
+  height: 17px;
 }
 
 .stat-icon.blue { background: rgba(59, 130, 246, 0.12); }
@@ -746,16 +746,16 @@ img { max-width: 100%; height: auto; display: block; }
 .stat-card:nth-child(4)::after { background: var(--color-accent); }
 
 .stat-value {
-  font-size: 1.5rem;
+  font-size: 1.15rem;
   font-weight: 800;
   color: var(--color-text);
   line-height: 1;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.2rem;
   letter-spacing: -0.02em;
 }
 
 .stat-label {
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   color: var(--color-text-dim);
   font-weight: 500;
 }
@@ -764,18 +764,18 @@ img { max-width: 100%; height: auto; display: block; }
    SECTION TITLES
    ============================================================ */
 .section-title {
-  font-size: 1.05rem;
+  font-size: 0.92rem;
   font-weight: 700;
   color: var(--color-text);
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .section-title svg {
-  width: 20px;
-  height: 20px;
+  width: 17px;
+  height: 17px;
   color: var(--color-primary);
 }
 
@@ -785,15 +785,15 @@ img { max-width: 100%; height: auto; display: block; }
 .dash-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem;
-  margin-bottom: 2.5rem;
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
 
 .course-card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: 1.5rem 1.6rem;
+  padding: 1.15rem 1.25rem;
   transition: all var(--transition);
   position: relative;
   overflow: hidden;
@@ -849,21 +849,21 @@ img { max-width: 100%; height: auto; display: block; }
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .card-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius-md);
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .card-icon svg {
-  width: 24px;
-  height: 24px;
+  width: 19px;
+  height: 19px;
   color: #fff;
 }
 
@@ -907,18 +907,18 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .card-title {
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--color-text);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.3rem;
   letter-spacing: -0.01em;
 }
 
 .card-desc {
-  font-size: 0.84rem;
+  font-size: 0.78rem;
   color: var(--color-text-muted);
-  line-height: 1.55;
-  margin-bottom: 1.25rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
   flex: 1;
 }
 
@@ -926,15 +926,15 @@ img { max-width: 100%; height: auto; display: block; }
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  margin-bottom: 1.25rem;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
 }
 
 .card-features li {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.8rem;
+  gap: 0.4rem;
+  font-size: 0.75rem;
   color: var(--color-text-muted);
 }
 
@@ -950,18 +950,18 @@ img { max-width: 100%; height: auto; display: block; }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.8rem 1rem;
-  border-radius: var(--radius-md);
-  font-size: 0.88rem;
+  gap: 0.4rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
   font-weight: 600;
   transition: all var(--transition);
   text-align: center;
 }
 
 .card-action svg {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   transition: transform var(--transition);
 }
 
@@ -1074,27 +1074,27 @@ img { max-width: 100%; height: auto; display: block; }
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: 1.5rem 1.6rem;
-  margin-bottom: 2.5rem;
+  padding: 1.15rem 1.3rem;
+  margin-bottom: 2rem;
 }
 
 .progress-header {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
-  margin-bottom: 1.25rem;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .progress-ring-wrap {
   position: relative;
   flex-shrink: 0;
-  width: 72px;
-  height: 72px;
+  width: 52px;
+  height: 52px;
 }
 
 .progress-ring {
-  width: 72px;
-  height: 72px;
+  width: 52px;
+  height: 52px;
   transform: rotate(-90deg);
 }
 
@@ -1114,7 +1114,7 @@ img { max-width: 100%; height: auto; display: block; }
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.82rem;
+  font-size: 0.7rem;
   font-weight: 800;
   color: var(--color-success);
 }
@@ -1133,7 +1133,7 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .progress-completed {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 800;
   color: var(--color-text);
   letter-spacing: -0.02em;
@@ -1147,9 +1147,9 @@ img { max-width: 100%; height: auto; display: block; }
 
 .progress-bar-container {
   flex: 1;
-  height: 8px;
+  height: 6px;
   background: var(--color-surface-2);
-  border-radius: 4px;
+  border-radius: 3px;
   overflow: hidden;
 }
 
@@ -1250,19 +1250,19 @@ img { max-width: 100%; height: auto; display: block; }
    ============================================================ */
 .quick-links {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  margin-bottom: 2rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
 }
 
 .quick-link {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 1rem 1.25rem;
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.6rem;
   transition: all var(--transition);
 }
 
@@ -1274,9 +1274,9 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .quick-link-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: var(--radius-sm);
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
   background: var(--color-surface-2);
   display: flex;
   align-items: center;
@@ -1286,19 +1286,19 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .quick-link-icon svg {
-  width: 18px;
-  height: 18px;
+  width: 15px;
+  height: 15px;
   color: var(--color-primary);
 }
 
 .quick-link-text {
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--color-text);
 }
 
 .quick-link-sub {
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   color: var(--color-text-dim);
   font-weight: 400;
 }
@@ -1354,6 +1354,10 @@ img { max-width: 100%; height: auto; display: block; }
   .quick-links {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .course-card {
+    padding: 1rem 1.1rem;
+  }
 }
 
 @media (max-width: 600px) {
@@ -1376,24 +1380,24 @@ img { max-width: 100%; height: auto; display: block; }
   }
 
   .welcome-text h1 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 
   .dash-stats {
     grid-template-columns: 1fr 1fr;
-    gap: 0.75rem;
+    gap: 0.6rem;
   }
 
   .stat-card {
-    padding: 1rem;
+    padding: 0.85rem;
   }
 
   .stat-value {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   .course-card {
-    padding: 1.25rem;
+    padding: 1rem;
   }
 
   .welcome-date {
@@ -1413,28 +1417,28 @@ img { max-width: 100%; height: auto; display: block; }
   }
 
   .quick-action-btn {
-    font-size: 0.75rem;
-    padding: 0.45rem 0.85rem;
+    font-size: 0.7rem;
+    padding: 0.35rem 0.7rem;
   }
 
   .daily-tip {
     flex-wrap: wrap;
-    gap: 0.75rem;
-    padding: 1rem;
+    gap: 0.6rem;
+    padding: 0.75rem;
   }
 
   .progress-ring-wrap {
-    width: 56px;
-    height: 56px;
+    width: 44px;
+    height: 44px;
   }
 
   .progress-ring {
-    width: 56px;
-    height: 56px;
+    width: 44px;
+    height: 44px;
   }
 
   .progress-ring-text {
-    font-size: 0.72rem;
+    font-size: 0.62rem;
   }
 
   .quick-links {

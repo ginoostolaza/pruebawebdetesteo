@@ -470,6 +470,31 @@ const Auth = (function () {
     return { success: true };
   }
 
+  // ---- SITE CONFIG: Get all config ----
+  async function getSiteConfig() {
+    if (!supabase) return {};
+    var { data, error } = await supabase.from('site_config').select('*');
+    if (error) {
+      console.warn('[Auth] site_config table not found or error:', error.message);
+      return {};
+    }
+    var config = {};
+    (data || []).forEach(function(row) {
+      config[row.key] = row.value;
+    });
+    return config;
+  }
+
+  // ---- SITE CONFIG: Update a config key ----
+  async function updateSiteConfig(key, value) {
+    if (!supabase) return { success: false, error: 'No disponible en modo demo.' };
+    var { error } = await supabase.from('site_config').upsert(
+      { key: key, value: value, updated_at: new Date().toISOString() },
+      { onConflict: 'key' }
+    );
+    return { success: !error, error: error?.message };
+  }
+
   return {
     init, isConfigured, getClient,
     login, register, resetPassword, logout,
@@ -478,6 +503,7 @@ const Auth = (function () {
     updateProfile, updatePassword, signOutOthers, deactivateAccount, getFullUserData,
     getAllUsers, updateUser, getAllProgress, getAllPayments, addPayment, initProgress,
     getNotifications, getUnreadCount, markNotificationRead, markAllNotificationsRead,
-    sendNotification, sendBulkNotification
+    sendNotification, sendBulkNotification,
+    getSiteConfig, updateSiteConfig
   };
 })();

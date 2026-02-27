@@ -75,6 +75,10 @@
       </div>
       <div class="admin-stat-value" id="stat-revenue">-</div>
       <div class="admin-stat-label">Ingresos totales</div>
+      <div class="currency-toggle-container">
+        <button class="currency-toggle-btn active" id="btn-currency-usd" data-currency="USD">U$D</button>
+        <button class="currency-toggle-btn" id="btn-currency-ars" data-currency="ARS">ARS</button>
+      </div>
     </div>
   </div>
 
@@ -444,13 +448,72 @@
 <script>
   let allUsers = [];
   let allPayments = [];
+  let dolarBlueVenta = null;
+  let currentCurrency = 'USD';
 
   document.addEventListener("DOMContentLoaded", async () => {
     Auth.init();
     await Auth.adminGuard();
+    await fetchDolarBlueAdmin();
     await loadData();
     setupEventListeners();
+    setupCurrencyToggle();
   });
+
+  // ---- Fetch Dolar Blue ----
+  async function fetchDolarBlueAdmin() {
+    try {
+      var response = await fetch('https://api.bluelytics.com.ar/v2/latest');
+      var data = await response.json();
+      dolarBlueVenta = data.blue.value_sell;
+    } catch (e) {
+      console.error('Error fetching dolar blue:', e);
+      dolarBlueVenta = null;
+    }
+  }
+
+  // ---- Currency Toggle ----
+  function setupCurrencyToggle() {
+    var btnUsd = document.getElementById('btn-currency-usd');
+    var btnArs = document.getElementById('btn-currency-ars');
+
+    btnUsd.addEventListener('click', function() {
+      currentCurrency = 'USD';
+      btnUsd.classList.add('active');
+      btnArs.classList.remove('active');
+      updateRevenueDisplay();
+    });
+
+    btnArs.addEventListener('click', function() {
+      currentCurrency = 'ARS';
+      btnArs.classList.add('active');
+      btnUsd.classList.remove('active');
+      updateRevenueDisplay();
+    });
+  }
+
+  function updateRevenueDisplay() {
+    var completedPayments = allPayments.filter(function(p) { return p.estado === 'completado'; });
+    var revenueUsd = completedPayments.reduce(function(sum, p) {
+      var monto = parseFloat(p.monto || 0);
+      if ((p.moneda || 'USD') === 'ARS' && dolarBlueVenta) {
+        return sum + (monto / dolarBlueVenta);
+      }
+      return sum + monto;
+    }, 0);
+
+    var el = document.getElementById('stat-revenue');
+    if (currentCurrency === 'ARS') {
+      if (dolarBlueVenta) {
+        var revenueArs = revenueUsd * dolarBlueVenta;
+        el.textContent = 'ARS $' + revenueArs.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      } else {
+        el.textContent = 'Sin cotizacion';
+      }
+    } else {
+      el.textContent = 'U$D ' + revenueUsd.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+  }
 
   // ---- Load all data ----
   async function loadData() {
@@ -468,8 +531,7 @@
     document.getElementById("stat-active-users").textContent = allUsers.filter(u => u.estado === 'activo').length;
     document.getElementById("stat-bot-users").textContent = allUsers.filter(u => u.bot_activo).length;
     const completedPayments = allPayments.filter(p => p.estado === 'completado');
-    const revenue = completedPayments.reduce((sum, p) => sum + parseFloat(p.monto || 0), 0);
-    document.getElementById("stat-revenue").textContent = '$' + revenue.toFixed(2);
+    updateRevenueDisplay();
 
     // Secondary stats
     document.getElementById("stat-fase1").textContent = allUsers.filter(u => u.fase === 'fase-1').length;

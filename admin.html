@@ -49,37 +49,73 @@
   <!-- Stats Overview -->
   <div class="admin-stats" id="admin-stats">
     <div class="admin-stat">
-      <div class="admin-stat-icon blue">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <div class="admin-stat-header-row">
+        <div class="admin-stat-icon blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="admin-stat-label">Usuarios totales</div>
       </div>
       <div class="admin-stat-value" id="stat-total-users">-</div>
-      <div class="admin-stat-label">Usuarios totales</div>
     </div>
     <div class="admin-stat">
-      <div class="admin-stat-icon green">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
+      <div class="admin-stat-header-row">
+        <div class="admin-stat-icon green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
+        </div>
+        <div class="admin-stat-label">Usuarios activos</div>
       </div>
       <div class="admin-stat-value" id="stat-active-users">-</div>
-      <div class="admin-stat-label">Usuarios activos</div>
     </div>
     <div class="admin-stat">
-      <div class="admin-stat-icon purple">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.07A7 7 0 0 1 14 23h-4a7 7 0 0 1-6.93-4H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/></svg>
+      <div class="admin-stat-header-row">
+        <div class="admin-stat-icon purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1.07A7 7 0 0 1 14 23h-4a7 7 0 0 1-6.93-4H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/></svg>
+        </div>
+        <div class="admin-stat-label">Suscriptores bot</div>
       </div>
       <div class="admin-stat-value" id="stat-bot-users">-</div>
-      <div class="admin-stat-label">Suscriptores bot</div>
     </div>
     <div class="admin-stat">
-      <div class="admin-stat-icon orange">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      <div class="admin-stat-header-row">
+        <div class="admin-stat-icon cyan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        </div>
+        <div class="admin-stat-label">En comunidad</div>
       </div>
-      <div class="admin-stat-value" id="stat-revenue">-</div>
-      <div class="admin-stat-label">Ingresos totales</div>
-      <div class="currency-toggle-container">
-        <button class="currency-toggle-btn active" id="btn-currency-usd" data-currency="USD">U$D</button>
-        <button class="currency-toggle-btn" id="btn-currency-ars" data-currency="ARS">ARS</button>
+      <div class="admin-stat-value" id="stat-comunidad-main">-</div>
+    </div>
+  </div>
+
+  <!-- Revenue Panel -->
+  <div class="revenue-panel">
+    <div class="revenue-header">
+      <div class="revenue-title-group">
+        <svg class="revenue-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <div>
+          <h3 class="revenue-title">Ingresos</h3>
+          <span class="revenue-period-label" id="revenue-period-label">Desde siempre</span>
+        </div>
+      </div>
+      <div class="revenue-controls">
+        <div class="time-range-selector">
+          <button class="time-range-btn" data-range="7">7 dias</button>
+          <button class="time-range-btn" data-range="30">30 dias</button>
+          <button class="time-range-btn active" data-range="all">Siempre</button>
+        </div>
+        <div class="currency-toggle-container">
+          <button class="currency-toggle-btn active" id="btn-currency-usd">U$D</button>
+          <button class="currency-toggle-btn" id="btn-currency-ars">ARS</button>
+        </div>
       </div>
     </div>
+    <div class="revenue-body">
+      <div class="revenue-total">
+        <div class="revenue-total-value" id="stat-revenue">-</div>
+        <div class="revenue-total-sub" id="revenue-count-label">0 pagos completados</div>
+      </div>
+      <div class="revenue-monthly-list" id="revenue-monthly"></div>
+    </div>
+    <div class="revenue-dolar-ref" id="revenue-dolar-ref"></div>
   </div>
 
   <!-- Secondary Stats -->
@@ -103,10 +139,6 @@
     <div class="admin-stat-mini">
       <span class="stat-mini-label">Pagos pendientes</span>
       <span class="stat-mini-value" id="stat-pending-payments">-</span>
-    </div>
-    <div class="admin-stat-mini">
-      <span class="stat-mini-label">En comunidad</span>
-      <span class="stat-mini-value" id="stat-comunidad">-</span>
     </div>
   </div>
 
@@ -450,6 +482,7 @@
   let allPayments = [];
   let dolarBlueVenta = null;
   let currentCurrency = 'USD';
+  let currentRange = 'all';
 
   document.addEventListener("DOMContentLoaded", async () => {
     Auth.init();
@@ -457,7 +490,7 @@
     await fetchDolarBlueAdmin();
     await loadData();
     setupEventListeners();
-    setupCurrencyToggle();
+    setupRevenueControls();
   });
 
   // ---- Fetch Dolar Blue ----
@@ -472,8 +505,9 @@
     }
   }
 
-  // ---- Currency Toggle ----
-  function setupCurrencyToggle() {
+  // ---- Revenue Controls ----
+  function setupRevenueControls() {
+    // Currency toggle
     var btnUsd = document.getElementById('btn-currency-usd');
     var btnArs = document.getElementById('btn-currency-ars');
 
@@ -490,29 +524,113 @@
       btnUsd.classList.remove('active');
       updateRevenueDisplay();
     });
+
+    // Time range buttons
+    document.querySelectorAll('.time-range-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.time-range-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        currentRange = btn.dataset.range;
+        updateRevenueDisplay();
+      });
+    });
+  }
+
+  // ---- Revenue helpers ----
+  function getFilteredPayments() {
+    var completed = allPayments.filter(function(p) { return p.estado === 'completado'; });
+    if (currentRange === 'all') return completed;
+
+    var days = parseInt(currentRange);
+    var cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - days);
+
+    return completed.filter(function(p) {
+      if (!p.fecha) return false;
+      return new Date(p.fecha) >= cutoff;
+    });
+  }
+
+  function toUsd(monto, moneda) {
+    var amount = parseFloat(monto || 0);
+    if ((moneda || 'USD') === 'ARS' && dolarBlueVenta) {
+      return amount / dolarBlueVenta;
+    }
+    return amount;
+  }
+
+  function formatCurrency(amountUsd) {
+    if (currentCurrency === 'ARS') {
+      if (!dolarBlueVenta) return 'Sin cotizacion';
+      var ars = amountUsd * dolarBlueVenta;
+      return 'ARS $' + ars.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    return 'U$D ' + amountUsd.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 
   function updateRevenueDisplay() {
-    var completedPayments = allPayments.filter(function(p) { return p.estado === 'completado'; });
-    var revenueUsd = completedPayments.reduce(function(sum, p) {
-      var monto = parseFloat(p.monto || 0);
-      if ((p.moneda || 'USD') === 'ARS' && dolarBlueVenta) {
-        return sum + (monto / dolarBlueVenta);
-      }
-      return sum + monto;
-    }, 0);
+    var payments = getFilteredPayments();
+    var totalUsd = payments.reduce(function(sum, p) { return sum + toUsd(p.monto, p.moneda); }, 0);
 
-    var el = document.getElementById('stat-revenue');
-    if (currentCurrency === 'ARS') {
-      if (dolarBlueVenta) {
-        var revenueArs = revenueUsd * dolarBlueVenta;
-        el.textContent = 'ARS $' + revenueArs.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      } else {
-        el.textContent = 'Sin cotizacion';
-      }
+    // Update total
+    document.getElementById('stat-revenue').textContent = formatCurrency(totalUsd);
+    document.getElementById('revenue-count-label').textContent = payments.length + ' pago' + (payments.length !== 1 ? 's' : '') + ' completado' + (payments.length !== 1 ? 's' : '');
+
+    // Period label
+    var labelMap = { '7': 'Ultimos 7 dias', '30': 'Ultimos 30 dias', 'all': 'Desde siempre' };
+    document.getElementById('revenue-period-label').textContent = labelMap[currentRange] || 'Desde siempre';
+
+    // Dolar ref
+    var refEl = document.getElementById('revenue-dolar-ref');
+    if (dolarBlueVenta) {
+      refEl.textContent = 'Cotizacion dolar blue: $' + dolarBlueVenta.toFixed(2) + ' ARS';
     } else {
-      el.textContent = 'U$D ' + revenueUsd.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      refEl.textContent = 'Cotizacion dolar blue no disponible';
     }
+
+    // Monthly breakdown
+    renderMonthlyBreakdown(payments);
+  }
+
+  function renderMonthlyBreakdown(payments) {
+    var container = document.getElementById('revenue-monthly');
+    if (!payments.length) {
+      container.innerHTML = '<div class="monthly-empty">Sin pagos en este periodo</div>';
+      return;
+    }
+
+    // Group by month
+    var months = {};
+    payments.forEach(function(p) {
+      var date = p.fecha ? new Date(p.fecha) : new Date();
+      var key = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0');
+      if (!months[key]) months[key] = { payments: [], totalUsd: 0 };
+      months[key].payments.push(p);
+      months[key].totalUsd += toUsd(p.monto, p.moneda);
+    });
+
+    // Sort months descending
+    var sortedKeys = Object.keys(months).sort().reverse();
+    var maxUsd = Math.max.apply(null, sortedKeys.map(function(k) { return months[k].totalUsd; }));
+
+    var monthNames = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+
+    var html = sortedKeys.map(function(key) {
+      var parts = key.split('-');
+      var monthLabel = monthNames[parseInt(parts[1]) - 1] + ' ' + parts[0];
+      var m = months[key];
+      var pct = maxUsd > 0 ? (m.totalUsd / maxUsd * 100) : 0;
+      return '<div class="monthly-row">' +
+        '<div class="monthly-label">' + monthLabel + '</div>' +
+        '<div class="monthly-bar-track">' +
+          '<div class="monthly-bar-fill" style="width:' + pct + '%"></div>' +
+        '</div>' +
+        '<div class="monthly-value">' + formatCurrency(m.totalUsd) + '</div>' +
+        '<div class="monthly-count">' + m.payments.length + ' pago' + (m.payments.length !== 1 ? 's' : '') + '</div>' +
+      '</div>';
+    }).join('');
+
+    container.innerHTML = html;
   }
 
   // ---- Load all data ----
@@ -530,16 +648,18 @@
     document.getElementById("stat-total-users").textContent = allUsers.length;
     document.getElementById("stat-active-users").textContent = allUsers.filter(u => u.estado === 'activo').length;
     document.getElementById("stat-bot-users").textContent = allUsers.filter(u => u.bot_activo).length;
-    const completedPayments = allPayments.filter(p => p.estado === 'completado');
+    document.getElementById("stat-comunidad-main").textContent = allUsers.filter(u => u.comunidad_activa).length;
+
+    // Revenue
     updateRevenueDisplay();
 
     // Secondary stats
     document.getElementById("stat-fase1").textContent = allUsers.filter(u => u.fase === 'fase-1').length;
     document.getElementById("stat-ambas").textContent = allUsers.filter(u => u.fase === 'ambas').length;
     document.getElementById("stat-no-access").textContent = allUsers.filter(u => !u.fase).length;
+    var completedPayments = allPayments.filter(p => p.estado === 'completado');
     document.getElementById("stat-completed-payments").textContent = completedPayments.length;
     document.getElementById("stat-pending-payments").textContent = allPayments.filter(p => p.estado === 'pendiente').length;
-    document.getElementById("stat-comunidad").textContent = allUsers.filter(u => u.comunidad_activa).length;
   }
 
   // ---- Render Users Table ----

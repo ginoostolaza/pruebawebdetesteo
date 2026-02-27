@@ -11,7 +11,7 @@
     (function () {
       var acceso = sessionStorage.getItem("accesoAutorizado");
       if (!acceso || acceso !== "true") {
-        window.location.replace("iniciar-sesión.html");
+        window.location.replace("iniciar-sesion.html");
       }
     })();
   </script>
@@ -685,7 +685,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           showToast("Cuenta desactivada. Cerrando sesión...");
           setTimeout(async function() {
             await Auth.logout();
-            window.location.href = "iniciar-sesión.html";
+            window.location.href = "iniciar-sesion.html";
           }, 1500);
         } else {
           showToast("Error: " + (result.error || "No se pudo desactivar la cuenta."), "error");
@@ -712,7 +712,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         showToast("Cuenta marcada para eliminacion. Cerrando sesión...");
         setTimeout(async function() {
           await Auth.logout();
-          window.location.href = "iniciar-sesión.html";
+          window.location.href = "iniciar-sesion.html";
         }, 1500);
       }
     );
@@ -723,7 +723,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // ============================================================
   document.getElementById("btn-logout").addEventListener("click", async function() {
     await Auth.logout();
-    window.location.href = "iniciar-sesión.html";
+    window.location.href = "iniciar-sesion.html";
   });
 
   // ============================================================

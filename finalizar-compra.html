@@ -483,11 +483,20 @@
     const plan = params.get('plan') || 'fase1';
     const isBot = plan === 'bot';
 
-    // --- Pricing ---
+    // --- Pricing (defaults, overridden by Supabase config) ---
     const PRICES = {
       fase1: { ars: 9999, usd: 10 },
       bot:   { ars: 7500, usd: 5 }
     };
+    // Load dynamic prices from Supabase
+    var siteConfig = await Auth.getSiteConfig();
+    if (siteConfig.prices) {
+      var p = siteConfig.prices;
+      PRICES.fase1.ars = p.fase1_ars || PRICES.fase1.ars;
+      PRICES.fase1.usd = p.fase1_usd || PRICES.fase1.usd;
+      PRICES.bot.ars = p.bot_ars || PRICES.bot.ars;
+      PRICES.bot.usd = p.bot_usd || PRICES.bot.usd;
+    }
     const prices = PRICES[plan] || PRICES.fase1;
     let currentCurrency = 'ars';
 

@@ -329,6 +329,50 @@
         </div>
       </div>
 
+      <!-- Price management -->
+      <div class="action-card">
+        <div class="action-card-icon orange">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <h4>Configurar Precios</h4>
+        <p>Modifica los precios de Fase 1 y Bot que se muestran en el sitio</p>
+        <div class="action-card-form">
+          <div class="price-config-group">
+            <label class="price-config-label">Fase 1</label>
+            <div class="price-config-row">
+              <div class="price-input-wrap">
+                <span class="price-input-prefix">ARS</span>
+                <input type="number" id="price-fase1-ars" class="admin-search qa-select price-input" placeholder="9999">
+              </div>
+              <div class="price-input-wrap">
+                <span class="price-input-prefix">USD</span>
+                <input type="number" id="price-fase1-usd" class="admin-search qa-select price-input" step="0.01" placeholder="10">
+              </div>
+            </div>
+            <div class="price-config-row">
+              <div class="price-input-wrap">
+                <span class="price-input-prefix">Antes</span>
+                <input type="number" id="price-fase1-old-usd" class="admin-search qa-select price-input" step="0.01" placeholder="50">
+              </div>
+            </div>
+          </div>
+          <div class="price-config-group">
+            <label class="price-config-label">Bot</label>
+            <div class="price-config-row">
+              <div class="price-input-wrap">
+                <span class="price-input-prefix">ARS</span>
+                <input type="number" id="price-bot-ars" class="admin-search qa-select price-input" placeholder="7500">
+              </div>
+              <div class="price-input-wrap">
+                <span class="price-input-prefix">USD</span>
+                <input type="number" id="price-bot-usd" class="admin-search qa-select price-input" step="0.01" placeholder="5">
+              </div>
+            </div>
+          </div>
+          <button class="btn-primary btn-sm" id="btn-save-prices">Guardar precios</button>
+        </div>
+      </div>
+
       <!-- Export data -->
       <div class="action-card">
         <div class="action-card-icon green">
@@ -489,8 +533,10 @@
     await Auth.adminGuard();
     await fetchDolarBlueAdmin();
     await loadData();
+    await loadPriceConfig();
     setupEventListeners();
     setupRevenueControls();
+    setupPriceControls();
   });
 
   // ---- Fetch Dolar Blue ----
@@ -1123,6 +1169,37 @@
     link.download = filename;
     link.click();
     URL.revokeObjectURL(link.href);
+  }
+
+  // ---- Price Configuration ----
+  async function loadPriceConfig() {
+    var config = await Auth.getSiteConfig();
+    var prices = config.prices || null;
+    if (prices) {
+      if (prices.fase1_ars) document.getElementById('price-fase1-ars').value = prices.fase1_ars;
+      if (prices.fase1_usd) document.getElementById('price-fase1-usd').value = prices.fase1_usd;
+      if (prices.fase1_old_usd) document.getElementById('price-fase1-old-usd').value = prices.fase1_old_usd;
+      if (prices.bot_ars) document.getElementById('price-bot-ars').value = prices.bot_ars;
+      if (prices.bot_usd) document.getElementById('price-bot-usd').value = prices.bot_usd;
+    }
+  }
+
+  function setupPriceControls() {
+    document.getElementById('btn-save-prices').addEventListener('click', async function() {
+      var prices = {
+        fase1_ars: parseFloat(document.getElementById('price-fase1-ars').value) || 9999,
+        fase1_usd: parseFloat(document.getElementById('price-fase1-usd').value) || 10,
+        fase1_old_usd: parseFloat(document.getElementById('price-fase1-old-usd').value) || 50,
+        bot_ars: parseFloat(document.getElementById('price-bot-ars').value) || 7500,
+        bot_usd: parseFloat(document.getElementById('price-bot-usd').value) || 5
+      };
+      var result = await Auth.updateSiteConfig('prices', prices);
+      if (result.success) {
+        showToast('Precios actualizados correctamente');
+      } else {
+        showToast('Error: ' + (result.error || 'No se pudo guardar'), 'error');
+      }
+    });
   }
 </script>
 

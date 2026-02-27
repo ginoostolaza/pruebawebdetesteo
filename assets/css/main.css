@@ -1084,6 +1084,25 @@ nav.scrolled {
   transition: border-color var(--transition-base), box-shadow var(--transition-base);
 }
 
+.bot-coming-soon-ribbon {
+  position: absolute;
+  top: 28px;
+  right: -40px;
+  z-index: 10;
+  width: 200px;
+  padding: 8px 0;
+  background: linear-gradient(135deg, #f59e0b, #eab308);
+  color: #0a0e17;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: 0.85rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transform: rotate(45deg);
+  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+}
+
 .bot-card:hover {
   border-color: rgba(6, 182, 212, 0.5);
   box-shadow: 0 0 60px rgba(6, 182, 212, 0.12), 0 8px 40px rgba(0, 0, 0, 0.3);

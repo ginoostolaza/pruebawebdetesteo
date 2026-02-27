@@ -201,18 +201,45 @@ nav.scrolled {
 }
 
 .nav-brand {
-  font-size: clamp(1rem, 1.5vw, 1.2rem);
-  font-weight: 800;
-  letter-spacing: 2px;
-  background: var(--gradient-accent);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
   white-space: nowrap;
   transition: opacity var(--transition-fast);
+  text-decoration: none;
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
 }
 
-.nav-brand:hover { opacity: 0.8; }
+.brand-binary {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 400;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.brand-edge {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-style: italic;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 1.5px;
+  position: relative;
+}
+
+.brand-edge::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #f59e0b, #ef4444, #f59e0b);
+  border-radius: 2px;
+  opacity: 0.8;
+}
+
+.nav-brand:hover { opacity: 0.85; }
 
 .nav-links {
   list-style: none;
@@ -1011,6 +1038,41 @@ nav.scrolled {
   color: var(--color-text-dim);
 }
 
+.phase-discount-fire {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #fff;
+  padding: 0.3rem 0.8rem;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+  animation: pulse-fire 2s ease-in-out infinite;
+  letter-spacing: 0.5px;
+}
+
+@keyframes pulse-fire {
+  0%, 100% { box-shadow: 0 0 12px rgba(239, 68, 68, 0.4); }
+  50% { box-shadow: 0 0 20px rgba(239, 68, 68, 0.7); }
+}
+
+.phase-urgency {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--font-size-xs);
+  color: #f59e0b;
+  margin-bottom: 1rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: var(--radius-sm);
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.phase-urgency svg {
+  flex-shrink: 0;
+  stroke: #f59e0b;
+}
+
 .phase-highlight {
   padding: 1.2rem 1.5rem;
   margin-bottom: 1.5rem;
@@ -1198,6 +1260,13 @@ nav.scrolled {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   line-height: 1;
+}
+
+.bot-amount-private {
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .bot-period {

@@ -50,6 +50,13 @@
   <!-- LEFT: Payment Methods -->
   <div class="checkout-main">
 
+    <!-- Cart recovery banner (shown if user abandoned checkout before) -->
+    <div id="cart-recovery-banner" style="display:none; background:linear-gradient(135deg,rgba(59,130,246,0.12),rgba(139,92,246,0.08)); border:1px solid rgba(59,130,246,0.3); border-radius:12px; padding:0.9rem 1.1rem; margin-bottom:1.2rem; display:none; align-items:center; gap:0.8rem;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" width="20" height="20" style="flex-shrink:0;"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <span style="flex:1;font-size:0.88rem;color:#c8d0df;">Ten&eacute;s un pago pendiente. <strong style="color:#e8edf5;">Cont&iacute;nua donde lo dejaste</strong> &mdash; tu selecci&oacute;n fue recuperada.</span>
+      <button onclick="document.getElementById('cart-recovery-banner').style.display='none'" style="background:none;border:none;color:#5a6478;cursor:pointer;font-size:1.1rem;padding:0;line-height:1;" aria-label="Cerrar">&times;</button>
+    </div>
+
     <div>
       <div class="checkout-steps">
         <div class="step completed">
@@ -371,15 +378,19 @@
     <div class="trust-badges">
       <div class="trust-badge">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        Datos protegidos
+        SSL 256-bit
       </div>
       <div class="trust-badge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Pago verificado
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        Stripe &amp; MercadoPago
       </div>
       <div class="trust-badge">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
         Acceso inmediato
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Datos encriptados
       </div>
     </div>
 
@@ -478,6 +489,28 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", async () => {
+    // --- Cart abandonment: check & save state ---
+    (function() {
+      var CART_KEY = 'bea_cart_state';
+      var saved = null;
+      try { saved = JSON.parse(localStorage.getItem(CART_KEY)); } catch(e) {}
+      if (saved && saved.timestamp && (Date.now() - saved.timestamp) < 48 * 3600 * 1000) {
+        var banner = document.getElementById('cart-recovery-banner');
+        if (banner) banner.style.display = 'flex';
+        // Restore currency if saved
+        if (saved.currency === 'usd') {
+          var btnArs = document.getElementById('btn-ars');
+          var btnUsd = document.getElementById('btn-usd');
+          if (btnArs) btnArs.classList.remove('active');
+          if (btnUsd) btnUsd.classList.add('active');
+        }
+      }
+      // Save current visit to localStorage
+      var params = new URLSearchParams(window.location.search);
+      var cartState = { plan: params.get('plan') || 'fase1', currency: 'ars', timestamp: Date.now() };
+      localStorage.setItem(CART_KEY, JSON.stringify(cartState));
+    })();
+
     // --- Detect plan from URL ---
     const params = new URLSearchParams(window.location.search);
     const plan = params.get('plan') || 'fase1';

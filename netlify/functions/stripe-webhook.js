@@ -112,6 +112,16 @@ exports.handler = async (event) => {
         .eq('id', userId);
     }
 
+    // Send welcome notification to user's dashboard
+    await supabase.from('notifications').insert({
+      user_id: userId,
+      titulo: '¡Bienvenido a Binary Edge Academy!',
+      mensaje: productoId === 'fase1'
+        ? 'Tu acceso está activo. Empezá por el módulo de Preparación del Gráfico en tu dashboard.'
+        : 'Tu bot de trading está activo. Descargalo desde la sección Bot en tu dashboard.',
+      tipo: 'success'
+    });
+
     console.log(`[Stripe Webhook] Session ${session.id} - User: ${userId} - Product: ${productoId}`);
 
     return {

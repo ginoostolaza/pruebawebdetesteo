@@ -113,9 +113,7 @@ const Auth = (function () {
     if (!supabase) return null;
     const { data, error } = await supabase.from('profiles').select('*').eq('id', userId).single();
     if (error) {
-      console.error('[Auth] Error fetching profile:', error.message);
-      console.error('[Auth] Esto puede deberse a políticas RLS faltantes. Ejecutá en SQL de Supabase:');
-      console.error('  CREATE POLICY "Users can read own profile" ON profiles FOR SELECT USING (auth.uid() = id);');
+      console.error('[Auth] Error fetching profile');
     }
     return data;
   }

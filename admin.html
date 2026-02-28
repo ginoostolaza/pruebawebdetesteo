@@ -597,6 +597,13 @@
     });
   }
 
+  // ---- HTML Escaping for XSS prevention ----
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.textContent = str || '';
+    return div.innerHTML;
+  }
+
   function toUsd(monto, moneda) {
     var amount = parseFloat(monto || 0);
     if ((moneda || 'USD') === 'ARS' && dolarBlueVenta) {
@@ -730,15 +737,15 @@
       const fecha = u.fecha_registro ? new Date(u.fecha_registro).toLocaleDateString('es-AR') : '-';
 
       return '<tr>' +
-        '<td><div class="user-cell"><div class="user-avatar-sm">' + (u.nombre || 'U').charAt(0).toUpperCase() + '</div><span>' + (u.nombre || 'Sin nombre') + '</span></div></td>' +
-        '<td class="td-email">' + (u.email || '-') + '</td>' +
-        '<td><span class="badge ' + roleClass + '">' + (u.rol || 'alumno') + '</span></td>' +
-        '<td class="' + faseClass + '">' + faseText + '</td>' +
+        '<td><div class="user-cell"><div class="user-avatar-sm">' + escapeHtml((u.nombre || 'U').charAt(0).toUpperCase()) + '</div><span>' + escapeHtml(u.nombre || 'Sin nombre') + '</span></div></td>' +
+        '<td class="td-email">' + escapeHtml(u.email || '-') + '</td>' +
+        '<td><span class="badge ' + roleClass + '">' + escapeHtml(u.rol || 'alumno') + '</span></td>' +
+        '<td class="' + faseClass + '">' + escapeHtml(faseText) + '</td>' +
         '<td><span class="badge ' + botClass + '">' + botText + '</span></td>' +
         '<td><span class="badge ' + comClass + '">' + comText + '</span></td>' +
-        '<td><span class="badge ' + statusClass + '">' + (u.estado || 'activo') + '</span></td>' +
-        '<td class="td-date">' + fecha + '</td>' +
-        '<td><button class="btn-edit" onclick="openEditUser(\'' + u.id + '\')">Editar</button></td>' +
+        '<td><span class="badge ' + statusClass + '">' + escapeHtml(u.estado || 'activo') + '</span></td>' +
+        '<td class="td-date">' + escapeHtml(fecha) + '</td>' +
+        '<td><button class="btn-edit" onclick="openEditUser(\'' + escapeHtml(u.id) + '\')">Editar</button></td>' +
       '</tr>';
     }).join('');
   }
@@ -758,12 +765,12 @@
       const fecha = p.fecha ? new Date(p.fecha).toLocaleDateString('es-AR') : '-';
 
       return '<tr>' +
-        '<td>' + nombre + '</td>' +
-        '<td class="td-amount">$' + parseFloat(p.monto).toFixed(2) + ' ' + (p.moneda || 'USD') + '</td>' +
-        '<td>' + (p.metodo || '-') + '</td>' +
-        '<td>' + (p.concepto || '-') + '</td>' +
-        '<td><span class="badge ' + statusClass + '">' + (p.estado || 'completado') + '</span></td>' +
-        '<td class="td-date">' + fecha + '</td>' +
+        '<td>' + escapeHtml(nombre) + '</td>' +
+        '<td class="td-amount">$' + parseFloat(p.monto).toFixed(2) + ' ' + escapeHtml(p.moneda || 'USD') + '</td>' +
+        '<td>' + escapeHtml(p.metodo || '-') + '</td>' +
+        '<td>' + escapeHtml(p.concepto || '-') + '</td>' +
+        '<td><span class="badge ' + statusClass + '">' + escapeHtml(p.estado || 'completado') + '</span></td>' +
+        '<td class="td-date">' + escapeHtml(fecha) + '</td>' +
       '</tr>';
     }).join('');
   }
@@ -771,7 +778,7 @@
   // ---- Populate user selects ----
   function populateUserSelect() {
     const options = '<option value="">Seleccionar usuario...</option>' +
-      allUsers.map(u => '<option value="' + u.id + '">' + (u.nombre || u.email) + '</option>').join('');
+      allUsers.map(u => '<option value="' + escapeHtml(u.id) + '">' + escapeHtml(u.nombre || u.email) + '</option>').join('');
     document.getElementById("payment-user").innerHTML = options;
     document.getElementById("qa-access-user").innerHTML = options;
     document.getElementById("qa-bot-user").innerHTML = options;
@@ -780,7 +787,7 @@
 
     // Notification select includes "all users" option
     const notifOptions = '<option value="all">Todos los usuarios</option>' +
-      allUsers.map(u => '<option value="' + u.id + '">' + (u.nombre || u.email) + '</option>').join('');
+      allUsers.map(u => '<option value="' + escapeHtml(u.id) + '">' + escapeHtml(u.nombre || u.email) + '</option>').join('');
     document.getElementById("qa-notif-user").innerHTML = notifOptions;
   }
 

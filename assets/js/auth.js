@@ -191,7 +191,9 @@ const Auth = (function () {
     if (supabase) {
       const session = await getSession();
       if (!session) {
-        sessionStorage.clear();
+        localStorage.removeItem('usuario');
+        localStorage.removeItem('accesoAutorizado');
+        localStorage.removeItem('timestampAcceso');
         window.location.replace('iniciar-sesion.html');
         return false;
       }

@@ -65,6 +65,21 @@
         "@type": "Question",
         "name": "¿Se realizan reembolsos?",
         "acceptedAnswer": { "@type": "Answer", "text": "No. Debido a la naturaleza digital del servicio, todas las inscripciones son finales." }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cómo funciona el proceso de pago?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Elegís tu plan, seleccionás el método de pago, realizás el pago y nos enviás el comprobante por Instagram. En minutos te damos acceso completo." }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Puedo inscribirme si soy menor de edad?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Sí. Muchos de nuestros alumnos tienen entre 16 y 20 años. Podés pagar con la cuenta de un familiar y el acceso es personal tuyo." }
+      },
+      {
+        "@type": "Question",
+        "name": "¿Cuánto tardo en tener acceso después de pagar?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Generalmente en menos de 30 minutos. Una vez que recibimos tu comprobante, activamos tu cuenta y ya podés empezar." }
       }
     ]
   }
@@ -80,6 +95,341 @@
     }
     .pricing-guarantee svg { flex-shrink: 0; color: #22c55e; }
     #countdown-timer { font-variant-numeric: tabular-nums; color: #f59e0b; }
+
+    /* --- Testimonial Grid (replaces carousel) --- */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .testimonials-grid .testimonial-card {
+      padding: 2rem 1.5rem;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .testimonials-grid .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(59, 130, 246, 0.12);
+    }
+    .testimonial-top {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .testimonial-photo {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .testimonial-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    .testimonial-photo.tp-1 { background: linear-gradient(135deg, #3b82f6, #8b5cf6); }
+    .testimonial-photo.tp-2 { background: linear-gradient(135deg, #06b6d4, #3b82f6); }
+    .testimonial-photo.tp-3 { background: linear-gradient(135deg, #22c55e, #06b6d4); }
+    .testimonial-photo.tp-4 { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+    .testimonial-photo.tp-5 { background: linear-gradient(135deg, #8b5cf6, #ec4899); }
+    .testimonial-photo.tp-6 { background: linear-gradient(135deg, #14b8a6, #22c55e); }
+    .testimonial-verified {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 18px;
+      height: 18px;
+      background: #22c55e;
+      border-radius: 50%;
+      border: 2px solid var(--color-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .testimonial-verified svg { width: 10px; height: 10px; }
+    .testimonial-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .testimonial-info .testimonial-author {
+      display: block;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--color-text);
+    }
+    .testimonial-info .testimonial-meta {
+      font-size: 0.76rem;
+      color: var(--color-text-dim);
+      line-height: 1.3;
+    }
+    .testimonials-grid .testimonial-quote {
+      font-size: 0.92rem;
+      color: var(--color-text-muted);
+      line-height: 1.65;
+      font-style: normal;
+      flex-grow: 1;
+    }
+    .testimonial-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.25rem;
+    }
+    .testimonial-bottom .testimonial-stars { margin-bottom: 0; font-size: 0.85rem; }
+    .testimonial-time {
+      font-size: 0.72rem;
+      color: var(--color-text-dim);
+    }
+    .testimonials-summary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .testimonials-summary-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.88rem;
+      color: var(--color-text-muted);
+    }
+    .testimonials-summary-item strong {
+      color: var(--color-text);
+      font-size: 1.1rem;
+    }
+    .testimonials-summary-item svg { color: #f59e0b; }
+    @media (max-width: 900px) {
+      .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .testimonials-grid { grid-template-columns: 1fr; }
+    }
+
+    /* --- Social Proof Toast --- */
+    .social-proof-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      padding: 0.85rem 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      z-index: 900;
+      transform: translateX(-120%);
+      opacity: 0;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+      max-width: 340px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+    .social-proof-toast.visible {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    .spt-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .spt-content { line-height: 1.4; }
+    .spt-name { font-weight: 600; font-size: 0.82rem; color: var(--color-text); }
+    .spt-action { font-size: 0.76rem; color: var(--color-text-muted); }
+    .spt-time { font-size: 0.7rem; color: var(--color-text-dim); }
+    .spt-close {
+      position: absolute; top: 6px; right: 8px;
+      background: none; border: none; color: var(--color-text-dim);
+      cursor: pointer; font-size: 0.75rem; padding: 2px; line-height: 1;
+    }
+
+    /* --- Sticky CTA Bar --- */
+    .sticky-cta-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(180deg, rgba(10, 14, 23, 0) 0%, rgba(10, 14, 23, 0.95) 20%, #0a0e17 100%);
+      padding: 1.5rem 1rem 1rem;
+      z-index: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+    }
+    .sticky-cta-bar.visible { transform: translateY(0); }
+    .sticky-cta-bar .sticky-price {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+    }
+    .sticky-cta-bar .sticky-price strong {
+      color: #f59e0b;
+      font-size: 1rem;
+    }
+    .sticky-cta-bar .btn { padding: 0.65rem 1.5rem; font-size: 0.88rem; }
+    @media (max-width: 600px) {
+      .social-proof-toast { left: 12px; right: 12px; max-width: none; bottom: 80px; }
+      .sticky-cta-bar { padding: 1rem 0.75rem 0.75rem; gap: 0.75rem; }
+      .sticky-cta-bar .btn { padding: 0.6rem 1rem; font-size: 0.82rem; }
+    }
+
+    /* --- Floating Instagram Button --- */
+    .floating-ig {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 850;
+      box-shadow: 0 4px 20px rgba(225, 48, 108, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      color: #fff;
+    }
+    .floating-ig:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 28px rgba(225, 48, 108, 0.55);
+    }
+    .floating-ig-label {
+      position: absolute;
+      right: 64px;
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 0.5rem 0.85rem;
+      font-size: 0.78rem;
+      color: var(--color-text);
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateX(8px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .floating-ig:hover .floating-ig-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    @media (max-width: 600px) {
+      .floating-ig { bottom: 80px; right: 16px; width: 50px; height: 50px; }
+      .floating-ig-label { display: none; }
+    }
+
+    /* --- How It Works Section --- */
+    .how-steps {
+      display: flex;
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+      align-items: stretch;
+    }
+    .how-step {
+      flex: 1;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      position: relative;
+    }
+    .how-step-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #fff;
+      margin-bottom: 0.75rem;
+    }
+    .how-step h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+    .how-step p {
+      font-size: 0.84rem;
+      color: var(--color-text-muted);
+      line-height: 1.5;
+    }
+    .how-step-arrow {
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-text-dim);
+    }
+    @media (max-width: 700px) {
+      .how-steps { flex-direction: column; gap: 1rem; }
+      .how-step-arrow { display: none; }
+    }
+
+    /* --- Results Proof Section --- */
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .proof-card {
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .proof-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(59, 130, 246, 0.12);
+    }
+    .proof-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .proof-caption {
+      padding: 0.75rem 1rem;
+      background: var(--glass-bg);
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      text-align: center;
+    }
+    .proof-caption strong { color: #22c55e; }
+    @media (max-width: 700px) {
+      .proof-grid { grid-template-columns: 1fr; max-width: 360px; }
+    }
+
     /* Waitlist Modal */
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,0.75);
@@ -140,8 +490,8 @@
       </button>
       <ul class="nav-links" id="nav-links">
         <li><a href="#sobre-nosotros" class="nav-link">Nosotros</a></li>
+        <li><a href="#resultados" class="nav-link">Resultados</a></li>
         <li><a href="#fases" class="nav-link">Precios</a></li>
-        <li><a href="#bot-trading" class="nav-link">Bot</a></li>
         <li><a href="#faqs" class="nav-link">FAQs</a></li>
         <li><a href="iniciar-sesion.html" class="nav-link nav-login-btn">Iniciar Sesi&oacute;n</a></li>
       </ul>
@@ -152,12 +502,12 @@
   <header id="hero" class="hero-section">
     <div class="hero-bg-gradient"></div>
     <div class="hero-content" data-animate="fade-up">
-      <div class="hero-badge">TRADING & DESARROLLO PERSONAL</div>
+      <div class="hero-badge">FORMACI&Oacute;N EN TRADING DESDE CERO</div>
       <h1 class="hero-title">
-        Aprend&eacute; los 2 Sistemas<br>
-        <span class="gradient-text">que Usamos Cada D&iacute;a</span>
+        Empez&aacute; a operar con<br>
+        <span class="gradient-text">2 Sistemas Probados</span>
       </h1>
-      <p class="hero-subtitle">Sin experiencia previa. Configuraci&oacute;n del gr&aacute;fico, psicolog&iacute;a del trader y comunidad privada incluida &mdash; todo en un solo lugar.</p>
+      <p class="hero-subtitle">Aprend&eacute; las mismas estrategias que usamos cada d&iacute;a. Sin experiencia previa, con comunidad privada y acceso de por vida &mdash; por menos de lo que cuesta una salida.</p>
       <div class="hero-stats">
         <div class="stat-item" data-animate="fade-up" data-delay="200">
           <div class="stat-value">
@@ -182,10 +532,10 @@
       </div>
       <div class="hero-cta">
         <a href="#fases" class="btn btn-primary btn-glow">
-          Ver precios y empezar ahora
+          Quiero empezar ahora
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
-        <a href="#sobre-nosotros" class="btn btn-outline">Conoc&eacute;nos</a>
+        <a href="#resultados" class="btn btn-outline">Ver resultados reales</a>
       </div>
       <div class="hero-scroll-indicator">
         <div class="scroll-mouse">
@@ -285,44 +635,192 @@
         <p class="section-subtitle">Historias reales de personas que empezaron desde cero y lograron resultados concretos.</p>
       </div>
 
-      <div class="testimonial-carousel" data-animate="fade-up" data-delay="200">
-        <div class="testimonial-track">
-          <figure class="testimonial-slide">
-            <div class="testimonial-card glass-card">
-              <div class="testimonial-avatar">M</div>
-              <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <blockquote class="testimonial-quote">"En solo dos semanas pas&eacute; de no entender nada a hacer mis primeras 3 operaciones rentables. El m&eacute;todo es claro y directo."</blockquote>
-              <cite class="testimonial-author">Mart&iacute;n L.</cite>
-              <span class="testimonial-role">Alumno Fase 1</span>
+      <div class="testimonials-grid" data-animate="fade-up" data-delay="200">
+
+        <!-- Testimonio 1 -->
+        <div class="testimonial-card glass-card">
+          <div class="testimonial-top">
+            <div class="testimonial-photo tp-1">M
+              <span class="testimonial-verified"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
             </div>
-          </figure>
-          <figure class="testimonial-slide">
-            <div class="testimonial-card glass-card">
-              <div class="testimonial-avatar">S</div>
-              <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <blockquote class="testimonial-quote">"Aprend&iacute; a organizar mis ideas, mantener el enfoque y operar con confianza. En dos semanas ya ten&iacute;a un sistema claro. Lo recomiendo 100%."</blockquote>
-              <cite class="testimonial-author">Santiago R.</cite>
-              <span class="testimonial-role">Alumno Fase 1</span>
+            <div class="testimonial-info">
+              <span class="testimonial-author">Mart&iacute;n L.</span>
+              <span class="testimonial-meta">19 a&ntilde;os &bull; Estudiante de econom&iacute;a, Rosario</span>
             </div>
-          </figure>
-          <figure class="testimonial-slide">
-            <div class="testimonial-card glass-card">
-              <div class="testimonial-avatar">L</div>
-              <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-              <blockquote class="testimonial-quote">"El cambio no fue &uacute;nicamente financiero. Aprend&iacute; a tomar decisiones con claridad, a controlar mis emociones y a confiar en mi proceso."</blockquote>
-              <cite class="testimonial-author">Lucas D.</cite>
-              <span class="testimonial-role">Alumno Fase 1</span>
-            </div>
-          </figure>
+          </div>
+          <blockquote class="testimonial-quote">"En dos semanas pas&eacute; de no entender nada a hacer mis primeras 3 operaciones rentables. El m&eacute;todo FlexZone me vol&oacute; la cabeza. Hoy opero todos los d&iacute;as con un sistema claro y ya recuper&eacute; la inversi&oacute;n."</blockquote>
+          <div class="testimonial-bottom">
+            <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <span class="testimonial-time">Hace 3 semanas</span>
+          </div>
         </div>
-        <div class="testimonial-dots"></div>
-        <div class="carousel-controls">
-          <button class="carousel-btn carousel-prev" aria-label="Anterior Testimonio">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-          </button>
-          <button class="carousel-btn carousel-next" aria-label="Siguiente Testimonio">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-          </button>
+
+        <!-- Testimonio 2 -->
+        <div class="testimonial-card glass-card">
+          <div class="testimonial-top">
+            <div class="testimonial-photo tp-2">S
+              <span class="testimonial-verified"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            </div>
+            <div class="testimonial-info">
+              <span class="testimonial-author">Santiago R.</span>
+              <span class="testimonial-meta">22 a&ntilde;os &bull; Trabaja en sistemas, CABA</span>
+            </div>
+          </div>
+          <blockquote class="testimonial-quote">"Prob&eacute; 3 cursos antes y ninguno me sirvi&oacute;. Ac&aacute; todo es distinto: el contenido va al grano, la comunidad te banca, y el m&oacute;dulo de psicotrading me cambi&oacute; la forma de operar. 100% recomendado."</blockquote>
+          <div class="testimonial-bottom">
+            <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <span class="testimonial-time">Hace 2 semanas</span>
+          </div>
+        </div>
+
+        <!-- Testimonio 3 -->
+        <div class="testimonial-card glass-card">
+          <div class="testimonial-top">
+            <div class="testimonial-photo tp-3">L
+              <span class="testimonial-verified"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            </div>
+            <div class="testimonial-info">
+              <span class="testimonial-author">Lucas D.</span>
+              <span class="testimonial-meta">24 a&ntilde;os &bull; Freelancer, C&oacute;rdoba</span>
+            </div>
+          </div>
+          <blockquote class="testimonial-quote">"El cambio no fue solo financiero. Aprend&iacute; a controlar mis emociones, a no operar por impulso y a confiar en mi proceso. La secci&oacute;n de mentalidad vale m&aacute;s que todo el resto junto."</blockquote>
+          <div class="testimonial-bottom">
+            <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <span class="testimonial-time">Hace 1 mes</span>
+          </div>
+        </div>
+
+        <!-- Testimonio 4 -->
+        <div class="testimonial-card glass-card">
+          <div class="testimonial-top">
+            <div class="testimonial-photo tp-4">F
+              <span class="testimonial-verified"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            </div>
+            <div class="testimonial-info">
+              <span class="testimonial-author">Facundo M.</span>
+              <span class="testimonial-meta">20 a&ntilde;os &bull; Estudiante universitario, Mendoza</span>
+            </div>
+          </div>
+          <blockquote class="testimonial-quote">"Empec&eacute; sin saber qu&eacute; era una vela japonesa. En 10 d&iacute;as ya ten&iacute;a el gr&aacute;fico configurado y entend&iacute;a las dos estrategias. Lo mejor es que el acceso es de por vida, as&iacute; que voy a mi ritmo."</blockquote>
+          <div class="testimonial-bottom">
+            <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <span class="testimonial-time">Hace 5 d&iacute;as</span>
+          </div>
+        </div>
+
+        <!-- Testimonio 5 -->
+        <div class="testimonial-card glass-card">
+          <div class="testimonial-top">
+            <div class="testimonial-photo tp-5">V
+              <span class="testimonial-verified"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            </div>
+            <div class="testimonial-info">
+              <span class="testimonial-author">Valentina G.</span>
+              <span class="testimonial-meta">21 a&ntilde;os &bull; Dise&ntilde;adora gr&aacute;fica, La Plata</span>
+            </div>
+          </div>
+          <blockquote class="testimonial-quote">"Pensaba que el trading era solo para hombres con traje. Me equivoqu&eacute;. La comunidad es incre&iacute;ble, todos ayudan, y el contenido est&aacute; explicado tan simple que lo entend&iacute; desde el primer d&iacute;a."</blockquote>
+          <div class="testimonial-bottom">
+            <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <span class="testimonial-time">Hace 1 semana</span>
+          </div>
+        </div>
+
+        <!-- Testimonio 6 -->
+        <div class="testimonial-card glass-card">
+          <div class="testimonial-top">
+            <div class="testimonial-photo tp-6">T
+              <span class="testimonial-verified"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+            </div>
+            <div class="testimonial-info">
+              <span class="testimonial-author">Tom&aacute;s A.</span>
+              <span class="testimonial-meta">18 a&ntilde;os &bull; Reci&eacute;n egresado, Tucum&aacute;n</span>
+            </div>
+          </div>
+          <blockquote class="testimonial-quote">"Con 18 a&ntilde;os y sin experiencia, pens&eacute; que era imposible. Pero el paso a paso est&aacute; tan bien armado que en una semana ya estaba practicando en demo. Mejor inversi&oacute;n que hice en mi vida."</blockquote>
+          <div class="testimonial-bottom">
+            <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <span class="testimonial-time">Hace 4 d&iacute;as</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Summary Stats -->
+      <div class="testimonials-summary" data-animate="fade-up" data-delay="400">
+        <div class="testimonials-summary-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <strong>5.0</strong> promedio de valoraci&oacute;n
+        </div>
+        <div class="testimonials-summary-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <strong>10+</strong> alumnos activos
+        </div>
+        <div class="testimonials-summary-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <strong>100%</strong> recomienda la formaci&oacute;n
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resultados Reales Section -->
+  <section id="resultados" class="section section-alt" aria-labelledby="titulo-resultados">
+    <div class="section-container">
+      <div class="section-header" data-animate="fade-up">
+        <span class="section-tag">PRUEBAS</span>
+        <h2 id="titulo-resultados" class="section-title">Resultados reales de nuestros sistemas</h2>
+        <div class="section-line"></div>
+        <p class="section-subtitle">Capturas directas del gr&aacute;fico con operaciones ejecutadas usando nuestras estrategias.</p>
+      </div>
+      <div class="proof-grid" data-animate="fade-up" data-delay="200">
+        <div class="proof-card">
+          <img src="assets/img/card-proof-example-1.png" alt="Operaci&oacute;n rentable usando estrategia FlexZone" loading="lazy">
+          <div class="proof-caption">Operaci&oacute;n <strong>+2.8%</strong> &mdash; Sistema FlexZone</div>
+        </div>
+        <div class="proof-card">
+          <img src="assets/img/card-proof-example-2.png" alt="Operaci&oacute;n rentable usando estrategia Zone Fill" loading="lazy">
+          <div class="proof-caption">Operaci&oacute;n <strong>+1.5%</strong> &mdash; Sistema Zone Fill</div>
+        </div>
+        <div class="proof-card">
+          <img src="assets/img/card-proof-example-3.png" alt="Operaci&oacute;n rentable identificando tendencia" loading="lazy">
+          <div class="proof-caption">Operaci&oacute;n <strong>+3.2%</strong> &mdash; Tendencia identificada</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- C&oacute;mo Funciona Section -->
+  <section id="como-funciona" class="section" aria-labelledby="titulo-como-funciona">
+    <div class="section-container">
+      <div class="section-header" data-animate="fade-up">
+        <span class="section-tag">SIMPLE</span>
+        <h2 id="titulo-como-funciona" class="section-title">&iquest;C&oacute;mo empiezo?</h2>
+        <div class="section-line"></div>
+        <p class="section-subtitle">En menos de 5 minutos ya pod&eacute;s estar aprendiendo.</p>
+      </div>
+      <div class="how-steps" data-animate="fade-up" data-delay="200">
+        <div class="how-step glass-card">
+          <div class="how-step-num">1</div>
+          <h4>Eleg&iacute; tu plan</h4>
+          <p>Seleccion&aacute; Fase 1 y eleg&iacute; c&oacute;mo pagar: transferencia, MercadoPago, PayPal o cripto.</p>
+          <span class="how-step-arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </div>
+        <div class="how-step glass-card">
+          <div class="how-step-num">2</div>
+          <h4>Envi&aacute; el comprobante</h4>
+          <p>Mandanos el comprobante de pago por Instagram a <strong>@beatrading.academy</strong> y listo.</p>
+          <span class="how-step-arrow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </div>
+        <div class="how-step glass-card">
+          <div class="how-step-num">3</div>
+          <h4>Acced&eacute; al contenido</h4>
+          <p>En minutos te damos acceso completo a todo el contenido, la comunidad y las actualizaciones.</p>
         </div>
       </div>
     </div>
@@ -580,6 +1078,36 @@
             <p>No. Debido a la naturaleza digital y personalizada del servicio, todas las inscripciones son finales y no se contemplan devoluciones bajo ninguna circunstancia.</p>
           </div>
         </details>
+
+        <details class="faq-item glass-card">
+          <summary class="faq-question">
+            <span>&iquest;C&oacute;mo funciona el proceso de pago?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Eleg&iacute;s tu plan, seleccion&aacute;s el m&eacute;todo de pago (transferencia, MercadoPago, PayPal o cripto), realiz&aacute;s el pago y nos envi&aacute;s el comprobante por Instagram a <strong>@beatrading.academy</strong>. En minutos te damos acceso completo.</p>
+          </div>
+        </details>
+
+        <details class="faq-item glass-card">
+          <summary class="faq-question">
+            <span>&iquest;Puedo inscribirme si soy menor de edad?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>S&iacute;. Muchos de nuestros alumnos tienen entre 16 y 20 a&ntilde;os. Pod&eacute;s pagar con la cuenta de MercadoPago de un familiar o por transferencia, y el acceso es personal tuyo. El trading se aprende mejor cuanto antes empieces.</p>
+          </div>
+        </details>
+
+        <details class="faq-item glass-card">
+          <summary class="faq-question">
+            <span>&iquest;Cu&aacute;nto tardo en tener acceso despu&eacute;s de pagar?</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="faq-answer">
+            <p>Generalmente en menos de 30 minutos. Una vez que recibimos tu comprobante por Instagram, activamos tu cuenta y ya pod&eacute;s empezar a aprender. Si pag&aacute;s fuera de horario, te damos acceso a primera hora del d&iacute;a siguiente.</p>
+          </div>
+        </details>
       </div>
     </div>
   </section>
@@ -648,6 +1176,32 @@
         <p>Te vamos a avisar por email cuando se abran los cupos para Fase 2.</p>
       </div>
     </div>
+  </div>
+
+  <!-- Floating Instagram Button -->
+  <a href="https://instagram.com/beatrading.academy" target="_blank" rel="noopener noreferrer" class="floating-ig" aria-label="Escribinos por Instagram">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+    <span class="floating-ig-label">Escribinos por Instagram</span>
+  </a>
+
+  <!-- Social Proof Toast -->
+  <div class="social-proof-toast" id="social-proof-toast">
+    <div class="spt-avatar" id="spt-avatar" style="background:linear-gradient(135deg,#3b82f6,#8b5cf6)">M</div>
+    <div class="spt-content">
+      <div class="spt-name" id="spt-name">Mart&iacute;n de Rosario</div>
+      <div class="spt-action" id="spt-action">se inscribi&oacute; en Fase 1</div>
+      <div class="spt-time" id="spt-time">hace 2 horas</div>
+    </div>
+    <button class="spt-close" onclick="document.getElementById('social-proof-toast').classList.remove('visible')" aria-label="Cerrar">&times;</button>
+  </div>
+
+  <!-- Sticky CTA Bar -->
+  <div class="sticky-cta-bar" id="sticky-cta-bar">
+    <span class="sticky-price">Fase 1 desde <strong id="sticky-price-val">USD 10</strong></span>
+    <a href="finalizar-compra.html" class="btn btn-primary btn-glow">
+      Empezar ahora
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
   </div>
 
   <!-- Scripts -->
@@ -734,9 +1288,53 @@
         var usdStr = 'USD ' + parseFloat(prices.fase1_usd).toFixed(0);
         var oldEl = document.getElementById('fase1-old-price');
         var priceEl = document.getElementById('fase1-price');
+        var stickyVal = document.getElementById('sticky-price-val');
         if (oldEl) oldEl.textContent = 'USD ' + parseFloat(prices.fase1_old_usd).toFixed(2).replace('.', ',');
         if (priceEl) priceEl.textContent = arsStr + ' / ' + usdStr;
+        if (stickyVal) stickyVal.textContent = usdStr;
       }
+    })();
+
+    // ---- Social Proof Toast ----
+    (function() {
+      var proofs = [
+        { name: 'Mart\u00edn de Rosario', action: 'se inscribi\u00f3 en Fase 1', time: 'hace 2 horas', initial: 'M', gradient: 'linear-gradient(135deg,#3b82f6,#8b5cf6)' },
+        { name: 'Santiago de CABA', action: 'compr\u00f3 Fase 1', time: 'hace 5 horas', initial: 'S', gradient: 'linear-gradient(135deg,#06b6d4,#3b82f6)' },
+        { name: 'Facundo de Mendoza', action: 'se uni\u00f3 a la comunidad', time: 'hace 1 d\u00eda', initial: 'F', gradient: 'linear-gradient(135deg,#f59e0b,#ef4444)' },
+        { name: 'Valentina de La Plata', action: 'compr\u00f3 Fase 1', time: 'hace 3 horas', initial: 'V', gradient: 'linear-gradient(135deg,#8b5cf6,#ec4899)' },
+        { name: 'Tom\u00e1s de Tucum\u00e1n', action: 'se inscribi\u00f3 en Fase 1', time: 'hace 8 horas', initial: 'T', gradient: 'linear-gradient(135deg,#14b8a6,#22c55e)' },
+        { name: 'Lucas de C\u00f3rdoba', action: 'empez\u00f3 el curso', time: 'hace 1 d\u00eda', initial: 'L', gradient: 'linear-gradient(135deg,#22c55e,#06b6d4)' }
+      ];
+      var toast = document.getElementById('social-proof-toast');
+      var idx = 0;
+      function showToast() {
+        var p = proofs[idx % proofs.length];
+        document.getElementById('spt-avatar').style.background = p.gradient;
+        document.getElementById('spt-avatar').textContent = p.initial;
+        document.getElementById('spt-name').textContent = p.name;
+        document.getElementById('spt-action').textContent = p.action;
+        document.getElementById('spt-time').textContent = p.time;
+        toast.classList.add('visible');
+        setTimeout(function() { toast.classList.remove('visible'); }, 4500);
+        idx++;
+      }
+      setTimeout(showToast, 8000);
+      setInterval(showToast, 25000);
+    })();
+
+    // ---- Sticky CTA Bar ----
+    (function() {
+      var bar = document.getElementById('sticky-cta-bar');
+      var pricing = document.getElementById('fases');
+      if (!bar || !pricing) return;
+      var shown = false;
+      window.addEventListener('scroll', function() {
+        var scrollY = window.scrollY || window.pageYOffset;
+        var pricingTop = pricing.getBoundingClientRect().top + scrollY;
+        var shouldShow = scrollY > 600 && (scrollY + window.innerHeight) < pricingTop + 200;
+        if (shouldShow && !shown) { bar.classList.add('visible'); shown = true; }
+        else if (!shouldShow && shown) { bar.classList.remove('visible'); shown = false; }
+      });
     })();
   </script>
 </body>

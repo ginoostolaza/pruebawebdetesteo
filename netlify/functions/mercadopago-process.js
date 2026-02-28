@@ -6,8 +6,9 @@
 const { MercadoPagoConfig, Payment } = require('mercadopago');
 
 exports.handler = async (event) => {
+  const allowedOrigin = process.env.SITE_URL || process.env.URL || '*';
   const headers = {
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': allowedOrigin,
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Content-Type': 'application/json'

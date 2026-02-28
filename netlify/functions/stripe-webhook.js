@@ -16,23 +16,28 @@ exports.handler = async (event) => {
   try {
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-    // Verify webhook signature
-    let stripeEvent;
+    // Verify webhook signature (required for security)
     const sig = event.headers['stripe-signature'];
 
-    if (process.env.STRIPE_WEBHOOK_SECRET && sig) {
-      try {
-        stripeEvent = stripe.webhooks.constructEvent(
-          event.body,
-          sig,
-          process.env.STRIPE_WEBHOOK_SECRET
-        );
-      } catch (err) {
-        console.error('Webhook signature verification failed:', err.message);
-        return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid signature' }) };
-      }
-    } else {
-      stripeEvent = JSON.parse(event.body);
+    if (!process.env.STRIPE_WEBHOOK_SECRET) {
+      console.error('STRIPE_WEBHOOK_SECRET not configured - rejecting webhook');
+      return { statusCode: 500, headers, body: JSON.stringify({ error: 'Webhook secret not configured' }) };
+    }
+
+    if (!sig) {
+      return { statusCode: 400, headers, body: JSON.stringify({ error: 'Missing signature' }) };
+    }
+
+    let stripeEvent;
+    try {
+      stripeEvent = stripe.webhooks.constructEvent(
+        event.body,
+        sig,
+        process.env.STRIPE_WEBHOOK_SECRET
+      );
+    } catch (err) {
+      console.error('Webhook signature verification failed');
+      return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid signature' }) };
     }
 
     // Only process checkout.session.completed events

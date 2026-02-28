@@ -5,6 +5,28 @@
 
 const Stripe = require('stripe');
 const { createClient } = require('@supabase/supabase-js');
+const { bienvenidaFase1, bienvenidaBot } = require('./email-templates');
+
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const FROM_EMAIL = process.env.RESEND_FROM || 'Binary Edge Academy <onboarding@resend.dev>';
+
+async function sendEmail(to, subject, html) {
+  if (!RESEND_API_KEY || !to) return;
+  try {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${RESEND_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ from: FROM_EMAIL, to, subject, html })
+    });
+    const data = await res.json();
+    console.log('[Stripe] Email sent:', data?.id || data?.error);
+  } catch (err) {
+    console.error('[Stripe] Email error:', err.message);
+  }
+}
 
 exports.handler = async (event) => {
   const headers = { 'Content-Type': 'application/json' };
@@ -121,6 +143,22 @@ exports.handler = async (event) => {
         : 'Tu bot de trading está activo. Descargalo desde la sección Bot en tu dashboard.',
       tipo: 'success'
     });
+
+    // Send welcome email via Resend
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('nombre')
+      .eq('id', userId)
+      .single();
+
+    const nombre = profile?.nombre || session.customer_details?.name || session.customer_email?.split('@')[0] || 'trader';
+    const userEmail = session.customer_email;
+
+    if (productoId === 'fase1') {
+      await sendEmail(userEmail, '¡Bienvenido a Binary Edge Academy! Tu acceso está activo', bienvenidaFase1({ nombre }));
+    } else if (productoId === 'bot') {
+      await sendEmail(userEmail, '¡Tu bot de trading está listo! — Binary Edge Academy', bienvenidaBot({ nombre }));
+    }
 
     console.log(`[Stripe Webhook] Session ${session.id} - User: ${userId} - Product: ${productoId}`);
 

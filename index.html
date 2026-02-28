@@ -349,16 +349,15 @@
     /* --- How It Works Section --- */
     .how-steps {
       display: flex;
-      gap: 1.5rem;
+      align-items: center;
+      gap: 0;
       max-width: 900px;
       margin: 0 auto;
-      align-items: stretch;
     }
     .how-step {
       flex: 1;
       text-align: center;
-      padding: 1.5rem 1rem;
-      position: relative;
+      padding: 1.75rem 1.25rem;
     }
     .how-step-num {
       width: 44px;
@@ -383,16 +382,19 @@
       color: var(--color-text-muted);
       line-height: 1.5;
     }
-    .how-step-arrow {
-      position: absolute;
-      right: -20px;
-      top: 50%;
-      transform: translateY(-50%);
+    /* Flecha separadora — elemento independiente entre cards */
+    .how-step-sep {
+      flex-shrink: 0;
+      width: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: var(--color-text-dim);
+      pointer-events: none;
     }
     @media (max-width: 700px) {
-      .how-steps { flex-direction: column; gap: 1rem; }
-      .how-step-arrow { display: none; }
+      .how-steps { flex-direction: column; gap: 0.75rem; }
+      .how-step-sep { transform: rotate(90deg); width: auto; height: 32px; }
     }
 
     /* --- Results Proof Section --- */
@@ -490,7 +492,7 @@
       </button>
       <ul class="nav-links" id="nav-links">
         <li><a href="#sobre-nosotros" class="nav-link">Nosotros</a></li>
-        <li><a href="#resultados" class="nav-link">Resultados</a></li>
+        <li><a href="#como-funciona" class="nav-link">C&oacute;mo funciona</a></li>
         <li><a href="#fases" class="nav-link">Precios</a></li>
         <li><a href="#faqs" class="nav-link">FAQs</a></li>
         <li><a href="iniciar-sesion.html" class="nav-link nav-login-btn">Iniciar Sesi&oacute;n</a></li>
@@ -771,31 +773,32 @@
     </div>
   </section>
 
-  <!-- Resultados Reales Section -->
+  <!-- RESULTADOS REALES — comentado hasta decidir mostrarlo
   <section id="resultados" class="section section-alt" aria-labelledby="titulo-resultados">
     <div class="section-container">
       <div class="section-header" data-animate="fade-up">
         <span class="section-tag">PRUEBAS</span>
         <h2 id="titulo-resultados" class="section-title">Resultados reales de nuestros sistemas</h2>
         <div class="section-line"></div>
-        <p class="section-subtitle">Capturas directas del gr&aacute;fico con operaciones ejecutadas usando nuestras estrategias.</p>
+        <p class="section-subtitle">Capturas directas del gráfico con operaciones ejecutadas usando nuestras estrategias.</p>
       </div>
       <div class="proof-grid" data-animate="fade-up" data-delay="200">
         <div class="proof-card">
-          <img src="assets/img/card-proof-example-1.png" alt="Operaci&oacute;n rentable usando estrategia FlexZone" loading="lazy">
-          <div class="proof-caption">Operaci&oacute;n <strong>+2.8%</strong> &mdash; Sistema FlexZone</div>
+          <img src="assets/img/card-proof-example-1.png" alt="Operación rentable usando estrategia FlexZone" loading="lazy">
+          <div class="proof-caption">Operación <strong>+2.8%</strong> — Sistema FlexZone</div>
         </div>
         <div class="proof-card">
-          <img src="assets/img/card-proof-example-2.png" alt="Operaci&oacute;n rentable usando estrategia Zone Fill" loading="lazy">
-          <div class="proof-caption">Operaci&oacute;n <strong>+1.5%</strong> &mdash; Sistema Zone Fill</div>
+          <img src="assets/img/card-proof-example-2.png" alt="Operación rentable usando estrategia Zone Fill" loading="lazy">
+          <div class="proof-caption">Operación <strong>+1.5%</strong> — Sistema Zone Fill</div>
         </div>
         <div class="proof-card">
-          <img src="assets/img/card-proof-example-3.png" alt="Operaci&oacute;n rentable identificando tendencia" loading="lazy">
-          <div class="proof-caption">Operaci&oacute;n <strong>+3.2%</strong> &mdash; Tendencia identificada</div>
+          <img src="assets/img/card-proof-example-3.png" alt="Operación rentable identificando tendencia" loading="lazy">
+          <div class="proof-caption">Operación <strong>+3.2%</strong> — Tendencia identificada</div>
         </div>
       </div>
     </div>
   </section>
+  -->
 
   <!-- C&oacute;mo Funciona Section -->
   <section id="como-funciona" class="section" aria-labelledby="titulo-como-funciona">
@@ -811,17 +814,17 @@
           <div class="how-step-num">1</div>
           <h4>Eleg&iacute; tu plan</h4>
           <p>Seleccion&aacute; Fase 1 y eleg&iacute; c&oacute;mo pagar: transferencia, MercadoPago, PayPal o cripto.</p>
-          <span class="how-step-arrow">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </span>
+        </div>
+        <div class="how-step-sep" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </div>
         <div class="how-step glass-card">
           <div class="how-step-num">2</div>
           <h4>Envi&aacute; el comprobante</h4>
           <p>Mandanos el comprobante de pago por Instagram a <strong>@beatrading.academy</strong> y listo.</p>
-          <span class="how-step-arrow">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </span>
+        </div>
+        <div class="how-step-sep" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </div>
         <div class="how-step glass-card">
           <div class="how-step-num">3</div>
@@ -857,9 +860,9 @@
               <p class="pricing-plan-desc">Formaci&oacute;n completa en trading desde cero + comunidad privada</p>
             </div>
             <div class="pricing-price-block">
-              <span class="pricing-price-old" id="fase1-old-price">USD 50,00</span>
+              <span class="pricing-price-old" id="fase1-old-price"></span>
               <div class="pricing-price-row">
-                <span class="pricing-price" id="fase1-price">$9.999 ARS / USD 10</span>
+                <span class="pricing-price" id="fase1-price">cargando...</span>
                 <span class="pricing-discount-fire">80% OFF</span>
               </div>
               <span class="pricing-billing">Pago &uacute;nico &bull; Acceso de por vida</span>
@@ -905,17 +908,17 @@
           </div>
         </article>
 
-        <!-- FASE 2 - PROXIMAMENTE -->
+        <!-- FASE 2 - MENTORÍA 1-1 — comentado hasta que esté vigente. Para activar: quitar este comentario.
         <article class="pricing-card pricing-upcoming" aria-labelledby="fase2-title">
           <div class="pricing-soon-badge">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            Pr&oacute;ximamente
+            Próximamente
           </div>
           <div class="pricing-card-inner">
             <div class="pricing-header">
               <span class="pricing-badge pricing-badge-secondary">FASE 2</span>
-              <h3 id="fase2-title" class="pricing-plan-name">Mentor&iacute;a 1-1</h3>
-              <p class="pricing-plan-desc">Acompa&ntilde;amiento personalizado para traders con bases s&oacute;lidas</p>
+              <h3 id="fase2-title" class="pricing-plan-name">Mentoría 1-1</h3>
+              <p class="pricing-plan-desc">Acompañamiento personalizado para traders con bases sólidas</p>
             </div>
             <div class="pricing-price-block">
               <div class="pricing-price-row">
@@ -924,38 +927,21 @@
               <span class="pricing-billing">Pago trimestral / anual</span>
             </div>
             <ul class="pricing-features">
-              <li>
-                <svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                Todo lo de Fase 1 incluido
-              </li>
-              <li>
-                <svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                Estrategias avanzadas adicionales
-              </li>
-              <li>
-                <svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                An&aacute;lisis t&eacute;cnico en profundidad
-              </li>
-              <li>
-                <svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                Sesiones semanales en vivo con el mentor
-              </li>
-              <li>
-                <svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                Grupo selecto de traders enfocados
-              </li>
-              <li>
-                <svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                Consultas directas y feedback personalizado
-              </li>
+              <li><svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Todo lo de Fase 1 incluido</li>
+              <li><svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Estrategias avanzadas adicionales</li>
+              <li><svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Análisis técnico en profundidad</li>
+              <li><svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Sesiones semanales en vivo con el mentor</li>
+              <li><svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Grupo selecto de traders enfocados</li>
+              <li><svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>Consultas directas y feedback personalizado</li>
             </ul>
-            <button class="btn btn-waitlist pricing-cta" onclick="openWaitlistModal()" type="button" aria-label="Anotarme en la lista de espera para Fase 2">
+            <button class="btn btn-waitlist pricing-cta" onclick="openWaitlistModal()" type="button">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
               Anotarme en lista de espera
             </button>
             <p class="pricing-hint">Te notificamos cuando se abran los cupos.</p>
           </div>
         </article>
+        -->
 
         <!-- BOT - HERRAMIENTA EXTRA -->
         <article class="pricing-card pricing-bot" id="bot-trading" aria-labelledby="bot-title">
@@ -1285,19 +1271,44 @@
       document.getElementById('modal-success').style.display = 'block';
     }
 
+    // ---- Detección de región y precios ----
     (async function() {
       Auth.init();
+
+      // Argentina: timezone o idioma
+      var tz = '';
+      try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch(e) {}
+      var lang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+      var isArgentina = tz.indexOf('America/Argentina') === 0 || lang === 'es-ar';
+
       var config = await Auth.getSiteConfig();
       var prices = config.prices;
-      if (prices) {
-        var arsStr = '$' + Math.round(prices.fase1_ars).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' ARS';
-        var usdStr = 'USD ' + parseFloat(prices.fase1_usd).toFixed(0);
-        var oldEl = document.getElementById('fase1-old-price');
-        var priceEl = document.getElementById('fase1-price');
-        var stickyVal = document.getElementById('sticky-price-val');
-        if (oldEl) oldEl.textContent = 'USD ' + parseFloat(prices.fase1_old_usd).toFixed(2).replace('.', ',');
-        if (priceEl) priceEl.textContent = arsStr + ' / ' + usdStr;
-        if (stickyVal) stickyVal.textContent = usdStr;
+
+      // Valores de fallback si Supabase no responde
+      var fase1Ars    = prices && prices.fase1_ars     ? Math.round(prices.fase1_ars)       : 14300;
+      var fase1OldArs = prices && prices.fase1_old_ars ? Math.round(prices.fase1_old_ars)   : 70000;
+      var fase1Usd    = prices && prices.fase1_usd     ? parseFloat(prices.fase1_usd)        : 10;
+      var fase1OldUsd = prices && prices.fase1_old_usd ? parseFloat(prices.fase1_old_usd)    : 50;
+
+      function fmtArs(n) {
+        return '$\u202f' + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      }
+      function fmtUsd(n) {
+        return 'USD\u00a0' + n.toFixed(0);
+      }
+
+      var priceEl   = document.getElementById('fase1-price');
+      var oldEl     = document.getElementById('fase1-old-price');
+      var stickyVal = document.getElementById('sticky-price-val');
+
+      if (isArgentina) {
+        if (priceEl)   priceEl.textContent   = fmtArs(fase1Ars);
+        if (oldEl)     oldEl.textContent     = fmtArs(fase1OldArs);
+        if (stickyVal) stickyVal.textContent = fmtArs(fase1Ars);
+      } else {
+        if (priceEl)   priceEl.textContent   = fmtUsd(fase1Usd);
+        if (oldEl)     oldEl.textContent     = fmtUsd(fase1OldUsd);
+        if (stickyVal) stickyVal.textContent = fmtUsd(fase1Usd);
       }
     })();
 

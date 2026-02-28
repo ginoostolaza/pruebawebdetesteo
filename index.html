@@ -712,9 +712,11 @@
       btn.disabled = true;
       btn.innerHTML = 'Guardando...';
       try {
-        if (typeof Auth !== 'undefined' && Auth.getClient && Auth.getClient()) {
-          await Auth.getClient().from('waitlist').insert({ nombre: nombre, email: email, producto: 'fase-2' });
-        }
+        await fetch('/api/waitlist-signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nombre: nombre, email: email })
+        });
       } catch(err) {}
       var wl = JSON.parse(localStorage.getItem('bea_waitlist') || '[]');
       wl.push({ nombre: nombre, email: email, fecha: new Date().toISOString() });

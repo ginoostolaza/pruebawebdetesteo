@@ -5,6 +5,28 @@
 
 const { MercadoPagoConfig, Payment } = require('mercadopago');
 const { createClient } = require('@supabase/supabase-js');
+const { bienvenidaFase1, bienvenidaBot } = require('./email-templates');
+
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const FROM_EMAIL = process.env.RESEND_FROM || 'Binary Edge Academy <onboarding@resend.dev>';
+
+async function sendEmail(to, subject, html) {
+  if (!RESEND_API_KEY || !to) return;
+  try {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${RESEND_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ from: FROM_EMAIL, to, subject, html })
+    });
+    const data = await res.json();
+    console.log('[MP] Email sent:', data?.id || data?.error);
+  } catch (err) {
+    console.error('[MP] Email error:', err.message);
+  }
+}
 
 exports.handler = async (event) => {
   const headers = {
@@ -159,6 +181,22 @@ exports.handler = async (event) => {
           : 'Tu bot de trading está activo. Descargalo desde la sección Bot en tu dashboard.',
         tipo: 'success'
       });
+
+      // Send welcome email via Resend
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('nombre')
+        .eq('id', userId)
+        .single();
+
+      const nombre = profile?.nombre || payment.payer?.first_name || payment.payer?.email?.split('@')[0] || 'trader';
+      const userEmail = payment.payer?.email;
+
+      if (productoId === 'fase1') {
+        await sendEmail(userEmail, '¡Bienvenido a Binary Edge Academy! Tu acceso está activo', bienvenidaFase1({ nombre }));
+      } else if (productoId === 'bot') {
+        await sendEmail(userEmail, '¡Tu bot de trading está listo! — Binary Edge Academy', bienvenidaBot({ nombre }));
+      }
     }
 
     console.log(`[MP Webhook] Payment ${paymentId} - Status: ${payment.status} - User: ${userId} - Product: ${productoId}`);

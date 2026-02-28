@@ -9,7 +9,7 @@
   <!-- Auth guard -->
   <script>
     (function () {
-      var acceso = sessionStorage.getItem("accesoAutorizado");
+      var acceso = localStorage.getItem("accesoAutorizado");
       if (!acceso || acceso !== "true") {
         window.location.replace("iniciar-sesion.html");
       }
@@ -431,7 +431,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   Auth.init();
   await Auth.guard();
 
-  const userData = JSON.parse(sessionStorage.getItem("usuario") || "{}");
+  const userData = JSON.parse(localStorage.getItem("usuario") || "{}");
   const nombre = userData.nombre || "Usuario";
   const inicial = nombre.charAt(0).toUpperCase();
 
@@ -518,7 +518,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (result.success) {
       showToast("Perfil actualizado correctamente.");
       await Auth.refreshProfile();
-      var newData = JSON.parse(sessionStorage.getItem("usuario") || "{}");
+      var newData = JSON.parse(localStorage.getItem("usuario") || "{}");
       var newNombre = newData.nombre || "Usuario";
       document.getElementById("sidebar-name").textContent = newNombre;
       document.getElementById("photo-user-name").textContent = newNombre;
@@ -531,7 +531,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   document.getElementById("btn-cancel-personal").addEventListener("click", function() {
-    var ud = JSON.parse(sessionStorage.getItem("usuario") || "{}");
+    var ud = JSON.parse(localStorage.getItem("usuario") || "{}");
     var p = (ud.nombre || "").split(" ");
     document.getElementById("input-nombre").value = p[0] || "";
     document.getElementById("input-apellido").value = p.slice(1).join(" ") || "";

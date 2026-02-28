@@ -9,7 +9,7 @@
   <!-- Auth guard (quick check) -->
   <script>
     (function () {
-      var acceso = sessionStorage.getItem("accesoAutorizado");
+      var acceso = localStorage.getItem("accesoAutorizado");
       if (!acceso || acceso !== "true") {
         window.location.replace("iniciar-sesion.html");
       }
@@ -121,6 +121,37 @@
       </div>
     </div>
   </div>
+
+  <!-- Onboarding Banner (shown to new users with access but 0 modules completed) -->
+  <div class="onboarding-banner" id="onboarding-banner" style="display:none;">
+    <div class="onboarding-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    </div>
+    <div class="onboarding-content">
+      <strong>&#128075; &iexcl;Empez&aacute; por ac&aacute;!</strong>
+      <span>Tu primer paso: <a href="acceso-comunidad.html#preparacion-grafico" class="onboarding-link">Preparaci&oacute;n del Gr&aacute;fico</a> &mdash; el m&oacute;dulo base de todo el curso.</span>
+    </div>
+    <button class="onboarding-dismiss" onclick="this.parentElement.style.display='none'" title="Cerrar" aria-label="Cerrar sugerencia">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <style>
+    .onboarding-banner {
+      display: flex; align-items: center; gap: 1rem;
+      background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(139,92,246,0.08));
+      border: 1px solid rgba(59,130,246,0.25);
+      border-radius: 14px; padding: 1rem 1.25rem; margin-bottom: 1.5rem;
+    }
+    .onboarding-icon { color: #3b82f6; flex-shrink: 0; }
+    .onboarding-content { flex: 1; font-size: 0.9rem; line-height: 1.5; color: #c8d0df; }
+    .onboarding-content strong { color: #e8edf5; display: block; margin-bottom: 0.2rem; }
+    .onboarding-link { color: #3b82f6; text-decoration: underline; text-decoration-style: dotted; }
+    .onboarding-dismiss {
+      background: none; border: none; color: #5a6478; cursor: pointer;
+      padding: 4px; border-radius: 6px; flex-shrink: 0; transition: color 0.2s;
+    }
+    .onboarding-dismiss:hover { color: #e8edf5; }
+  </style>
 
   <!-- Quick Actions -->
   <div class="quick-actions" id="quick-actions">
@@ -460,7 +491,7 @@
     Auth.init();
     await Auth.guard();
 
-    const userData = JSON.parse(sessionStorage.getItem("usuario") || "{}");
+    const userData = JSON.parse(localStorage.getItem("usuario") || "{}");
     const nombre = userData.nombre || "Usuario";
     const inicial = nombre.charAt(0).toUpperCase();
 
@@ -521,7 +552,7 @@
 
     // --- Footer year & session ---
     document.getElementById("footer-year").textContent = now.getFullYear();
-    var sessionStart = sessionStorage.getItem("timestampAcceso");
+    var sessionStart = localStorage.getItem("timestampAcceso");
     if (sessionStart) {
       var diff = Math.floor((now - new Date(parseInt(sessionStart))) / 60000);
       if (diff < 1) document.getElementById("session-info").textContent = "Sesi\u00f3n iniciada hace un momento";
@@ -581,6 +612,12 @@
     } else {
       const progress = await Auth.getProgress(userData.id);
       renderProgress(progress, userData.id);
+      // Show onboarding banner to users with access but 0 modules done
+      const completados = progress.filter(p => p.completado).length;
+      if (completados === 0) {
+        var banner = document.getElementById('onboarding-banner');
+        if (banner) banner.style.display = 'flex';
+      }
     }
 
     // --- Trading tip ---

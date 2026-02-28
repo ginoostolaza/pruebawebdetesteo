@@ -9,12 +9,12 @@
   <!-- Auth + Bot access guard -->
   <script>
     (function () {
-      var acceso = sessionStorage.getItem("accesoAutorizado");
+      var acceso = localStorage.getItem("accesoAutorizado");
       if (!acceso || acceso !== "true") {
         window.location.replace("iniciar-sesion.html");
         return;
       }
-      var usuario = JSON.parse(sessionStorage.getItem("usuario") || "{}");
+      var usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
       if (!usuario.bot_activo) {
         window.location.replace("dashboard.html");
       }
@@ -285,7 +285,7 @@
     Auth.init();
     await Auth.guard();
 
-    const userData = JSON.parse(sessionStorage.getItem("usuario") || "{}");
+    const userData = JSON.parse(localStorage.getItem("usuario") || "{}");
 
     // If bot not active, redirect to dashboard
     if (!userData.bot_activo) {

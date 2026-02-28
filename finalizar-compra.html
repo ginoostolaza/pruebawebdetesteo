@@ -499,6 +499,17 @@
     }
     const prices = PRICES[plan] || PRICES.fase1;
     let currentCurrency = 'ars';
+    // Auto-detect currency: non-Argentine users → USD
+    (function() {
+      var lang = (navigator.language || navigator.userLanguage || 'es').toLowerCase();
+      if (!lang.startsWith('es-ar') && !lang.startsWith('es_ar')) {
+        currentCurrency = 'usd';
+        var btnArs = document.getElementById('btn-ars');
+        var btnUsd = document.getElementById('btn-usd');
+        if (btnArs) btnArs.classList.remove('active');
+        if (btnUsd) btnUsd.classList.add('active');
+      }
+    })();
 
     // --- Payment SDK state ---
     let paymentKeys = { stripe_publishable_key: '', mercadopago_public_key: '' };
@@ -511,8 +522,8 @@
     // --- Check if user is logged in ---
     Auth.init();
     let userData = null;
-    const storedUser = sessionStorage.getItem('usuario');
-    const isLoggedIn = sessionStorage.getItem('accesoAutorizado') === 'true' && storedUser;
+    const storedUser = localStorage.getItem('usuario');
+    const isLoggedIn = localStorage.getItem('accesoAutorizado') === 'true' && storedUser;
 
     if (isLoggedIn) {
       userData = JSON.parse(storedUser);

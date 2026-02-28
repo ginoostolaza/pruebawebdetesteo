@@ -7,7 +7,7 @@
   <title>Curso Fase 1 | Binary Edge Academy</title>
   <script>
     (function () {
-      const acceso = sessionStorage.getItem("accesoAutorizado");
+      const acceso = localStorage.getItem("accesoAutorizado");
       if (!acceso || acceso !== "true") {
         window.location.replace("iniciar-sesion.html");
       }

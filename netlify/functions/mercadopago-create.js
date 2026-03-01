@@ -85,7 +85,7 @@ exports.handler = async (event) => {
           producto_id,
           user_email
         },
-        statement_descriptor: 'BINARY EDGE'
+        statement_descriptor: 'ORBITA CAPITAL'
       }
     });
 

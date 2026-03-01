@@ -7,7 +7,7 @@
   <title>Orbita Capital | Formaci&oacute;n profesional en Trading</title>
 
   <!-- Favicon -->
-  <link rel="icon" href="assets/img/branding/logo-favicon-GC.png" type="image/png">
+  <link rel="icon" href="assets/img/branding/orbita-logo-symbol.png" type="image/png">
 
   <!-- Preconnect para rendimiento -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,13 +29,13 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Orbita Capital | Formaci&oacute;n profesional en Trading">
   <meta property="og:description" content="Desarroll&aacute; habilidades reales, mentalidad ganadora y empez&aacute; a generar ingresos en d&oacute;lares desde casa.">
-  <meta property="og:image" content="assets/img/branding/logo-favicon-GC.png">
+  <meta property="og:image" content="assets/img/branding/orbita-logo-symbol.png">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Orbita Capital | Formaci&oacute;n profesional en Trading">
   <meta name="twitter:description" content="Formaci&oacute;n profesional en trading. Aprend&eacute; c&oacute;mo dar tus primeros pasos de forma clara y efectiva.">
-  <meta name="twitter:image" content="assets/img/branding/logo-favicon-GC.png">
+  <meta name="twitter:image" content="assets/img/branding/orbita-logo-symbol.png">
 
   <!-- Theme color -->
   <meta name="theme-color" content="#0d1117">
@@ -504,7 +504,7 @@
   <div id="loader" class="loader">
     <div class="loader-content">
       <div class="loader-spinner"></div>
-      <span class="loader-text">BINARY EDGE ACADEMY</span>
+      <span class="loader-text">ORBITA CAPITAL</span>
     </div>
   </div>
 
@@ -892,7 +892,7 @@
               <span class="pricing-price-old" id="fase1-old-price"></span>
               <div class="pricing-price-row">
                 <span class="pricing-price" id="fase1-price">cargando...</span>
-                <span class="pricing-discount-fire">80% OFF</span>
+                <span class="pricing-discount-fire">75% OFF</span>
               </div>
               <span class="pricing-billing">Pago &uacute;nico &bull; Acceso de por vida</span>
             </div>
@@ -1223,7 +1223,7 @@
 
   <!-- Sticky CTA Bar -->
   <div class="sticky-cta-bar" id="sticky-cta-bar">
-    <span class="sticky-price">Fase 1 desde <strong id="sticky-price-val">USD 10</strong></span>
+    <span class="sticky-price">Fase 1 desde <strong id="sticky-price-val">USD 37</strong></span>
     <a href="finalizar-compra.html" class="btn btn-primary btn-glow">
       Empezar ahora
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -1319,10 +1319,10 @@
       var prices = config.prices;
 
       // Valores de fallback si Supabase no responde
-      var fase1Ars    = prices && prices.fase1_ars     ? Math.round(prices.fase1_ars)       : 14300;
-      var fase1OldArs = prices && prices.fase1_old_ars ? Math.round(prices.fase1_old_ars)   : 70000;
-      var fase1Usd    = prices && prices.fase1_usd     ? parseFloat(prices.fase1_usd)        : 10;
-      var fase1OldUsd = prices && prices.fase1_old_usd ? parseFloat(prices.fase1_old_usd)    : 50;
+      var fase1Ars    = prices && prices.fase1_ars     ? Math.round(prices.fase1_ars)       : 47000;
+      var fase1OldArs = prices && prices.fase1_old_ars ? Math.round(prices.fase1_old_ars)   : 185000;
+      var fase1Usd    = prices && prices.fase1_usd     ? parseFloat(prices.fase1_usd)        : 37;
+      var fase1OldUsd = prices && prices.fase1_old_usd ? parseFloat(prices.fase1_old_usd)    : 147;
 
       function fmtArs(n) {
         return '$\u202f' + n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
@@ -1340,12 +1340,12 @@
         if (priceEl)   priceEl.textContent   = fmtArs(fase1Ars);
         if (oldEl)     oldEl.textContent     = fmtArs(fase1OldArs);
         if (stickyVal) stickyVal.textContent = fmtArs(fase1Ars);
-        if (anchorEl)  anchorEl.textContent  = 'Menos de lo que cuesta una salida';
+        if (anchorEl)  anchorEl.textContent  = 'Menos de lo que un curso universitario por mes';
       } else {
         if (priceEl)   priceEl.textContent   = fmtUsd(fase1Usd);
         if (oldEl)     oldEl.textContent     = fmtUsd(fase1OldUsd);
         if (stickyVal) stickyVal.textContent = fmtUsd(fase1Usd);
-        if (anchorEl)  anchorEl.textContent  = 'Less than a Netflix subscription';
+        if (anchorEl)  anchorEl.textContent  = 'Less than one month of trading losses';
       }
     })();
 

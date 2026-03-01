@@ -62,7 +62,7 @@ exports.handler = async (event) => {
           identification: payer.identification || undefined
         },
         description: productos[producto_id] || productos.fase1,
-        statement_descriptor: 'BINARY EDGE',
+        statement_descriptor: 'ORBITA CAPITAL',
         metadata: {
           user_id: user_id || '',
           producto_id: producto_id || 'fase1'

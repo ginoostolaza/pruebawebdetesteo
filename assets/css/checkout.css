@@ -1223,3 +1223,237 @@ img { max-width: 100%; height: auto; display: block; }
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ============================================================
+   HOW IT WORKS — 3-step flow (replaces manual-payment-banner)
+   ============================================================ */
+.how-it-works {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.07), rgba(139, 92, 246, 0.04));
+  border: 1px solid rgba(59, 130, 246, 0.18);
+  border-radius: var(--radius-md);
+}
+
+.hiw-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.hiw-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.35);
+}
+
+.hiw-num-success {
+  background: var(--color-success);
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.35);
+}
+
+.hiw-text strong {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+.hiw-text span {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  line-height: 1.3;
+}
+
+.hiw-sep {
+  color: var(--color-text-dim);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.hiw-sep svg {
+  width: 14px;
+  height: 14px;
+}
+
+@media (max-width: 520px) {
+  .how-it-works {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .hiw-sep {
+    display: none;
+  }
+  .hiw-item {
+    width: 100%;
+  }
+}
+
+/* ============================================================
+   SECTION BADGE (inline label next to payment section title)
+   ============================================================ */
+.section-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.18rem 0.55rem;
+  background: rgba(34, 197, 94, 0.12);
+  color: var(--color-success);
+  border-radius: 20px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  letter-spacing: 0.2px;
+}
+
+/* ============================================================
+   DETAIL ROW — updated to accommodate copy button
+   ============================================================ */
+.detail-row {
+  gap: 0.5rem;
+}
+
+/* ============================================================
+   COPY BUTTON
+   ============================================================ */
+.copy-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.2rem 0.35rem;
+  color: var(--color-text-dim);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.copy-btn:hover {
+  color: var(--color-primary);
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.copy-btn.copied {
+  color: var(--color-success);
+}
+
+.copy-btn svg {
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+
+/* ============================================================
+   INSTAGRAM CONFIRMATION CTA (inside manual payment methods)
+   ============================================================ */
+.confirm-instagram-cta {
+  margin-top: 1.25rem;
+  padding: 1.25rem;
+  background: linear-gradient(135deg, rgba(131, 58, 180, 0.09), rgba(253, 29, 29, 0.05), rgba(252, 176, 69, 0.05));
+  border: 1px solid rgba(131, 58, 180, 0.22);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.confirm-cta-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.25rem;
+}
+
+.confirm-cta-sub {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.btn-instagram-confirm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+  color: #fff;
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 0.88rem;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  box-shadow: 0 4px 20px rgba(131, 58, 180, 0.3);
+  text-decoration: none;
+}
+
+.btn-instagram-confirm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(131, 58, 180, 0.45);
+  color: #fff;
+}
+
+.btn-instagram-confirm svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   TESTIMONIAL CARD (sidebar social proof)
+   ============================================================ */
+.testimonial-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  position: relative;
+}
+
+.testimonial-card::before {
+  content: '\201C';
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  font-size: 3rem;
+  color: rgba(59, 130, 246, 0.15);
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+
+.testimonial-stars {
+  color: #f59e0b;
+  font-size: 0.85rem;
+  margin-bottom: 0.6rem;
+  letter-spacing: 2px;
+}
+
+.testimonial-card p {
+  font-size: 0.83rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  font-style: italic;
+  margin-bottom: 0.6rem;
+}
+
+.testimonial-card span {
+  font-size: 0.75rem;
+  color: var(--color-text-dim);
+  font-weight: 600;
+}

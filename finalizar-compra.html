@@ -50,13 +50,14 @@
   <!-- LEFT: Payment Methods -->
   <div class="checkout-main">
 
-    <!-- Cart recovery banner (shown if user abandoned checkout before) -->
+    <!-- Cart recovery banner (JS-controlled) -->
     <div id="cart-recovery-banner" style="display:none; background:linear-gradient(135deg,rgba(59,130,246,0.12),rgba(139,92,246,0.08)); border:1px solid rgba(59,130,246,0.3); border-radius:12px; padding:0.9rem 1.1rem; margin-bottom:1.2rem; align-items:center; gap:0.8rem;">
       <svg viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" width="20" height="20" style="flex-shrink:0;"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-      <span style="flex:1;font-size:0.88rem;color:#c8d0df;">Ten&eacute;s un pago pendiente. <strong style="color:#e8edf5;">Cont&iacute;nua donde lo dejaste</strong> &mdash; tu selecci&oacute;n fue recuperada.</span>
+      <span style="flex:1;font-size:0.88rem;color:#c8d0df;">Ten&eacute;s un pago pendiente. <strong style="color:#e8edf5;">Continu&aacute; donde lo dejaste</strong> &mdash; tu selecci&oacute;n fue recuperada.</span>
       <button onclick="document.getElementById('cart-recovery-banner').style.display='none'" style="background:none;border:none;color:#5a6478;cursor:pointer;font-size:1.1rem;padding:0;line-height:1;" aria-label="Cerrar">&times;</button>
     </div>
 
+    <!-- Steps + Heading -->
     <div>
       <div class="checkout-steps">
         <div class="step completed">
@@ -68,26 +69,46 @@
         <div class="step-line done"></div>
         <div class="step active">
           <span class="step-number">2</span>
-          <span>Metodo de pago</span>
+          <span>M&eacute;todo de pago</span>
         </div>
         <div class="step-line"></div>
         <div class="step">
           <span class="step-number">3</span>
-          <span>Confirmacion</span>
+          <span>Confirmaci&oacute;n</span>
         </div>
       </div>
-      <h1 class="checkout-title">Elegir moneda y metodo de pago</h1>
-      <p class="checkout-subtitle">Selecciona en que moneda queres pagar y elegí el metodo</p>
+      <h1 class="checkout-title">Complet&aacute; tu pago</h1>
+      <p class="checkout-subtitle">Eleg&iacute; c&oacute;mo pagar &middot; tu acceso se activa en minutos</p>
     </div>
 
-    <!-- Manual payment notice -->
-    <div class="manual-payment-banner">
-      <div class="manual-payment-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <!-- How it works (reemplaza el banner de "pagos manuales") -->
+    <div class="how-it-works">
+      <div class="hiw-item">
+        <div class="hiw-num">1</div>
+        <div class="hiw-text">
+          <strong>Pag&aacute;</strong>
+          <span>Con el m&eacute;todo que prefieras</span>
+        </div>
       </div>
-      <div class="manual-payment-content">
-        <h3>Pagos procesados de forma manual</h3>
-        <p>Actualmente todos los pagos se confirman manualmente. Una vez que realices tu pago, envia el comprobante por Instagram a <a href="https://instagram.com/orbitacapital.io" target="_blank" rel="noopener noreferrer">@orbitacapital.io</a> y te daremos acceso en minutos.</p>
+      <div class="hiw-sep">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+      <div class="hiw-item">
+        <div class="hiw-num">2</div>
+        <div class="hiw-text">
+          <strong>Mand&aacute; el comprobante</strong>
+          <span>Por Instagram DM</span>
+        </div>
+      </div>
+      <div class="hiw-sep">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+      <div class="hiw-item">
+        <div class="hiw-num hiw-num-success">3</div>
+        <div class="hiw-text">
+          <strong>Acced&eacute; en minutos</strong>
+          <span>Confirmamos al instante</span>
+        </div>
       </div>
     </div>
 
@@ -99,27 +120,27 @@
       </h2>
       <div class="currency-toggle" id="currency-toggle">
         <button class="currency-btn active" data-currency="ars" id="btn-ars">
-          <span class="currency-flag">🇦🇷</span> Pesos (ARS)
+          <span class="currency-flag">&#127462;&#127479;</span> Pesos (ARS)
         </button>
         <button class="currency-btn" data-currency="usd" id="btn-usd">
-          <span class="currency-flag">🇺🇸</span> Dolares (USD)
+          <span class="currency-flag">&#127482;&#127480;</span> D&oacute;lares (USD)
         </button>
       </div>
     </div>
 
-    <!-- Login required notice (shown if not logged in) -->
+    <!-- Login required notice (JS-controlled) -->
     <div class="login-required" id="login-notice" style="display:none;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-      <p>Para pagar necesitás <a href="iniciar-sesion.html">iniciar sesión</a>. Si no tenés cuenta, <a href="iniciar-sesion.html">registrate gratis</a>.</p>
+      <p>Para pagar necesit&aacute;s <a href="iniciar-sesion.html">iniciar sesi&oacute;n</a>. Si no ten&eacute;s cuenta, <a href="iniciar-sesion.html">registrate gratis</a>.</p>
     </div>
 
-    <!-- Already a student link (shown if not logged in) -->
+    <!-- Already a student link (JS-controlled) -->
     <a href="iniciar-sesion.html" class="already-student-link" id="already-student-link" style="display:none;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
-      Ya soy alumno — Iniciar sesión
+      Ya soy alumno &mdash; Iniciar sesi&oacute;n
     </a>
 
-    <!-- Payment Methods -->
+    <!-- Card Payments -->
     <div>
       <h2 class="payment-section-title">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
@@ -136,21 +157,21 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
             </div>
             <div class="payment-method-info">
-              <div class="payment-method-name">Tarjeta de credito o debito</div>
-              <div class="payment-method-desc">Visa, Mastercard, AMEX — en pesos argentinos</div>
+              <div class="payment-method-name">Tarjeta de cr&eacute;dito o d&eacute;bito</div>
+              <div class="payment-method-desc">Visa, Mastercard, AMEX &mdash; en pesos argentinos</div>
             </div>
             <span class="payment-method-badge">Seguro</span>
           </div>
           <div class="payment-details">
             <div class="payment-details-inner">
               <div class="detail-note">
-                Completa los datos de tu tarjeta directamente aqui. Tu pago se procesa de forma segura a traves de MercadoPago.
+                Complet&aacute; los datos de tu tarjeta directamente ac&aacute;. Tu pago se procesa de forma segura a trav&eacute;s de MercadoPago.
               </div>
               <div id="mp-brick-container" class="embedded-form-container"></div>
               <div id="mp-error" class="payment-error-msg"></div>
               <div id="mp-success" class="payment-success-msg" style="display:none;"></div>
               <button class="fallback-toggle" id="mp-fallback-btn" type="button">
-                Prefiero pagar en la pagina de MercadoPago
+                Prefiero pagar en la p&aacute;gina de MercadoPago
               </button>
             </div>
           </div>
@@ -165,14 +186,14 @@
             </div>
             <div class="payment-method-info">
               <div class="payment-method-name">Tarjeta internacional</div>
-              <div class="payment-method-desc">Visa, Mastercard, AMEX — en dolares</div>
+              <div class="payment-method-desc">Visa, Mastercard, AMEX &mdash; en d&oacute;lares</div>
             </div>
             <span class="payment-method-badge">Seguro</span>
           </div>
           <div class="payment-details">
             <div class="payment-details-inner">
               <div class="detail-note">
-                Completa los datos de tu tarjeta directamente aqui. Tu pago se procesa de forma segura a traves de Stripe.
+                Complet&aacute; los datos de tu tarjeta directamente ac&aacute;. Tu pago se procesa de forma segura a trav&eacute;s de Stripe.
               </div>
               <div id="stripe-form-container" class="embedded-form-container">
                 <div id="stripe-loading" class="payment-loading">
@@ -186,34 +207,36 @@
                 </button>
               </div>
               <button class="fallback-toggle" id="stripe-fallback-btn" type="button">
-                Prefiero pagar en la pagina de Stripe
+                Prefiero pagar en la p&aacute;gina de Stripe
               </button>
             </div>
           </div>
         </div>
+
       </div>
     </div>
 
-    <div class="payment-or">o paga manualmente</div>
+    <div class="payment-or">o con pago directo</div>
 
-    <!-- Manual Payment Methods -->
+    <!-- Manual Payment Methods (reframed) -->
     <div>
       <h2 class="payment-section-title">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        Pago manual (con comprobante)
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Pago directo
+        <span class="section-badge">Acceso en minutos</span>
       </h2>
 
       <div class="note-card">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
         <p>
-          Al realizar tu pago manual, envia un mensaje con:
-          <em id="nota-mensaje">"Hola, les envio el pago de la Fase 1. Mi nombre es: [Tu nombre]"</em>
+          Hac&eacute; el pago con los datos de abajo y mand&aacute;nos el comprobante por Instagram. Te habilitamos el acceso en minutos.<br>
+          Mensaje sugerido: <em id="nota-mensaje">"Hola, les env&iacute;o el pago de la Fase 1. Mi nombre es: [Tu nombre]"</em>
         </p>
       </div>
 
       <div class="payment-methods" style="margin-top: 0.75rem;">
 
-        <!-- Banco Argentino -->
+        <!-- Transferencia bancaria -->
         <div class="payment-method" data-method="banco" id="method-banco">
           <div class="payment-method-header">
             <div class="payment-radio"><div class="payment-radio-inner"></div></div>
@@ -221,8 +244,8 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg>
             </div>
             <div class="payment-method-info">
-              <div class="payment-method-name">Transferencia bancaria (ARS/USD)</div>
-              <div class="payment-method-desc">Banco Galicia o Mercado Pago</div>
+              <div class="payment-method-name">Transferencia bancaria</div>
+              <div class="payment-method-desc">Banco Galicia (USD) o Mercado Pago (ARS)</div>
             </div>
             <span class="payment-method-badge">Argentina</span>
           </div>
@@ -230,10 +253,13 @@
             <div class="payment-details-inner">
 
               <div class="detail-block">
-                <div class="detail-block-title">Banco Galicia — Cuenta en dolares</div>
+                <div class="detail-block-title">&#127974; Banco Galicia &mdash; Cuenta en d&oacute;lares</div>
                 <div class="detail-row">
                   <span class="detail-label">Alias</span>
                   <span class="detail-value">GINO.OSTOLAZA.GON</span>
+                  <button class="copy-btn" data-copy-text="GINO.OSTOLAZA.GON" title="Copiar alias">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  </button>
                 </div>
                 <div class="detail-row">
                   <span class="detail-label">Titular</span>
@@ -242,6 +268,9 @@
                 <div class="detail-row">
                   <span class="detail-label">CBU</span>
                   <span class="detail-value">0070100230004026120398</span>
+                  <button class="copy-btn" data-copy-text="0070100230004026120398" title="Copiar CBU">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  </button>
                 </div>
                 <div class="detail-row">
                   <span class="detail-label">CUIT</span>
@@ -252,10 +281,13 @@
               <div class="payment-divider"></div>
 
               <div class="detail-block">
-                <div class="detail-block-title">Mercado Pago — Cuenta en pesos</div>
+                <div class="detail-block-title">&#128153; Mercado Pago &mdash; Cuenta en pesos</div>
                 <div class="detail-row">
                   <span class="detail-label">Alias</span>
                   <span class="detail-value">gino.ostolaza</span>
+                  <button class="copy-btn" data-copy-text="gino.ostolaza" title="Copiar alias">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  </button>
                 </div>
                 <div class="detail-row">
                   <span class="detail-label">Titular</span>
@@ -264,6 +296,9 @@
                 <div class="detail-row">
                   <span class="detail-label">CVU</span>
                   <span class="detail-value">0000003100052857370471</span>
+                  <button class="copy-btn" data-copy-text="0000003100052857370471" title="Copiar CVU">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  </button>
                 </div>
                 <div class="detail-row">
                   <span class="detail-label">CUIT</span>
@@ -275,9 +310,16 @@
                 Equivalente en pesos: <strong class="resultado-transferencia">Cargando...</strong> ARS
               </div>
 
-              <div class="detail-note">
-                Podes usar la cuenta en dolares o Mercado Pago en pesos. Una vez hecho el pago, envia el comprobante por Instagram.
+              <!-- Instagram confirmation CTA -->
+              <div class="confirm-instagram-cta">
+                <p class="confirm-cta-title">&iquest;Ya realizaste la transferencia?</p>
+                <p class="confirm-cta-sub">Mand&aacute;nos el comprobante por DM y confirmamos tu acceso en minutos</p>
+                <a href="https://instagram.com/orbitacapital.io" target="_blank" rel="noopener noreferrer" class="btn-instagram-confirm">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                  Enviar comprobante &mdash; @orbitacapital.io
+                </a>
               </div>
+
             </div>
           </div>
         </div>
@@ -314,21 +356,21 @@
                 </div>
               </div>
 
-              <div class="detail-note">
-                Las direcciones de wallet se comparten exclusivamente por mensaje privado para proteger ambas partes.
+              <!-- Instagram CTA: wallet request -->
+              <div class="confirm-instagram-cta">
+                <p class="confirm-cta-title">Ped&iacute; la wallet por Instagram</p>
+                <p class="confirm-cta-sub">Por seguridad compartimos las direcciones exclusivamente por DM</p>
+                <a href="https://instagram.com/orbitacapital.io" target="_blank" rel="noopener noreferrer" class="btn-instagram-confirm">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                  Escribir a @orbitacapital.io
+                </a>
               </div>
 
-              <div class="detail-block">
-                <p style="font-size: 0.85rem; color: var(--color-text-muted);">
-                  Solicita la wallet por Instagram:
-                  <a href="https://instagram.com/orbitacapital.io" target="_blank" rel="noopener noreferrer" class="detail-link">@orbitacapital.io</a>
-                </p>
-              </div>
             </div>
           </div>
         </div>
 
-        <!-- Internacional -->
+        <!-- Internacional (PayPal / Skrill) -->
         <div class="payment-method" data-method="intl" id="method-intl">
           <div class="payment-method-header">
             <div class="payment-radio"><div class="payment-radio-inner"></div></div>
@@ -337,7 +379,7 @@
             </div>
             <div class="payment-method-info">
               <div class="payment-method-name">PayPal / Skrill (USD)</div>
-              <div class="payment-method-desc">Pago internacional manual</div>
+              <div class="payment-method-desc">Pago internacional</div>
             </div>
             <span class="payment-method-badge">Internacional</span>
           </div>
@@ -350,7 +392,7 @@
                   <span class="detail-label">Link de pago</span>
                   <a href="https://paypal.me/GinoOstolaza/" target="_blank" rel="noopener noreferrer" class="detail-link">paypal.me/GinoOstolaza</a>
                 </div>
-                <p style="font-size:0.8rem;color:var(--color-text-dim);margin-top:0.3rem;">Coloca tu nombre completo en las notas del pago.</p>
+                <p style="font-size:0.8rem;color:var(--color-text-dim);margin-top:0.3rem;">Coloc&aacute; tu nombre completo en las notas del pago.</p>
               </div>
 
               <div class="payment-divider"></div>
@@ -360,13 +402,23 @@
                 <div class="detail-row">
                   <span class="detail-label">Email</span>
                   <span class="detail-value">ginitoostolaza1@gmail.com</span>
+                  <button class="copy-btn" data-copy-text="ginitoostolaza1@gmail.com" title="Copiar email">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  </button>
                 </div>
-                <p style="font-size:0.8rem;color:var(--color-text-dim);margin-top:0.3rem;">Indica tu nombre completo en el campo de mensaje.</p>
+                <p style="font-size:0.8rem;color:var(--color-text-dim);margin-top:0.3rem;">Indic&aacute; tu nombre completo en el campo de mensaje.</p>
               </div>
 
-              <div class="detail-note">
-                Para confirmar tu pago o ante cualquier duda, contactanos por Instagram.
+              <!-- Instagram CTA -->
+              <div class="confirm-instagram-cta">
+                <p class="confirm-cta-title">&iquest;Ya realizaste el pago?</p>
+                <p class="confirm-cta-sub">Avis&aacute;nos por Instagram con tu nombre y el comprobante</p>
+                <a href="https://instagram.com/orbitacapital.io" target="_blank" rel="noopener noreferrer" class="btn-instagram-confirm">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                  Confirmar pago &mdash; @orbitacapital.io
+                </a>
               </div>
+
             </div>
           </div>
         </div>
@@ -389,8 +441,8 @@
         Acceso inmediato
       </div>
       <div class="trust-badge">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Datos encriptados
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Respuesta &lt; 10 min
       </div>
     </div>
 
@@ -407,7 +459,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
         </div>
         <div class="summary-product-info">
-          <div class="summary-product-name" id="summary-name">Fase 1 — Comunidad de Trading</div>
+          <div class="summary-product-name" id="summary-name">Fase 1 &mdash; Comunidad de Trading</div>
           <div class="summary-product-desc" id="summary-desc">Acceso completo al curso + comunidad</div>
         </div>
       </div>
@@ -417,7 +469,7 @@
         <span class="summary-value" id="summary-subtotal">$47.000 ARS</span>
       </div>
       <div class="summary-row">
-        <span class="summary-label">Comision</span>
+        <span class="summary-label">Comisi&oacute;n</span>
         <span class="summary-value" style="color: var(--color-success);">$0,00</span>
       </div>
 
@@ -450,26 +502,33 @@
       </ul>
     </div>
 
-    <!-- Dolar Blue -->
-    <div class="dolar-card">
-      <div class="dolar-card-title">Cotizacion de referencia</div>
-      <div class="dolar-card-value" id="dolar-blue">Consultando dolar blue...</div>
-      <div class="dolar-card-note">Referencia: dolar blue (venta)</div>
+    <!-- Social proof testimonial -->
+    <div class="testimonial-card">
+      <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p>"En mi primera semana ya recuper&eacute; lo que pagu&eacute;. El soporte es incre&iacute;ble, te responden en minutos."</p>
+      <span>&mdash; Mat&iacute;as R., alumno activo de Fase 1</span>
     </div>
 
-    <!-- Contact -->
+    <!-- Dolar Blue -->
+    <div class="dolar-card">
+      <div class="dolar-card-title">Cotizaci&oacute;n de referencia</div>
+      <div class="dolar-card-value" id="dolar-blue">Consultando d&oacute;lar blue...</div>
+      <div class="dolar-card-note">Referencia: d&oacute;lar blue (venta)</div>
+    </div>
+
+    <!-- Contact card -->
     <div class="contact-card">
-      <p>Ya pagaste o tenes dudas? Escribinos directamente.</p>
+      <p>&iquest;Ya pagaste o ten&eacute;s dudas? Escrib&iacute;nos y te ayudamos en minutos.</p>
       <a href="https://instagram.com/orbitacapital.io" target="_blank" rel="noopener noreferrer" class="contact-link">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-        Contactar por Instagram
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Escribir por Instagram &rarr;
       </a>
     </div>
 
     <!-- Login -->
     <a href="iniciar-sesion.html" class="login-link" id="sidebar-login">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
-      Ya soy alumno — Iniciar sesión
+      Ya soy alumno &mdash; Iniciar sesi&oacute;n
     </a>
 
   </aside>
@@ -486,6 +545,25 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/supabase-config.js"></script>
 <script src="assets/js/auth.js"></script>
+
+<!-- Copy to clipboard -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.copy-btn').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var text = btn.dataset.copyText;
+        if (!text) return;
+        navigator.clipboard.writeText(text).then(function() {
+          var origHTML = btn.innerHTML;
+          btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M20 6L9 17l-5-5"/></svg>';
+          btn.classList.add('copied');
+          setTimeout(function() { btn.innerHTML = origHTML; btn.classList.remove('copied'); }, 1500);
+        }).catch(function() {});
+      });
+    });
+  });
+</script>
 
 <script>
   document.addEventListener("DOMContentLoaded", async () => {
@@ -636,10 +714,12 @@
     // --- Payment method selection ---
     document.querySelectorAll('.payment-method').forEach(method => {
       method.addEventListener('click', (e) => {
-        // Don't toggle if clicking inside the embedded form or a button
+        // Don't toggle if clicking inside form, buttons, or Instagram CTAs
         if (e.target.closest('.embedded-form-container') ||
             e.target.closest('.btn-confirm-pay') ||
-            e.target.closest('.fallback-toggle')) return;
+            e.target.closest('.fallback-toggle') ||
+            e.target.closest('.copy-btn') ||
+            e.target.closest('.btn-instagram-confirm')) return;
 
         const wasSelected = method.classList.contains('selected');
         document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
@@ -924,7 +1004,7 @@
         'cc_rejected_insufficient_amount': 'Fondos insuficientes.',
         'cc_rejected_invalid_installments': 'Tu tarjeta no acepta esta cantidad de cuotas.',
         'cc_rejected_max_attempts': 'Llegaste al limite de intentos. Usa otra tarjeta.',
-        'cc_rejected_other_reason': 'Tu pago fue rechazado. Intenta con otra tarjeta.'
+        'cc_rejected_other_reason': 'Tu pago fue rechazado. Intenta con otra tarjeta o usa otro metodo.'
       };
       return messages[statusDetail] || 'El pago fue rechazado. Intenta con otra tarjeta o usa otro metodo.';
     }

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Disciplina &amp; H&aacute;bitos | Orbita Capital</title>
+  <script>
+    (function () {
+      const acceso = localStorage.getItem("accesoAutorizado");
+      if (!acceso || acceso !== "true") {
+        window.location.replace("iniciar-sesion.html");
+      }
+    })();
+  </script>
+
+  <link rel="icon" href="assets/img/branding/orbita-logo-symbol.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/community.css">
+  <meta name="theme-color" content="#0a0e17">
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="course-topbar">
+  <div class="topbar-left">
+    <button class="menu-toggle" aria-label="Abrir men&uacute;">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+    <img class="topbar-logo" src="assets/img/branding/orbita-logo-symbol.png" alt="Logo" width="32" height="32">
+    <span class="topbar-title">Orbita Capital</span>
+    <span class="topbar-divider"></span>
+    <span class="topbar-course-name">Disciplina &amp; H&aacute;bitos</span>
+  </div>
+  <div class="topbar-right">
+    <a href="dashboard.html" class="topbar-btn topbar-btn-outline">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </a>
+  </div>
+</header>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-label">Disciplina &amp; H&aacute;bitos</div>
+    <div class="sidebar-progress">
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <span class="progress-text">Pilar 3</span>
+    </div>
+  </div>
+
+  <ul class="nav-links">
+    <div class="nav-section-label">Inicio</div>
+    <li>
+      <a href="#bienvenida">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        Bienvenida
+      </a>
+    </li>
+
+    <div class="nav-divider"></div>
+    <div class="nav-section-label">Disciplina</div>
+    <li>
+      <a href="#motivacion-vs-disciplina">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        Motivaci&oacute;n vs Disciplina
+      </a>
+    </li>
+    <li>
+      <a href="#identidad">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Identidad y Disciplina
+      </a>
+    </li>
+
+    <div class="nav-divider"></div>
+    <div class="nav-section-label">H&aacute;bitos</div>
+    <li>
+      <a href="#como-funcionan">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1.08z"/></svg>
+        C&oacute;mo Funcionan
+      </a>
+    </li>
+    <li>
+      <a href="#construir-habitos">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Construir H&aacute;bitos
+      </a>
+    </li>
+    <li>
+      <a href="#romper-habitos">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        Romper Malos H&aacute;bitos
+      </a>
+    </li>
+
+    <div class="nav-divider"></div>
+    <div class="nav-section-label">Aplicaci&oacute;n</div>
+    <li>
+      <a href="#rutina-trader">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Rutina del Trader
+      </a>
+    </li>
+
+    <div class="nav-divider"></div>
+    <li>
+      <a href="dashboard.html" class="btn-regresar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Volver al Dashboard
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main>
+
+<!-- ========== BIENVENIDA ========== -->
+<section class="bienvenida" id="bienvenida">
+  <header>
+    <h1 class="bienvenida__titulo">Disciplina &amp; H&aacute;bitos</h1>
+    <p class="bienvenida__subtitulo">
+      La disciplina no es algo con lo que nac&eacute;s: es algo que construy&eacute;s, d&iacute;a a d&iacute;a, con cada decisi&oacute;n peque&ntilde;a que tom&aacute;s.
+    </p>
+  </header>
+
+  <hr class="bienvenida__divider">
+
+  <article class="bienvenida__contenido">
+    <p>
+      La mayor parte de los traders que no llegan a resultados consistentes no fallan por falta de conocimiento. Fallan porque no pueden mantener la disciplina cuando el mercado los pone a prueba.
+    </p>
+    <p>
+      Este m&oacute;dulo no es sobre fuerza de voluntad. Es sobre <strong>c&oacute;mo construir sistemas y h&aacute;bitos que funcionen autom&aacute;ticamente</strong>, incluso cuando tu motivaci&oacute;n es cero.
+    </p>
+    <p>
+      Vas a aprender por qu&eacute; la motivaci&oacute;n es una trampa, c&oacute;mo el cerebro forma h&aacute;bitos, y c&oacute;mo dise&ntilde;ar una rutina diaria que te lleve donde quer&eacute;s estar.
+    </p>
+  </article>
+
+  <hr class="bienvenida__divider">
+
+  <div class="bienvenida__motivacion">
+    <p><strong>Principio clave:</strong> No sos lo que te propon&eacute;s hacer. Sos lo que hac&eacute;s todos los d&iacute;as sin pensarlo.</p>
+  </div>
+</section>
+
+<!-- ========== MOTIVACI&Oacute;N VS DISCIPLINA ========== -->
+<section id="motivacion-vs-disciplina">
+  <header>
+    <h1>La Trampa de la Motivaci&oacute;n</h1>
+    <p>
+      Casi todos empiezan con motivaci&oacute;n. Casi nadie la mantiene. Los que llegan son los que aprendieron a no depender de ella.
+    </p>
+  </header>
+
+  <hr>
+
+  <article>
+    <h2>&iquest;Qu&eacute; es la motivaci&oacute;n?</h2>
+    <p>
+      La motivaci&oacute;n es un <strong>estado emocional transitorio</strong>. Aparece cuando ves un resultado inspirador, cuando arrancas algo nuevo, cuando est&aacute;s en un buen momento. Pero desaparece: con el cansancio, con una racha perdedora, con los primeros obst&aacute;culos.
+    </p>
+    <p>
+      El problema es que la mayor&iacute;a de las personas espera sentirse motivada para actuar. Pero eso es exactamente al rev&eacute;s de c&oacute;mo funciona.
+    </p>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>&iquest;Qu&eacute; es la disciplina?</h2>
+    <p>
+      La disciplina es la <strong>capacidad de actuar seg&uacute;n tu plan, independientemente de c&oacute;mo te sent&eacute;s</strong>. No es una caracter&iacute;stica de personalidad: es una habilidad que se entrena con pr&aacute;ctica.
+    </p>
+    <ul>
+      <li>La motivaci&oacute;n te arranca. La disciplina te lleva hasta el final.</li>
+      <li>La motivaci&oacute;n depende de tu estado &aacute;nimo. La disciplina es independiente de &eacute;l.</li>
+      <li>La motivaci&oacute;n es el chispazo. La disciplina es el motor.</li>
+    </ul>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>La f&oacute;rmula correcta</h2>
+    <p>
+      La acci&oacute;n no viene de sentirte motivado. La motivaci&oacute;n viene de actuar. El orden es:
+    </p>
+
+    <div class="formula-box">
+      Acci&oacute;n &rarr; Resultado &rarr; Motivaci&oacute;n &rarr; M&aacute;s acci&oacute;n
+    </div>
+
+    <p>
+      Si esperis la motivaci&oacute;n para actuar, nunca vas a actuar. Si act&uacute;as primero (aunque no quieras), la motivaci&oacute;n aparece como consecuencia de ver resultados.
+    </p>
+
+    <div class="tip-box">
+      <p>La pr&oacute;xima vez que no ten&eacute;s ganas de estudiar, de practicar o de seguir tu rutina, actu&aacute; durante 5 minutos sin negociar contigo mismo. En el 90% de los casos, vas a seguir sólo con eso.</p>
+    </div>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>El peligro de los "d&iacute;as de inspiraci&oacute;n"</h2>
+    <p>
+      Los d&iacute;as que te sentis motivado podeis hacer tres veces m&aacute;s de lo habitual. Pero si tus resultados dependen de esos d&iacute;as, tu progreso es inconsistente y tu rendimiento es impredecible.
+    </p>
+    <p>
+      Un trader inconsistente no es rentable. Un trader consistente, aunque haga poco cada d&iacute;a, construye una ventaja acumulada que ning&uacute;n "d&iacute;a de inspiraci&oacute;n" puede reemplazar.
+    </p>
+
+    <div class="warning-box">
+      <p>Nunca tomes decisiones de trading en d&iacute;as de alta motivaci&oacute;n emocional. El exceso de confianza es tan peligroso como el miedo. <strong>La consistencia gana a la intensidad.</strong></p>
+    </div>
+  </article>
+</section>
+
+<!-- ========== IDENTIDAD Y DISCIPLINA ========== -->
+<section id="identidad">
+  <header>
+    <h1>Identidad y Disciplina</h1>
+    <p>
+      El cambio m&aacute;s poderoso no es cambiar lo que hac&eacute;s. Es cambiar qui&eacute;n cre&eacute;s que sos.
+    </p>
+  </header>
+
+  <hr>
+
+  <article>
+    <h2>Dos formas de cambiar</h2>
+    <p>
+      Hay dos maneras de intentar cambiar un comportamiento:
+    </p>
+    <ol>
+      <li><strong>Enfocarse en el resultado:</strong> "Quiero ganar dinero con el trading." (externo, endeble)</li>
+      <li><strong>Enfocarse en la identidad:</strong> "Soy un trader disciplinado." (interno, s&oacute;lido)</li>
+    </ol>
+    <p>
+      El primer enfoque dep ende de la fuerza de voluntad. El segundo dep ende de ser coherente con quien decidiste ser. Y ser coherente con uno mismo es mucho m&aacute;s f&aacute;cil que luchar contra uno mismo.
+    </p>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>C&oacute;mo adoptars una nueva identidad</h2>
+    <ol>
+      <li><strong>Decid&iacute; qui&eacute;n quer&eacute;s ser:</strong> no "quiero ser trader", sino "soy un trader en proceso de formaci&oacute;n". El tiempo verbal importa.</li>
+      <li><strong>Actu&aacute; como esa persona:</strong> cada vez que segu&iacute;s tu plan, cada vez que no operas fuera del sistema, estis votando por esa identidad.</li>
+      <li><strong>Celebr&aacute; las victorias del proceso:</strong> "Hoy segu&iacute; mi rutina" es una victoria. "Hoy no oper&eacute; fuera de mi sistema" es una victoria. Reconoc&eacute;las.</li>
+    </ol>
+
+    <div class="key-concept">
+      <h3>Principio de identidad</h3>
+      <p>Cada acci&oacute;n que tom&aacute;s es un voto a favor o en contra de la persona que quer&eacute;s ser. No necesit&aacute;s una transformaci&oacute;n radical: necesit&aacute;s empezar a votar por vos mismo con cada peque&ntilde;a decisi&oacute;n.</p>
+    </div>
+  </article>
+</section>
+
+<!-- ========== C&Oacute;MO FUNCIONAN LOS H&Aacute;BITOS ========== -->
+<section id="como-funcionan">
+  <header>
+    <h1>C&oacute;mo Funciona el Cerebro con los H&aacute;bitos</h1>
+    <p>
+      Un h&aacute;bito no es una decisi&oacute;n. Es un programa autom&aacute;tico que tu cerebro ejecuta para ahorrar energ&iacute;a. Entender c&oacute;mo funciona te da el poder de usarlo a tu favor.
+    </p>
+  </header>
+
+  <hr>
+
+  <article>
+    <h2>El bucle del h&aacute;bito</h2>
+    <p>Todo h&aacute;bito tiene tres partes:</p>
+
+    <div class="formula-box">
+      Se&ntilde;al (Cue) &rarr; Rutina &rarr; Recompensa
+    </div>
+
+    <ul>
+      <li><strong>Se&ntilde;al:</strong> el disparador que activa el h&aacute;bito (una hora del d&iacute;a, un lugar, una emoci&oacute;n, una persona).</li>
+      <li><strong>Rutina:</strong> la acci&oacute;n autom&aacute;tica que realiz&aacute;s.</li>
+      <li><strong>Recompensa:</strong> el beneficio que tu cerebro recibe y que hace que quiera repetir el ciclo.</li>
+    </ul>
+
+    <p>
+      Una vez que un h&aacute;bito est&aacute; instalado, la se&ntilde;al activa el deseo de la recompensa, y la rutina sucede autom&aacute;ticamente. No requiere decisi&oacute;n consciente.
+    </p>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Por qu&eacute; los h&aacute;bitos son tan poderosos</h2>
+    <p>
+      El 40-50% de tus acciones diarias no son decisiones: son h&aacute;bitos. Tu cerebro autom&aacute;tiz&oacute; esas acciones para liberar energ&iacute;a cognitiva para tareas que requieren pensamiento activo.
+    </p>
+    <p>
+      Esto significa que si lograis convertir tus pr&aacute;cticas de trading (estudiar, revisar tu diario, analizar el mercado) en h&aacute;bitos, dejan de requerir fuerza de voluntad. Se convierten en tu modo default.
+    </p>
+
+    <div class="tip-box">
+      <p>El objetivo no es tener voluntad para hacer las cosas correctas. El objetivo es que las cosas correctas sean autom&aacute;ticas, y que te cueste esfuerzo NO hacerlas.</p>
+    </div>
+  </article>
+</section>
+
+<!-- ========== CONSTRUIR H&Aacute;BITOS ========== -->
+<section id="construir-habitos">
+  <header>
+    <h1>C&oacute;mo Construir H&aacute;bitos que Duran</h1>
+    <p>
+      La clave no es empezar grande. La clave es empezar de una forma tan peque&ntilde;a que sea imposible fallar.
+    </p>
+  </header>
+
+  <hr>
+
+  <article>
+    <h2>El principio de los h&aacute;bitos m&iacute;nimos</h2>
+    <p>
+      La mayor&iacute;a falla al intentar cambiar demasiado de golpe. La forma correcta es empezar con una versi&oacute;n tan peque&ntilde;a del h&aacute;bito que no genera resistencia:
+    </p>
+    <ul>
+      <li>No "estudiar trading 1 hora diaria" &rarr; "revisar un concepto por 5 minutos".</li>
+      <li>No "llevar un diario de trading completo" &rarr; "anotar una l&iacute;nea despu&eacute;s de cada operaci&oacute;n".</li>
+      <li>No "meditar 20 minutos" &rarr; "respirar profundo 1 minuto antes de operar".</li>
+    </ul>
+    <p>
+      Una vez que el h&aacute;bito m&iacute;nimo est&aacute; instalado, escal&aacute; gradualmente. El cerebro ya acept&oacute; el patr&oacute;n: solo hay que aumentar la dosis.
+    </p>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Habit Stacking: apilar h&aacute;bitos</h2>
+    <p>
+      La forma m&aacute;s efectiva de instalar un nuevo h&aacute;bito es ancl&aacute;ndolo a uno que ya existe. La f&oacute;rmula es:
+    </p>
+
+    <blockquote>
+      <em>"Despu&eacute;s de [h&aacute;bito existente], voy a [nuevo h&aacute;bito]."</em>
+    </blockquote>
+
+    <p>Ejemplos concretos para traders:</p>
+    <ul>
+      <li>"Despu&eacute;s de tomarme el primer caf&eacute; de la ma&ntilde;ana, voy a revisar el mercado por 10 minutos."</li>
+      <li>"Despu&eacute;s de cerrar mi &uacute;ltima operaci&oacute;n del d&iacute;a, voy a escribir en mi diario de trading."</li>
+      <li>"Despu&eacute;s de ponerme la alarma para dormir, voy a revisar mis objetivos del d&iacute;a."</li>
+    </ul>
+
+    <div class="tip-box">
+      <p>Dise&ntilde;&aacute; tu entorno para que los buenos h&aacute;bitos sean f&aacute;ciles. Pon tu diario de trading al lado de tu computadora. Ten el gr&aacute;fico abierto cuando llegis al escritorio. Friction baja = h&aacute;bito m&aacute;s probable.</p>
+    </div>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>La regla de los dos minutos</h2>
+    <p>
+      Si un h&aacute;bito te lleva m&aacute;s de dos minutos arrancarlo, tu cerebro va a resistirlo. La regla es simple: cuando empez&aacute;s un h&aacute;bito nuevo, red&uacute;celo a menos de dos minutos de arranque.
+    </p>
+    <p>
+      Una vez que est&aacute;s en los dos minutos, la inercia hace el resto. Empezar es lo m&aacute;s dif&iacute;cil. Una vez en movimiento, continuar es natural.
+    </p>
+  </article>
+</section>
+
+<!-- ========== ROMPER MALOS H&Aacute;BITOS ========== -->
+<section id="romper-habitos">
+  <header>
+    <h1>C&oacute;mo Romper Malos H&aacute;bitos</h1>
+    <p>
+      No pods eliminar un h&aacute;bito. Solo pods reemplazarlo. La estrategia es intervenir en el bucle, no intentar ignorarlo.
+    </p>
+  </header>
+
+  <hr>
+
+  <article>
+    <h2>Interrumpir el bucle</h2>
+    <p>
+      Para romper un mal h&aacute;bito, necesit&aacute;s identificar los tres componentes del bucle y intervenir:
+    </p>
+    <ul>
+      <li><strong>Eliminar o evitar la se&ntilde;al:</strong> si la se&ntilde;al no aparece, el h&aacute;bito no se activa. (Si sobreoperar&aacute;s cuando est&aacute;s estresado, identific&aacute; el est&eacute;r y encuentra la se&ntilde;al precisa.)</li>
+      <li><strong>Reemplazar la rutina:</strong> cuando aparece la se&ntilde;al, ejecut&aacute; una rutina diferente que entregue una recompensa similar.</li>
+      <li><strong>Aumentar la fricci&oacute;n:</strong> haz que el mal h&aacute;bito sea m&aacute;s dif&iacute;cil de ejecutar. Si operas impulsivamente, agreg&aacute; un paso previo obligatorio (revsar el plan, esperar 10 minutos, etc.).</li>
+    </ul>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Los malos h&aacute;bitos comunes del trader</h2>
+    <div class="no-operar-container">
+      <div class="no-operar-card">
+        <h3>Sobreoperar</h3>
+        <p><strong>Se&ntilde;al:</strong> aburrimiento o euforia post-ganancia.<br><strong>Reemplazo:</strong> revisar el diario de trading o cerrar la plataforma.</p>
+      </div>
+      <div class="no-operar-card">
+        <h3>Ignorar el stop loss</h3>
+        <p><strong>Se&ntilde;al:</strong> ver la posici&oacute;n en p&eacute;rdida y sentir esperanza irracional.<br><strong>Reemplazo:</strong> protocolo previo de aceptar la p&eacute;rdida m&aacute;xima antes de entrar.</p>
+      </div>
+      <div class="no-operar-card">
+        <h3>Operar sin plan</h3>
+        <p><strong>Se&ntilde;al:</strong> ver un movimiento brusco y sentir urgencia de entrar.<br><strong>Reemplazo:</strong> lista de verificaci&oacute;n obligatoria antes de cada operaci&oacute;n.</p>
+      </div>
+    </div>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>El "slip" no es el final</h2>
+    <p>
+      Todos rompen su rutina alguna vez. La diferencia entre quien llega y quien no es c&oacute;mo responde a ese slip. Un d&iacute;a fuera de la rutina no destruye el h&aacute;bito: <strong>dos d&iacute;as seguidos s&iacute; lo debilitan significativamente</strong>.
+    </p>
+    <p>
+      La regla de oro: nunca faltes dos veces seguidas. Si hoy fallaste, ma&ntilde;ana es obligatorio. Sin excepciones.
+    </p>
+
+    <div class="danger-box">
+      <p>No busques la perfección. Busca la consistencia. Un h&aacute;bito imperfecto que se mantiene es infinitamente m&aacute;s valioso que uno perfecto que se abandona. <strong>El 80% ejecutado todos los d&iacute;as supera al 100% ejecutado tres veces por semana.</strong></p>
+    </div>
+  </article>
+</section>
+
+<!-- ========== RUTINA DEL TRADER ========== -->
+<section id="rutina-trader">
+  <header>
+    <h1>La Rutina Diaria del Trader Disciplinado</h1>
+    <p>
+      Esta es la estructura base que integra todo lo aprendido. Adapt&aacute;la a tu horario, pero respet&aacute; los bloques esenciales.
+    </p>
+  </header>
+
+  <hr>
+
+  <article>
+    <h2>Bloque de ma&ntilde;ana (antes de operar)</h2>
+    <ol>
+      <li><strong>Sin celular los primeros 10 minutos.</strong> Tu mente necesita espacio antes de procesar est&iacute;mulos externos.</li>
+      <li><strong>Repas&aacute; tus objetivos y tu plan del d&iacute;a.</strong> &iquest;Qu&eacute; vas a hacer hoy? &iquest;Qu&eacute; no vas a hacer?</li>
+      <li><strong>Revis&aacute; el mercado.</strong> Context&oacute; lo que pas&oacute; y lo que podr&iacute;a pasar. Sin apresurarte.</li>
+      <li><strong>Check emocional.</strong> &iquest;Est&aacute;s tranquilo? &iquest;Dormiste bien? &iquest;Est&aacute;s en condiciones de operar?</li>
+    </ol>
+
+    <div class="tip-box">
+      <p>Si respondes NO a alguna pregunta del check emocional, no operes ese d&iacute;a. No hay setup que justifique operar en mal estado mental. El mercado va a seguir ah&iacute; ma&ntilde;ana.</p>
+    </div>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Durante la sesi&oacute;n de trading</h2>
+    <ol>
+      <li>Segu&iacute; tu sistema. Si el setup no est&aacute;, no entr&eacute;s.</li>
+      <li>No modifiques tus reglas en medio de una operaci&oacute;n.</li>
+      <li>Define un l&iacute;mite de p&eacute;rdida diario. Si lo alcanz&aacute;s, cerr&aacute; la plataforma.</li>
+      <li>Tomate descansos. La concentraci&oacute;n tiene un l&iacute;mite natural.</li>
+    </ol>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Bloque de cierre (despu&eacute;s de operar)</h2>
+    <ol>
+      <li><strong>Registr&aacute; en tu diario:</strong> operaciones del d&iacute;a, emociones, decisiones clave.</li>
+      <li><strong>Analiz&aacute; qu&eacute; hiciste bien y qu&eacute; pod&eacute;s mejorar.</strong> Sin juzgarte: inform&aacute;.</li>
+      <li><strong>Cerr&aacute; la plataforma.</strong> El d&iacute;a de trading termin&oacute;.</li>
+    </ol>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Tu compromiso con la disciplina</h2>
+    <blockquote>
+      <em>&ldquo;La disciplina es el puente entre donde est&aacute;s y donde quer&eacute;s estar. Cada d&iacute;a que la eleg&iacute;s, te acerc&aacute;s. Cada d&iacute;a que la evit&aacute;s, te alejas. No hay posici&oacute;n neutral.&rdquo;</em>
+    </blockquote>
+  </article>
+</section>
+
+</main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    if (!menuToggle || !sidebar) return;
+
+    menuToggle.addEventListener('click', e => {
+      e.stopPropagation();
+      sidebar.classList.toggle('active');
+    });
+
+    document.addEventListener('click', e => {
+      if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+        sidebar.classList.remove('active');
+      }
+    });
+
+    sidebar.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => sidebar.classList.remove('active'));
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') sidebar.classList.remove('active');
+    });
+
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => link.classList.remove('active'));
+          const activeLink = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+          if (activeLink) activeLink.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -75% 0px' });
+
+    sections.forEach(section => observer.observe(section));
+  });
+</script>
+
+<!-- Supabase Auth -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/auth.js"></script>
+<script>
+  Auth.init();
+  (async () => { await Auth.courseGuard('fase-1'); })();
+</script>
+</body>
+</html>

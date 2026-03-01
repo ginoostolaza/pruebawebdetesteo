@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>F&iacute;sico &amp; Energ&iacute;a | Orbita Capital</title>
+  <script>
+    (function () {
+      const acceso = localStorage.getItem("accesoAutorizado");
+      if (!acceso || acceso !== "true") {
+        window.location.replace("iniciar-sesion.html");
+      }
+    })();
+  </script>
+
+  <link rel="icon" href="assets/img/branding/orbita-logo-symbol.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/community.css">
+  <meta name="theme-color" content="#0a0e17">
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="course-topbar">
+  <div class="topbar-left">
+    <button class="menu-toggle" aria-label="Abrir men&uacute;">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+    <img class="topbar-logo" src="assets/img/branding/orbita-logo-symbol.png" alt="Logo" width="32" height="32">
+    <span class="topbar-title">Orbita Capital</span>
+    <span class="topbar-divider"></span>
+    <span class="topbar-course-name">F&iacute;sico &amp; Energ&iacute;a</span>
+  </div>
+  <div class="topbar-right">
+    <a href="dashboard.html" class="topbar-btn topbar-btn-outline">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </a>
+  </div>
+</header>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-label">F&iacute;sico &amp; Energ&iacute;a</div>
+    <div class="sidebar-progress">
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <span class="progress-text">Pilar 4</span>
+    </div>
+  </div>
+
+  <ul class="nav-links">
+    <div class="nav-section-label">Inicio</div>
+    <li>
+      <a href="#bienvenida">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        Bienvenida
+      </a>
+    </li>
+
+    <div class="nav-divider"></div>
+    <div class="nav-section-label">Fundamentos</div>
+    <li>
+      <a href="#sueno">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        Sue&ntilde;o y Recuperaci&oacute;n
+      </a>
+    </li>
+    <li>
+      <a href="#alimentacion">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        Alimentaci&oacute;n y Mente
+      </a>
+    </li>
+    <li>
+      <a href="#ejercicio">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Movimiento y Claridad
+      </a>
+    </li>
+
+    <div class="nav-divider"></div>
+    <div class="nav-section-label">Gesti&oacute;n</div>
+    <li>
+      <a href="#gestion-energia">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        Gesti&oacute;n de Energ&iacute;a
+      </a>
+    </li>
+    <li>
+      <a href="#entorno">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Entorno y Espacio
+      </a>
+    </li>
+
+    <div class="nav-divider"></div>
+    <li>
+      <a href="dashboard.html" class="btn-regresar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Volver al Dashboard
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main>
+
+<!-- ========== BIENVENIDA ========== -->
+<section class="bienvenida" id="bienvenida">
+  <header>
+    <h1 class="bienvenida__titulo">F&iacute;sico &amp; Energ&iacute;a</h1>
+    <p class="bienvenida__subtitulo">
+      Tu cuerpo es la m&aacute;quina que ejecuta tu mente. Si la m&aacute;quina falla, la mente falla. Y si la mente falla, el trading falla.
+    </p>
+  </header>
+
+  <hr class="bienvenida__divider">
+
+  <article class="bienvenida__contenido">
+    <p>
+      La mayor&iacute;a de los traders ignoran completamente el componente f&iacute;sico. Estudian estrategias, trabajan la mentalidad, pero operan con 5 horas de sue&ntilde;o, comiendo mal y sentados todo el d&iacute;a sin moverse.
+    </p>
+    <p>
+      Eso es una contradicci&oacute;n fundamental. <strong>El trading es un trabajo de alta demanda cognitiva y emocional</strong>. Requiere atenci&oacute;n, claridad mental, control de impulsos y toma de decisiones bajo presi&oacute;n. Todo eso depende directamente de tu estado f&iacute;sico.
+    </p>
+    <p>
+      En este m&oacute;dulo vas a aprender a gestionar tu energ&iacute;a como un activo: c&oacute;mo protegerla, c&oacute;mo recuperarla y c&oacute;mo usarla estrat&eacute;gicamente para operar con claridad m&aacute;xima.
+    </p>
+  </article>
+
+  <hr class="bienvenida__divider">
+
+  <div class="bienvenida__motivacion">
+    <p><strong>Clave:</strong> Optimizar tu cuerpo no es opcional para un trader serio. Es parte del sistema.</p>
+  </div>
+</section>
+
+<!-- ========== SUE&Ntilde;O ========== -->
+<section id="sueno">
+  <header>
+    <h1>Sue&ntilde;o: La Herramienta M&aacute;s Subestimada</h1>
+    <p>
+      Dormir bien no es un lujo. Es el cimiento sobre el que se construye todo lo dem&aacute;s: concentraci&oacute;n, control emocional, toma de decisiones.
+    </p>
+  </header>
+
+  <hr>
+
+  <article>
+    <h2>&iquest;Qu&eacute; le pasa a tu mente cuando no dorms bien?</h2>
+    <p>
+      Con menos de 7 horas de sue&ntilde;o, incluso si no lo sent&iacute;s:
+    </p>
+    <ul>
+      <li>Tu <strong>cortex prefrontal</strong> (responsable de la toma de decisiones y el control de impulsos) funciona a capacidad reducida.</li>
+      <li>Tu <strong>amig&oacute;dala</strong> (centro de respuesta emocional al miedo) se activa m&aacute;s f&aacute;cilmente y con mayor intensidad.</li>
+      <li>Tu capacidad para evaluar riesgo se deteriora significativamente.</li>
+      <li>Tus sesgos cognitivos se amplifican: tomis decisiones m&aacute;s impulsivas.</li>
+    </ul>
+    <p>
+      Operar con pocas horas de sue&ntilde;o es operar con el cerebro del miedo activado y el cerebro racional apagado. Es exactamente la combinaci&oacute;n que genera las peores decisiones de trading.
+    </p>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>C&oacute;mo mejorar la calidad del sue&ntilde;o</h2>
+    <ol>
+      <li><strong>Horario constante:</strong> dormite y despert&aacute;te a la misma hora todos los d&iacute;as, incluso los fines de semana. Tu ritmo circadiano se regula con consistencia.</li>
+      <li><strong>Sin pantallas 1 hora antes:</strong> la luz azul bloquea la producci&oacute;n de melatonina. Reemplaz&aacute; el celular por lectura o relajaci&oacute;n.</li>
+      <li><strong>Cuarto oscuro y fresco:</strong> la temperatura corporal baja naturalmente para conciliar el sue&ntilde;o. Un ambiente fresco (18-20°C) facilita ese proceso.</li>
+      <li><strong>Sin caf&eacute;ina despu&eacute;s del mediod&iacute;a:</strong> la caf&eacute;ina tiene una vida media de 6-8 horas. El caf&eacute; de las 4pm afecta el sue&ntilde;o de las 10pm.</li>
+      <li><strong>Rutina de cierre:</strong> una rutina fija pre-sue&ntilde;o le se&ntilde;ala al cerebro que es momento de bajar el ritmo.</li>
+    </ol>
+
+    <div class="tip-box">
+      <p>Si dorms mal una noche antes de una sesi&oacute;n de trading, consid&eacute;rala una se&ntilde;al de no operar o de reducir dr&aacute;sticamente el riesgo. El sue&ntilde;o no es negociable.</p>
+    </div>
+  </article>
+</section>
+
+<!-- ========== ALIMENTACI&Oacute;N ========== -->
+<section id="alimentacion">
+  <header>
+    <h1>Alimentaci&oacute;n y Rendimiento Cognitivo</h1>
+    <p>
+      Lo que com&eacute;s impacta directamente en c&oacute;mo pens&aacute;s. Tu cerebro consume el 20% de toda la energ&iacute;a de tu cuerpo. Lo que le das de combustible determina c&oacute;mo funciona.
+    </p>
+  </header>
+
+  <hr>
+
+  <article>
+    <h2>El efecto del azúcar en la toma de decisiones</h2>
+    <p>
+      Los alimentos ultraprocesados y el az&uacute;car producen picos de glucosa seguidos de ca&iacute;das bruscas. Esas ca&iacute;das se sienten como fatiga, irritabilidad y dificultad para concentrarse.
+    </p>
+    <p>
+      Si una sesi&oacute;n de trading coincide con una ca&iacute;da glucémica, tu capacidad de atenci&oacute;n y control emocional estar&aacute;n comprometidos. No es un problema de mentalidad en ese momento: es qu&iacute;mica.
+    </p>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Principios pr&aacute;cticos</h2>
+    <ul>
+      <li><strong>Priorizar prote&iacute;nas y grasas saludables</strong> en el desayuno: estabilizan la glucosa y proveen energ&iacute;a sostenida sin picos.</li>
+      <li><strong>Carbohidratos complejos</strong> en lugar de simples: arr&oacute;z integral, avena, legumbres mantienen niveles estables de energ&iacute;a.</li>
+      <li><strong>Hidrataci&oacute;n:</strong> incluso una deshidrataci&oacute;n leve del 1-2% reduce la concentraci&oacute;n y el rendimiento cognitivo. Tom&aacute; agua antes de que tengas sed.</li>
+      <li><strong>No operes con hambre:</strong> el hambre activa el estado de alerta primario del cerebro, que aumenta la impulsividad y reduce el pensamiento racional.</li>
+      <li><strong>Caf&eacute;ina con estrat&eacute;gia:</strong> el caf&eacute; funciona, pero en dosis adecuadas (1-2 tazas) y en horario correcto. M&aacute;s no es mejor: genera ansiedad y fatiga de rebote.</li>
+    </ul>
+
+    <div class="key-concept">
+      <h3>Regla simple</h3>
+      <p>Antes de una sesi&oacute;n importante de trading, com&eacute; algo que te de energ&iacute;a estable. Evit&aacute; comidas pesadas (que producen somnolencia) y az&uacute;car (que produce ca&iacute;das de energ&iacute;a).</p>
+    </div>
+  </article>
+</section>
+
+<!-- ========== EJERCICIO ========== -->
+<section id="ejercicio">
+  <header>
+    <h1>Movimiento y Claridad Mental</h1>
+    <p>
+      El ejercicio f&iacute;sico no es solo para el cuerpo. Es la intervenci&oacute;n m&aacute;s efectiva para mejorar el estado de &aacute;nimo, reducir el estr&eacute;s y aumentar la claridad mental.
+    </p>
+  </header>
+
+  <hr>
+
+  <article>
+    <h2>&iquest;Por qu&eacute; importa para el trading?</h2>
+    <p>
+      El ejercicio aer&oacute;bico regular produce una serie de cambios qu&iacute;micos en el cerebro que son directamente relevantes para el trading:
+    </p>
+    <ul>
+      <li><strong>Aumenta la dopamina y serotonina:</strong> mejoran el estado de &aacute;nimo y la motivaci&oacute;n. Un trader con buen estado de &aacute;nimo toma mejores decisiones.</li>
+      <li><strong>Reduce el cortisol:</strong> la hormona del estr&eacute;s que activa respuestas de miedo y aumenta la impulsividad.</li>
+      <li><strong>Mejora la memoria de trabajo:</strong> la capacidad de mantener y manipular informaci&oacute;n en tiempo real, cr&iacute;tica para leer el mercado.</li>
+      <li><strong>Genera BDNF</strong> (factor neuropr&oacute;fico derivado del cerebro): la prote&iacute;na que favorece el aprendizaje y la neuroplasticidad. M&aacute;s ejercicio = aprender m&aacute;s r&aacute;pido.</li>
+    </ul>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Aplicaci&oacute;n pr&aacute;ctica</h2>
+    <p>
+      No necesit&aacute;s ser atleta. Necesit&aacute;s moverte de forma consistente. Los m&iacute;nimos efectivos son:
+    </p>
+    <ul>
+      <li><strong>30 minutos de ejercicio aer&oacute;bico</strong> 3-5 veces por semana (correr, bici, nataci&oacute;n, caminata r&aacute;pida).</li>
+      <li><strong>Romper el sedentarismo</strong> cada 45-60 minutos: parate, estir&aacute;te, camin&aacute; 2-3 minutos. El cerebro necesita oxigenaci&oacute;n peri&oacute;dica.</li>
+      <li><strong>Ejercicio por la ma&ntilde;ana</strong> (antes de operar) activa el cerebro y mejora la concentraci&oacute;n en la sesi&oacute;n siguiente.</li>
+    </ul>
+
+    <div class="tip-box">
+      <p>Si no pod&eacute;s hacer ejercicio formal, uma caminata de 20-30 minutos al aire libre tiene un impacto mensurable en el estado de &aacute;nimo y la claridad mental. El movimiento es medicina.</p>
+    </div>
+  </article>
+</section>
+
+<!-- ========== GESTI&Oacute;N DE ENERG&Iacute;A ========== -->
+<section id="gestion-energia">
+  <header>
+    <h1>Gesti&oacute;n de Energ&iacute;a como Activo</h1>
+    <p>
+      No gestion&aacute;s el tiempo: gestion&aacute;s la energ&iacute;a. Tener 8 horas libres pero estar agotado es menos &uacute;til que tener 2 horas libres pero con concentraci&oacute;n m&aacute;xima.
+    </p>
+  </header>
+
+  <hr>
+
+  <article>
+    <h2>Los cuatro tipos de energ&iacute;a</h2>
+    <p>
+      La energ&iacute;a no es solo f&iacute;sica. Un trader necesita gestionar cuatro dimensiones:
+    </p>
+    <div class="no-operar-container">
+      <div class="no-operar-card">
+        <h3>F&iacute;sica</h3>
+        <p>La base de todo. Sue&ntilde;o, alimentaci&oacute;n, ejercicio. Sin esta, las dem&aacute;s colapsan.</p>
+      </div>
+      <div class="no-operar-card">
+        <h3>Emocional</h3>
+        <p>Capacidad de gestionar emociones sin que te dominen. Se recarga con descanso, conexi&oacute;n y actividades que disfut&aacute;s.</p>
+      </div>
+      <div class="no-operar-card">
+        <h3>Mental</h3>
+        <p>Capacidad de concentraci&oacute;n y toma de decisiones. Se agota con multitarea, decisiones constantes y consumo de informaci&oacute;n sin filtro.</p>
+      </div>
+    </div>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>El peligro de la fatiga de decisi&oacute;n</h2>
+    <p>
+      Cada decisi&oacute;n que tom&aacute;s consume energ&iacute;a mental. Esto incluye: qu&eacute; comer, qu&eacute; ropa ponerse, qu&eacute; responder en el chat, qu&eacute; ver, etc. A medida que avanza el d&iacute;a, tu capacidad de tomar buenas decisiones se deteriora.
+    </p>
+    <p>
+      Los traders que operan por la tarde despu&eacute;s de un d&iacute;a de trabajo intenso tienen una desventaja real: su cortex prefrontal ya est&aacute; exhausto. La soluci&oacute;n:
+    </p>
+    <ul>
+      <li>Automatizar y simplificar decisiones no importantes (rutinas, comidas, ropa).</li>
+      <li>Operar en el momento del d&iacute;a donde tu energ&iacute;a mental es m&aacute;s alta.</li>
+      <li>Definir un m&aacute;ximo de operaciones por d&iacute;a. M&aacute;s decisiones = m&aacute;s fatiga.</li>
+    </ul>
+
+    <div class="warning-box">
+      <p>Si tomaste muchas decisiones importantes durante el d&iacute;a y llegas exhausto al trading, conid&eacute;ralo una se&ntilde;al de riesgo. La fatiga de decisi&oacute;n genera errores que cost&aacute;n dinero real.</p>
+    </div>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Recuperaci&oacute;n activa</h2>
+    <p>
+      La recuperaci&oacute;n no es solo dormir. Las pausas activas durante el d&iacute;a son cr&iacute;ticas para mantener la concentraci&oacute;n sostenida:
+    </p>
+    <ul>
+      <li><strong>T&eacute;cnica Pomodoro:</strong> 25 minutos de trabajo profundo + 5 minutos de descanso. Cada 4 ciclos, 15-30 minutos de pausa larga.</li>
+      <li><strong>Desconexi&oacute;n real:</strong> en los descansos, alejate de pantallas. Mir&aacute; por la ventana, tomr&aacute; agua, respir&aacute;.</li>
+      <li><strong>Micromeditaciones:</strong> 1-2 minutos de respiraci&oacute;n profunda entre sesiones de trading resetean el sistema nervioso.</li>
+    </ul>
+  </article>
+</section>
+
+<!-- ========== ENTORNO ========== -->
+<section id="entorno">
+  <header>
+    <h1>Entorno y Espacio de Trabajo</h1>
+    <p>
+      Tu entorno f&iacute;sico moldea tu estado mental. Un espacio desorganizado genera una mente desorganizada. Un espacio optimizado para el trabajo potencia tu rendimiento.
+    </p>
+  </header>
+
+  <hr>
+
+  <article>
+    <h2>Dise&ntilde;&aacute; tu entorno a favor</h2>
+    <ul>
+      <li><strong>Espacio dedicado:</strong> si es posible, ten un lugar espec&iacute;fico para operar. Tu cerebro asociar&aacute; ese espacio con el modo de trabajo enfocado.</li>
+      <li><strong>Orden antes de empezar:</strong> limpiar y organizar el espacio antes de operar es una se&ntilde;al mental de comienzo de sesi&oacute;n.</li>
+      <li><strong>Luz natural:</strong> impacta positivamente en el estado de &aacute;nimo, los niveles de vitamina D y el ritmo circadiano. Opt&aacute; por trabajar cerca de una ventana.</li>
+      <li><strong>Temperatura:</strong> entre 20-22°C es el rango &oacute;ptimo para la concentraci&oacute;n. El calor excesivo produce fatiga.</li>
+      <li><strong>Sin distractores a la vista:</strong> el celular visible (aunque est&eacute; boca abajo) ya consume ancho de banda cognitivo. Sac&aacute;lo de tu campo visual mientras operas.</li>
+    </ul>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>La regla de oro del entorno</h2>
+    <p>
+      Hace que las acciones correctas sean f&aacute;ciles y las incorrectas sean dif&iacute;ciles. Si tu entorno est&aacute; dise&ntilde;ado para el trabajo enfocado, el trabajo enfocado pasa por inercia. Si est&aacute; lleno de distractores, vas a luchar constantemente.
+    </p>
+
+    <blockquote>
+      <em>&ldquo;No necesit&aacute;s m&aacute;s fuerza de voluntad. Necesit&aacute;s un mejor dise&ntilde;o de entorno. Cambi&aacute; el entorno, cambi&aacute; el comportamiento.&rdquo;</em>
+    </blockquote>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Tu protocolo de energ&iacute;a</h2>
+    <p>Integr&aacute; todo en una sola rutina simple y replicable:</p>
+    <ol>
+      <li>Dorm&iacute; 7-8 horas en horario consistente.</li>
+      <li>Despert&aacute;te sin agarrar el celular.</li>
+      <li>Mov&eacute;te (aunque sea una caminata de 20 minutos).</li>
+      <li>Desayun&aacute; algo que te de energ&iacute;a estable.</li>
+      <li>Organiz&aacute; tu espacio antes de abrir la plataforma.</li>
+      <li>Definir un m&aacute;ximo de operaciones y un l&iacute;mite de p&eacute;rdida diario.</li>
+      <li>Cierr&aacute; la sesi&oacute;n, anot&aacute; en tu diario, descans&aacute;.</li>
+    </ol>
+
+    <div class="key-concept">
+      <h3>Conclusi&oacute;n</h3>
+      <p>El trading es rendimiento. Y el rendimiento depende de la energ&iacute;a. Gestionar tu energ&iacute;a no es una recomendaci&oacute;n de bienestar: es una ventaja competitiva concreta. Los traders que lo hacen toman mejores decisiones con m&aacute;s consistencia.</p>
+    </div>
+  </article>
+</section>
+
+</main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    if (!menuToggle || !sidebar) return;
+
+    menuToggle.addEventListener('click', e => {
+      e.stopPropagation();
+      sidebar.classList.toggle('active');
+    });
+
+    document.addEventListener('click', e => {
+      if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+        sidebar.classList.remove('active');
+      }
+    });
+
+    sidebar.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => sidebar.classList.remove('active'));
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') sidebar.classList.remove('active');
+    });
+
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => link.classList.remove('active'));
+          const activeLink = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+          if (activeLink) activeLink.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -75% 0px' });
+
+    sections.forEach(section => observer.observe(section));
+  });
+</script>
+
+<!-- Supabase Auth -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/auth.js"></script>
+<script>
+  Auth.init();
+  (async () => { await Auth.courseGuard('fase-1'); })();
+</script>
+</body>
+</html>

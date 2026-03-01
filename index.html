@@ -1239,7 +1239,7 @@
   <script>
     // ---- Countdown Timer ----
     (function() {
-      var KEY = 'bea_offer_deadline';
+      var KEY = 'oc_offer_deadline';
       var stored = localStorage.getItem(KEY);
       var deadline;
       if (stored) {
@@ -1298,9 +1298,9 @@
           body: JSON.stringify({ nombre: nombre, email: email })
         });
       } catch(err) {}
-      var wl = JSON.parse(localStorage.getItem('bea_waitlist') || '[]');
+      var wl = JSON.parse(localStorage.getItem('oc_waitlist') || '[]');
       wl.push({ nombre: nombre, email: email, fecha: new Date().toISOString() });
-      localStorage.setItem('bea_waitlist', JSON.stringify(wl));
+      localStorage.setItem('oc_waitlist', JSON.stringify(wl));
       document.getElementById('modal-body').style.display = 'none';
       document.getElementById('modal-success').style.display = 'block';
     }

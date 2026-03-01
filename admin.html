@@ -141,18 +141,18 @@
             <svg class="revenue-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
             <div>
               <h3 class="revenue-title">Ingresos</h3>
-              <span class="revenue-period-label" id="revenue-period-label">Desde siempre</span>
+              <span class="revenue-period-label" id="revenue-period-label">Últimos 7 días</span>
             </div>
           </div>
           <div class="revenue-controls">
             <div class="time-range-selector">
-              <button class="time-range-btn" data-range="7">7 días</button>
+              <button class="time-range-btn active" data-range="7">7 días</button>
               <button class="time-range-btn" data-range="30">30 días</button>
-              <button class="time-range-btn active" data-range="all">Siempre</button>
+              <button class="time-range-btn" data-range="all">Siempre</button>
             </div>
             <div class="currency-toggle-container">
-              <button class="currency-toggle-btn active" id="btn-currency-usd">U$D</button>
-              <button class="currency-toggle-btn" id="btn-currency-ars">ARS</button>
+              <button class="currency-toggle-btn" id="btn-currency-usd">U$D</button>
+              <button class="currency-toggle-btn active" id="btn-currency-ars">ARS</button>
             </div>
           </div>
         </div>
@@ -599,8 +599,8 @@
   let allUsers = [];
   let allPayments = [];
   let dolarBlueVenta = null;
-  let currentCurrency = 'USD';
-  let currentRange = 'all';
+  let currentCurrency = 'ARS';
+  let currentRange = '7';
 
   // ---- Sidebar toggle (mobile) ----
   (function() {

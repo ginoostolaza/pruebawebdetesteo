@@ -29,8 +29,8 @@ CREATE TABLE IF NOT EXISTS public.productos (
 
 -- 4. Insert product definitions
 INSERT INTO public.productos (id, nombre, descripcion, precio_usd, precio_ars, tipo) VALUES
-  ('fase1', 'Curso de Trading — Fase 1', 'Acceso completo al curso: 2 sistemas de trading, preparacion del grafico, glosario y consejos', 10.00, 9999.00, 'unico'),
-  ('bot', 'Bot de Trading — Suscripcion Mensual', 'Bot automatizado configurado por Gino, opera 24/7', 5.00, 7500.00, 'suscripcion')
+  ('fase1', 'Curso de Trading — Fase 1', 'Acceso completo al curso: 2 sistemas de trading, preparacion del grafico, glosario y consejos', 37.00, 47000.00, 'unico'),
+  ('bot', 'Bot de Trading — Suscripcion Mensual', 'Bot automatizado configurado por Gino, opera 24/7', 24.00, 24900.00, 'suscripcion')
 ON CONFLICT (id) DO UPDATE SET
   precio_usd = EXCLUDED.precio_usd,
   precio_ars = EXCLUDED.precio_ars;

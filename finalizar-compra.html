@@ -491,7 +491,7 @@
   document.addEventListener("DOMContentLoaded", async () => {
     // --- Cart abandonment: check & save state ---
     (function() {
-      var CART_KEY = 'bea_cart_state';
+      var CART_KEY = 'oc_cart_state';
       var saved = null;
       try { saved = JSON.parse(localStorage.getItem(CART_KEY)); } catch(e) {}
       if (saved && saved.timestamp && (Date.now() - saved.timestamp) < 48 * 3600 * 1000) {

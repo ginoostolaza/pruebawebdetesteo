@@ -70,7 +70,7 @@ a { color: inherit; text-decoration: none; }
 .admin-sidebar {
   width: var(--sidebar-width);
   min-height: 100vh;
-  background: var(--color-surface);
+  background: linear-gradient(180deg, var(--color-surface) 0%, #0a101e 100%);
   border-right: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
@@ -176,18 +176,20 @@ a { color: inherit; text-decoration: none; }
 .sidebar-item:hover {
   color: var(--color-text);
   background: var(--color-surface-2);
+  padding-left: 0.9rem;
 }
 
 .sidebar-item:hover svg { opacity: 1; }
 
 .sidebar-item.active {
   color: #fff;
-  background: var(--gradient-primary);
+  background: rgba(59, 130, 246, 0.12);
   font-weight: 600;
-  box-shadow: 0 2px 12px rgba(59, 130, 246, 0.2);
+  border-left: 3px solid var(--color-primary);
+  padding-left: calc(0.75rem - 3px);
 }
 
-.sidebar-item.active svg { opacity: 1; }
+.sidebar-item.active svg { opacity: 1; color: var(--color-primary); }
 
 /* ---- Footer ---- */
 .sidebar-footer {
@@ -234,6 +236,8 @@ a { color: inherit; text-decoration: none; }
   color: var(--color-error);
   background: rgba(239, 68, 68, 0.06);
 }
+
+.sidebar-footer-link.danger:hover svg { color: var(--color-error); }
 
 /* ---- Mobile overlay ---- */
 .sidebar-overlay {
@@ -340,8 +344,8 @@ a { color: inherit; text-decoration: none; }
    ============================================================ */
 .admin-content {
   flex: 1;
-  padding: 1.5rem 1.75rem 4rem;
-  max-width: 100%;
+  padding: 1.5rem 2rem 4rem;
+  max-width: 1400px;
 }
 
 /* ============================================================
@@ -818,7 +822,8 @@ a { color: inherit; text-decoration: none; }
 }
 
 .admin-table tbody tr { transition: background var(--transition); }
-.admin-table tbody tr:hover { background: rgba(59, 130, 246, 0.03); }
+.admin-table tbody tr:nth-child(even) { background: rgba(255, 255, 255, 0.01); }
+.admin-table tbody tr:hover { background: rgba(59, 130, 246, 0.04); }
 
 .table-loading,
 .table-empty {
@@ -1048,10 +1053,11 @@ a { color: inherit; text-decoration: none; }
 }
 
 .action-card p {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: var(--color-text-dim);
-  margin-bottom: 1rem;
+  margin-bottom: 0.85rem;
   line-height: 1.45;
+  margin-left: calc(38px + 0.75rem);
 }
 
 .action-card-form {

@@ -7,7 +7,7 @@
 
   <title>Pago Seguro | Orbita Capital</title>
 
-  <link rel="icon" href="assets/img/branding/logo-favicon-GC.png" type="image/png">
+  <link rel="icon" href="assets/img/branding/orbita-logo-symbol.png" type="image/png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +19,7 @@
   <meta name="description" content="Pago seguro para acceder a la comunidad de trading de Orbita Capital.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Pago Seguro | Orbita Capital">
-  <meta property="og:image" content="assets/img/branding/logo.jpg">
+  <meta property="og:image" content="assets/img/branding/orbita-logo-horizontal.png">
   <meta name="theme-color" content="#0a0e17">
 </head>
 <body>
@@ -29,7 +29,7 @@
      ============================================================ -->
 <header class="checkout-topbar">
   <div class="topbar-left">
-    <img class="topbar-logo" src="assets/img/branding/logo-favicon-GC.png" alt="Logo" width="36" height="36">
+    <img class="topbar-logo" src="assets/img/branding/orbita-logo-symbol.png" alt="Logo" width="36" height="36">
     <span class="topbar-brand">Orbita Capital</span>
     <span class="topbar-secure">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -182,7 +182,7 @@
                 <div id="stripe-error" class="payment-error-msg"></div>
                 <button class="btn-confirm-pay stripe" id="btn-confirm-stripe" type="button" style="display:none;">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                  Pagar <span id="stripe-confirm-price">USD 10,00</span>
+                  Pagar <span id="stripe-confirm-price">USD 37,00</span>
                 </button>
               </div>
               <button class="fallback-toggle" id="stripe-fallback-btn" type="button">
@@ -414,7 +414,7 @@
 
       <div class="summary-row">
         <span class="summary-label">Subtotal</span>
-        <span class="summary-value" id="summary-subtotal">$9.999 ARS</span>
+        <span class="summary-value" id="summary-subtotal">$47.000 ARS</span>
       </div>
       <div class="summary-row">
         <span class="summary-label">Comision</span>
@@ -425,7 +425,7 @@
 
       <div class="summary-total">
         <span class="summary-total-label">Total</span>
-        <span class="summary-total-value" id="summary-total">$9.999 ARS</span>
+        <span class="summary-total-value" id="summary-total">$47.000 ARS</span>
       </div>
 
       <div class="summary-divider"></div>
@@ -518,8 +518,8 @@
 
     // --- Pricing (defaults, overridden by Supabase config) ---
     const PRICES = {
-      fase1: { ars: 9999, usd: 10 },
-      bot:   { ars: 7500, usd: 5 }
+      fase1: { ars: 47000, usd: 37 },
+      bot:   { ars: 24900, usd: 24 }
     };
     // Load dynamic prices from Supabase
     var siteConfig = await Auth.getSiteConfig();

@@ -668,8 +668,8 @@
       badge.textContent = 'Bloqueado';
       badge.className = 'card-badge badge-locked';
       var sp = window._sitePrices || {};
-      var f1ars = Math.round(sp.fase1_ars || 9999);
-      var f1usd = parseFloat(sp.fase1_usd || 10);
+      var f1ars = Math.round(sp.fase1_ars || 47000);
+      var f1usd = parseFloat(sp.fase1_usd || 37);
       var priceLabel = '$' + f1ars.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' ARS / USD ' + f1usd.toFixed(0);
       action.innerHTML = '<a href="finalizar-compra.html?plan=fase1" class="card-action action-locked">' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>' +

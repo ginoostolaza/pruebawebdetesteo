@@ -31,11 +31,11 @@ exports.handler = async (event) => {
 
     const productos = {
       fase1: {
-        amount: 1000,
+        amount: 3700,
         description: 'Curso de Trading — Fase 1'
       },
       bot: {
-        amount: 500,
+        amount: 2400,
         description: 'Bot de Trading — Suscripcion Mensual'
       }
     };

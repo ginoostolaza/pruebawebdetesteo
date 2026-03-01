@@ -342,17 +342,17 @@
             <div class="price-config-row">
               <div class="price-input-wrap">
                 <span class="price-input-prefix">ARS</span>
-                <input type="number" id="price-fase1-ars" class="admin-search qa-select price-input" placeholder="9999">
+                <input type="number" id="price-fase1-ars" class="admin-search qa-select price-input" placeholder="47000">
               </div>
               <div class="price-input-wrap">
                 <span class="price-input-prefix">USD</span>
-                <input type="number" id="price-fase1-usd" class="admin-search qa-select price-input" step="0.01" placeholder="10">
+                <input type="number" id="price-fase1-usd" class="admin-search qa-select price-input" step="0.01" placeholder="37">
               </div>
             </div>
             <div class="price-config-row">
               <div class="price-input-wrap">
                 <span class="price-input-prefix">Antes</span>
-                <input type="number" id="price-fase1-old-usd" class="admin-search qa-select price-input" step="0.01" placeholder="50">
+                <input type="number" id="price-fase1-old-usd" class="admin-search qa-select price-input" step="0.01" placeholder="147">
               </div>
             </div>
           </div>
@@ -361,11 +361,11 @@
             <div class="price-config-row">
               <div class="price-input-wrap">
                 <span class="price-input-prefix">ARS</span>
-                <input type="number" id="price-bot-ars" class="admin-search qa-select price-input" placeholder="7500">
+                <input type="number" id="price-bot-ars" class="admin-search qa-select price-input" placeholder="24900">
               </div>
               <div class="price-input-wrap">
                 <span class="price-input-prefix">USD</span>
-                <input type="number" id="price-bot-usd" class="admin-search qa-select price-input" step="0.01" placeholder="5">
+                <input type="number" id="price-bot-usd" class="admin-search qa-select price-input" step="0.01" placeholder="24">
               </div>
             </div>
           </div>
@@ -1194,11 +1194,11 @@
   function setupPriceControls() {
     document.getElementById('btn-save-prices').addEventListener('click', async function() {
       var prices = {
-        fase1_ars: parseFloat(document.getElementById('price-fase1-ars').value) || 9999,
-        fase1_usd: parseFloat(document.getElementById('price-fase1-usd').value) || 10,
-        fase1_old_usd: parseFloat(document.getElementById('price-fase1-old-usd').value) || 50,
-        bot_ars: parseFloat(document.getElementById('price-bot-ars').value) || 7500,
-        bot_usd: parseFloat(document.getElementById('price-bot-usd').value) || 5
+        fase1_ars: parseFloat(document.getElementById('price-fase1-ars').value) || 47000,
+        fase1_usd: parseFloat(document.getElementById('price-fase1-usd').value) || 37,
+        fase1_old_usd: parseFloat(document.getElementById('price-fase1-old-usd').value) || 147,
+        bot_ars: parseFloat(document.getElementById('price-bot-ars').value) || 24900,
+        bot_usd: parseFloat(document.getElementById('price-bot-usd').value) || 24
       };
       var result = await Auth.updateSiteConfig('prices', prices);
       if (result.success) {

@@ -889,6 +889,15 @@ a { color: inherit; text-decoration: none; }
 .status-bot-off { background: rgba(90, 100, 120, 0.08); color: var(--color-text-dim); border: 1px solid rgba(90, 100, 120, 0.08); font-style: italic; }
 .text-dim { color: var(--color-text-dim); font-style: italic; }
 
+/* ---- Payment table styles ---- */
+.user-cell-compact { display: flex; flex-direction: column; gap: 1px; }
+.payment-user-name { font-weight: 500; font-size: 0.85rem; }
+.payment-user-email { font-size: 0.72rem; color: var(--color-text-dim); }
+.td-ref { font-size: 0.75rem; color: var(--color-text-dim); font-family: monospace; }
+.currency-label { font-size: 0.7rem; color: var(--color-text-muted); font-weight: 400; }
+.badge-producto-fase1 { background: rgba(59, 130, 246, 0.1); color: var(--color-primary); border: 1px solid rgba(59, 130, 246, 0.12); }
+.badge-producto-bot { background: rgba(139, 92, 246, 0.1); color: var(--color-secondary); border: 1px solid rgba(139, 92, 246, 0.12); }
+
 /* ============================================================
    SECONDARY STATS ROW
    ============================================================ */

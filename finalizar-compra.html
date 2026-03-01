@@ -306,10 +306,6 @@
                 </div>
               </div>
 
-              <div class="ars-conversion" id="conversion-banco">
-                Equivalente en pesos: <strong class="resultado-transferencia">Cargando...</strong> ARS
-              </div>
-
               <!-- Instagram confirmation CTA -->
               <div class="confirm-instagram-cta">
                 <p class="confirm-cta-title">&iquest;Ya realizaste la transferencia?</p>
@@ -507,13 +503,6 @@
       <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
       <p>"En mi primera semana ya recuper&eacute; lo que pagu&eacute;. El soporte es incre&iacute;ble, te responden en minutos."</p>
       <span>&mdash; Mat&iacute;as R., alumno activo de Fase 1</span>
-    </div>
-
-    <!-- Dolar Blue -->
-    <div class="dolar-card">
-      <div class="dolar-card-title">Cotizaci&oacute;n de referencia</div>
-      <div class="dolar-card-value" id="dolar-blue">Consultando d&oacute;lar blue...</div>
-      <div class="dolar-card-note">Referencia: d&oacute;lar blue (venta)</div>
     </div>
 
     <!-- Contact card -->
@@ -1067,29 +1056,6 @@
         el.style.display = 'none';
       }
     }
-
-    // --- Dolar Blue API ---
-    fetch("https://api.bluelytics.com.ar/v2/latest")
-      .then(r => r.json())
-      .then(data => {
-        const dolarBlue = data.blue.value_sell;
-
-        const dolarEl = document.getElementById("dolar-blue");
-        if (dolarEl) {
-          dolarEl.textContent = '$' + dolarBlue.toFixed(2) + ' ARS';
-        }
-
-        // Show ARS equivalent for bank transfer
-        const resultado = prices.usd * dolarBlue;
-        const fmt = (n) => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-        document.querySelectorAll(".resultado-transferencia").forEach(span => {
-          span.textContent = '$' + fmt(Math.round(resultado));
-        });
-      })
-      .catch(() => {
-        const dolarEl = document.getElementById("dolar-blue");
-        if (dolarEl) dolarEl.textContent = "No disponible";
-      });
 
     // --- Tab title ---
     document.addEventListener("visibilitychange", () => {

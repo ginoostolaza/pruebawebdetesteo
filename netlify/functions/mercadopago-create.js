@@ -39,7 +39,7 @@ exports.handler = async (event) => {
       },
       bot: {
         title: 'Bot de Trading — Suscripcion Mensual',
-        description: 'Bot automatizado configurado por Binary Edge, opera 24/7',
+        description: 'Bot automatizado configurado por Orbita Capital, opera 24/7',
         unit_price: 7500,
         currency_id: 'ARS'
       }

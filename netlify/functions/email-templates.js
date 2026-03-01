@@ -1,12 +1,12 @@
 // ============================================================
-// Email Templates — Binary Edge Academy
+// Email Templates — Orbita Capital
 // Dark-themed, mobile-responsive HTML emails
 // ============================================================
 
 const SITE_URL = process.env.URL || 'https://binaryedgeacademy.com';
 const LOGO_URL = `${SITE_URL}/assets/img/branding/logo.jpg`;
 const DASHBOARD_URL = `${SITE_URL}/dashboard.html`;
-const INSTAGRAM_URL = 'https://instagram.com/beatrading.academy';
+const INSTAGRAM_URL = 'https://instagram.com/orbitacapital.io';
 
 // ── Shared layout wrapper ────────────────────────────────────
 function layout(content) {
@@ -15,7 +15,7 @@ function layout(content) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Binary Edge Academy</title>
+  <title>Orbita Capital</title>
 </head>
 <body style="margin:0;padding:0;background:#090d1a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#090d1a;">
@@ -26,9 +26,9 @@ function layout(content) {
           <!-- HEADER -->
           <tr>
             <td style="background:linear-gradient(135deg,#0f2042 0%,#141432 100%);border-radius:16px 16px 0 0;padding:36px 40px 28px;text-align:center;border:1px solid rgba(59,130,246,0.18);border-bottom:none;">
-              <img src="${LOGO_URL}" alt="Binary Edge Academy" width="72" height="72"
+              <img src="${LOGO_URL}" alt="Orbita Capital" width="72" height="72"
                    style="display:block;margin:0 auto 16px;border-radius:12px;border:1px solid rgba(59,130,246,0.25);">
-              <p style="margin:0;color:#60a5fa;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Binary Edge Academy</p>
+              <p style="margin:0;color:#60a5fa;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">Orbita Capital</p>
             </td>
           </tr>
 
@@ -43,10 +43,10 @@ function layout(content) {
           <tr>
             <td style="background:#080b16;border-radius:0 0 16px 16px;padding:20px 40px;text-align:center;border:1px solid rgba(59,130,246,0.18);border-top:1px solid rgba(255,255,255,0.05);">
               <p style="margin:0 0 6px;color:#334155;font-size:12px;">
-                © ${new Date().getFullYear()} Binary Edge Academy · Todos los derechos reservados
+                © ${new Date().getFullYear()} Orbita Capital · Todos los derechos reservados
               </p>
               <p style="margin:0;color:#1e3a5f;font-size:11px;">
-                <a href="${INSTAGRAM_URL}" style="color:#1d4ed8;text-decoration:none;">@beatrading.academy</a>
+                <a href="${INSTAGRAM_URL}" style="color:#1d4ed8;text-decoration:none;">@orbitacapital.io</a>
               </p>
             </td>
           </tr>
@@ -153,7 +153,7 @@ function bienvenidaFase1({ nombre }) {
 
     <p style="margin:0;color:#475569;font-size:13px;text-align:center;line-height:1.7;">
       ¿Dudas o consultas? Escribinos por Instagram<br>
-      <a href="${INSTAGRAM_URL}" style="color:#60a5fa;text-decoration:none;font-weight:600;">@beatrading.academy</a>
+      <a href="${INSTAGRAM_URL}" style="color:#60a5fa;text-decoration:none;font-weight:600;">@orbitacapital.io</a>
     </p>
   `;
   return layout(body);
@@ -214,7 +214,7 @@ function bienvenidaBot({ nombre }) {
 
     <p style="margin:0;color:#475569;font-size:13px;text-align:center;line-height:1.7;">
       ¿Dudas o consultas? Escribinos por Instagram<br>
-      <a href="${INSTAGRAM_URL}" style="color:#60a5fa;text-decoration:none;font-weight:600;">@beatrading.academy</a>
+      <a href="${INSTAGRAM_URL}" style="color:#60a5fa;text-decoration:none;font-weight:600;">@orbitacapital.io</a>
     </p>
   `;
   return layout(body);
@@ -237,7 +237,7 @@ function confirmacionWaitlist({ nombre }) {
     </p>
     <p style="margin:0 0 24px;color:#94a3b8;font-size:14px;line-height:1.7;">
       Te registraste correctamente en la lista de espera para la
-      <strong style="color:#e2e8f0;">Fase 2 de Binary Edge Academy</strong>.
+      <strong style="color:#e2e8f0;">Fase 2 de Orbita Capital</strong>.
       Cuando abramos nuevos cupos, vas a ser de los primeros en enterarte.
     </p>
 
@@ -277,7 +277,7 @@ function confirmacionWaitlist({ nombre }) {
 
     <p style="margin:0;color:#475569;font-size:13px;text-align:center;line-height:1.7;">
       Seguinos en Instagram para novedades<br>
-      <a href="${INSTAGRAM_URL}" style="color:#60a5fa;text-decoration:none;font-weight:600;">@beatrading.academy</a>
+      <a href="${INSTAGRAM_URL}" style="color:#60a5fa;text-decoration:none;font-weight:600;">@orbitacapital.io</a>
     </p>
   `;
   return layout(body);

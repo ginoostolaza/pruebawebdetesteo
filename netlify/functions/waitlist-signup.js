@@ -1,5 +1,5 @@
 // ============================================================
-// Waitlist Signup — Binary Edge Academy
+// Waitlist Signup — Orbita Capital
 // Saves to Supabase + sends confirmation email via Resend
 // ============================================================
 
@@ -7,7 +7,7 @@ const { createClient } = require('@supabase/supabase-js');
 const { confirmacionWaitlist } = require('./email-templates');
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
-const FROM_EMAIL = process.env.RESEND_FROM || 'Binary Edge Academy <onboarding@resend.dev>';
+const FROM_EMAIL = process.env.RESEND_FROM || 'Orbita Capital <onboarding@resend.dev>';
 
 async function sendEmail(to, subject, html) {
   const res = await fetch('https://api.resend.com/emails', {
@@ -69,7 +69,7 @@ exports.handler = async (event) => {
   if (RESEND_API_KEY) {
     const emailResult = await sendEmail(
       email,
-      '¡Estás en la lista! — Binary Edge Academy',
+      '¡Estás en la lista! — Orbita Capital',
       confirmacionWaitlist({ nombre })
     );
     console.log('[Waitlist] Email sent:', emailResult?.id || emailResult?.error);

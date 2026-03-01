@@ -210,7 +210,7 @@ nav.scrolled {
   gap: 0.35rem;
 }
 
-.brand-binary {
+.brand-first {
   font-family: 'Georgia', 'Times New Roman', serif;
   font-style: italic;
   font-weight: 400;
@@ -218,7 +218,7 @@ nav.scrolled {
   letter-spacing: 1px;
 }
 
-.brand-edge {
+.brand-second {
   font-family: 'Georgia', 'Times New Roman', serif;
   font-style: italic;
   font-weight: 700;
@@ -227,7 +227,7 @@ nav.scrolled {
   position: relative;
 }
 
-.brand-edge::after {
+.brand-second::after {
   content: '';
   position: absolute;
   bottom: -2px;

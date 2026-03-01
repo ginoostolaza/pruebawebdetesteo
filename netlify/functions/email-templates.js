@@ -3,7 +3,7 @@
 // Dark-themed, mobile-responsive HTML emails
 // ============================================================
 
-const SITE_URL = process.env.URL || 'https://binaryedgeacademy.com';
+const SITE_URL = process.env.URL || 'https://orbitacapital.io';
 const LOGO_URL = `${SITE_URL}/assets/img/branding/logo.jpg`;
 const DASHBOARD_URL = `${SITE_URL}/dashboard.html`;
 const INSTAGRAM_URL = 'https://instagram.com/orbitacapital.io';

@@ -56,7 +56,7 @@ exports.handler = async (event) => {
 
     const preference = new Preference(client);
 
-    const siteUrl = process.env.SITE_URL || process.env.URL || 'https://binary-edge-academy.netlify.app';
+    const siteUrl = process.env.SITE_URL || process.env.URL || 'https://orbitacapital.netlify.app';
 
     const result = await preference.create({
       body: {

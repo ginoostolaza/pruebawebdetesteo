@@ -34,14 +34,14 @@ exports.handler = async (event) => {
       fase1: {
         name: 'Curso de Trading — Fase 1',
         description: 'Acceso completo: 2 sistemas de trading, preparacion del grafico, glosario y consejos',
-        price: 1000, // $10.00 USD in cents
+        price: 3700, // $37.00 USD in cents
         mode: 'payment'
       },
       bot: {
         name: 'Bot de Trading — Suscripcion Mensual',
         description: 'Bot automatizado configurado por Orbita Capital, opera 24/7',
-        price: 500, // $5.00 USD in cents
-        mode: 'payment' // Using payment mode (not subscription) for simplicity
+        price: 2400, // $24.00 USD in cents
+        mode: 'payment'
       }
     };
 

@@ -34,13 +34,13 @@ exports.handler = async (event) => {
       fase1: {
         title: 'Curso de Trading — Fase 1',
         description: 'Acceso completo: 2 sistemas de trading, preparacion del grafico, glosario y consejos',
-        unit_price: 9999,
+        unit_price: 47000,
         currency_id: 'ARS'
       },
       bot: {
         title: 'Bot de Trading — Suscripcion Mensual',
         description: 'Bot automatizado configurado por Orbita Capital, opera 24/7',
-        unit_price: 7500,
+        unit_price: 24900,
         currency_id: 'ARS'
       }
     };

@@ -129,7 +129,7 @@
     </div>
     <div class="onboarding-content">
       <strong>&#128075; &iexcl;Empez&aacute; por ac&aacute;!</strong>
-      <span>Tu primer paso: <a href="acceso-comunidad.html#preparacion-grafico" class="onboarding-link">Preparaci&oacute;n del Gr&aacute;fico</a> &mdash; el m&oacute;dulo base de todo el curso.</span>
+      <span>Tu primer paso: <a href="fase-1.html" class="onboarding-link">Acceder a la Fase 1</a> &mdash; tu transformaci&oacute;n completa como trader.</span>
     </div>
     <button class="onboarding-dismiss" onclick="this.parentElement.style.display='none'" title="Cerrar" aria-label="Cerrar sugerencia">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -155,7 +155,7 @@
 
   <!-- Quick Actions -->
   <div class="quick-actions" id="quick-actions">
-    <a href="acceso-comunidad.html" class="quick-action-btn qa-primary" id="qa-curso" style="display:none;">
+    <a href="fase-1.html" class="quick-action-btn qa-primary" id="qa-curso" style="display:none;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
       Continuar aprendiendo
     </a>
@@ -246,148 +246,208 @@
     </div>
   </div>
 
-  <!-- Course Cards -->
+  <!-- Main Module: Fase 1 -->
+  <h2 class="section-title">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    Tu Formaci&oacute;n
+  </h2>
+
+  <!-- Fase 1 - Hero Card -->
+  <div class="fase1-main-card" id="card-fase1">
+    <div class="fase1-card-glow"></div>
+    <div class="fase1-card-content">
+      <div class="fase1-card-left">
+        <div class="fase1-card-badge-row">
+          <span class="card-badge" id="badge-fase1">Fase 1</span>
+          <span class="fase1-pilares-count">5 Pilares &middot; 2 Sistemas &middot; 20+ Lecciones</span>
+        </div>
+        <h3 class="fase1-card-title">Cambi&aacute; tu Ser</h3>
+        <p class="fase1-card-desc">
+          Tu transformaci&oacute;n completa como trader: domin&aacute; la t&eacute;cnica, tu mente, tu cuerpo, tus emociones y tu disciplina. Todo en un solo lugar.
+        </p>
+        <div class="fase1-card-pillars">
+          <span class="fase1-pill pill-blue">Trading</span>
+          <span class="fase1-pill pill-purple">Mentalidad</span>
+          <span class="fase1-pill pill-blue">Disciplina</span>
+          <span class="fase1-pill pill-cyan">F&iacute;sico</span>
+          <span class="fase1-pill pill-pink">Emociones</span>
+        </div>
+      </div>
+      <div class="fase1-card-right">
+        <div class="fase1-card-icon-group">
+          <div class="fase1-icon-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 17l-5-8-4 5-3-3"/></svg>
+          </div>
+          <div class="fase1-icon-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          </div>
+          <div class="fase1-icon-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="action-fase1" class="fase1-card-action"><!-- Filled by JS --></div>
+  </div>
+
+  <style>
+    .fase1-main-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 2rem 2.25rem;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: all var(--transition);
+      animation: fadeInUp 0.5s ease 0.1s forwards;
+      opacity: 0;
+    }
+
+    .fase1-main-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4, #22c55e, #ec4899);
+    }
+
+    .fase1-main-card:hover {
+      border-color: var(--color-border-hover);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+      transform: translateY(-3px);
+    }
+
+    .fase1-card-glow {
+      position: absolute;
+      top: -40%;
+      right: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(59, 130, 246, 0.06), rgba(139, 92, 246, 0.03), transparent 70%);
+      pointer-events: none;
+    }
+
+    .fase1-card-content {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .fase1-card-left {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .fase1-card-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .fase1-pilares-count {
+      font-size: 0.72rem;
+      color: var(--color-text-dim);
+      font-weight: 500;
+    }
+
+    .fase1-card-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--color-text);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .fase1-card-desc {
+      font-size: 0.88rem;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      max-width: 520px;
+    }
+
+    .fase1-card-pillars {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .fase1-pill {
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 0.25rem 0.65rem;
+      border-radius: 50px;
+      letter-spacing: 0.02em;
+    }
+
+    .pill-blue { background: rgba(59, 130, 246, 0.1); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.15); }
+    .pill-purple { background: rgba(139, 92, 246, 0.1); color: #a855f7; border: 1px solid rgba(139, 92, 246, 0.15); }
+    .pill-cyan { background: rgba(6, 182, 212, 0.1); color: #06b6d4; border: 1px solid rgba(6, 182, 212, 0.15); }
+    .pill-pink { background: rgba(236, 72, 153, 0.1); color: #ec4899; border: 1px solid rgba(236, 72, 153, 0.15); }
+
+    .fase1-card-right {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .fase1-card-icon-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .fase1-icon-item {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface-2);
+      transition: all var(--transition);
+    }
+
+    .fase1-icon-item:nth-child(1) { background: rgba(59, 130, 246, 0.08); }
+    .fase1-icon-item:nth-child(2) { background: rgba(139, 92, 246, 0.08); }
+    .fase1-icon-item:nth-child(3) { background: rgba(236, 72, 153, 0.08); }
+
+    .fase1-icon-item svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .fase1-icon-item:nth-child(1) svg { color: #3b82f6; }
+    .fase1-icon-item:nth-child(2) svg { color: #a855f7; }
+    .fase1-icon-item:nth-child(3) svg { color: #ec4899; }
+
+    .fase1-card-action {
+      margin-top: 1.25rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media (max-width: 768px) {
+      .fase1-main-card { padding: 1.5rem 1.25rem; }
+      .fase1-card-content { flex-direction: column; gap: 1rem; }
+      .fase1-card-right { display: none; }
+      .fase1-card-title { font-size: 1.35rem; }
+    }
+  </style>
+
+  <!-- Herramientas Adicionales -->
   <h2 class="section-title">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-    Los 5 Pilares
+    Herramientas
   </h2>
 
   <div class="dash-grid">
-    <!-- Pilar 1: Curso de Trading -->
-    <div class="course-card card-blue" id="card-fase1">
-      <div class="card-header">
-        <div class="card-icon blue">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-        </div>
-        <span class="card-badge" id="badge-fase1">Pilar 1</span>
-      </div>
-      <h3 class="card-title">Trading &mdash; Fase 1</h3>
-      <p class="card-desc">2 sistemas de trading documentados, preparaci&oacute;n del gr&aacute;fico paso a paso, gesti&oacute;n de riesgo, glosario y consejos avanzados.</p>
-      <ul class="card-features">
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          2 sistemas de trading efectivos
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          Preparaci&oacute;n del gr&aacute;fico paso a paso
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          Glosario, consejos y errores a evitar
-        </li>
-      </ul>
-      <div id="action-fase1"><!-- Filled by JS --></div>
-    </div>
-
-    <!-- Pilar 2: Mentalidad & Psicotrading -->
-    <div class="course-card card-purple" id="card-mentalidad">
-      <div class="card-header">
-        <div class="card-icon purple">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-        </div>
-        <span class="card-badge" id="badge-mentalidad">Pilar 2</span>
-      </div>
-      <h3 class="card-title">Mentalidad &amp; Psicotrading</h3>
-      <p class="card-desc">C&oacute;mo funciona tu mente, programaci&oacute;n del subconsciente, paradigmas y aplicaci&oacute;n directa al trading.</p>
-      <ul class="card-features">
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          Los 3 niveles de la mente
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          Manifestaci&oacute;n, paradigmas y creencias
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          Psicotrading y rutina mental
-        </li>
-      </ul>
-      <div id="action-mentalidad"><!-- Filled by JS --></div>
-    </div>
-
-    <!-- Pilar 3: Disciplina & Hábitos -->
-    <div class="course-card card-blue" id="card-disciplina">
-      <div class="card-header">
-        <div class="card-icon blue">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        </div>
-        <span class="card-badge" id="badge-disciplina">Pilar 3</span>
-      </div>
-      <h3 class="card-title">Disciplina &amp; H&aacute;bitos</h3>
-      <p class="card-desc">Construy&iacute; sistemas que funcionan solos: por qu&eacute; la motivaci&oacute;n falla y c&oacute;mo los h&aacute;bitos la reemplazan con resultados consistentes.</p>
-      <ul class="card-features">
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          Motivaci&oacute;n vs. disciplina real
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          C&oacute;mo construir y romper h&aacute;bitos
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          Rutina diaria del trader disciplinado
-        </li>
-      </ul>
-      <div id="action-disciplina"><!-- Filled by JS --></div>
-    </div>
-
-    <!-- Pilar 4: Físico & Energía -->
-    <div class="course-card card-cyan" id="card-fisico">
-      <div class="card-header">
-        <div class="card-icon cyan">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        </div>
-        <span class="card-badge" id="badge-fisico">Pilar 4</span>
-      </div>
-      <h3 class="card-title">F&iacute;sico &amp; Energ&iacute;a</h3>
-      <p class="card-desc">Optimiz&aacute; tu cuerpo para operar con claridad m&aacute;xima. Sue&ntilde;o, alimentaci&oacute;n, movimiento y gesti&oacute;n de energ&iacute;a como ventaja competitiva.</p>
-      <ul class="card-features">
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          Sue&ntilde;o y recuperaci&oacute;n &oacute;ptima
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          Alimentaci&oacute;n y rendimiento cognitivo
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          Gesti&oacute;n de energ&iacute;a y entorno
-        </li>
-      </ul>
-      <div id="action-fisico"><!-- Filled by JS --></div>
-    </div>
-
-    <!-- Pilar 5: Emociones & Confianza -->
-    <div class="course-card card-purple" id="card-emociones">
-      <div class="card-header">
-        <div class="card-icon purple">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        </div>
-        <span class="card-badge" id="badge-emociones">Pilar 5</span>
-      </div>
-      <h3 class="card-title">Emociones &amp; Confianza</h3>
-      <p class="card-desc">Inteligencia emocional aplicada: gestion&aacute; el miedo, la euforia y construct&aacute; la confianza real que te permite operar con claridad bajo presi&oacute;n.</p>
-      <ul class="card-features">
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          Gestionar miedo y euforia
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          Journaling emocional del trader
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          Protocolo pre-operaci&oacute;n
-        </li>
-      </ul>
-      <div id="action-emociones"><!-- Filled by JS --></div>
-    </div>
-
     <!-- Comunidad -->
     <div class="course-card card-green" id="card-comunidad">
       <div class="card-header">
@@ -460,43 +520,13 @@
       </div>
     </a>
 
-    <a href="mentalidad.html" class="quick-link" id="ql-mentalidad">
+    <a href="fase-1.html" class="quick-link" id="ql-fase1">
       <div class="quick-link-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
       </div>
       <div>
-        <div class="quick-link-text">Mentalidad &amp; Psicotrading</div>
-        <div class="quick-link-sub">Pilar 2</div>
-      </div>
-    </a>
-
-    <a href="disciplina-habitos.html" class="quick-link">
-      <div class="quick-link-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-      </div>
-      <div>
-        <div class="quick-link-text">Disciplina &amp; H&aacute;bitos</div>
-        <div class="quick-link-sub">Pilar 3</div>
-      </div>
-    </a>
-
-    <a href="fisico-energia.html" class="quick-link">
-      <div class="quick-link-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      </div>
-      <div>
-        <div class="quick-link-text">F&iacute;sico &amp; Energ&iacute;a</div>
-        <div class="quick-link-sub">Pilar 4</div>
-      </div>
-    </a>
-
-    <a href="emociones-confianza.html" class="quick-link">
-      <div class="quick-link-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-      </div>
-      <div>
-        <div class="quick-link-text">Emociones &amp; Confianza</div>
-        <div class="quick-link-sub">Pilar 5</div>
+        <div class="quick-link-text">Fase 1 &mdash; Cambi&aacute; tu Ser</div>
+        <div class="quick-link-sub">5 pilares &middot; Todos los m&oacute;dulos</div>
       </div>
     </a>
 
@@ -675,16 +705,8 @@
       window._sitePrices = siteConfig.prices;
     }
 
-    // --- Fase 1 card ---
+    // --- Fase 1 main card ---
     renderFase1Card(userData);
-
-    // --- Mentalidad card ---
-    renderMentalidadCard(userData);
-
-    // --- Pilares 3-5 cards ---
-    renderPilarCard(userData, 'card-disciplina', 'badge-disciplina', 'action-disciplina', 'disciplina-habitos.html');
-    renderPilarCard(userData, 'card-fisico', 'badge-fisico', 'action-fisico', 'fisico-energia.html');
-    renderPilarCard(userData, 'card-emociones', 'badge-emociones', 'action-emociones', 'emociones-confianza.html');
 
     // --- Bot card ---
     renderBotCard(userData);
@@ -740,7 +762,6 @@
   }
 
   function renderFase1Card(userData) {
-    const card = document.getElementById("card-fase1");
     const badge = document.getElementById("badge-fase1");
     const action = document.getElementById("action-fase1");
     const hasAccess = Auth.hasAccess('fase-1');
@@ -748,74 +769,25 @@
     if (hasAccess) {
       badge.textContent = 'Activo';
       badge.className = 'card-badge badge-active';
-      action.innerHTML = '<a href="acceso-comunidad.html" class="card-action action-primary">' +
-        'Acceder al curso' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
+      action.innerHTML = '<a href="fase-1.html" class="card-action action-primary" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.7rem 1.5rem;font-size:0.88rem;font-weight:700;background:var(--gradient-primary);color:#fff;border-radius:var(--radius-sm);box-shadow:0 2px 12px var(--color-primary-glow);transition:all var(--transition);text-decoration:none;">' +
+        'Acceder a la Fase 1' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
         '</a>';
     } else {
-      card.classList.add('card-locked');
       badge.textContent = 'Bloqueado';
       badge.className = 'card-badge badge-locked';
       var sp = window._sitePrices || {};
       var f1ars = Math.round(sp.fase1_ars || 47000);
       var f1usd = parseFloat(sp.fase1_usd || 37);
       var priceLabel = '$' + f1ars.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' ARS / USD ' + f1usd.toFixed(0);
-      action.innerHTML = '<a href="finalizar-compra.html?plan=fase1" class="card-action action-locked">' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>' +
+      action.innerHTML = '<a href="finalizar-compra.html?plan=fase1" class="card-action action-locked" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.7rem 1.5rem;font-size:0.84rem;font-weight:600;background:var(--color-surface-2);color:var(--color-text-dim);border:1px solid var(--color-border);border-radius:var(--radius-sm);transition:all var(--transition);text-decoration:none;">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>' +
         'Adquirir Fase 1 \u2014 ' + priceLabel +
         '</a>';
     }
 
     if (!userData.fase) {
       document.getElementById("welcome-subtitle").textContent = 'Adquir\u00ed un curso para comenzar tu camino en trading';
-    }
-  }
-
-  function renderMentalidadCard(userData) {
-    const card = document.getElementById("card-mentalidad");
-    const badge = document.getElementById("badge-mentalidad");
-    const action = document.getElementById("action-mentalidad");
-    const hasAccess = Auth.hasAccess('fase-1');
-
-    if (hasAccess) {
-      badge.textContent = 'Activo';
-      badge.className = 'card-badge badge-active';
-      action.innerHTML = '<a href="mentalidad.html" class="card-action action-primary">' +
-        'Acceder al m\u00f3dulo' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
-        '</a>';
-    } else {
-      card.classList.add('card-locked');
-      badge.textContent = 'Bloqueado';
-      badge.className = 'card-badge badge-locked';
-      action.innerHTML = '<a href="finalizar-compra.html?plan=fase1" class="card-action action-locked">' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>' +
-        'Adquirir Fase 1 para acceder' +
-        '</a>';
-    }
-  }
-
-  function renderPilarCard(userData, cardId, badgeId, actionId, href) {
-    const card = document.getElementById(cardId);
-    const badge = document.getElementById(badgeId);
-    const action = document.getElementById(actionId);
-    const hasAccess = Auth.hasAccess('fase-1');
-
-    if (hasAccess) {
-      badge.textContent = 'Activo';
-      badge.className = 'card-badge badge-active';
-      action.innerHTML = '<a href="' + href + '" class="card-action action-primary">' +
-        'Acceder al m\u00f3dulo' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
-        '</a>';
-    } else {
-      card.classList.add('card-locked');
-      badge.textContent = 'Bloqueado';
-      badge.className = 'card-badge badge-locked';
-      action.innerHTML = '<a href="finalizar-compra.html?plan=fase1" class="card-action action-locked">' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>' +
-        'Adquirir Fase 1 para acceder' +
-        '</a>';
     }
   }
 

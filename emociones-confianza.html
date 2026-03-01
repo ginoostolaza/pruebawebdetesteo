@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Emociones &amp; Confianza | Orbita Capital</title>
+  <script>
+    (function () {
+      const acceso = localStorage.getItem("accesoAutorizado");
+      if (!acceso || acceso !== "true") {
+        window.location.replace("iniciar-sesion.html");
+      }
+    })();
+  </script>
+
+  <link rel="icon" href="assets/img/branding/orbita-logo-symbol.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/community.css">
+  <meta name="theme-color" content="#0a0e17">
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="course-topbar">
+  <div class="topbar-left">
+    <button class="menu-toggle" aria-label="Abrir men&uacute;">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+    <img class="topbar-logo" src="assets/img/branding/orbita-logo-symbol.png" alt="Logo" width="32" height="32">
+    <span class="topbar-title">Orbita Capital</span>
+    <span class="topbar-divider"></span>
+    <span class="topbar-course-name">Emociones &amp; Confianza</span>
+  </div>
+  <div class="topbar-right">
+    <a href="dashboard.html" class="topbar-btn topbar-btn-outline">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </a>
+  </div>
+</header>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-label">Emociones &amp; Confianza</div>
+    <div class="sidebar-progress">
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <span class="progress-text">Pilar 5</span>
+    </div>
+  </div>
+
+  <ul class="nav-links">
+    <div class="nav-section-label">Inicio</div>
+    <li>
+      <a href="#bienvenida">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        Bienvenida
+      </a>
+    </li>
+
+    <div class="nav-divider"></div>
+    <div class="nav-section-label">Emociones</div>
+    <li>
+      <a href="#inteligencia-emocional">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Inteligencia Emocional
+      </a>
+    </li>
+    <li>
+      <a href="#miedo">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Gestionar el Miedo
+      </a>
+    </li>
+    <li>
+      <a href="#euforia">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        Gestionar la Euforia
+      </a>
+    </li>
+    <li>
+      <a href="#journaling">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        Journaling Emocional
+      </a>
+    </li>
+
+    <div class="nav-divider"></div>
+    <div class="nav-section-label">Confianza</div>
+    <li>
+      <a href="#confianza">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Construir Confianza Real
+      </a>
+    </li>
+    <li>
+      <a href="#protocolo">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Tu Protocolo Emocional
+      </a>
+    </li>
+
+    <div class="nav-divider"></div>
+    <li>
+      <a href="dashboard.html" class="btn-regresar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Volver al Dashboard
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main>
+
+<!-- ========== BIENVENIDA ========== -->
+<section class="bienvenida" id="bienvenida">
+  <header>
+    <h1 class="bienvenida__titulo">Emociones &amp; Confianza</h1>
+    <p class="bienvenida__subtitulo">
+      Las emociones no son el enemigo del trader. La incapacidad de gestionarlas s&iacute; lo es. Aprend&eacute; a conocerlas, trabajar con ellas y construir una confianza s&oacute;lida.
+    </p>
+  </header>
+
+  <hr class="bienvenida__divider">
+
+  <article class="bienvenida__contenido">
+    <p>
+      En trading, los peores errores no vienen de no saber qu&eacute; hacer. Vienen de saber qu&eacute; hacer y no poder hacerlo porque una emoci&oacute;n &mdash;miedo, euforia, frustraci&oacute;n, impaciencia&mdash; tom&oacute; el control.
+    </p>
+    <p>
+      Este m&oacute;dulo no es sobre <em>eliminar</em> tus emociones. Eso es imposible, y quien te diga lo contrario te est&aacute; mintiendo. Es sobre <strong>desarrollar la capacidad de observarlas, entenderlas y no dejar que dicten tus acciones</strong>.
+    </p>
+    <p>
+      Tambi&eacute;n vas a aprender c&oacute;mo construir confianza real &mdash;no la confianza falsa que viene de una racha ganadora, sino la que se construye con proceso, consistencia y autoconocimiento.
+    </p>
+  </article>
+
+  <hr class="bienvenida__divider">
+
+  <div class="bienvenida__motivacion">
+    <p><strong>Recorda esto:</strong> La emoci&oacute;n es informaci&oacute;n, no instrucci&oacute;n. Sent&iacute;la, regist&aacute;la, pero no la obedezcas.</p>
+  </div>
+</section>
+
+<!-- ========== INTELIGENCIA EMOCIONAL ========== -->
+<section id="inteligencia-emocional">
+  <header>
+    <h1>Inteligencia Emocional Aplicada al Trading</h1>
+    <p>
+      La inteligencia emocional es la capacidad de reconocer, entender y gestionar tus propias emociones y las de los dem&aacute;s. En trading, es una ventaja competitiva directa.
+    </p>
+  </header>
+
+  <hr>
+
+  <article>
+    <h2>&iquest;Qu&eacute; significa en la pr&aacute;ctica?</h2>
+    <p>Un trader con alta inteligencia emocional puede:</p>
+    <ul>
+      <li><strong>Detectar el momento exacto en que una emoci&oacute;n est&aacute; influyendo en su decisi&oacute;n</strong> &mdash; antes de ejecutarla.</li>
+      <li><strong>Nombrar la emoci&oacute;n con precisi&oacute;n:</strong> no "me siento mal" sino "siento miedo a perder lo ganado" o "siento urgencia por recuperar".</li>
+      <li><strong>Separar la emoci&oacute;n de la acci&oacute;n:</strong> sentir algo no obliga a actuar en consecuencia.</li>
+      <li><strong>Usar la emoci&oacute;n como informaci&oacute;n:</strong> si sents una ansiedad inusual, es una se&ntilde;al de que algo en la operaci&oacute;n no est&aacute; alineado con tu plan.</li>
+    </ul>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Los cuatro pilares de la inteligencia emocional en trading</h2>
+    <ol>
+      <li><strong>Autoconciencia:</strong> &iquest;qu&eacute; est&aacute;s sintiendo ahora mismo, en este momento, mientras mir&aacute;s el gr&aacute;fico?</li>
+      <li><strong>Autorregulaci&oacute;n:</strong> &iquest;pods pausar antes de actuar y elegir tu respuesta en lugar de reaccionar?</li>
+      <li><strong>Motivaci&oacute;n interna:</strong> &iquest;tu raz&oacute;n para operar viene de dentro (crecer, aprender) o de afuera (dinero r&aacute;pido, demostrarte algo)?</li>
+      <li><strong>Autoempat&iacute;a:</strong> &iquest;pod&eacute;s tratarte con compasi&oacute;n despu&eacute;s de un error, en lugar de castigarte?</li>
+    </ol>
+
+    <div class="tip-box">
+      <p>La inteligencia emocional no se desarrolla de un d&iacute;a para el otro. Se construye con pr&aacute;ctica deliberada: parar, observar y registrar tus estados emocionales antes, durante y despu&eacute;s de operar.</p>
+    </div>
+  </article>
+</section>
+
+<!-- ========== MIEDO ========== -->
+<section id="miedo">
+  <header>
+    <h1>Gestionar el Miedo</h1>
+    <p>
+      El miedo en trading es universal. Ning&uacute;n trader profesional lo elimin&oacute;: aprendi&oacute; a no obedecerlo.
+    </p>
+  </header>
+
+  <hr>
+
+  <article>
+    <h2>Los tipos de miedo en trading</h2>
+    <div class="no-operar-container">
+      <div class="no-operar-card">
+        <h3>Miedo a perder</h3>
+        <p>Te paraliza y te impide entrar en setups v&aacute;lidos. Result ado: miss&aacute;s operaciones rentables o las cerrás antes de tiempo.</p>
+      </div>
+      <div class="no-operar-card">
+        <h3>Miedo a perder lo ganado</h3>
+        <p>Cerrás operaciones ganadoras demasiado pronto por ansiedad. Resultado: ganancias sistemáticamente por debajo del potencial del setup.</p>
+      </div>
+      <div class="no-operar-card">
+        <h3>Miedo a errar</h3>
+        <p>Paralisa la acci&oacute;n. La perfección se convierte en procrastinaci&oacute;n. Resultado: no operas cuando deber&iacute;as.</p>
+      </div>
+    </div>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>La ra&iacute;z del miedo en trading</h2>
+    <p>
+      El miedo en trading casi siempre tiene una de estas dos ra&iacute;ces:
+    </p>
+    <ol>
+      <li><strong>No confiás en tu sistema:</strong> si no est&aacute;s convencido de que tu estrategia tiene una ventaja estad&iacute;stica, cada operaci&oacute;n parece un juego de azar. La soluci&oacute;n es back-testing y pr&aacute;ctica en demo hasta tener evidencia real de que el sistema funciona.</li>
+      <li><strong>Est&aacute;s arriesgando m&aacute;s de lo que pods perder c&oacute;modamente:</strong> si el dinero en juego en cada operaci&oacute;n te genera ansiedad, es demasiado. Baj&aacute; el tama&ntilde;o de posici&oacute;n hasta que el miedo desaparezca. El trading con miedo al capital es trading con el cerebro apagado.</li>
+    </ol>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>C&oacute;mo trabajar el miedo</h2>
+    <ol>
+      <li><strong>Exponete gradualmente:</strong> empieza con posiciones peque&ntilde;as en real. El objetivo no es ganar mucho: es acostumbrar al cerebro a operar bajo condiciones reales sin que el miedo tome el control.</li>
+      <li><strong>Confiá en el proceso, no en el resultado:</strong> redefiní el &eacute;xito. &Eacute;xito no es "gan&eacute; esta operaci&oacute;n". &Eacute;xito es "segu&iacute; mi plan esta operaci&oacute;n".</li>
+      <li><strong>Revisá el historial:</strong> cuando sents miedo, revis&aacute; tu diario de operaciones pasadas. Ver evidencia de que el sistema funciona calma el miedo irracional.</li>
+    </ol>
+
+    <div class="key-concept">
+      <h3>Resignificar la p&eacute;rdida</h3>
+      <p>Una p&eacute;rdida dentro de tu gesti&oacute;n de riesgo no es un fracaso: es el costo de hacer negocios. Los mejores traders del mundo tienen rachas perdedoras. Lo que los diferencia es c&oacute;mo las gestionan, no que las evitan.</p>
+    </div>
+  </article>
+</section>
+
+<!-- ========== EUFORIA ========== -->
+<section id="euforia">
+  <header>
+    <h1>Gestionar la Euforia</h1>
+    <p>
+      La euforia es tan peligrosa como el miedo. Un trader que no la controla puede perder en horas lo que tarda semanas en construir.
+    </p>
+  </header>
+
+  <hr>
+
+  <article>
+    <h2>&iquest;Por qu&eacute; es tan peligrosa?</h2>
+    <p>
+      Despu&eacute;s de una racha ganadora o de una operaci&oacute;n muy exitosa, el cerebro libera dopamina. Esa dopamina genera:
+    </p>
+    <ul>
+      <li>Sensaci&oacute;n de invulnerabilidad ("esto es f&aacute;cil", "lo tengo dominado").</li>
+      <li>Subestimaci&oacute;n del riesgo.</li>
+      <li>Aumento del tama&ntilde;o de posiciones sin fundamento.</li>
+      <li>Sobreoperar: buscar ese mismo "subid&oacute;n" otra vez.</li>
+    </ul>
+    <p>
+      Esto es exactamente lo que lleva a los traders a explotar cuentas despu&eacute;s de sus mejores rachas. El cerebro entra en modo casino.
+    </p>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Se&ntilde;ales de que est&aacute;s en euforia</h2>
+    <ul>
+      <li>Ests pensando en operaciones que "no pod&eacute;s perder".</li>
+      <li>Empez&aacute;s a aumentar el tama&ntilde;o de tus posiciones sin raci&oacute;n.</li>
+      <li>Ignor&aacute;s las reglas de tu plan porque "hoy est&aacute;s en racha".</li>
+      <li>Sents una urgencia de seguir operando incluso cuando ya cumpliste el objetivo del d&iacute;a.</li>
+    </ul>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>El protocolo anti-euforia</h2>
+    <ol>
+      <li><strong>Defin&iacute; un objetivo de ganancia diaria.</strong> Cuando lo alcanc&eacute;s, cerr&aacute; la plataforma. Sin excepciones.</li>
+      <li><strong>Celebr&aacute; la ganancia fuera de la plataforma.</strong> Sal a caminar, tomr&aacute; algo. Que el cuerpo salga del estado de activaci&oacute;n.</li>
+      <li><strong>No aument&eacute;s posiciones en racha sin un plan previo.</strong> Si vas a escalar, que sea una decisi&oacute;n tomada en fr&iacute;o, no en caliente.</li>
+      <li><strong>Registr&aacute; c&oacute;mo te sents en tu diario</strong> despu&eacute;s de un buen d&iacute;a. La escritura te baja del estado de activaci&oacute;n y te da perspectiva.</li>
+    </ol>
+
+    <div class="warning-box">
+      <p>La euforia es silenciosa. No te avisa. Por eso necesit&aacute;s reglas <em>predefinidas</em> que oper&eacute;n aunque est&eacute;s en ese estado. Una vez en euforia, tu juicio ya est&aacute; comprometido.</p>
+    </div>
+  </article>
+</section>
+
+<!-- ========== JOURNALING EMOCIONAL ========== -->
+<section id="journaling">
+  <header>
+    <h1>Journaling Emocional: La Herramienta de los Pros</h1>
+    <p>
+      Los traders consistentes no recuerdan sus emociones: las registran. El diario emocional es la herramienta que convierte la experiencia en aprendizaje real.
+    </p>
+  </header>
+
+  <hr>
+
+  <article>
+    <h2>&iquest;Por qu&eacute; funciona?</h2>
+    <p>
+      Escribir sobre una emoci&oacute;n activa el cortex prefrontal (cerebro racional) y reduce la actividad de la am&iacute;gdala (cerebro emocional). Literalmente, escribir te calma y te da perspectiva. Adem&aacute;s:
+    </p>
+    <ul>
+      <li>Te permite ver patrones que de otra manera no ver&iacute;as: "siempre sobreopero los lunes" o "pierdo cuando opero despu&eacute;s de una discusi&oacute;n".</li>
+      <li>Te convierte en observador de tus propias decisiones, no solo ejecutor.</li>
+      <li>Crea una base de datos personal de tu comportamiento como trader, m&aacute;s &uacute;til que cualquier indicador externo.</li>
+    </ul>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Qu&eacute; registrar</h2>
+    <p>El diario de trading no necesita ser largo. Un formato minimalista que funciona:</p>
+
+    <blockquote>
+      <strong>Fecha:</strong> ___<br>
+      <strong>Estado emocional al empezar:</strong> (1-10, siendo 10 ideal) ___<br>
+      <strong>Operaciones del d&iacute;a:</strong> (resultado y si segu&iacute;s el plan) ___<br>
+      <strong>Emoci&oacute;n dominante durante la sesi&oacute;n:</strong> ___<br>
+      <strong>Qu&eacute; hice bien:</strong> ___<br>
+      <strong>Qu&eacute; puedo mejorar:</strong> ___<br>
+      <strong>Lección del d&iacute;a:</strong> ___
+    </blockquote>
+
+    <p>
+      Cinco minutos al final de cada sesi&oacute;n. Eso es todo. Pero hacerlo todos los d&iacute;as acumula un conocimiento sobre vos mismo que no tiene precio.
+    </p>
+
+    <div class="tip-box">
+      <p>Revis&aacute; tu diario cada dos semanas buscando patrones. &iquest;En qu&eacute; d&iacute;as o situaciones siempre falls? &iquest;Cu&aacute;ndo perform&aacute;s mejor? Esos patrones son oro para optimizar tu sistema y tus condiciones de trading.</p>
+    </div>
+  </article>
+</section>
+
+<!-- ========== CONFIANZA ========== -->
+<section id="confianza">
+  <header>
+    <h1>Construir Confianza Real</h1>
+    <p>
+      La confianza real no viene de los resultados. Viene del proceso. Un trader que confía en su sistema puede soportar rachas perdedoras sin derrumbarse porque sabe que la ventaja est&aacute; del otro lado.
+    </p>
+  </header>
+
+  <hr>
+
+  <article>
+    <h2>Confianza falsa vs. confianza real</h2>
+    <div class="no-operar-container">
+      <div class="no-operar-card">
+        <h3>Confianza falsa</h3>
+        <p>Basada en resultados recientes. Alta cuando ganás, nula cuando perdés. Inestable, impredecible y peligrosa cuando te hace sobreoperar.</p>
+      </div>
+      <div class="no-operar-card">
+        <h3>Confianza real</h3>
+        <p>Basada en el proceso, en la evidencia de que tu sistema funciona y en el conocimiento propio. Estable, independiente de rachas y construida con tiempo.</p>
+      </div>
+    </div>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>C&oacute;mo se construye la confianza real</h2>
+    <ol>
+      <li><strong>Evidencia de sistema:</strong> back-test tu estrategia. Vela funcionar en datos hist&oacute;ricos y en demo. La confianza necesita evidencia, no esperanza.</li>
+      <li><strong>Victoria sobre el proceso:</strong> redefiní el &eacute;xito como "segu&iacute; mi plan" en lugar de "gan&eacute;". Cada vez que cumpl&iacute;s, la confianza crece.</li>
+      <li><strong>Registro de las victorias peque&ntilde;as:</strong> anot&aacute; en tu diario cada vez que gestionaste bien una emoci&oacute;n, que resististe la tentaci&oacute;n de sobreoperar, que respetaste tu stop. Esas son victorias reales.</li>
+      <li><strong>Aceptaci&oacute;n de la incertidumbre:</strong> la confianza real incluye saber que el resultado de cada operaci&oacute;n individual es incierto. La ventaja est&aacute; en el largo plazo. Confiar en eso, con evidencia, es la madureza del trader.</li>
+    </ol>
+
+    <div class="key-concept">
+      <h3>La paradoja de la confianza</h3>
+      <p>Los traders que m&aacute;s confianza demuestran externamente suelen ser los que m&aacute;s la fingen. La confianza real es silenciosa: no necesita demostrarse. Se ve en c&oacute;mo operan cuando nadie mira, cuando pierden, cuando la racha es mala.</p>
+    </div>
+  </article>
+</section>
+
+<!-- ========== PROTOCOLO EMOCIONAL ========== -->
+<section id="protocolo">
+  <header>
+    <h1>Tu Protocolo Emocional Pre-Operaci&oacute;n</h1>
+    <p>
+      Un protocolo es una secuencia de pasos que ejecut&aacute;s antes de cada sesi&oacute;n, independientemente de c&oacute;mo te sents. Pone tu cerebro en modo trader antes de tocar la plataforma.
+    </p>
+  </header>
+
+  <hr>
+
+  <article>
+    <h2>El protocolo de los 3 pasos</h2>
+
+    <h3>Paso 1: Check-in emocional (2 minutos)</h3>
+    <p>
+      Antes de abrir la plataforma, pregunt&aacute;te:
+    </p>
+    <ul>
+      <li>&iquest;C&oacute;mo me siento ahora mismo? (Escal&aacute; del 1 al 10)</li>
+      <li>&iquest;Hay algo que me est&eacute; afectando emocionalmente hoy?</li>
+      <li>&iquest;Dorm&iacute; bien? &iquest;Est&aacute;s descansado?</li>
+    </ul>
+    <p>
+      Si tu estado es menor a 6/10, definí si operás con posiciones reducidas o no operás ese d&iacute;a. Esta decisi&oacute;n la tomás ANTES de abrir el gr&aacute;fico, no despu&eacute;s de ver el mercado.
+    </p>
+
+    <hr>
+
+    <h3>Paso 2: Revisi&oacute;n de reglas (1 minuto)</h3>
+    <p>
+      Revis&aacute; r&aacute;pidamente tus reglas de trading. No para analizarlas: para recordarle a tu mente consciente qu&eacute; es negociable y qu&eacute; no. Esto activa el "yo planeado" antes del "yo emocional".
+    </p>
+
+    <hr>
+
+    <h3>Paso 3: Definir l&iacute;mites del d&iacute;a (1 minuto)</h3>
+    <p>
+      Antes de empezar:
+    </p>
+    <ul>
+      <li>&iquest;Cu&aacute;l es mi m&aacute;xima p&eacute;rdida aceptable hoy?</li>
+      <li>&iquest;Cu&aacute;ntas operaciones como m&aacute;ximo voy a hacer?</li>
+      <li>&iquest;A qu&eacute; hora cierro la sesi&oacute;n?</li>
+    </ul>
+
+    <div class="danger-box">
+      <p>Estos l&iacute;mites no son sugerencias. Son reglas inviolables. Si los alcanzas, cerr&aacute;s la plataforma. Sin excepciones. Sin negociaci&oacute;n con vos mismo. Ese nivel de disciplina es lo que separa a los traders que duran de los que explotan.</p>
+    </div>
+  </article>
+
+  <hr>
+
+  <article>
+    <h2>Frase clave para llevar siempre</h2>
+    <blockquote>
+      <em>&ldquo;Las emociones son informaci&oacute;n, no instrucciones. Puedo sentir miedo y elegir no huir. Puedo sentir euforia y elegir no atacar. Soy yo quien decide, no mis emociones.&rdquo;</em>
+    </blockquote>
+
+    <p>
+      Ese es el nivel de madurez emocional al que apuntamos. No perfecto, no sin emociones. Sino con la capacidad de elegir la respuesta correcta aunque la emoci&oacute;n diga otra cosa.
+    </p>
+  </article>
+</section>
+
+</main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+
+    if (!menuToggle || !sidebar) return;
+
+    menuToggle.addEventListener('click', e => {
+      e.stopPropagation();
+      sidebar.classList.toggle('active');
+    });
+
+    document.addEventListener('click', e => {
+      if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+        sidebar.classList.remove('active');
+      }
+    });
+
+    sidebar.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => sidebar.classList.remove('active'));
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') sidebar.classList.remove('active');
+    });
+
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => link.classList.remove('active'));
+          const activeLink = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+          if (activeLink) activeLink.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-20% 0px -75% 0px' });
+
+    sections.forEach(section => observer.observe(section));
+  });
+</script>
+
+<!-- Supabase Auth -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/auth.js"></script>
+<script>
+  Auth.init();
+  (async () => { await Auth.courseGuard('fase-1'); })();
+</script>
+</body>
+</html>

@@ -432,7 +432,37 @@
       .proof-grid { grid-template-columns: 1fr; max-width: 360px; }
     }
 
-    /* Waitlist Modal */
+    /* --- Pricing grid: 2 cards centradas (Fase 2 comentada) ---
+       Cuando actives Fase 2: borrar este bloque y el grid vuelve a 3 columnas */
+    .pricing-grid {
+      grid-template-columns: repeat(2, minmax(0, 420px));
+      justify-content: center;
+    }
+    @media (max-width: 900px) {
+      .pricing-grid { grid-template-columns: minmax(0, 420px); }
+    }
+
+    /* --- Mejoras conversión card Fase 1 --- */
+    .pricing-value-anchor {
+      font-size: 0.78rem;
+      color: var(--color-text-dim);
+      text-align: center;
+      margin-top: 0.5rem;
+      font-style: italic;
+    }
+    .pricing-social-proof {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 0.76rem;
+      color: #22c55e;
+      margin-bottom: 0.75rem;
+      background: rgba(34, 197, 94, 0.08);
+      border-radius: 8px;
+      padding: 0.4rem 0.75rem;
+    }
+    .pricing-social-proof svg { flex-shrink: 0; }
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,0.75);
       display: flex; align-items: center; justify-content: center;
@@ -537,7 +567,7 @@
           Quiero empezar ahora
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
-        <a href="#resultados" class="btn btn-outline">Ver resultados reales</a>
+        <a href="#testimonios" class="btn btn-outline">Ver testimonios reales</a>
       </div>
       <div class="hero-scroll-indicator">
         <div class="scroll-mouse">
@@ -871,6 +901,10 @@
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               Oferta termina en: <strong id="countdown-timer">cargando...</strong>
             </div>
+            <div class="pricing-social-proof">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              10+ personas ya aprendiendo
+            </div>
             <ul class="pricing-features">
               <li>
                 <svg class="check-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
@@ -898,12 +932,13 @@
               </li>
             </ul>
             <a class="btn btn-primary btn-glow pricing-cta" href="finalizar-compra.html" role="button" aria-label="Comenzar Fase 1">
-              Empezar ahora
+              Quiero empezar ahora
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
+            <p class="pricing-value-anchor" id="fase1-anchor">Menos de lo que cuesta una salida</p>
             <p class="pricing-guarantee">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              Acceso inmediato &bull; Pago seguro &bull; Sin cuotas
+              Acceso inmediato &bull; Pago en minutos &bull; Sin cuotas
             </p>
           </div>
         </article>
@@ -1301,14 +1336,17 @@
       var oldEl     = document.getElementById('fase1-old-price');
       var stickyVal = document.getElementById('sticky-price-val');
 
+      var anchorEl = document.getElementById('fase1-anchor');
       if (isArgentina) {
         if (priceEl)   priceEl.textContent   = fmtArs(fase1Ars);
         if (oldEl)     oldEl.textContent     = fmtArs(fase1OldArs);
         if (stickyVal) stickyVal.textContent = fmtArs(fase1Ars);
+        if (anchorEl)  anchorEl.textContent  = 'Menos de lo que cuesta una salida';
       } else {
         if (priceEl)   priceEl.textContent   = fmtUsd(fase1Usd);
         if (oldEl)     oldEl.textContent     = fmtUsd(fase1OldUsd);
         if (stickyVal) stickyVal.textContent = fmtUsd(fase1Usd);
+        if (anchorEl)  anchorEl.textContent  = 'Less than a Netflix subscription';
       }
     })();
 

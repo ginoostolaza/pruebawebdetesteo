@@ -238,11 +238,17 @@
         <div class="panel-header">
           <h2>Registro de Pagos</h2>
           <div class="panel-actions">
+            <input type="text" id="payment-search" class="admin-search" placeholder="Buscar por nombre o email&hellip;">
             <select id="payment-filter" class="admin-select">
-              <option value="all">Todos</option>
+              <option value="all">Todos los estados</option>
               <option value="completado">Completados</option>
               <option value="pendiente">Pendientes</option>
-              <option value="fallido">Fallidos</option>
+              <option value="rechazado">Rechazados</option>
+            </select>
+            <select id="payment-product-filter" class="admin-select">
+              <option value="all">Todos los productos</option>
+              <option value="fase1">Fase 1</option>
+              <option value="bot">Bot</option>
             </select>
             <button class="btn-primary" id="btn-add-payment">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -256,15 +262,16 @@
             <thead>
               <tr>
                 <th>Usuario</th>
+                <th>Producto</th>
                 <th>Monto</th>
-                <th>Método</th>
-                <th>Concepto</th>
+                <th>M&eacute;todo</th>
+                <th>Referencia</th>
                 <th>Estado</th>
                 <th>Fecha</th>
               </tr>
             </thead>
             <tbody id="payments-table-body">
-              <tr><td colspan="6" class="table-loading">Cargando pagos…</td></tr>
+              <tr><td colspan="7" class="table-loading">Cargando pagos&hellip;</td></tr>
             </tbody>
           </table>
         </div>
@@ -554,6 +561,15 @@
         <label>Usuario</label>
         <select id="payment-user" required></select>
       </div>
+      <div class="modal-field">
+        <label>Producto</label>
+        <select id="payment-producto" required>
+          <option value="">Seleccionar producto...</option>
+          <option value="fase1">Fase 1 — Curso de Trading</option>
+          <option value="bot">Bot de Trading — Suscripci&oacute;n</option>
+          <option value="otro">Otro</option>
+        </select>
+      </div>
       <div class="modal-row">
         <div class="modal-field">
           <label>Monto</label>
@@ -567,20 +583,33 @@
           </select>
         </div>
       </div>
-      <div class="modal-field">
-        <label>Método de pago</label>
-        <select id="payment-method">
-          <option value="MercadoPago">MercadoPago</option>
-          <option value="Transferencia">Transferencia</option>
-          <option value="PayPal">PayPal</option>
-          <option value="Skrill">Skrill</option>
-          <option value="Cripto">Criptomonedas</option>
-          <option value="Efectivo">Efectivo</option>
-        </select>
+      <div class="modal-row">
+        <div class="modal-field">
+          <label>M&eacute;todo de pago</label>
+          <select id="payment-method">
+            <option value="MercadoPago">MercadoPago</option>
+            <option value="Stripe">Stripe</option>
+            <option value="Transferencia">Transferencia bancaria</option>
+            <option value="PayPal">PayPal</option>
+            <option value="Cripto">Criptomonedas</option>
+            <option value="Efectivo">Efectivo</option>
+          </select>
+        </div>
+        <div class="modal-field">
+          <label>Estado</label>
+          <select id="payment-estado">
+            <option value="completado">Completado</option>
+            <option value="pendiente">Pendiente</option>
+          </select>
+        </div>
       </div>
       <div class="modal-field">
-        <label>Concepto</label>
-        <input type="text" id="payment-concept" placeholder="Ej: Fase 1 - Pago único">
+        <label>Referencia externa <span style="color:var(--text-muted);font-weight:400">(opcional)</span></label>
+        <input type="text" id="payment-reference" placeholder="ID de Stripe, MercadoPago, comprobante, etc.">
+      </div>
+      <div class="modal-field">
+        <label>Concepto <span style="color:var(--text-muted);font-weight:400">(opcional)</span></label>
+        <input type="text" id="payment-concept" placeholder="Se autocompleta seg&uacute;n el producto">
       </div>
       <div class="modal-actions">
         <button type="button" class="btn-cancel" onclick="closeModal('modal-add-payment')">Cancelar</button>
@@ -834,18 +863,25 @@
   function renderPayments(payments) {
     const tbody = document.getElementById("payments-table-body");
     if (!payments.length) {
-      tbody.innerHTML = '<tr><td colspan="6" class="table-empty">No hay pagos registrados</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7" class="table-empty">No hay pagos registrados</td></tr>';
       return;
     }
+    var productoLabels = { 'fase1': 'Fase 1', 'bot': 'Bot Trading' };
     tbody.innerHTML = payments.map(p => {
       const nombre = p.profiles?.nombre || 'Desconocido';
+      const email = p.profiles?.email || '';
       const statusClass = p.estado === 'completado' ? 'status-active' : p.estado === 'pendiente' ? 'status-pending' : 'status-suspended';
-      const fecha = p.fecha ? new Date(p.fecha).toLocaleDateString('es-AR') : '-';
+      const fecha = p.fecha ? new Date(p.fecha).toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-';
+      const productoText = productoLabels[p.producto] || p.producto || '-';
+      const productoClass = p.producto === 'fase1' ? 'badge-producto-fase1' : p.producto === 'bot' ? 'badge-producto-bot' : '';
+      const referencia = p.provider_payment_id || '-';
+      const refDisplay = referencia.length > 16 ? referencia.substring(0, 16) + '…' : referencia;
       return '<tr>' +
-        '<td>' + escapeHtml(nombre) + '</td>' +
-        '<td class="td-amount">$' + parseFloat(p.monto).toFixed(2) + ' ' + escapeHtml(p.moneda || 'USD') + '</td>' +
+        '<td><div class="user-cell-compact"><span class="payment-user-name">' + escapeHtml(nombre) + '</span>' + (email ? '<span class="payment-user-email">' + escapeHtml(email) + '</span>' : '') + '</div></td>' +
+        '<td><span class="badge ' + productoClass + '">' + escapeHtml(productoText) + '</span></td>' +
+        '<td class="td-amount">$' + parseFloat(p.monto).toFixed(2) + ' <span class="currency-label">' + escapeHtml(p.moneda || 'USD') + '</span></td>' +
         '<td>' + escapeHtml(p.metodo || '-') + '</td>' +
-        '<td>' + escapeHtml(p.concepto || '-') + '</td>' +
+        '<td class="td-ref" title="' + escapeHtml(referencia) + '">' + escapeHtml(refDisplay) + '</td>' +
         '<td><span class="badge ' + statusClass + '">' + escapeHtml(p.estado || 'completado') + '</span></td>' +
         '<td class="td-date">' + escapeHtml(fecha) + '</td>' +
       '</tr>';
@@ -939,25 +975,50 @@
     });
 
     document.getElementById("payment-filter").addEventListener("change", filterPayments);
+    document.getElementById("payment-product-filter").addEventListener("change", filterPayments);
+    document.getElementById("payment-search").addEventListener("input", filterPayments);
 
     document.getElementById("form-add-payment").addEventListener("submit", async (e) => {
       e.preventDefault();
+      var producto = document.getElementById("payment-producto").value;
+      var concepto = document.getElementById("payment-concept").value;
+      if (!concepto) {
+        var conceptoMap = { 'fase1': 'Fase 1 — Curso de Trading', 'bot': 'Bot de Trading — Suscripción' };
+        concepto = conceptoMap[producto] || '';
+      }
+      var metodo = document.getElementById("payment-method").value;
+      var providerMap = { 'MercadoPago': 'mercadopago', 'Stripe': 'stripe' };
       const payment = {
         user_id: document.getElementById("payment-user").value,
         monto: parseFloat(document.getElementById("payment-amount").value),
         moneda: document.getElementById("payment-currency").value,
-        metodo: document.getElementById("payment-method").value,
-        concepto: document.getElementById("payment-concept").value,
-        estado: 'completado'
+        metodo: metodo,
+        concepto: concepto,
+        estado: document.getElementById("payment-estado").value,
+        producto: producto !== 'otro' ? producto : null,
+        provider: providerMap[metodo] || 'manual',
+        provider_payment_id: document.getElementById("payment-reference").value || null
       };
-      if (!payment.user_id || !payment.monto) { showToast("Completa usuario y monto.", 'error'); return; }
+      if (!payment.user_id) { showToast("Selecciona un usuario.", 'error'); return; }
+      if (!payment.monto) { showToast("Ingresa el monto.", 'error'); return; }
+      if (!producto) { showToast("Selecciona un producto.", 'error'); return; }
       const result = await Auth.addPayment(payment);
       if (result.success) {
         closeModal("modal-add-payment");
         document.getElementById("form-add-payment").reset();
+        showToast('Pago registrado correctamente');
         await loadData();
       } else {
         showToast("Error: " + (result.error || "No se pudo registrar"), 'error');
+      }
+    });
+
+    // Auto-fill concept when product changes
+    document.getElementById("payment-producto").addEventListener("change", function() {
+      var conceptInput = document.getElementById("payment-concept");
+      if (!conceptInput.value) {
+        var map = { 'fase1': 'Fase 1 — Curso de Trading', 'bot': 'Bot de Trading — Suscripción' };
+        conceptInput.placeholder = map[this.value] || 'Descripción del pago';
       }
     });
   }
@@ -982,9 +1043,19 @@
   }
 
   function filterPayments() {
-    const filter = document.getElementById("payment-filter").value;
+    const statusFilter = document.getElementById("payment-filter").value;
+    const productFilter = document.getElementById("payment-product-filter").value;
+    const search = (document.getElementById("payment-search").value || '').toLowerCase();
     let filtered = allPayments;
-    if (filter !== 'all') filtered = filtered.filter(p => p.estado === filter);
+    if (statusFilter !== 'all') filtered = filtered.filter(p => p.estado === statusFilter);
+    if (productFilter !== 'all') filtered = filtered.filter(p => p.producto === productFilter);
+    if (search) {
+      filtered = filtered.filter(p => {
+        var nombre = (p.profiles?.nombre || '').toLowerCase();
+        var email = (p.profiles?.email || '').toLowerCase();
+        return nombre.includes(search) || email.includes(search);
+      });
+    }
     renderPayments(filtered);
   }
 

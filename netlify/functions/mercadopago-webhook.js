@@ -8,7 +8,7 @@ const { createClient } = require('@supabase/supabase-js');
 const { bienvenidaFase1, bienvenidaBot } = require('./email-templates');
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
-const FROM_EMAIL = process.env.RESEND_FROM || 'Binary Edge Academy <onboarding@resend.dev>';
+const FROM_EMAIL = process.env.RESEND_FROM || 'Orbita Capital <onboarding@resend.dev>';
 
 async function sendEmail(to, subject, html) {
   if (!RESEND_API_KEY || !to) return;
@@ -175,7 +175,7 @@ exports.handler = async (event) => {
       // Send welcome notification to user's dashboard
       await supabase.from('notifications').insert({
         user_id: userId,
-        titulo: '¡Bienvenido a Binary Edge Academy!',
+        titulo: '¡Bienvenido a Orbita Capital!',
         mensaje: productoId === 'fase1'
           ? 'Tu acceso está activo. Empezá por el módulo de Preparación del Gráfico en tu dashboard.'
           : 'Tu bot de trading está activo. Descargalo desde la sección Bot en tu dashboard.',
@@ -193,9 +193,9 @@ exports.handler = async (event) => {
       const userEmail = payment.payer?.email;
 
       if (productoId === 'fase1') {
-        await sendEmail(userEmail, '¡Bienvenido a Binary Edge Academy! Tu acceso está activo', bienvenidaFase1({ nombre }));
+        await sendEmail(userEmail, '¡Bienvenido a Orbita Capital! Tu acceso está activo', bienvenidaFase1({ nombre }));
       } else if (productoId === 'bot') {
-        await sendEmail(userEmail, '¡Tu bot de trading está listo! — Binary Edge Academy', bienvenidaBot({ nombre }));
+        await sendEmail(userEmail, '¡Tu bot de trading está listo! — Orbita Capital', bienvenidaBot({ nombre }));
       }
     }
 

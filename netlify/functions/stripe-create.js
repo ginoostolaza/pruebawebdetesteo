@@ -39,7 +39,7 @@ exports.handler = async (event) => {
       },
       bot: {
         name: 'Bot de Trading — Suscripcion Mensual',
-        description: 'Bot automatizado configurado por Binary Edge, opera 24/7',
+        description: 'Bot automatizado configurado por Orbita Capital, opera 24/7',
         price: 500, // $5.00 USD in cents
         mode: 'payment' // Using payment mode (not subscription) for simplicity
       }
@@ -63,7 +63,7 @@ exports.handler = async (event) => {
           product_data: {
             name: producto.name,
             description: producto.description,
-            images: [`${siteUrl}/assets/img/branding/logo.png`]
+            images: [`${siteUrl}/assets/img/branding/logo.jpg`]
           },
           unit_amount: producto.price
         },

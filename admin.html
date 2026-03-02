@@ -212,24 +212,25 @@
         </div>
 
         <div class="table-container">
-          <table class="admin-table">
+          <table class="admin-table" id="table-users">
             <thead>
               <tr>
-                <th>Usuario</th>
-                <th>Email</th>
+                <th class="sortable" data-sort="nombre">Usuario <span class="sort-icon"></span></th>
+                <th class="sortable th-hide-mobile" data-sort="email">Email <span class="sort-icon"></span></th>
                 <th>Rol</th>
-                <th>Fase</th>
-                <th>Bot</th>
-                <th>Comunidad</th>
+                <th class="sortable" data-sort="fase">Fase <span class="sort-icon"></span></th>
+                <th class="th-hide-mobile">Bot</th>
+                <th class="th-hide-mobile">Comunidad</th>
                 <th>Estado</th>
-                <th>Registro</th>
+                <th class="sortable th-hide-mobile" data-sort="fecha_registro">Registro <span class="sort-icon"></span></th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody id="users-table-body">
-              <tr><td colspan="9" class="table-loading">Cargando usuarios…</td></tr>
+              <tr><td colspan="9" class="table-loading">Cargando usuarios&hellip;</td></tr>
             </tbody>
           </table>
+          <div class="table-pagination" id="users-pagination"></div>
         </div>
       </div>
 
@@ -258,22 +259,23 @@
         </div>
 
         <div class="table-container">
-          <table class="admin-table">
+          <table class="admin-table" id="table-payments">
             <thead>
               <tr>
-                <th>Usuario</th>
-                <th>Producto</th>
-                <th>Monto</th>
-                <th>M&eacute;todo</th>
-                <th>Referencia</th>
+                <th class="sortable" data-sort="nombre">Usuario <span class="sort-icon"></span></th>
+                <th class="sortable" data-sort="producto">Producto <span class="sort-icon"></span></th>
+                <th class="sortable" data-sort="monto">Monto <span class="sort-icon"></span></th>
+                <th class="th-hide-mobile">M&eacute;todo</th>
+                <th class="th-hide-mobile">Referencia</th>
                 <th>Estado</th>
-                <th>Fecha</th>
+                <th class="sortable" data-sort="fecha">Fecha <span class="sort-icon"></span></th>
               </tr>
             </thead>
             <tbody id="payments-table-body">
               <tr><td colspan="7" class="table-loading">Cargando pagos&hellip;</td></tr>
             </tbody>
           </table>
+          <div class="table-pagination" id="payments-pagination"></div>
         </div>
       </div>
 
@@ -473,81 +475,97 @@
 
 <!-- ============ MODAL: Edit User ============ -->
 <div class="modal-overlay" id="modal-edit-user">
-  <div class="modal-card">
+  <div class="modal-card modal-card-wide">
     <div class="modal-bar-blue"></div>
-    <h3>Editar Usuario</h3>
-    <form id="form-edit-user">
-      <input type="hidden" id="edit-user-id">
-      <div class="modal-field">
-        <label>Nombre</label>
-        <input type="text" id="edit-user-name">
-      </div>
-      <div class="modal-field">
-        <label>Rol</label>
-        <select id="edit-user-role">
-          <option value="alumno">Alumno</option>
-          <option value="admin">Admin</option>
-        </select>
-      </div>
-      <div class="modal-field">
-        <label>Fase</label>
-        <select id="edit-user-fase">
-          <option value="">Sin acceso</option>
-          <option value="fase-1">Fase 1</option>
-          <option value="fase-2">Fase 2</option>
-          <option value="ambas">Ambas</option>
-        </select>
-      </div>
-      <div class="modal-row">
-        <div class="modal-field">
-          <label>Estado</label>
-          <select id="edit-user-status">
-            <option value="activo">Activo</option>
-            <option value="suspendido">Suspendido</option>
-            <option value="inactivo">Inactivo</option>
-          </select>
-        </div>
-        <div class="modal-field">
-          <label>Bot de Trading</label>
-          <div class="toggle-wrapper">
-            <label class="toggle-switch">
-              <input type="checkbox" id="edit-user-bot">
-              <span class="toggle-slider"></span>
-            </label>
-            <span class="toggle-label" id="edit-bot-label">Inactivo</span>
+    <div class="modal-user-header" id="modal-user-header"></div>
+    <div class="modal-tabs">
+      <button class="modal-tab active" data-modal-tab="edit">Editar</button>
+      <button class="modal-tab" data-modal-tab="payments">Historial de pagos</button>
+    </div>
+    <div class="modal-tab-content active" id="modal-tab-edit">
+      <form id="form-edit-user">
+        <input type="hidden" id="edit-user-id">
+        <div class="modal-row">
+          <div class="modal-field">
+            <label>Nombre</label>
+            <input type="text" id="edit-user-name">
+          </div>
+          <div class="modal-field">
+            <label>Rol</label>
+            <select id="edit-user-role">
+              <option value="alumno">Alumno</option>
+              <option value="admin">Admin</option>
+            </select>
           </div>
         </div>
-      </div>
-      <div class="modal-row">
-        <div class="modal-field">
-          <label>Comunidad Privada</label>
-          <div class="toggle-wrapper">
-            <label class="toggle-switch">
-              <input type="checkbox" id="edit-user-comunidad">
-              <span class="toggle-slider"></span>
-            </label>
-            <span class="toggle-label" id="edit-comunidad-label">Sin acceso</span>
+        <div class="modal-row">
+          <div class="modal-field">
+            <label>Fase</label>
+            <select id="edit-user-fase">
+              <option value="">Sin acceso</option>
+              <option value="fase-1">Fase 1</option>
+              <option value="fase-2">Fase 2</option>
+              <option value="ambas">Ambas</option>
+            </select>
+          </div>
+          <div class="modal-field">
+            <label>Estado</label>
+            <select id="edit-user-status">
+              <option value="activo">Activo</option>
+              <option value="suspendido">Suspendido</option>
+              <option value="inactivo">Inactivo</option>
+            </select>
           </div>
         </div>
-      </div>
-      <div class="modal-field" id="edit-license-field" style="display:none">
-        <label>Licencia del Bot</label>
-        <div class="license-input-row">
-          <input type="text" id="edit-user-license" placeholder="Ej: GBOT-XXXX-XXXX-XXXX" class="input-license">
-          <button type="button" class="btn-generate-license" id="btn-generate-license" title="Generar licencia">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          </button>
+        <div class="modal-row">
+          <div class="modal-field">
+            <label>Bot de Trading</label>
+            <div class="toggle-wrapper">
+              <label class="toggle-switch">
+                <input type="checkbox" id="edit-user-bot">
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="toggle-label" id="edit-bot-label">Inactivo</span>
+            </div>
+          </div>
+          <div class="modal-field">
+            <label>Comunidad Privada</label>
+            <div class="toggle-wrapper">
+              <label class="toggle-switch">
+                <input type="checkbox" id="edit-user-comunidad">
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="toggle-label" id="edit-comunidad-label">Sin acceso</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="modal-field">
-        <label>Notas</label>
-        <textarea id="edit-user-notes" rows="3" placeholder="Notas internas…"></textarea>
+        <div class="modal-field" id="edit-license-field" style="display:none">
+          <label>Licencia del Bot</label>
+          <div class="license-input-row">
+            <input type="text" id="edit-user-license" placeholder="Ej: GBOT-XXXX-XXXX-XXXX" class="input-license">
+            <button type="button" class="btn-generate-license" id="btn-generate-license" title="Generar licencia">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="modal-field">
+          <label>Notas</label>
+          <textarea id="edit-user-notes" rows="2" placeholder="Notas internas&hellip;"></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" onclick="closeModal('modal-edit-user')">Cancelar</button>
+          <button type="submit" class="btn-primary">Guardar cambios</button>
+        </div>
+      </form>
+    </div>
+    <div class="modal-tab-content" id="modal-tab-payments">
+      <div class="user-payments-list" id="user-payments-list">
+        <p class="text-dim">Cargando pagos&hellip;</p>
       </div>
       <div class="modal-actions">
-        <button type="button" class="btn-cancel" onclick="closeModal('modal-edit-user')">Cancelar</button>
-        <button type="submit" class="btn-primary">Guardar cambios</button>
+        <button type="button" class="btn-cancel" onclick="closeModal('modal-edit-user')">Cerrar</button>
       </div>
-    </form>
+    </div>
   </div>
 </div>
 
@@ -630,6 +648,37 @@
   let dolarBlueVenta = null;
   let currentCurrency = 'ARS';
   let currentRange = '7';
+
+  // ---- Pagination & Sorting state ----
+  var ROWS_PER_PAGE = 15;
+  var usersPage = 1;
+  var paymentsPage = 1;
+  var usersSortKey = 'fecha_registro';
+  var usersSortDir = 'desc';
+  var paymentsSortKey = 'fecha';
+  var paymentsSortDir = 'desc';
+
+  // ---- Helpers ----
+  function debounce(fn, ms) {
+    var timer;
+    return function() {
+      clearTimeout(timer);
+      timer = setTimeout(fn, ms);
+    };
+  }
+
+  function timeAgo(dateStr) {
+    if (!dateStr) return '';
+    var now = new Date();
+    var date = new Date(dateStr);
+    var diff = Math.floor((now - date) / 1000);
+    if (diff < 60) return 'hace un momento';
+    if (diff < 3600) return 'hace ' + Math.floor(diff / 60) + ' min';
+    if (diff < 86400) return 'hace ' + Math.floor(diff / 3600) + 'h';
+    if (diff < 2592000) return 'hace ' + Math.floor(diff / 86400) + 'd';
+    if (diff < 31536000) return 'hace ' + Math.floor(diff / 2592000) + ' mes' + (Math.floor(diff / 2592000) > 1 ? 'es' : '');
+    return 'hace ' + Math.floor(diff / 31536000) + ' año' + (Math.floor(diff / 31536000) > 1 ? 's' : '');
+  }
 
   // ---- Sidebar toggle (mobile) ----
   (function() {
@@ -809,6 +858,8 @@
   async function loadData() {
     allUsers = await Auth.getAllUsers();
     allPayments = await Auth.getAllPayments();
+    _filteredUsers = allUsers;
+    _filteredPayments = allPayments;
     renderStats();
     renderUsers(allUsers);
     renderPayments(allPayments);
@@ -829,13 +880,64 @@
     document.getElementById("stat-pending-payments").textContent = allPayments.filter(p => p.estado === 'pendiente').length;
   }
 
+  function sortData(arr, key, dir) {
+    return arr.slice().sort(function(a, b) {
+      var va = a[key], vb = b[key];
+      if (key === 'nombre') { va = (a.profiles ? a.profiles.nombre : a.nombre) || ''; vb = (b.profiles ? b.profiles.nombre : b.nombre) || ''; }
+      if (va == null) va = '';
+      if (vb == null) vb = '';
+      if (typeof va === 'string') { va = va.toLowerCase(); vb = (vb || '').toLowerCase(); }
+      if (typeof va === 'number' || key === 'monto') { va = parseFloat(va) || 0; vb = parseFloat(vb) || 0; }
+      if (va < vb) return dir === 'asc' ? -1 : 1;
+      if (va > vb) return dir === 'asc' ? 1 : -1;
+      return 0;
+    });
+  }
+
+  function renderPagination(containerId, totalItems, currentPage, onPageChange) {
+    var container = document.getElementById(containerId);
+    var totalPages = Math.ceil(totalItems / ROWS_PER_PAGE);
+    if (totalPages <= 1) { container.innerHTML = ''; return; }
+    var html = '<div class="pagination-info">Mostrando ' + Math.min((currentPage - 1) * ROWS_PER_PAGE + 1, totalItems) + '-' + Math.min(currentPage * ROWS_PER_PAGE, totalItems) + ' de ' + totalItems + '</div>';
+    html += '<div class="pagination-buttons">';
+    html += '<button class="page-btn" ' + (currentPage <= 1 ? 'disabled' : '') + ' data-page="' + (currentPage - 1) + '">&laquo;</button>';
+    var start = Math.max(1, currentPage - 2);
+    var end = Math.min(totalPages, start + 4);
+    if (end - start < 4) start = Math.max(1, end - 4);
+    for (var i = start; i <= end; i++) {
+      html += '<button class="page-btn' + (i === currentPage ? ' active' : '') + '" data-page="' + i + '">' + i + '</button>';
+    }
+    html += '<button class="page-btn" ' + (currentPage >= totalPages ? 'disabled' : '') + ' data-page="' + (currentPage + 1) + '">&raquo;</button>';
+    html += '</div>';
+    container.innerHTML = html;
+    container.querySelectorAll('.page-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        if (!btn.disabled) onPageChange(parseInt(btn.dataset.page));
+      });
+    });
+  }
+
+  function updateSortHeaders(tableId, sortKey, sortDir) {
+    var table = document.getElementById(tableId);
+    table.querySelectorAll('th.sortable').forEach(function(th) {
+      th.classList.remove('sort-asc', 'sort-desc');
+      if (th.dataset.sort === sortKey) th.classList.add(sortDir === 'asc' ? 'sort-asc' : 'sort-desc');
+    });
+  }
+
   function renderUsers(users) {
+    var sorted = sortData(users, usersSortKey, usersSortDir);
+    var total = sorted.length;
+    var start = (usersPage - 1) * ROWS_PER_PAGE;
+    var paged = sorted.slice(start, start + ROWS_PER_PAGE);
     const tbody = document.getElementById("users-table-body");
-    if (!users.length) {
+    updateSortHeaders('table-users', usersSortKey, usersSortDir);
+    if (!total) {
       tbody.innerHTML = '<tr><td colspan="9" class="table-empty">No hay usuarios registrados</td></tr>';
+      document.getElementById('users-pagination').innerHTML = '';
       return;
     }
-    tbody.innerHTML = users.map(u => {
+    tbody.innerHTML = paged.map(u => {
       const statusClass = u.estado === 'activo' ? 'status-active' : u.estado === 'suspendido' ? 'status-suspended' : 'status-inactive';
       const roleClass = u.rol === 'admin' ? 'role-admin' : 'role-student';
       const faseMap = { 'fase-1': 'Fase 1', 'fase-2': 'Fase 2', 'ambas': 'Ambas' };
@@ -846,46 +948,56 @@
       const comClass = u.comunidad_activa ? 'status-bot-on' : 'status-bot-off';
       const comText = u.comunidad_activa ? 'Sí' : 'No';
       const fecha = u.fecha_registro ? new Date(u.fecha_registro).toLocaleDateString('es-AR') : '-';
+      const ago = timeAgo(u.fecha_registro);
       return '<tr>' +
         '<td><div class="user-cell"><div class="user-avatar-sm">' + escapeHtml((u.nombre || 'U').charAt(0).toUpperCase()) + '</div><span>' + escapeHtml(u.nombre || 'Sin nombre') + '</span></div></td>' +
-        '<td class="td-email">' + escapeHtml(u.email || '-') + '</td>' +
+        '<td class="td-email th-hide-mobile">' + escapeHtml(u.email || '-') + '</td>' +
         '<td><span class="badge ' + roleClass + '">' + escapeHtml(u.rol || 'alumno') + '</span></td>' +
         '<td class="' + faseClass + '">' + escapeHtml(faseText) + '</td>' +
-        '<td><span class="badge ' + botClass + '">' + botText + '</span></td>' +
-        '<td><span class="badge ' + comClass + '">' + comText + '</span></td>' +
+        '<td class="th-hide-mobile"><span class="badge ' + botClass + '">' + botText + '</span></td>' +
+        '<td class="th-hide-mobile"><span class="badge ' + comClass + '">' + comText + '</span></td>' +
         '<td><span class="badge ' + statusClass + '">' + escapeHtml(u.estado || 'activo') + '</span></td>' +
-        '<td class="td-date">' + escapeHtml(fecha) + '</td>' +
+        '<td class="td-date th-hide-mobile" title="' + escapeHtml(fecha) + '">' + escapeHtml(ago || fecha) + '</td>' +
         '<td><button class="btn-edit" onclick="openEditUser(\'' + escapeHtml(u.id) + '\')">Editar</button></td>' +
       '</tr>';
     }).join('');
+    renderPagination('users-pagination', total, usersPage, function(page) { usersPage = page; renderUsers(users); });
   }
 
   function renderPayments(payments) {
+    var sorted = sortData(payments, paymentsSortKey, paymentsSortDir);
+    var total = sorted.length;
+    var start = (paymentsPage - 1) * ROWS_PER_PAGE;
+    var paged = sorted.slice(start, start + ROWS_PER_PAGE);
     const tbody = document.getElementById("payments-table-body");
-    if (!payments.length) {
+    updateSortHeaders('table-payments', paymentsSortKey, paymentsSortDir);
+    if (!total) {
       tbody.innerHTML = '<tr><td colspan="7" class="table-empty">No hay pagos registrados</td></tr>';
+      document.getElementById('payments-pagination').innerHTML = '';
       return;
     }
     var productoLabels = { 'fase1': 'Fase 1', 'bot': 'Bot Trading' };
-    tbody.innerHTML = payments.map(p => {
+    tbody.innerHTML = paged.map(p => {
       const nombre = p.profiles?.nombre || 'Desconocido';
       const email = p.profiles?.email || '';
       const statusClass = p.estado === 'completado' ? 'status-active' : p.estado === 'pendiente' ? 'status-pending' : 'status-suspended';
-      const fecha = p.fecha ? new Date(p.fecha).toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-';
+      const fecha = p.fecha ? new Date(p.fecha).toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '-';
+      const ago = timeAgo(p.fecha);
       const productoText = productoLabels[p.producto] || p.producto || '-';
       const productoClass = p.producto === 'fase1' ? 'badge-producto-fase1' : p.producto === 'bot' ? 'badge-producto-bot' : '';
       const referencia = p.provider_payment_id || '-';
-      const refDisplay = referencia.length > 16 ? referencia.substring(0, 16) + '…' : referencia;
+      const refDisplay = referencia.length > 16 ? referencia.substring(0, 16) + '\u2026' : referencia;
       return '<tr>' +
         '<td><div class="user-cell-compact"><span class="payment-user-name">' + escapeHtml(nombre) + '</span>' + (email ? '<span class="payment-user-email">' + escapeHtml(email) + '</span>' : '') + '</div></td>' +
         '<td><span class="badge ' + productoClass + '">' + escapeHtml(productoText) + '</span></td>' +
         '<td class="td-amount">$' + parseFloat(p.monto).toFixed(2) + ' <span class="currency-label">' + escapeHtml(p.moneda || 'USD') + '</span></td>' +
-        '<td>' + escapeHtml(p.metodo || '-') + '</td>' +
-        '<td class="td-ref" title="' + escapeHtml(referencia) + '">' + escapeHtml(refDisplay) + '</td>' +
+        '<td class="th-hide-mobile">' + escapeHtml(p.metodo || '-') + '</td>' +
+        '<td class="td-ref th-hide-mobile" title="' + escapeHtml(referencia) + '">' + escapeHtml(refDisplay) + '</td>' +
         '<td><span class="badge ' + statusClass + '">' + escapeHtml(p.estado || 'completado') + '</span></td>' +
-        '<td class="td-date">' + escapeHtml(fecha) + '</td>' +
+        '<td class="td-date" title="' + escapeHtml(fecha) + '">' + escapeHtml(ago || fecha) + '</td>' +
       '</tr>';
     }).join('');
+    renderPagination('payments-pagination', total, paymentsPage, function(page) { paymentsPage = page; renderPayments(payments); });
   }
 
   function populateUserSelect() {
@@ -920,8 +1032,38 @@
       });
     });
 
-    document.getElementById("user-search").addEventListener("input", filterUsers);
+    document.getElementById("user-search").addEventListener("input", debounce(filterUsers, 250));
     document.getElementById("user-filter").addEventListener("change", filterUsers);
+
+    // Sorting for users table
+    document.querySelectorAll('#table-users th.sortable').forEach(function(th) {
+      th.addEventListener('click', function() {
+        var key = th.dataset.sort;
+        if (usersSortKey === key) { usersSortDir = usersSortDir === 'asc' ? 'desc' : 'asc'; }
+        else { usersSortKey = key; usersSortDir = 'asc'; }
+        renderUsers(_filteredUsers.length ? _filteredUsers : allUsers);
+      });
+    });
+
+    // Sorting for payments table
+    document.querySelectorAll('#table-payments th.sortable').forEach(function(th) {
+      th.addEventListener('click', function() {
+        var key = th.dataset.sort;
+        if (paymentsSortKey === key) { paymentsSortDir = paymentsSortDir === 'asc' ? 'desc' : 'asc'; }
+        else { paymentsSortKey = key; paymentsSortDir = 'asc'; }
+        renderPayments(_filteredPayments.length ? _filteredPayments : allPayments);
+      });
+    });
+
+    // Modal tabs
+    document.querySelectorAll('#modal-edit-user .modal-tab').forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('#modal-edit-user .modal-tab').forEach(function(t) { t.classList.remove('active'); });
+        document.querySelectorAll('#modal-edit-user .modal-tab-content').forEach(function(t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+        document.getElementById('modal-tab-' + tab.dataset.modalTab).classList.add('active');
+      });
+    });
 
     document.getElementById("btn-logout").addEventListener("click", async () => {
       await Auth.logout();
@@ -976,7 +1118,7 @@
 
     document.getElementById("payment-filter").addEventListener("change", filterPayments);
     document.getElementById("payment-product-filter").addEventListener("change", filterPayments);
-    document.getElementById("payment-search").addEventListener("input", filterPayments);
+    document.getElementById("payment-search").addEventListener("input", debounce(filterPayments, 250));
 
     document.getElementById("form-add-payment").addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -1023,7 +1165,10 @@
     });
   }
 
-  function filterUsers() {
+  var _filteredUsers = [];
+  var _filteredPayments = [];
+
+  function getFilteredUsers() {
     const search = document.getElementById("user-search").value.toLowerCase();
     const filter = document.getElementById("user-filter").value;
     let filtered = allUsers;
@@ -1039,10 +1184,16 @@
       else if (filter === 'comunidad') filtered = filtered.filter(u => u.comunidad_activa);
       else filtered = filtered.filter(u => u.estado === filter);
     }
-    renderUsers(filtered);
+    return filtered;
   }
 
-  function filterPayments() {
+  function filterUsers() {
+    usersPage = 1;
+    _filteredUsers = getFilteredUsers();
+    renderUsers(_filteredUsers);
+  }
+
+  function getFilteredPayments2() {
     const statusFilter = document.getElementById("payment-filter").value;
     const productFilter = document.getElementById("payment-product-filter").value;
     const search = (document.getElementById("payment-search").value || '').toLowerCase();
@@ -1056,12 +1207,44 @@
         return nombre.includes(search) || email.includes(search);
       });
     }
-    renderPayments(filtered);
+    return filtered;
+  }
+
+  function filterPayments() {
+    paymentsPage = 1;
+    _filteredPayments = getFilteredPayments2();
+    renderPayments(_filteredPayments);
   }
 
   function openEditUser(userId) {
     const user = allUsers.find(u => u.id === userId);
     if (!user) return;
+
+    // Reset to edit tab
+    document.querySelectorAll('#modal-edit-user .modal-tab').forEach(function(t) { t.classList.remove('active'); });
+    document.querySelectorAll('#modal-edit-user .modal-tab-content').forEach(function(t) { t.classList.remove('active'); });
+    document.querySelector('#modal-edit-user .modal-tab[data-modal-tab="edit"]').classList.add('active');
+    document.getElementById('modal-tab-edit').classList.add('active');
+
+    // Render user header
+    var headerEl = document.getElementById('modal-user-header');
+    var faseMap = { 'fase-1': 'Fase 1', 'fase-2': 'Fase 2', 'ambas': 'Ambas' };
+    var statusClass = user.estado === 'activo' ? 'status-active' : user.estado === 'suspendido' ? 'status-suspended' : 'status-inactive';
+    var registro = user.fecha_registro ? new Date(user.fecha_registro).toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' }) : '-';
+    var acceso = user.ultimo_acceso ? timeAgo(user.ultimo_acceso) : 'nunca';
+    headerEl.innerHTML =
+      '<div class="modal-user-avatar">' + escapeHtml((user.nombre || 'U').charAt(0).toUpperCase()) + '</div>' +
+      '<div class="modal-user-info">' +
+        '<div class="modal-user-name">' + escapeHtml(user.nombre || 'Sin nombre') + '</div>' +
+        '<div class="modal-user-email">' + escapeHtml(user.email || '-') + '</div>' +
+        '<div class="modal-user-meta">' +
+          '<span class="badge ' + statusClass + '">' + escapeHtml(user.estado || 'activo') + '</span>' +
+          '<span class="meta-sep">&middot;</span> Registro: ' + escapeHtml(registro) +
+          '<span class="meta-sep">&middot;</span> &Uacute;ltimo acceso: ' + escapeHtml(acceso) +
+        '</div>' +
+      '</div>';
+
+    // Fill form
     document.getElementById("edit-user-id").value = user.id;
     document.getElementById("edit-user-name").value = user.nombre || '';
     document.getElementById("edit-user-role").value = user.rol || 'alumno';
@@ -1076,6 +1259,32 @@
     const comunidadCheckbox = document.getElementById("edit-user-comunidad");
     comunidadCheckbox.checked = !!user.comunidad_activa;
     document.getElementById("edit-comunidad-label").textContent = user.comunidad_activa ? 'Con acceso' : 'Sin acceso';
+
+    // Load payment history for this user
+    var userPayments = allPayments.filter(function(p) { return p.user_id === userId; });
+    var paymentsList = document.getElementById('user-payments-list');
+    if (!userPayments.length) {
+      paymentsList.innerHTML = '<div class="empty-payments-msg"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span>Este usuario no tiene pagos registrados</span></div>';
+    } else {
+      var productoLabels = { 'fase1': 'Fase 1', 'bot': 'Bot Trading' };
+      paymentsList.innerHTML = userPayments.map(function(p) {
+        var statusClass2 = p.estado === 'completado' ? 'status-active' : p.estado === 'pendiente' ? 'status-pending' : 'status-suspended';
+        var fecha = p.fecha ? new Date(p.fecha).toLocaleDateString('es-AR', { day: '2-digit', month: 'short', year: 'numeric' }) : '-';
+        var productoText = productoLabels[p.producto] || p.concepto || '-';
+        return '<div class="user-payment-row">' +
+          '<div class="user-payment-main">' +
+            '<span class="user-payment-product">' + escapeHtml(productoText) + '</span>' +
+            '<span class="user-payment-amount">$' + parseFloat(p.monto).toFixed(2) + ' ' + escapeHtml(p.moneda || 'USD') + '</span>' +
+          '</div>' +
+          '<div class="user-payment-sub">' +
+            '<span class="badge ' + statusClass2 + '">' + escapeHtml(p.estado) + '</span>' +
+            '<span>' + escapeHtml(p.metodo || '-') + '</span>' +
+            '<span>' + escapeHtml(fecha) + '</span>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
     openModal("modal-edit-user");
   }
 

@@ -58,6 +58,9 @@
       <!-- ============ LOGIN FORM ============ -->
       <div id="view-login" class="auth-view active">
         <div class="form-header">
+          <div class="form-header-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          </div>
           <h2>Bienvenido de vuelta</h2>
           <p>Ingresa tus credenciales para acceder</p>
         </div>
@@ -90,6 +93,7 @@
 
           <button type="submit" class="btn-login" id="btnLogin">
             <span class="btn-text">Ingresar</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             <span class="btn-loader"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></span>
           </button>
         </form>
@@ -102,6 +106,9 @@
       <!-- ============ REGISTER FORM ============ -->
       <div id="view-register" class="auth-view">
         <div class="form-header">
+          <div class="form-header-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          </div>
           <h2>Crear cuenta</h2>
           <p>Registrate para acceder al contenido</p>
         </div>
@@ -132,6 +139,13 @@
                 <svg class="icon-eye" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>
               </button>
             </div>
+            <div class="password-strength" id="password-strength">
+              <div class="strength-bar"></div>
+              <div class="strength-bar"></div>
+              <div class="strength-bar"></div>
+              <div class="strength-bar"></div>
+            </div>
+            <div class="password-strength-text" id="password-strength-text"></div>
           </div>
 
           <div id="register-error" class="error-msg" role="alert"></div>
@@ -139,6 +153,7 @@
 
           <button type="submit" class="btn-login" id="btnRegister">
             <span class="btn-text">Crear cuenta</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             <span class="btn-loader"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></span>
           </button>
         </form>
@@ -151,7 +166,10 @@
       <!-- ============ RESET PASSWORD FORM ============ -->
       <div id="view-reset" class="auth-view">
         <div class="form-header">
-          <h2>Recuperar contraseña</h2>
+          <div class="form-header-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+          </div>
+          <h2>Recuperar contrase&ntilde;a</h2>
           <p>Te enviaremos un enlace para restablecerla</p>
         </div>
 
@@ -169,6 +187,7 @@
 
           <button type="submit" class="btn-login" id="btnReset">
             <span class="btn-text">Enviar enlace</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             <span class="btn-loader"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg></span>
           </button>
         </form>
@@ -364,6 +383,42 @@
       input.focus({ preventScroll: true });
     });
   });
+
+  // ============================================================
+  // Password strength meter
+  // ============================================================
+  (function() {
+    const passInput = document.getElementById('reg-password');
+    const bars = document.querySelectorAll('#password-strength .strength-bar');
+    const strengthText = document.getElementById('password-strength-text');
+
+    if (!passInput) return;
+
+    passInput.addEventListener('input', function() {
+      const val = this.value;
+      let score = 0;
+
+      if (val.length >= 6) score++;
+      if (val.length >= 8) score++;
+      if (/[A-Z]/.test(val) && /[a-z]/.test(val)) score++;
+      if (/[0-9]/.test(val) || /[^A-Za-z0-9]/.test(val)) score++;
+
+      const levels = ['', 'weak', 'medium', 'medium', 'strong'];
+      const labels = ['', 'Débil', 'Aceptable', 'Buena', 'Fuerte'];
+      const level = val.length === 0 ? '' : levels[score] || 'weak';
+      const label = val.length === 0 ? '' : labels[score] || 'Débil';
+
+      bars.forEach(function(bar, i) {
+        bar.classList.remove('active', 'weak', 'medium', 'strong');
+        if (i < score && level) {
+          bar.classList.add('active', level);
+        }
+      });
+
+      strengthText.textContent = label;
+      strengthText.className = 'password-strength-text' + (level ? ' ' + level : '');
+    });
+  })();
 
   // ============================================================
   // Redirect if already logged in

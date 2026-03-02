@@ -826,6 +826,36 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: 0.6px;
   white-space: nowrap;
   border-bottom: 1px solid var(--color-border);
+  user-select: none;
+}
+
+/* ---- Sortable headers ---- */
+.admin-table th.sortable {
+  cursor: pointer;
+  transition: color var(--transition);
+}
+
+.admin-table th.sortable:hover {
+  color: var(--color-text);
+}
+
+.admin-table th.sortable .sort-icon::after {
+  content: '\2195';
+  margin-left: 4px;
+  opacity: 0.3;
+  font-size: 0.6rem;
+}
+
+.admin-table th.sort-asc .sort-icon::after {
+  content: '\2191';
+  opacity: 1;
+  color: var(--color-primary);
+}
+
+.admin-table th.sort-desc .sort-icon::after {
+  content: '\2193';
+  opacity: 1;
+  color: var(--color-primary);
 }
 
 .admin-table td {
@@ -836,8 +866,8 @@ a { color: inherit; text-decoration: none; }
 }
 
 .admin-table tbody tr { transition: background var(--transition); }
-.admin-table tbody tr:nth-child(even) { background: rgba(255, 255, 255, 0.01); }
-.admin-table tbody tr:hover { background: rgba(59, 130, 246, 0.04); }
+.admin-table tbody tr:nth-child(even) { background: rgba(255, 255, 255, 0.015); }
+.admin-table tbody tr:hover { background: rgba(59, 130, 246, 0.07); }
 
 .table-loading,
 .table-empty {
@@ -897,6 +927,165 @@ a { color: inherit; text-decoration: none; }
 .currency-label { font-size: 0.7rem; color: var(--color-text-muted); font-weight: 400; }
 .badge-producto-fase1 { background: rgba(59, 130, 246, 0.1); color: var(--color-primary); border: 1px solid rgba(59, 130, 246, 0.12); }
 .badge-producto-bot { background: rgba(139, 92, 246, 0.1); color: var(--color-secondary); border: 1px solid rgba(139, 92, 246, 0.12); }
+
+/* ---- Pagination ---- */
+.table-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--color-border);
+  font-size: 0.78rem;
+}
+
+.pagination-info { color: var(--color-text-dim); }
+
+.pagination-buttons { display: flex; gap: 4px; }
+
+.page-btn {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-family: inherit;
+}
+
+.page-btn:hover:not(:disabled):not(.active) {
+  background: var(--color-surface-3);
+  border-color: var(--color-border-hover);
+  color: var(--color-text);
+}
+
+.page-btn.active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.page-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* ---- Modal wide (user detail) ---- */
+.modal-card-wide { max-width: 580px; }
+
+/* ---- Modal user header ---- */
+.modal-user-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 0 1rem 0;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 0;
+}
+
+.modal-user-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.modal-user-info { flex: 1; min-width: 0; }
+.modal-user-name { font-weight: 600; font-size: 1rem; color: var(--color-text); }
+.modal-user-email { font-size: 0.78rem; color: var(--color-text-dim); margin-top: 1px; }
+
+.modal-user-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  color: var(--color-text-dim);
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.meta-sep { opacity: 0.4; }
+
+/* ---- Modal tabs ---- */
+.modal-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--color-border);
+  margin: 0.75rem 0 1rem 0;
+}
+
+.modal-tab {
+  background: none;
+  border: none;
+  color: var(--color-text-dim);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all var(--transition);
+}
+
+.modal-tab:hover { color: var(--color-text); }
+
+.modal-tab.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.modal-tab-content { display: none; }
+.modal-tab-content.active { display: block; }
+
+/* ---- User payment history in modal ---- */
+.user-payments-list { max-height: 280px; overflow-y: auto; }
+
+.user-payment-row {
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.user-payment-row:last-child { border-bottom: none; }
+
+.user-payment-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-payment-product { font-weight: 600; font-size: 0.85rem; color: var(--color-text); }
+.user-payment-amount { font-weight: 700; font-size: 0.85rem; color: var(--color-success); }
+
+.user-payment-sub {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.72rem;
+  color: var(--color-text-dim);
+  margin-top: 3px;
+}
+
+.empty-payments-msg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 2rem;
+  color: var(--color-text-dim);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.empty-payments-msg svg { opacity: 0.4; }
 
 /* ============================================================
    SECONDARY STATS ROW
@@ -1426,6 +1615,20 @@ a { color: inherit; text-decoration: none; }
   .monthly-count { display: none; }
 
   .topbar-date { display: none; }
+
+  /* Hide non-essential table columns on mobile */
+  .th-hide-mobile { display: none; }
+
+  .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  .table-pagination {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .modal-user-meta { font-size: 0.65rem; }
+  .modal-card-wide { max-width: 95%; }
 }
 
 @media (max-width: 400px) {

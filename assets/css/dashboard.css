@@ -407,13 +407,36 @@ img { max-width: 100%; height: auto; display: block; }
 /* --- Profile completion bar (welcome) --- */
 .welcome-completion {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 0.75rem;
   margin-top: 1.25rem;
   padding-top: 1.25rem;
   border-top: 1px solid var(--color-border);
   position: relative;
   z-index: 1;
+  cursor: pointer;
+  transition: opacity var(--transition);
+}
+
+.welcome-completion:hover {
+  opacity: 0.85;
+}
+
+.welcome-completion:hover .completion-arrow {
+  opacity: 1 !important;
+  transform: translateX(2px);
+}
+
+.completion-arrow {
+  transition: all var(--transition);
+}
+
+.completion-inner {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .completion-info {
@@ -1080,9 +1103,9 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .progress-ring-fill {
-  stroke: var(--color-success);
+  stroke: var(--color-primary);
   stroke-linecap: round;
-  transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.5s ease;
 }
 
 .progress-ring-text {
@@ -1093,7 +1116,8 @@ img { max-width: 100%; height: auto; display: block; }
   justify-content: center;
   font-size: 0.82rem;
   font-weight: 800;
-  color: var(--color-success);
+  color: var(--color-primary);
+  transition: color 0.5s ease;
 }
 
 .progress-info {
@@ -1220,6 +1244,53 @@ img { max-width: 100%; height: auto; display: block; }
 
 .module-done .module-name {
   color: var(--color-success);
+}
+
+/* ---- Progress Celebration ---- */
+.progress-celebration {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(6, 182, 212, 0.06));
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  border-radius: var(--radius-md);
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+.celebration-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(34, 197, 94, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.celebration-icon svg {
+  width: 22px;
+  height: 22px;
+  color: #22c55e;
+}
+
+.celebration-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.celebration-text strong {
+  font-size: 0.88rem;
+  color: #22c55e;
+}
+
+.celebration-text span {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
 }
 
 /* ============================================================
@@ -1744,11 +1815,29 @@ img { max-width: 100%; height: auto; display: block; }
   border-radius: 4px;
 }
 
+.notif-list {
+  max-height: 340px;
+  overflow-y: auto;
+}
+
 .notif-empty {
   padding: 2.5rem 1rem;
   text-align: center;
   color: var(--color-text-dim);
   font-size: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.notif-empty::before {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(90, 100, 120, 0.08);
 }
 
 .notif-item {
@@ -1765,7 +1854,11 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .notif-item:hover {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.notif-item.notif-unread:hover {
+  background: rgba(59, 130, 246, 0.08);
 }
 
 .notif-item.notif-unread {

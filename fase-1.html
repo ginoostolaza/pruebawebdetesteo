@@ -28,11 +28,22 @@
        FASE 1 HUB - Hero & Module Cards
        ============================================================ */
 
+    /* Staggered entrance animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
     /* Hero Section */
     .fase-hero {
       position: relative;
       text-align: center;
-      padding: 3rem 2rem 2.5rem;
+      padding: 3.5rem 2rem 3rem;
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-lg);
@@ -110,14 +121,15 @@
       font-size: 0.95rem;
       color: var(--color-text-muted);
       max-width: 580px;
-      margin: 0 auto 1.5rem;
+      margin: 0 auto 2rem;
       line-height: 1.7;
     }
 
+    /* Hero Stats - with dividers */
     .fase-hero-stats {
       display: flex;
       justify-content: center;
-      gap: 2rem;
+      gap: 0;
       flex-wrap: wrap;
     }
 
@@ -125,24 +137,45 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.2rem;
+      gap: 0.25rem;
+      padding: 0.75rem 1.75rem;
+      position: relative;
+    }
+
+    .hero-stat:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 15%;
+      height: 70%;
+      width: 1px;
+      background: var(--color-border);
     }
 
     .hero-stat-value {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: 800;
       color: var(--color-text);
+      line-height: 1;
     }
 
     .hero-stat-label {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: var(--color-text-dim);
       text-transform: uppercase;
       letter-spacing: 0.5px;
       font-weight: 600;
     }
 
-    /* Back to Dashboard */
+    /* Progress stat special color */
+    .hero-stat-value.progress-value {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Back to Dashboard + Breadcrumb */
     .back-bar {
       display: flex;
       align-items: center;
@@ -173,17 +206,58 @@
     .back-link svg {
       width: 16px;
       height: 16px;
+      transition: transform var(--transition);
+    }
+
+    .back-link:hover svg {
+      transform: translateX(-3px);
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      color: var(--color-text-dim);
+    }
+
+    .breadcrumb a {
+      color: var(--color-text-dim);
+      transition: color var(--transition);
+    }
+
+    .breadcrumb a:hover {
+      color: var(--color-primary);
+    }
+
+    .breadcrumb-sep {
+      opacity: 0.4;
+    }
+
+    .breadcrumb-current {
+      color: var(--color-text-muted);
+      font-weight: 600;
     }
 
     /* Pillar Section Title */
+    .pillar-section {
+      animation: fadeInUp 0.5s ease both;
+    }
+
+    .pillar-section:nth-child(1) { animation-delay: 0.1s; }
+    .pillar-section:nth-child(2) { animation-delay: 0.2s; }
+
     .pillar-section-title {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: var(--color-text);
       margin-bottom: 0.35rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
+      padding-left: 0.75rem;
+      border-left: 3px solid var(--color-primary);
     }
 
     .pillar-section-title svg {
@@ -196,6 +270,7 @@
       font-size: 0.84rem;
       color: var(--color-text-dim);
       margin-bottom: 1.25rem;
+      padding-left: 0.75rem;
     }
 
     /* Pillar Cards Grid */
@@ -212,17 +287,32 @@
       border: 1px solid var(--color-border);
       border-radius: var(--radius-lg);
       overflow: hidden;
-      transition: all var(--transition);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
       position: relative;
       display: flex;
       flex-direction: column;
+      opacity: 0;
+      animation: fadeInUp 0.5s ease both;
     }
+
+    /* Staggered card entrance */
+    .pillar-card:nth-child(1) { animation-delay: 0.15s; }
+    .pillar-card:nth-child(2) { animation-delay: 0.25s; }
+    .pillar-card:nth-child(3) { animation-delay: 0.35s; }
+    .pillar-card:nth-child(4) { animation-delay: 0.45s; }
 
     .pillar-card:hover {
       border-color: var(--color-border-hover);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-      transform: translateY(-5px);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+      transform: translateY(-4px);
     }
+
+    /* Colored top border on hover per pilar */
+    #card-trading:hover    { border-color: rgba(37, 99, 235, 0.3); }
+    #card-mentalidad:hover { border-color: rgba(168, 85, 247, 0.3); }
+    #card-disciplina:hover { border-color: rgba(59, 130, 246, 0.3); }
+    #card-fisico:hover     { border-color: rgba(6, 182, 212, 0.3); }
+    #card-emociones:hover  { border-color: rgba(236, 72, 153, 0.3); }
 
     /* Card Cover/Banner */
     .pillar-cover {
@@ -238,6 +328,11 @@
       position: absolute;
       inset: 0;
       opacity: 0.9;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .pillar-card:hover .pillar-cover-bg {
+      transform: scale(1.05);
     }
 
     .pillar-cover-pattern {
@@ -267,6 +362,11 @@
       justify-content: center;
       margin: 0 auto 0.6rem;
       border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: transform var(--transition);
+    }
+
+    .pillar-card:hover .pillar-cover-icon {
+      transform: scale(1.08);
     }
 
     .pillar-cover-icon svg {
@@ -340,7 +440,15 @@
       gap: 0.5rem;
       font-size: 0.8rem;
       color: var(--color-text-muted);
-      padding: 0.35rem 0;
+      padding: 0.4rem 0.5rem;
+      border-radius: 6px;
+      transition: all var(--transition);
+      margin-left: -0.5rem;
+    }
+
+    .pillar-modules li:hover {
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--color-text);
     }
 
     .pillar-modules li svg {
@@ -359,7 +467,7 @@
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      padding: 0.7rem 1.2rem;
+      padding: 0.75rem 1.2rem;
       font-size: 0.84rem;
       font-weight: 600;
       border-radius: var(--radius-sm);
@@ -370,6 +478,7 @@
     .pillar-action svg {
       width: 16px;
       height: 16px;
+      transition: transform var(--transition);
     }
 
     .action-enter {
@@ -384,6 +493,10 @@
       color: #fff;
     }
 
+    .action-enter:hover svg {
+      transform: translateX(3px);
+    }
+
     .action-buy {
       background: var(--color-surface-2);
       color: var(--color-text-dim);
@@ -393,6 +506,7 @@
     .action-buy:hover {
       border-color: var(--color-primary);
       color: var(--color-primary);
+      background: rgba(59, 130, 246, 0.04);
     }
 
     .action-buy svg {
@@ -405,11 +519,12 @@
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-lg);
-      padding: 2rem 2.25rem;
+      padding: 2.5rem 2.5rem;
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
       position: relative;
       overflow: hidden;
+      animation: fadeInUp 0.5s ease 0.1s both;
     }
 
     .fase-philosophy::before {
@@ -420,6 +535,22 @@
       background: var(--gradient-accent);
     }
 
+    /* Decorative quotation marks */
+    .fase-philosophy::after {
+      content: '\201C';
+      position: absolute;
+      top: 1rem;
+      left: 1.5rem;
+      font-size: 5rem;
+      font-family: Georgia, serif;
+      line-height: 1;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.1));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      pointer-events: none;
+    }
+
     .fase-philosophy blockquote {
       font-size: 1.05rem;
       font-style: italic;
@@ -427,6 +558,8 @@
       line-height: 1.7;
       max-width: 600px;
       margin: 0 auto 0.75rem;
+      position: relative;
+      z-index: 1;
     }
 
     .fase-philosophy cite {
@@ -434,6 +567,19 @@
       color: var(--color-text-dim);
       font-style: normal;
       font-weight: 600;
+      position: relative;
+      z-index: 1;
+    }
+
+    .fase-philosophy cite::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 2px;
+      background: var(--color-primary);
+      vertical-align: middle;
+      margin-right: 0.5rem;
+      border-radius: 1px;
     }
 
     /* Responsive */
@@ -443,7 +589,11 @@
       }
 
       .fase-hero-stats {
-        gap: 1.25rem;
+        gap: 0;
+      }
+
+      .hero-stat {
+        padding: 0.5rem 1rem;
       }
 
       .pillar-grid {
@@ -453,6 +603,14 @@
       .pillar-cover {
         height: 120px;
       }
+
+      .breadcrumb {
+        display: none;
+      }
+
+      .fase-philosophy::after {
+        display: none;
+      }
     }
 
     @media (max-width: 480px) {
@@ -460,10 +618,30 @@
         font-size: 1.5rem;
       }
 
+      .hero-stat:not(:last-child)::after {
+        display: none;
+      }
+
+      .hero-stat {
+        padding: 0.4rem 0.75rem;
+      }
+
       .back-bar {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.75rem;
+      }
+
+      .pillar-section-title {
+        font-size: 1rem;
+      }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
       }
     }
   </style>
@@ -527,6 +705,11 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
       Volver al Dashboard
     </a>
+    <div class="breadcrumb">
+      <a href="dashboard.html">Dashboard</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="breadcrumb-current">Fase 1</span>
+    </div>
   </div>
 
   <!-- Hero Section -->
@@ -554,7 +737,7 @@
           <span class="hero-stat-label">Lecciones</span>
         </div>
         <div class="hero-stat">
-          <span class="hero-stat-value" id="hero-progress">0%</span>
+          <span class="hero-stat-value progress-value" id="hero-progress">0%</span>
           <span class="hero-stat-label">Progreso</span>
         </div>
       </div>
@@ -568,6 +751,7 @@
   </div>
 
   <!-- PILLAR: Trading -->
+  <div class="pillar-section">
   <h2 class="pillar-section-title">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 17l-5-8-4 5-3-3"/></svg>
     Trading &amp; Estrategia
@@ -617,8 +801,10 @@
       </div>
     </div>
   </div>
+  </div>
 
   <!-- PILARES: Desarrollo Personal -->
+  <div class="pillar-section">
   <h2 class="pillar-section-title">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
     Desarrollo Personal del Trader
@@ -777,6 +963,7 @@
         <div id="action-emociones"></div>
       </div>
     </div>
+  </div>
   </div>
 
   <!-- Footer -->

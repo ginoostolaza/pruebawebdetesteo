@@ -25,10 +25,9 @@
 
   <style>
     /* ============================================================
-       FASE 1 HUB - Hero & Module Cards
+       FASE 1 HUB - Premium Course Design
        ============================================================ */
 
-    /* Staggered entrance animations */
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -39,11 +38,20 @@
       to { opacity: 1; }
     }
 
-    /* Hero Section */
+    @keyframes shimmer {
+      0% { background-position: -200% center; }
+      100% { background-position: 200% center; }
+    }
+
+    @keyframes ring-fill {
+      from { stroke-dashoffset: 251; }
+    }
+
+    /* ── Hero Section ── */
     .fase-hero {
       position: relative;
       text-align: center;
-      padding: 3.5rem 2rem 3rem;
+      padding: 4rem 2rem 3.5rem;
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: var(--radius-lg);
@@ -66,9 +74,9 @@
       top: -60%;
       left: 50%;
       transform: translateX(-50%);
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(ellipse, rgba(59, 130, 246, 0.06), rgba(139, 92, 246, 0.03), transparent 70%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(ellipse, rgba(59, 130, 246, 0.07), rgba(139, 92, 246, 0.04), transparent 70%);
       pointer-events: none;
     }
 
@@ -91,18 +99,36 @@
       padding: 0.4rem 1rem;
       border-radius: 50px;
       margin-bottom: 1.25rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .fase-hero-phase::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.12), transparent);
+      background-size: 200% 100%;
+      animation: shimmer 3s ease-in-out infinite;
     }
 
     .fase-hero-phase svg {
       width: 14px;
       height: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .fase-hero-phase span {
+      position: relative;
+      z-index: 1;
     }
 
     .fase-hero h1 {
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-size: clamp(2rem, 4.5vw, 2.8rem);
       font-weight: 800;
       letter-spacing: -0.03em;
-      line-height: 1.2;
+      line-height: 1.15;
       margin-bottom: 0.75rem;
       background: linear-gradient(135deg, #e8edf5, #c0ccdf);
       -webkit-background-clip: text;
@@ -110,35 +136,37 @@
       background-clip: text;
     }
 
-    .fase-hero h1 span {
+    .fase-hero h1 em {
       background: linear-gradient(135deg, #3b82f6, #8b5cf6, #06b6d4);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      font-style: normal;
     }
 
     .fase-hero-desc {
       font-size: 0.95rem;
       color: var(--color-text-muted);
       max-width: 580px;
-      margin: 0 auto 2rem;
+      margin: 0 auto 2.25rem;
       line-height: 1.7;
     }
 
-    /* Hero Stats - with dividers */
+    /* ── Hero Stats with dividers ── */
     .fase-hero-stats {
       display: flex;
       justify-content: center;
       gap: 0;
       flex-wrap: wrap;
+      margin-bottom: 2rem;
     }
 
     .hero-stat {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.25rem;
-      padding: 0.75rem 1.75rem;
+      gap: 0.3rem;
+      padding: 0.75rem 2rem;
       position: relative;
     }
 
@@ -153,21 +181,20 @@
     }
 
     .hero-stat-value {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 800;
       color: var(--color-text);
       line-height: 1;
     }
 
     .hero-stat-label {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       color: var(--color-text-dim);
       text-transform: uppercase;
       letter-spacing: 0.5px;
       font-weight: 600;
     }
 
-    /* Progress stat special color */
     .hero-stat-value.progress-value {
       background: var(--gradient-primary);
       -webkit-background-clip: text;
@@ -175,7 +202,252 @@
       background-clip: text;
     }
 
-    /* Back to Dashboard + Breadcrumb */
+    /* ── Progress Ring ── */
+    .hero-progress-ring {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.15rem;
+    }
+
+    .progress-ring-wrap {
+      position: relative;
+      width: 52px;
+      height: 52px;
+    }
+
+    .progress-ring-wrap svg {
+      transform: rotate(-90deg);
+    }
+
+    .progress-ring-bg {
+      fill: none;
+      stroke: var(--color-surface-2);
+      stroke-width: 4;
+    }
+
+    .progress-ring-fill {
+      fill: none;
+      stroke: url(#progress-gradient);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-dasharray: 251;
+      stroke-dashoffset: 251;
+      transition: stroke-dashoffset 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .progress-ring-text {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--color-text);
+    }
+
+    /* ── Trust Badges (below stats) ── */
+    .hero-trust {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--color-text-dim);
+    }
+
+    .trust-item svg {
+      width: 14px;
+      height: 14px;
+      color: var(--color-success);
+    }
+
+    /* ── What's Included Section ── */
+    .included-section {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 2rem 2.25rem;
+      margin-bottom: 2rem;
+      animation: fadeInUp 0.5s ease 0.1s both;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .included-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #22c55e, #06b6d4, #3b82f6);
+    }
+
+    .included-header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .included-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--color-success);
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.12);
+      padding: 0.35rem 0.85rem;
+      border-radius: 50px;
+      margin-bottom: 0.75rem;
+    }
+
+    .included-label svg {
+      width: 13px;
+      height: 13px;
+    }
+
+    .included-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-text);
+    }
+
+    .included-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.85rem;
+    }
+
+    .included-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      padding: 0.85rem;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 255, 255, 0.015);
+      border: 1px solid var(--color-border);
+      transition: all var(--transition);
+    }
+
+    .included-item:hover {
+      background: rgba(59, 130, 246, 0.03);
+      border-color: rgba(59, 130, 246, 0.1);
+    }
+
+    .included-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .included-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .included-icon.ic-blue   { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+    .included-icon.ic-purple { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
+    .included-icon.ic-cyan   { background: rgba(6, 182, 212, 0.1);  color: #06b6d4; }
+    .included-icon.ic-green  { background: rgba(34, 197, 94, 0.1);  color: #22c55e; }
+    .included-icon.ic-amber  { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+    .included-icon.ic-pink   { background: rgba(236, 72, 153, 0.1); color: #ec4899; }
+
+    .included-text strong {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 0.1rem;
+    }
+
+    .included-text span {
+      font-size: 0.74rem;
+      color: var(--color-text-dim);
+      line-height: 1.4;
+    }
+
+    /* ── Philosophy quote ── */
+    .fase-philosophy {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2.5rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 0.5s ease 0.15s both;
+    }
+
+    .fase-philosophy::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gradient-accent);
+    }
+
+    .fase-philosophy::after {
+      content: '\201C';
+      position: absolute;
+      top: 0.5rem;
+      left: 1.5rem;
+      font-size: 6rem;
+      font-family: Georgia, serif;
+      line-height: 1;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(139, 92, 246, 0.08));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      pointer-events: none;
+    }
+
+    .fase-philosophy blockquote {
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--color-text);
+      line-height: 1.7;
+      max-width: 600px;
+      margin: 0 auto 0.75rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .fase-philosophy cite {
+      font-size: 0.82rem;
+      color: var(--color-text-dim);
+      font-style: normal;
+      font-weight: 600;
+      position: relative;
+      z-index: 1;
+    }
+
+    .fase-philosophy cite::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 2px;
+      background: var(--color-primary);
+      vertical-align: middle;
+      margin-right: 0.5rem;
+      border-radius: 1px;
+    }
+
+    /* ── Back bar & Breadcrumb ── */
     .back-bar {
       display: flex;
       align-items: center;
@@ -213,7 +485,6 @@
       transform: translateX(-3px);
     }
 
-    /* Breadcrumb */
     .breadcrumb {
       display: flex;
       align-items: center;
@@ -231,16 +502,14 @@
       color: var(--color-primary);
     }
 
-    .breadcrumb-sep {
-      opacity: 0.4;
-    }
+    .breadcrumb-sep { opacity: 0.4; }
 
     .breadcrumb-current {
       color: var(--color-text-muted);
       font-weight: 600;
     }
 
-    /* Pillar Section Title */
+    /* ── Pillar Section ── */
     .pillar-section {
       animation: fadeInUp 0.5s ease both;
     }
@@ -273,7 +542,7 @@
       padding-left: 0.75rem;
     }
 
-    /* Pillar Cards Grid */
+    /* ── Pillar Cards Grid ── */
     .pillar-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -281,7 +550,6 @@
       margin-bottom: 2.5rem;
     }
 
-    /* Individual Pillar Card */
     .pillar-card {
       background: var(--color-surface);
       border: 1px solid var(--color-border);
@@ -295,7 +563,6 @@
       animation: fadeInUp 0.5s ease both;
     }
 
-    /* Staggered card entrance */
     .pillar-card:nth-child(1) { animation-delay: 0.15s; }
     .pillar-card:nth-child(2) { animation-delay: 0.25s; }
     .pillar-card:nth-child(3) { animation-delay: 0.35s; }
@@ -307,14 +574,13 @@
       transform: translateY(-4px);
     }
 
-    /* Colored top border on hover per pilar */
     #card-trading:hover    { border-color: rgba(37, 99, 235, 0.3); }
     #card-mentalidad:hover { border-color: rgba(168, 85, 247, 0.3); }
     #card-disciplina:hover { border-color: rgba(59, 130, 246, 0.3); }
     #card-fisico:hover     { border-color: rgba(6, 182, 212, 0.3); }
     #card-emociones:hover  { border-color: rgba(236, 72, 153, 0.3); }
 
-    /* Card Cover/Banner */
+    /* ── Card Cover ── */
     .pillar-cover {
       position: relative;
       height: 140px;
@@ -383,14 +649,37 @@
       color: rgba(255, 255, 255, 0.85);
     }
 
-    /* Cover Gradients per pilar */
+    /* Cover badge - lesson count */
+    .cover-badge {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(8px);
+      padding: 0.3rem 0.6rem;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .cover-badge svg {
+      width: 11px;
+      height: 11px;
+    }
+
     .cover-trading { background: linear-gradient(135deg, #1a3a6e, #2563eb, #1e40af); }
     .cover-mentalidad { background: linear-gradient(135deg, #4a1d6e, #7c3aed, #6d28d9); }
     .cover-disciplina { background: linear-gradient(135deg, #1a3a6e, #3b82f6, #2563eb); }
     .cover-fisico { background: linear-gradient(135deg, #0a4a5c, #0891b2, #06b6d4); }
     .cover-emociones { background: linear-gradient(135deg, #6b1d5e, #a855f7, #ec4899); }
 
-    /* Card Body */
+    /* ── Card Body ── */
     .pillar-body {
       padding: 1.35rem 1.5rem 1.5rem;
       flex: 1;
@@ -428,10 +717,10 @@
       flex: 1;
     }
 
-    /* Module list inside card */
+    /* Module list */
     .pillar-modules {
       list-style: none;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
     }
 
     .pillar-modules li {
@@ -461,6 +750,33 @@
       color: var(--color-success);
     }
 
+    /* Card meta footer - duration & content info */
+    .pillar-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      margin-bottom: 0.75rem;
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .pillar-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--color-text-dim);
+    }
+
+    .pillar-meta-item svg {
+      width: 13px;
+      height: 13px;
+      color: var(--color-text-dim);
+      opacity: 0.7;
+    }
+
     /* Card Action */
     .pillar-action {
       display: flex;
@@ -485,6 +801,21 @@
       background: var(--gradient-primary);
       color: #fff;
       box-shadow: 0 2px 10px var(--color-primary-glow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .action-enter::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%; right: 0; bottom: 0;
+      width: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .action-enter:hover::before {
+      left: 100%;
     }
 
     .action-enter:hover {
@@ -514,117 +845,34 @@
       height: 14px;
     }
 
-    /* Philosophy quote */
-    .fase-philosophy {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-lg);
-      padding: 2.5rem 2.5rem;
-      text-align: center;
-      margin-bottom: 2.5rem;
-      position: relative;
-      overflow: hidden;
-      animation: fadeInUp 0.5s ease 0.1s both;
-    }
-
-    .fase-philosophy::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--gradient-accent);
-    }
-
-    /* Decorative quotation marks */
-    .fase-philosophy::after {
-      content: '\201C';
-      position: absolute;
-      top: 1rem;
-      left: 1.5rem;
-      font-size: 5rem;
-      font-family: Georgia, serif;
-      line-height: 1;
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(139, 92, 246, 0.1));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      pointer-events: none;
-    }
-
-    .fase-philosophy blockquote {
-      font-size: 1.05rem;
-      font-style: italic;
-      color: var(--color-text);
-      line-height: 1.7;
-      max-width: 600px;
-      margin: 0 auto 0.75rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .fase-philosophy cite {
-      font-size: 0.82rem;
-      color: var(--color-text-dim);
-      font-style: normal;
-      font-weight: 600;
-      position: relative;
-      z-index: 1;
-    }
-
-    .fase-philosophy cite::before {
-      content: '';
-      display: inline-block;
-      width: 20px;
-      height: 2px;
-      background: var(--color-primary);
-      vertical-align: middle;
-      margin-right: 0.5rem;
-      border-radius: 1px;
-    }
-
-    /* Responsive */
+    /* ── Responsive ── */
     @media (max-width: 768px) {
       .fase-hero {
-        padding: 2rem 1.25rem 2rem;
+        padding: 2.5rem 1.25rem 2rem;
       }
 
-      .fase-hero-stats {
-        gap: 0;
+      .fase-hero-stats { gap: 0; }
+      .hero-stat { padding: 0.5rem 1rem; }
+
+      .pillar-grid { grid-template-columns: 1fr; }
+      .pillar-cover { height: 120px; }
+      .breadcrumb { display: none; }
+      .fase-philosophy::after { display: none; }
+
+      .included-grid {
+        grid-template-columns: 1fr 1fr;
       }
 
-      .hero-stat {
-        padding: 0.5rem 1rem;
-      }
-
-      .pillar-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .pillar-cover {
-        height: 120px;
-      }
-
-      .breadcrumb {
-        display: none;
-      }
-
-      .fase-philosophy::after {
-        display: none;
+      .hero-trust {
+        gap: 0.75rem;
       }
     }
 
     @media (max-width: 480px) {
-      .fase-hero h1 {
-        font-size: 1.5rem;
-      }
+      .fase-hero h1 { font-size: 1.5rem; }
 
-      .hero-stat:not(:last-child)::after {
-        display: none;
-      }
-
-      .hero-stat {
-        padding: 0.4rem 0.75rem;
-      }
+      .hero-stat:not(:last-child)::after { display: none; }
+      .hero-stat { padding: 0.4rem 0.75rem; }
 
       .back-bar {
         flex-direction: column;
@@ -632,12 +880,17 @@
         gap: 0.75rem;
       }
 
-      .pillar-section-title {
-        font-size: 1rem;
+      .pillar-section-title { font-size: 1rem; }
+
+      .included-grid { grid-template-columns: 1fr; }
+
+      .hero-trust {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.4rem;
       }
     }
 
-    /* Reduced motion */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -717,9 +970,9 @@
     <div class="fase-hero-content">
       <div class="fase-hero-phase">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        Fase 1
+        <span>Programa Completo</span>
       </div>
-      <h1>Cambi&aacute; tu <span>Ser</span></h1>
+      <h1>Cambi&aacute; tu <em>Ser</em></h1>
       <p class="fase-hero-desc">
         La transformaci&oacute;n empieza desde adentro. Domin&aacute; tu mente, tu cuerpo, tus emociones y tu disciplina para convertirte en un trader consistente y rentable.
       </p>
@@ -737,8 +990,107 @@
           <span class="hero-stat-label">Lecciones</span>
         </div>
         <div class="hero-stat">
-          <span class="hero-stat-value progress-value" id="hero-progress">0%</span>
+          <span class="hero-stat-value">40+</span>
+          <span class="hero-stat-label">Recursos</span>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-progress-ring">
+            <div class="progress-ring-wrap">
+              <svg width="52" height="52" viewBox="0 0 88 88">
+                <defs>
+                  <linearGradient id="progress-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#3b82f6"/>
+                    <stop offset="100%" stop-color="#8b5cf6"/>
+                  </linearGradient>
+                </defs>
+                <circle class="progress-ring-bg" cx="44" cy="44" r="40"/>
+                <circle class="progress-ring-fill" id="progress-ring" cx="44" cy="44" r="40"/>
+              </svg>
+              <span class="progress-ring-text" id="hero-progress">0%</span>
+            </div>
+          </div>
           <span class="hero-stat-label">Progreso</span>
+        </div>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Acceso de por vida
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Actualizaciones incluidas
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Soporte personalizado
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- What's Included -->
+  <div class="included-section">
+    <div class="included-header">
+      <div class="included-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Incluido en tu programa
+      </div>
+      <div class="included-title">Todo lo que necesit&aacute;s para transformarte</div>
+    </div>
+    <div class="included-grid">
+      <div class="included-item">
+        <div class="included-icon ic-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 17l-5-8-4 5-3-3"/></svg>
+        </div>
+        <div class="included-text">
+          <strong>2 Sistemas de Trading</strong>
+          <span>Estrategias probadas paso a paso</span>
+        </div>
+      </div>
+      <div class="included-item">
+        <div class="included-icon ic-purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        </div>
+        <div class="included-text">
+          <strong>Psicotrading Completo</strong>
+          <span>Domin&aacute; tu mente para operar</span>
+        </div>
+      </div>
+      <div class="included-item">
+        <div class="included-icon ic-cyan">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="included-text">
+          <strong>Optimizaci&oacute;n F&iacute;sica</strong>
+          <span>Sue&ntilde;o, alimentaci&oacute;n y energ&iacute;a</span>
+        </div>
+      </div>
+      <div class="included-item">
+        <div class="included-icon ic-green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="included-text">
+          <strong>Sistema de H&aacute;bitos</strong>
+          <span>Construi disciplina real</span>
+        </div>
+      </div>
+      <div class="included-item">
+        <div class="included-icon ic-pink">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div class="included-text">
+          <strong>Control Emocional</strong>
+          <span>Gestion&aacute; miedo y euforia</span>
+        </div>
+      </div>
+      <div class="included-item">
+        <div class="included-icon ic-amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="included-text">
+          <strong>Comunidad Privada</strong>
+          <span>Grupo exclusivo de traders</span>
         </div>
       </div>
     </div>
@@ -764,6 +1116,10 @@
       <div class="pillar-cover">
         <div class="pillar-cover-bg cover-trading"></div>
         <div class="pillar-cover-pattern"></div>
+        <div class="cover-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          5 lecciones
+        </div>
         <div class="pillar-cover-content">
           <div class="pillar-cover-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 17l-5-8-4 5-3-3"/></svg>
@@ -797,6 +1153,20 @@
             Glosario &amp; Consejos Adicionales
           </li>
         </ul>
+        <div class="pillar-meta">
+          <div class="pillar-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            5 lecciones
+          </div>
+          <div class="pillar-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            2h+ contenido
+          </div>
+          <div class="pillar-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            PDFs
+          </div>
+        </div>
         <div id="action-trading"></div>
       </div>
     </div>
@@ -817,6 +1187,10 @@
       <div class="pillar-cover">
         <div class="pillar-cover-bg cover-mentalidad"></div>
         <div class="pillar-cover-pattern"></div>
+        <div class="cover-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          4 lecciones
+        </div>
         <div class="pillar-cover-content">
           <div class="pillar-cover-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
@@ -846,6 +1220,20 @@
             Ansiedad y gesti&oacute;n emocional del trader
           </li>
         </ul>
+        <div class="pillar-meta">
+          <div class="pillar-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            4 lecciones
+          </div>
+          <div class="pillar-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            1.5h+ contenido
+          </div>
+          <div class="pillar-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Ejercicios
+          </div>
+        </div>
         <div id="action-mentalidad"></div>
       </div>
     </div>
@@ -855,6 +1243,10 @@
       <div class="pillar-cover">
         <div class="pillar-cover-bg cover-disciplina"></div>
         <div class="pillar-cover-pattern"></div>
+        <div class="cover-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          4 lecciones
+        </div>
         <div class="pillar-cover-content">
           <div class="pillar-cover-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
@@ -884,15 +1276,33 @@
             Rutina diaria y sistema de operaci&oacute;n
           </li>
         </ul>
+        <div class="pillar-meta">
+          <div class="pillar-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            4 lecciones
+          </div>
+          <div class="pillar-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            1h+ contenido
+          </div>
+          <div class="pillar-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Plantillas
+          </div>
+        </div>
         <div id="action-disciplina"></div>
       </div>
     </div>
 
-    <!-- Pilar 4: Físico -->
+    <!-- Pilar 4: F&iacute;sico -->
     <div class="pillar-card" id="card-fisico">
       <div class="pillar-cover">
         <div class="pillar-cover-bg cover-fisico"></div>
         <div class="pillar-cover-pattern"></div>
+        <div class="cover-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          4 lecciones
+        </div>
         <div class="pillar-cover-content">
           <div class="pillar-cover-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
@@ -922,6 +1332,20 @@
             Gesti&oacute;n del entorno y productividad
           </li>
         </ul>
+        <div class="pillar-meta">
+          <div class="pillar-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            4 lecciones
+          </div>
+          <div class="pillar-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            1h+ contenido
+          </div>
+          <div class="pillar-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Gu&iacute;as
+          </div>
+        </div>
         <div id="action-fisico"></div>
       </div>
     </div>
@@ -931,6 +1355,10 @@
       <div class="pillar-cover">
         <div class="pillar-cover-bg cover-emociones"></div>
         <div class="pillar-cover-pattern"></div>
+        <div class="cover-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          4 lecciones
+        </div>
         <div class="pillar-cover-content">
           <div class="pillar-cover-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -960,6 +1388,20 @@
             Protocolo pre-operaci&oacute;n
           </li>
         </ul>
+        <div class="pillar-meta">
+          <div class="pillar-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            4 lecciones
+          </div>
+          <div class="pillar-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            1h+ contenido
+          </div>
+          <div class="pillar-meta-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Protocolos
+          </div>
+        </div>
         <div id="action-emociones"></div>
       </div>
     </div>
@@ -1024,13 +1466,23 @@
     // Check access
     var hasAccess = Auth.hasAccess('fase-1');
 
-    // Progress
+    // Progress with ring animation
     if (hasAccess && userData.id) {
       var progress = await Auth.getProgress(userData.id);
       var completed = progress.filter(function(p) { return p.completado; }).length;
       var total = progress.length || 5;
       var pct = Math.round((completed / total) * 100);
       document.getElementById("hero-progress").textContent = pct + "%";
+
+      // Animate the SVG ring
+      var ring = document.getElementById("progress-ring");
+      if (ring) {
+        var circumference = 2 * Math.PI * 40; // r=40
+        var offset = circumference - (pct / 100) * circumference;
+        setTimeout(function() {
+          ring.style.strokeDashoffset = offset;
+        }, 300);
+      }
     }
 
     // Render pillar actions

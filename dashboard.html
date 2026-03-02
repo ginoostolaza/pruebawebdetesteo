@@ -53,7 +53,10 @@
           </button>
         </div>
         <div class="notif-list" id="notif-list">
-          <div class="notif-empty">No ten&eacute;s notificaciones</div>
+          <div class="notif-empty">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:32px;height:32px;opacity:0.3;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            No ten&eacute;s notificaciones
+          </div>
         </div>
       </div>
     </div>
@@ -107,6 +110,7 @@
       <div class="welcome-right">
         <div class="welcome-date" id="welcome-date">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span id="welcome-date-text"></span>
         </div>
       </div>
     </div>
@@ -436,11 +440,62 @@
       z-index: 1;
     }
 
+    .fase1-action-btn {
+      display: inline-flex !important;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.88rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .fase1-action-btn.action-primary {
+      background: var(--gradient-primary);
+      color: #fff;
+      box-shadow: 0 4px 16px var(--color-primary-glow);
+    }
+
+    .fase1-action-btn.action-primary:hover {
+      box-shadow: 0 6px 24px var(--color-primary-glow);
+      transform: translateY(-2px);
+    }
+
+    .fase1-action-btn.action-buy {
+      background: var(--color-surface-2);
+      color: var(--color-text-muted);
+      border: 1px solid var(--color-border);
+    }
+
+    .fase1-action-btn.action-buy:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      background: rgba(59, 130, 246, 0.06);
+    }
+
+    .fase1-action-btn svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .fase1-action-btn .action-arrow {
+      transition: transform var(--transition);
+    }
+
+    .fase1-action-btn:hover .action-arrow {
+      transform: translateX(3px);
+    }
+
     @media (max-width: 768px) {
       .fase1-main-card { padding: 1.5rem 1.25rem; }
       .fase1-card-content { flex-direction: column; gap: 1rem; }
       .fase1-card-right { display: none; }
       .fase1-card-title { font-size: 1.35rem; }
+      .fase1-action-btn { width: 100%; justify-content: center; }
     }
   </style>
 
@@ -625,6 +680,7 @@
     var dropdown = document.getElementById("user-dropdown");
     navUser.addEventListener("click", function(e) {
       e.stopPropagation();
+      document.getElementById("notif-dropdown").classList.remove("open");
       dropdown.classList.toggle("open");
     });
     document.addEventListener("click", function(e) {
@@ -657,18 +713,18 @@
     faseEl.textContent = faseMap[userData.fase] || 'Sin acceso';
     if (!userData.fase) faseEl.style.color = 'var(--color-text-dim)';
 
+    // --- Date ---
+    const now = new Date();
+
     // --- Days as member ---
     if (userData.fecha_registro) {
       var regDate = new Date(userData.fecha_registro);
       var daysDiff = Math.floor((now - regDate) / 86400000);
       document.getElementById("stat-days").textContent = daysDiff < 1 ? 'Hoy' : daysDiff;
     }
-
-    // --- Date ---
-    const now = new Date();
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const dateStr = now.toLocaleDateString('es-AR', options);
-    document.getElementById("welcome-date").insertAdjacentText('beforeend', dateStr.charAt(0).toUpperCase() + dateStr.slice(1));
+    document.getElementById("welcome-date-text").textContent = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
 
     // --- Footer year & session ---
     document.getElementById("footer-year").textContent = now.getFullYear();
@@ -792,9 +848,10 @@
     if (hasAccess) {
       badge.textContent = 'Activo';
       badge.className = 'card-badge badge-active';
-      action.innerHTML = '<a href="fase-1.html" class="card-action action-primary" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.7rem 1.5rem;font-size:0.88rem;font-weight:700;background:var(--gradient-primary);color:#fff;border-radius:var(--radius-sm);box-shadow:0 2px 12px var(--color-primary-glow);transition:all var(--transition);text-decoration:none;">' +
+      action.innerHTML = '<a href="fase-1.html" class="card-action action-primary fase1-action-btn">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>' +
         'Acceder a la Fase 1' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="action-arrow"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
         '</a>';
     } else {
       badge.textContent = 'Bloqueado';
@@ -803,8 +860,8 @@
       var f1ars = Math.round(sp.fase1_ars || 47000);
       var f1usd = parseFloat(sp.fase1_usd || 37);
       var priceLabel = '$' + f1ars.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' ARS / USD ' + f1usd.toFixed(0);
-      action.innerHTML = '<a href="finalizar-compra.html?plan=fase1" class="card-action action-locked" style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.7rem 1.5rem;font-size:0.84rem;font-weight:600;background:var(--color-surface-2);color:var(--color-text-dim);border:1px solid var(--color-border);border-radius:var(--radius-sm);transition:all var(--transition);text-decoration:none;">' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>' +
+      action.innerHTML = '<a href="finalizar-compra.html?plan=fase1" class="card-action action-buy fase1-action-btn">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>' +
         'Adquirir Fase 1 \u2014 ' + priceLabel +
         '</a>';
     }
@@ -828,11 +885,11 @@
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
         '</a>';
     } else {
-      badge.textContent = 'Nuevo';
+      badge.textContent = 'Disponible';
       badge.className = 'card-badge badge-new';
       action.innerHTML = '<a href="https://instagram.com/orbitacapital.io" target="_blank" rel="noopener noreferrer" class="card-action action-outline">' +
-        'Consultar por privado' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>' +
+        'Consultar por privado' +
         '</a>';
     }
   }
@@ -847,17 +904,18 @@
       badge.textContent = 'Activo';
       badge.className = 'card-badge badge-active';
       action.innerHTML = '<a href="comunidad-privada.html" class="card-action action-primary">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>' +
         'Entrar a la comunidad' +
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="action-arrow"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
         '</a>';
     } else {
       card.classList.add('card-locked');
       badge.textContent = 'Bloqueado';
       badge.className = 'card-badge badge-locked';
-      action.innerHTML = '<span class="card-action action-locked">' +
+      action.innerHTML = '<a href="https://instagram.com/orbitacapital.io" target="_blank" rel="noopener noreferrer" class="card-action action-outline">' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>' +
         'Contact\u00e1 a soporte para acceder' +
-        '</span>';
+        '</a>';
     }
   }
 
@@ -944,7 +1002,9 @@
     }
 
     if (!notifications.length) {
-      list.innerHTML = '<div class="notif-empty">No ten\u00e9s notificaciones</div>';
+      list.innerHTML = '<div class="notif-empty">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:32px;height:32px;opacity:0.3;"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>' +
+        'No ten\u00e9s notificaciones</div>';
       return;
     }
 
@@ -977,6 +1037,7 @@
 
     bell.addEventListener("click", function(e) {
       e.stopPropagation();
+      document.getElementById("user-dropdown").classList.remove("open");
       ddropdown.classList.toggle("open");
     });
 

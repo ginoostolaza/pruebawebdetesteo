@@ -499,6 +499,49 @@ const Auth = (function () {
     return { success: !error, error: error?.message };
   }
 
+  // ---- MENTORSHIPS: Get upcoming (visible) mentorships ----
+  async function getMentorships() {
+    if (!supabase) return [];
+    var today = new Date().toISOString().split('T')[0];
+    var { data } = await supabase.from('mentorias')
+      .select('*')
+      .eq('visible', true)
+      .gte('fecha', today)
+      .order('fecha', { ascending: true })
+      .order('hora', { ascending: true });
+    return data || [];
+  }
+
+  // ---- ADMIN: Get all mentorships ----
+  async function getAllMentorships() {
+    if (!supabase) return [];
+    var { data } = await supabase.from('mentorias')
+      .select('*')
+      .order('fecha', { ascending: false });
+    return data || [];
+  }
+
+  // ---- ADMIN: Create mentorship ----
+  async function createMentorship(mentorship) {
+    if (!supabase) return { success: false, error: 'No disponible en modo demo.' };
+    var { error } = await supabase.from('mentorias').insert(mentorship);
+    return { success: !error, error: error?.message };
+  }
+
+  // ---- ADMIN: Update mentorship ----
+  async function updateMentorship(id, updates) {
+    if (!supabase) return { success: false, error: 'No disponible en modo demo.' };
+    var { error } = await supabase.from('mentorias').update(updates).eq('id', id);
+    return { success: !error, error: error?.message };
+  }
+
+  // ---- ADMIN: Delete mentorship ----
+  async function deleteMentorship(id) {
+    if (!supabase) return { success: false, error: 'No disponible en modo demo.' };
+    var { error } = await supabase.from('mentorias').delete().eq('id', id);
+    return { success: !error, error: error?.message };
+  }
+
   return {
     init, isConfigured, getClient,
     login, register, resetPassword, logout,
@@ -508,6 +551,7 @@ const Auth = (function () {
     getAllUsers, updateUser, getAllProgress, getAllPayments, addPayment, initProgress,
     getNotifications, getUnreadCount, markNotificationRead, markAllNotificationsRead,
     sendNotification, sendBulkNotification,
-    getSiteConfig, updateSiteConfig
+    getSiteConfig, updateSiteConfig,
+    getMentorships, getAllMentorships, createMentorship, updateMentorship, deleteMentorship
   };
 })();

@@ -891,6 +891,346 @@
       }
     }
 
+    /* ── Learning Path / Roadmap ── */
+    .roadmap-section {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2.25rem;
+      margin-bottom: 2rem;
+      animation: fadeInUp 0.5s ease 0.2s both;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .roadmap-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4, #ec4899, #22c55e);
+    }
+
+    .roadmap-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .roadmap-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--color-secondary);
+      background: rgba(139, 92, 246, 0.08);
+      border: 1px solid rgba(139, 92, 246, 0.12);
+      padding: 0.35rem 0.85rem;
+      border-radius: 50px;
+      margin-bottom: 0.75rem;
+    }
+
+    .roadmap-label svg {
+      width: 13px;
+      height: 13px;
+    }
+
+    .roadmap-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-text);
+    }
+
+    .roadmap-steps {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .roadmap-steps::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      bottom: 20px;
+      width: 2px;
+      background: linear-gradient(to bottom, #3b82f6, #8b5cf6, #06b6d4, #ec4899, #22c55e);
+      opacity: 0.25;
+    }
+
+    .roadmap-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 0;
+      position: relative;
+    }
+
+    .roadmap-dot {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #fff;
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s ease;
+    }
+
+    .roadmap-step:hover .roadmap-dot {
+      transform: scale(1.12);
+    }
+
+    .dot-blue   { background: linear-gradient(135deg, #2563eb, #3b82f6); box-shadow: 0 0 16px rgba(59, 130, 246, 0.3); }
+    .dot-purple { background: linear-gradient(135deg, #7c3aed, #a855f7); box-shadow: 0 0 16px rgba(139, 92, 246, 0.3); }
+    .dot-indigo { background: linear-gradient(135deg, #4f46e5, #6366f1); box-shadow: 0 0 16px rgba(99, 102, 241, 0.3); }
+    .dot-cyan   { background: linear-gradient(135deg, #0891b2, #06b6d4); box-shadow: 0 0 16px rgba(6, 182, 212, 0.3); }
+    .dot-pink   { background: linear-gradient(135deg, #db2777, #ec4899); box-shadow: 0 0 16px rgba(236, 72, 153, 0.3); }
+
+    .roadmap-info {
+      flex: 1;
+      padding-top: 0.35rem;
+    }
+
+    .roadmap-info strong {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 0.15rem;
+    }
+
+    .roadmap-info span {
+      font-size: 0.78rem;
+      color: var(--color-text-dim);
+      line-height: 1.5;
+    }
+
+    .roadmap-tag {
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 0.2rem 0.5rem;
+      border-radius: 50px;
+      margin-top: 0.4rem;
+      display: inline-block;
+    }
+
+    .tag-core     { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+    .tag-mind     { background: rgba(139, 92, 246, 0.1); color: #a855f7; }
+    .tag-habits   { background: rgba(99, 102, 241, 0.1); color: #6366f1; }
+    .tag-body     { background: rgba(6, 182, 212, 0.1); color: #06b6d4; }
+    .tag-emotions { background: rgba(236, 72, 153, 0.1); color: #ec4899; }
+
+    /* ── Bottom CTA Section ── */
+    .cta-section {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 3rem 2.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      animation: fadeInUp 0.5s ease 0.25s both;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--gradient-primary);
+    }
+
+    .cta-section::after {
+      content: '';
+      position: absolute;
+      bottom: -40%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.03), transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      box-shadow: 0 0 24px var(--color-primary-glow);
+    }
+
+    .cta-icon svg {
+      width: 26px;
+      height: 26px;
+      color: #fff;
+    }
+
+    .cta-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--color-text);
+      margin-bottom: 0.6rem;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-desc {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      max-width: 500px;
+      margin: 0 auto 1.75rem;
+      line-height: 1.7;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 2rem;
+      font-size: 0.92rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-btn-primary {
+      background: var(--gradient-primary);
+      color: #fff;
+      box-shadow: 0 4px 16px var(--color-primary-glow);
+    }
+
+    .cta-btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%; right: 0; bottom: 0;
+      width: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .cta-btn-primary:hover::before {
+      left: 100%;
+    }
+
+    .cta-btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px var(--color-primary-glow);
+      color: #fff;
+    }
+
+    .cta-btn-primary svg {
+      width: 18px;
+      height: 18px;
+      transition: transform var(--transition);
+    }
+
+    .cta-btn-primary:hover svg {
+      transform: translateX(3px);
+    }
+
+    .cta-btn-secondary {
+      background: var(--color-surface-2);
+      color: var(--color-text-muted);
+      border: 1px solid var(--color-border);
+    }
+
+    .cta-btn-secondary:hover {
+      border-color: var(--color-primary);
+      color: var(--color-primary);
+      background: rgba(59, 130, 246, 0.04);
+    }
+
+    .cta-btn-secondary svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ── Guarantee Section ── */
+    .guarantee-section {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      animation: fadeInUp 0.5s ease 0.3s both;
+    }
+
+    .guarantee-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .guarantee-icon svg {
+      width: 22px;
+      height: 22px;
+      color: var(--color-success);
+    }
+
+    .guarantee-text strong {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 0.1rem;
+    }
+
+    .guarantee-text span {
+      font-size: 0.78rem;
+      color: var(--color-text-dim);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      .roadmap-section { padding: 1.75rem 1.25rem; }
+      .cta-section { padding: 2rem 1.25rem; }
+      .cta-title { font-size: 1.25rem; }
+
+      .guarantee-section {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.25rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .roadmap-steps::before { left: 16px; }
+      .roadmap-dot { width: 34px; height: 34px; font-size: 0.65rem; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -1408,6 +1748,84 @@
   </div>
   </div>
 
+  <!-- Learning Path / Roadmap -->
+  <div class="roadmap-section">
+    <div class="roadmap-header">
+      <div class="roadmap-label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        Tu camino de transformaci&oacute;n
+      </div>
+      <div class="roadmap-title">Orden recomendado de estudio</div>
+    </div>
+    <div class="roadmap-steps">
+      <div class="roadmap-step">
+        <div class="roadmap-dot dot-blue">1</div>
+        <div class="roadmap-info">
+          <strong>Trading &amp; Estrategia</strong>
+          <span>Empez&aacute; por los fundamentos t&eacute;cnicos. Aprend&eacute; los 2 sistemas de trading y c&oacute;mo preparar tu gr&aacute;fico.</span>
+          <div class="roadmap-tag tag-core">Fundamento t&eacute;cnico</div>
+        </div>
+      </div>
+      <div class="roadmap-step">
+        <div class="roadmap-dot dot-purple">2</div>
+        <div class="roadmap-info">
+          <strong>Mentalidad &amp; Psicotrading</strong>
+          <span>Reprogramá tu mente para operar sin miedo ni ansiedad. La t&eacute;cnica sin mentalidad no sirve.</span>
+          <div class="roadmap-tag tag-mind">Base invisible</div>
+        </div>
+      </div>
+      <div class="roadmap-step">
+        <div class="roadmap-dot dot-indigo">3</div>
+        <div class="roadmap-info">
+          <strong>Disciplina &amp; H&aacute;bitos</strong>
+          <span>Construi sistemas que te mantienen consistente sin depender de motivaci&oacute;n.</span>
+          <div class="roadmap-tag tag-habits">Motor de resultados</div>
+        </div>
+      </div>
+      <div class="roadmap-step">
+        <div class="roadmap-dot dot-cyan">4</div>
+        <div class="roadmap-info">
+          <strong>F&iacute;sico &amp; Energ&iacute;a</strong>
+          <span>Optimiz&aacute; tu sue&ntilde;o, alimentaci&oacute;n y ejercicio para rendir al m&aacute;ximo operando.</span>
+          <div class="roadmap-tag tag-body">Ventaja competitiva</div>
+        </div>
+      </div>
+      <div class="roadmap-step">
+        <div class="roadmap-dot dot-pink">5</div>
+        <div class="roadmap-info">
+          <strong>Emociones &amp; Confianza</strong>
+          <span>Inteligencia emocional aplicada. Control&aacute; miedo, euforia y frustraci&oacute;n para operar con claridad.</span>
+          <div class="roadmap-tag tag-emotions">Control interno</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom CTA -->
+  <div class="cta-section">
+    <div class="cta-content">
+      <div class="cta-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <h2 class="cta-title" id="cta-title">Empez&aacute; tu transformaci&oacute;n</h2>
+      <p class="cta-desc" id="cta-desc">
+        El trading profesional no es solo t&eacute;cnica. Los 5 pilares trabajan juntos para convertirte en un trader completo, consistente y rentable.
+      </p>
+      <div id="cta-action"></div>
+    </div>
+  </div>
+
+  <!-- Guarantee -->
+  <div class="guarantee-section">
+    <div class="guarantee-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    </div>
+    <div class="guarantee-text">
+      <strong>Acceso completo + actualizaciones de por vida</strong>
+      <span>Una vez dentro, ten&eacute;s acceso a todo el contenido actual y futuro. Sin costos adicionales, sin suscripciones. Avanz&aacute; a tu ritmo.</span>
+    </div>
+  </div>
+
   <!-- Footer -->
   <div class="dash-footer">
     <span>Orbita Capital &copy; <span id="footer-year"></span></span>
@@ -1492,12 +1910,36 @@
     renderPillarAction('action-fisico', hasAccess, 'fisico-energia.html', 'Acceder al m\u00f3dulo');
     renderPillarAction('action-emociones', hasAccess, 'emociones-confianza.html', 'Acceder al m\u00f3dulo');
 
+    // Bottom CTA
+    renderBottomCTA(hasAccess);
+
     // Logout
     document.getElementById("btn-logout").addEventListener("click", async () => {
       await Auth.logout();
       window.location.href = "iniciar-sesion.html";
     });
   });
+
+  function renderBottomCTA(hasAccess) {
+    var ctaEl = document.getElementById('cta-action');
+    var ctaTitle = document.getElementById('cta-title');
+    var ctaDesc = document.getElementById('cta-desc');
+    if (!ctaEl) return;
+
+    if (hasAccess) {
+      ctaTitle.textContent = 'Empezá tu primer pilar';
+      ctaDesc.textContent = 'Ya tenés acceso completo. Seleccioná un pilar arriba o comenzá con el curso de Trading, el fundamento técnico de todo lo que viene.';
+      ctaEl.innerHTML = '<a href="acceso-comunidad.html" class="cta-btn cta-btn-primary">' +
+        'Ir al Curso de Trading' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
+        '</a>';
+    } else {
+      ctaEl.innerHTML = '<a href="finalizar-compra.html?plan=fase1" class="cta-btn cta-btn-primary">' +
+        'Adquirir Fase 1 ahora' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
+        '</a>';
+    }
+  }
 
   function renderPillarAction(actionId, hasAccess, href, label) {
     var el = document.getElementById(actionId);

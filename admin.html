@@ -53,6 +53,10 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         <span>Pagos</span>
       </button>
+      <button class="admin-tab sidebar-item" data-tab="mentorias">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>
+        <span>Mentor&iacute;as</span>
+      </button>
       <span class="sidebar-nav-label">Herramientas</span>
       <button class="admin-tab sidebar-item" data-tab="actions">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
@@ -277,6 +281,35 @@
           </table>
           <div class="table-pagination" id="payments-pagination"></div>
         </div>
+      </div>
+
+      <!-- ============ MENTORÍAS TAB ============ -->
+      <div class="admin-panel" id="panel-mentorias">
+        <div class="panel-header">
+          <h2>Mentor&iacute;as</h2>
+          <button class="btn-primary btn-sm" id="btn-new-mentoria">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Nueva sesi&oacute;n
+          </button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="admin-table" id="mentorias-table">
+            <thead>
+              <tr>
+                <th>T&iacute;tulo</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Acceso</th>
+                <th>Estado</th>
+                <th>Visible</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="mentorias-tbody"></tbody>
+          </table>
+        </div>
+        <p class="empty-state" id="mentorias-empty" style="display:none;">No hay mentor&iacute;as creadas a&uacute;n.</p>
       </div>
 
       <!-- ============ QUICK ACTIONS TAB ============ -->
@@ -634,6 +667,75 @@
         <button type="submit" class="btn-primary">Registrar pago</button>
       </div>
     </form>
+  </div>
+</div>
+
+<!-- ============ MODAL: Create/Edit Mentorship ============ -->
+<div class="modal-overlay" id="modal-mentoria">
+  <div class="modal-card">
+    <div class="modal-bar-blue"></div>
+    <h3 id="modal-mentoria-title">Nueva Sesi&oacute;n de Mentor&iacute;a</h3>
+    <form id="form-mentoria">
+      <input type="hidden" id="mentoria-id">
+      <div class="modal-field">
+        <label>T&iacute;tulo</label>
+        <input type="text" id="mentoria-titulo" required placeholder="Ej: Mentor&iacute;a Grupal - An&aacute;lisis de Mercado">
+      </div>
+      <div class="modal-field">
+        <label>Descripci&oacute;n <span style="color:var(--text-muted);font-weight:400">(opcional)</span></label>
+        <textarea id="mentoria-descripcion" rows="2" placeholder="Breve descripci&oacute;n de la sesi&oacute;n..." style="resize:vertical;min-height:50px;"></textarea>
+      </div>
+      <div class="modal-row">
+        <div class="modal-field">
+          <label>Fecha</label>
+          <input type="date" id="mentoria-fecha" required>
+        </div>
+        <div class="modal-field">
+          <label>Hora</label>
+          <input type="time" id="mentoria-hora" required>
+        </div>
+      </div>
+      <div class="modal-field">
+        <label>Link de la sesi&oacute;n (Zoom, Meet, etc.)</label>
+        <input type="url" id="mentoria-link" required placeholder="https://zoom.us/j/...">
+      </div>
+      <div class="modal-row">
+        <div class="modal-field">
+          <label>Visible para alumnos</label>
+          <select id="mentoria-visible">
+            <option value="true">S&iacute; &mdash; Visible</option>
+            <option value="false">No &mdash; Oculta</option>
+          </select>
+        </div>
+        <div class="modal-field">
+          <label>Acceso requerido</label>
+          <select id="mentoria-acceso">
+            <option value="fase-1">Solo Fase 1</option>
+            <option value="ambas">Cualquier fase</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" onclick="closeModal('modal-mentoria')">Cancelar</button>
+        <button type="submit" class="btn-primary" id="btn-save-mentoria">Guardar sesi&oacute;n</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============ MODAL: Confirm Delete Mentorship ============ -->
+<div class="modal-overlay" id="modal-delete-mentoria">
+  <div class="modal-card" style="max-width:420px;">
+    <div class="modal-bar-blue" style="background:var(--color-error);"></div>
+    <h3>Eliminar mentor&iacute;a</h3>
+    <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:1.5rem;">
+      &iquest;Est&aacute;s seguro de que quer&eacute;s eliminar esta sesi&oacute;n de mentor&iacute;a? Esta acci&oacute;n no se puede deshacer.
+    </p>
+    <input type="hidden" id="delete-mentoria-id">
+    <div class="modal-actions">
+      <button type="button" class="btn-cancel" onclick="closeModal('modal-delete-mentoria')">Cancelar</button>
+      <button type="button" class="btn-danger" id="btn-confirm-delete-mentoria">Eliminar</button>
+    </div>
   </div>
 </div>
 
@@ -1021,9 +1123,10 @@
         tab.classList.add('active');
         document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
         // Update topbar title
-        const titles = { usuarios: 'Usuarios', pagos: 'Pagos', acciones: 'Acciones Rápidas', configuracion: 'Configuración' };
+        const titles = { users: 'Usuarios', payments: 'Pagos', mentorias: 'Mentorías', actions: 'Acciones Rápidas' };
         const titleEl = document.getElementById('topbar-title');
         if (titleEl) titleEl.textContent = titles[tab.dataset.tab] || 'Admin';
+        if (tab.dataset.tab === 'mentorias') loadMentorias();
         // Close sidebar on mobile after tab click
         if (window.innerWidth <= 768) {
           document.getElementById('admin-sidebar').classList.remove('open');
@@ -1473,6 +1576,143 @@
       }
     });
   }
+
+  // ============================================================
+  //  MENTORÍAS MANAGEMENT
+  // ============================================================
+  var allMentorias = [];
+
+  async function loadMentorias() {
+    allMentorias = await Auth.getAllMentorships();
+    renderMentorias();
+  }
+
+  function renderMentorias() {
+    var tbody = document.getElementById('mentorias-tbody');
+    var emptyMsg = document.getElementById('mentorias-empty');
+    if (!allMentorias.length) {
+      tbody.innerHTML = '';
+      emptyMsg.style.display = 'block';
+      return;
+    }
+    emptyMsg.style.display = 'none';
+
+    var today = new Date().toISOString().split('T')[0];
+    tbody.innerHTML = allMentorias.map(function(m) {
+      var isPast = m.fecha < today;
+      var statusBadge = isPast
+        ? '<span class="badge badge-dim">Pasada</span>'
+        : '<span class="badge badge-success">Pr\u00f3xima</span>';
+      var visibleBadge = m.visible
+        ? '<span class="badge badge-success">S\u00ed</span>'
+        : '<span class="badge badge-dim">No</span>';
+      var accesoText = m.acceso_requerido === 'fase-1' ? 'Fase 1' : 'Todas';
+
+      return '<tr>' +
+        '<td><strong>' + escapeHtml(m.titulo || '') + '</strong>' +
+          (m.descripcion ? '<br><span style="font-size:0.75rem;color:var(--text-muted)">' + escapeHtml(m.descripcion).substring(0, 60) + '</span>' : '') +
+        '</td>' +
+        '<td>' + formatDate(m.fecha) + '</td>' +
+        '<td>' + (m.hora || '—') + '</td>' +
+        '<td>' + accesoText + '</td>' +
+        '<td>' + statusBadge + '</td>' +
+        '<td>' + visibleBadge + '</td>' +
+        '<td>' +
+          '<div class="action-btns">' +
+            '<button class="btn-icon" title="Editar" onclick="editMentoria(\'' + m.id + '\')">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>' +
+            '</button>' +
+            '<button class="btn-icon danger" title="Eliminar" onclick="confirmDeleteMentoria(\'' + m.id + '\')">' +
+              '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>' +
+            '</button>' +
+          '</div>' +
+        '</td>' +
+      '</tr>';
+    }).join('');
+  }
+
+  function formatDate(dateStr) {
+    if (!dateStr) return '—';
+    var parts = dateStr.split('-');
+    if (parts.length !== 3) return dateStr;
+    return parts[2] + '/' + parts[1] + '/' + parts[0];
+  }
+
+  // Open modal for new mentorship
+  document.getElementById('btn-new-mentoria').addEventListener('click', function() {
+    document.getElementById('modal-mentoria-title').textContent = 'Nueva Sesi\u00f3n de Mentor\u00eda';
+    document.getElementById('form-mentoria').reset();
+    document.getElementById('mentoria-id').value = '';
+    document.getElementById('btn-save-mentoria').textContent = 'Crear sesi\u00f3n';
+    openModal('modal-mentoria');
+  });
+
+  // Edit existing mentorship
+  function editMentoria(id) {
+    var m = allMentorias.find(function(x) { return x.id === id; });
+    if (!m) return;
+    document.getElementById('modal-mentoria-title').textContent = 'Editar Mentor\u00eda';
+    document.getElementById('mentoria-id').value = m.id;
+    document.getElementById('mentoria-titulo').value = m.titulo || '';
+    document.getElementById('mentoria-descripcion').value = m.descripcion || '';
+    document.getElementById('mentoria-fecha').value = m.fecha || '';
+    document.getElementById('mentoria-hora').value = m.hora || '';
+    document.getElementById('mentoria-link').value = m.link_zoom || '';
+    document.getElementById('mentoria-visible').value = m.visible ? 'true' : 'false';
+    document.getElementById('mentoria-acceso').value = m.acceso_requerido || 'fase-1';
+    document.getElementById('btn-save-mentoria').textContent = 'Guardar cambios';
+    openModal('modal-mentoria');
+  }
+
+  // Save mentorship (create or update)
+  document.getElementById('form-mentoria').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var id = document.getElementById('mentoria-id').value;
+    var payload = {
+      titulo: document.getElementById('mentoria-titulo').value.trim(),
+      descripcion: document.getElementById('mentoria-descripcion').value.trim() || null,
+      fecha: document.getElementById('mentoria-fecha').value,
+      hora: document.getElementById('mentoria-hora').value,
+      link_zoom: document.getElementById('mentoria-link').value.trim(),
+      visible: document.getElementById('mentoria-visible').value === 'true',
+      acceso_requerido: document.getElementById('mentoria-acceso').value
+    };
+
+    var result;
+    if (id) {
+      result = await Auth.updateMentorship(id, payload);
+    } else {
+      result = await Auth.createMentorship(payload);
+    }
+
+    if (result.success) {
+      showToast(id ? 'Mentor\u00eda actualizada' : 'Mentor\u00eda creada correctamente');
+      closeModal('modal-mentoria');
+      await loadMentorias();
+    } else {
+      showToast('Error: ' + (result.error || 'No se pudo guardar'), 'error');
+    }
+  });
+
+  // Confirm delete
+  function confirmDeleteMentoria(id) {
+    document.getElementById('delete-mentoria-id').value = id;
+    openModal('modal-delete-mentoria');
+  }
+
+  document.getElementById('btn-confirm-delete-mentoria').addEventListener('click', async function() {
+    var id = document.getElementById('delete-mentoria-id').value;
+    if (!id) return;
+    var result = await Auth.deleteMentorship(id);
+    if (result.success) {
+      showToast('Mentor\u00eda eliminada');
+      closeModal('modal-delete-mentoria');
+      await loadMentorias();
+    } else {
+      showToast('Error: ' + (result.error || 'No se pudo eliminar'), 'error');
+    }
+  });
+
 </script>
 </body>
 </html>

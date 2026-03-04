@@ -305,15 +305,15 @@
       position: fixed;
       bottom: 24px;
       right: 24px;
-      width: 56px;
-      height: 56px;
+      width: 58px;
+      height: 58px;
       border-radius: 50%;
       background: var(--gradient-primary);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 850;
-      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.45);
+      box-shadow: 0 4px 24px rgba(59, 130, 246, 0.5), 0 2px 8px rgba(0,0,0,0.3);
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
       color: #fff;
       cursor: pointer;
@@ -322,16 +322,16 @@
     }
     .chat-fab:hover {
       transform: scale(1.08);
-      box-shadow: 0 6px 28px rgba(59, 130, 246, 0.6);
+      box-shadow: 0 6px 32px rgba(59, 130, 246, 0.7);
     }
     .chat-fab-tooltip {
       position: absolute;
-      right: 64px;
+      right: 68px;
       background: var(--glass-bg);
       backdrop-filter: var(--glass-blur);
       border: 1px solid var(--glass-border);
       border-radius: 10px;
-      padding: 0.5rem 0.85rem;
+      padding: 0.5rem 0.9rem;
       font-size: 0.78rem;
       color: var(--color-text);
       white-space: nowrap;
@@ -340,10 +340,7 @@
       transform: translateX(8px);
       transition: opacity 0.3s ease, transform 0.3s ease;
     }
-    .chat-fab:hover .chat-fab-tooltip {
-      opacity: 1;
-      transform: translateX(0);
-    }
+    .chat-fab:hover .chat-fab-tooltip { opacity: 1; transform: translateX(0); }
     .chat-fab-icon-chat, .chat-fab-icon-close { transition: opacity 0.2s, transform 0.2s; }
     .chat-fab-icon-close { position: absolute; opacity: 0; transform: scale(0.6); }
     .chat-fab.is-open .chat-fab-icon-chat { opacity: 0; transform: scale(0.6); }
@@ -358,65 +355,113 @@
       border-radius: 50%;
       border: 2px solid #060a13;
       animation: pulse-dot 2s infinite;
+      display: none;
     }
     @keyframes pulse-dot {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.25); }
+      50% { transform: scale(1.3); }
+    }
+
+    /* Unread badge */
+    .chat-badge {
+      position: absolute;
+      top: -3px; right: -3px;
+      min-width: 20px; height: 20px;
+      border-radius: 50px;
+      background: #ef4444;
+      color: #fff;
+      font-size: 0.66rem;
+      font-weight: 700;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 0 3px;
+      border: 2px solid #060a13;
+      animation: badge-pop 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    @keyframes badge-pop {
+      from { transform: scale(0); }
+      to   { transform: scale(1); }
+    }
+
+    /* Proactive bubble */
+    .chat-proactive {
+      position: fixed;
+      bottom: 96px;
+      right: 24px;
+      background: #fff;
+      color: #0d1220;
+      border-radius: 16px 16px 4px 16px;
+      padding: 0.75rem 1.1rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      max-width: 220px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+      z-index: 848;
+      opacity: 0;
+      transform: translateY(10px) scale(0.94);
+      pointer-events: none;
+      transition: opacity 0.35s cubic-bezier(0.16,1,0.3,1), transform 0.35s cubic-bezier(0.16,1,0.3,1);
+      line-height: 1.45;
+      cursor: pointer;
+    }
+    .chat-proactive.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    .chat-proactive::after {
+      content: '';
+      position: absolute;
+      bottom: -6px; right: 18px;
+      width: 12px; height: 12px;
+      background: #fff;
+      transform: rotate(45deg);
+      border-radius: 2px;
     }
 
     /* ── Chat Panel ── */
     .chat-panel {
       position: fixed;
-      bottom: 92px;
+      bottom: 96px;
       right: 24px;
-      width: 340px;
-      max-height: 520px;
-      background: #0d1220;
-      border: 1px solid rgba(59, 130, 246, 0.15);
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255,255,255,0.04);
+      width: 365px;
+      height: 545px;
+      background: #080d1a;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 22px;
+      box-shadow: 0 24px 72px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.04);
       display: flex;
       flex-direction: column;
       z-index: 849;
       opacity: 0;
-      transform: translateY(16px) scale(0.97);
+      transform: translateY(20px) scale(0.95);
       pointer-events: none;
-      transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity 0.3s cubic-bezier(0.16,1,0.3,1), transform 0.3s cubic-bezier(0.16,1,0.3,1);
       overflow: hidden;
     }
-    .chat-panel.is-open {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      pointer-events: all;
-    }
+    .chat-panel.is-open { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
 
     /* Panel header */
     .chat-panel-header {
-      background: linear-gradient(135deg, #1a2a4a, #131a2b);
-      padding: 1rem 1.1rem;
+      background: linear-gradient(135deg, #1e3a5f 0%, #12192e 100%);
+      padding: 0.85rem 1rem;
       display: flex;
       align-items: center;
-      gap: 0.75rem;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      gap: 0.7rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
       flex-shrink: 0;
     }
     .chat-panel-avatar {
-      width: 38px; height: 38px;
+      width: 40px; height: 40px;
       border-radius: 50%;
       background: var(--gradient-primary);
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
+      box-shadow: 0 2px 10px rgba(59,130,246,0.45);
     }
-    .chat-panel-info strong {
-      display: block;
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--color-text);
-    }
+    .chat-panel-info { flex: 1; min-width: 0; }
+    .chat-panel-info strong { display: block; font-size: 0.9rem; font-weight: 700; color: var(--color-text); }
     .chat-panel-info span {
-      font-size: 0.72rem;
-      color: var(--color-success);
+      font-size: 0.69rem;
+      color: #4ade80;
       display: flex;
       align-items: center;
       gap: 0.3rem;
@@ -425,9 +470,23 @@
       content: '';
       display: inline-block;
       width: 6px; height: 6px;
-      background: var(--color-success);
+      background: #4ade80;
       border-radius: 50%;
+      flex-shrink: 0;
     }
+    .chat-header-actions { display: flex; gap: 0.3rem; align-items: center; flex-shrink: 0; }
+    .chat-header-btn {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, color 0.2s;
+    }
+    .chat-header-btn:hover { background: rgba(255,255,255,0.14); color: #fff; }
+    .chat-header-btn svg { width: 13px; height: 13px; }
 
     /* Messages */
     .chat-messages {
@@ -436,59 +495,87 @@
       padding: 1rem;
       display: flex;
       flex-direction: column;
-      gap: 0.65rem;
+      gap: 0.35rem;
       scrollbar-width: thin;
-      scrollbar-color: rgba(255,255,255,0.08) transparent;
+      scrollbar-color: rgba(255,255,255,0.07) transparent;
     }
     .chat-messages::-webkit-scrollbar { width: 4px; }
-    .chat-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
-
+    .chat-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.07); border-radius: 2px; }
+    .chat-msg-group { display: flex; flex-direction: column; gap: 0.2rem; margin-bottom: 0.3rem; }
+    .chat-msg-group.bot { align-items: flex-start; }
+    .chat-msg-group.user { align-items: flex-end; }
     .chat-msg {
-      max-width: 82%;
-      padding: 0.6rem 0.85rem;
-      border-radius: 14px;
+      max-width: 86%;
+      padding: 0.65rem 0.9rem;
+      border-radius: 16px;
       font-size: 0.82rem;
-      line-height: 1.5;
-      animation: msgIn 0.2s ease;
+      line-height: 1.55;
+      animation: msgIn 0.22s cubic-bezier(0.16,1,0.3,1);
     }
     @keyframes msgIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to   { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(8px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
     }
     .chat-msg.bot {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.07);
-      color: var(--color-text-muted);
-      align-self: flex-start;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.09);
+      color: rgba(255,255,255,0.88);
       border-bottom-left-radius: 4px;
     }
+    .chat-msg.bot a { color: #60a5fa; }
     .chat-msg.user {
       background: var(--gradient-primary);
       color: #fff;
-      align-self: flex-end;
       border-bottom-right-radius: 4px;
     }
+    .chat-msg-time {
+      font-size: 0.63rem;
+      color: rgba(255,255,255,0.22);
+      padding: 0 0.3rem;
+    }
+    /* Inline CTA button */
+    .chat-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+      padding: 0.45rem 1.05rem;
+      border-radius: 50px;
+      background: var(--gradient-primary);
+      color: #fff !important;
+      font-size: 0.77rem;
+      font-weight: 600;
+      text-decoration: none !important;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none;
+      font-family: var(--font-family);
+      box-shadow: 0 2px 14px rgba(59,130,246,0.4);
+    }
+    .chat-cta-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 18px rgba(59,130,246,0.55); }
+    .chat-cta-btn svg { flex-shrink: 0; }
     .chat-typing {
       align-self: flex-start;
       display: flex;
       gap: 4px;
-      padding: 0.6rem 0.85rem;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 14px;
+      padding: 0.65rem 0.9rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 16px;
       border-bottom-left-radius: 4px;
+      animation: msgIn 0.22s cubic-bezier(0.16,1,0.3,1);
     }
     .chat-typing span {
       width: 6px; height: 6px;
-      background: var(--color-text-dim);
+      background: rgba(255,255,255,0.35);
       border-radius: 50%;
       animation: typing-bounce 1.2s infinite;
     }
     .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
     .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
     @keyframes typing-bounce {
-      0%, 60%, 100% { transform: translateY(0); }
-      30%           { transform: translateY(-5px); }
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+      30%           { transform: translateY(-5px); opacity: 1; }
     }
 
     /* Quick replies */
@@ -496,51 +583,51 @@
       display: flex;
       flex-wrap: wrap;
       gap: 0.4rem;
-      padding: 0 1rem 0.5rem;
+      padding: 0.5rem 1rem;
       flex-shrink: 0;
+      border-top: 1px solid rgba(255,255,255,0.05);
     }
     .chat-quick-btn {
       font-size: 0.73rem;
-      padding: 0.35rem 0.75rem;
+      padding: 0.35rem 0.8rem;
       border-radius: 50px;
-      border: 1px solid rgba(59, 130, 246, 0.2);
-      background: rgba(59, 130, 246, 0.07);
-      color: var(--color-primary);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      background: rgba(59, 130, 246, 0.08);
+      color: #93c5fd;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.18s;
       font-family: var(--font-family);
       white-space: nowrap;
     }
-    .chat-quick-btn:hover {
-      background: rgba(59, 130, 246, 0.14);
-      border-color: rgba(59, 130, 246, 0.35);
-    }
+    .chat-quick-btn:hover { background: rgba(59,130,246,0.18); border-color: rgba(59,130,246,0.45); color: #bfdbfe; transform: translateY(-1px); }
+    .chat-quick-btn.highlight { border-color: rgba(59,130,246,0.5); background: rgba(59,130,246,0.15); color: #bfdbfe; font-weight: 600; }
 
     /* Input row */
     .chat-input-row {
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.75rem 1rem;
+      padding: 0.7rem 1rem;
       border-top: 1px solid rgba(255,255,255,0.06);
+      background: rgba(0,0,0,0.2);
       flex-shrink: 0;
     }
     .chat-input {
       flex: 1;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 50px;
-      padding: 0.5rem 0.9rem;
+      padding: 0.55rem 1rem;
       font-size: 0.82rem;
       color: var(--color-text);
       outline: none;
       font-family: var(--font-family);
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, background 0.2s;
     }
-    .chat-input::placeholder { color: var(--color-text-dim); }
-    .chat-input:focus { border-color: rgba(59, 130, 246, 0.3); }
+    .chat-input::placeholder { color: rgba(255,255,255,0.25); }
+    .chat-input:focus { border-color: rgba(59,130,246,0.4); background: rgba(255,255,255,0.07); }
     .chat-send-btn {
-      width: 34px; height: 34px;
+      width: 36px; height: 36px;
       border-radius: 50%;
       background: var(--gradient-primary);
       border: none;
@@ -548,15 +635,17 @@
       display: flex; align-items: center; justify-content: center;
       color: #fff;
       flex-shrink: 0;
-      transition: transform 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 10px rgba(59,130,246,0.35);
     }
-    .chat-send-btn:hover { transform: scale(1.08); }
+    .chat-send-btn:hover { transform: scale(1.1); box-shadow: 0 4px 14px rgba(59,130,246,0.5); }
     .chat-send-btn svg { width: 15px; height: 15px; }
 
     @media (max-width: 600px) {
-      .chat-fab { bottom: 80px; right: 16px; width: 50px; height: 50px; }
-      .chat-panel { right: 8px; left: 8px; width: auto; bottom: 146px; }
+      .chat-fab { bottom: 80px; right: 16px; width: 52px; height: 52px; }
+      .chat-panel { right: 8px; left: 8px; width: auto; bottom: 148px; height: 460px; }
       .chat-fab-tooltip { display: none; }
+      .chat-proactive { right: 16px; }
     }
 
     /* --- How It Works Section --- */
@@ -1472,17 +1561,28 @@
   <!-- Chatbot Widget -->
   <button class="chat-fab" id="chat-fab" aria-label="Abrir chat de ayuda" aria-expanded="false">
     <div class="chat-fab-dot" id="chat-fab-dot"></div>
+    <span class="chat-badge" id="chat-badge">1</span>
     <svg class="chat-fab-icon-chat" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
     <svg class="chat-fab-icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     <span class="chat-fab-tooltip">Ayuda &amp; Consultas</span>
   </button>
 
+  <div class="chat-proactive" id="chat-proactive">&#128075; &iquest;Ten&eacute;s alguna duda sobre la Fase 1?</div>
+
   <div class="chat-panel" id="chat-panel" role="dialog" aria-label="Chat de ayuda">
     <div class="chat-panel-header">
-      <div class="chat-panel-avatar">🚀</div>
+      <div class="chat-panel-avatar">&#128640;</div>
       <div class="chat-panel-info">
         <strong>Orbita Capital</strong>
-        <span>En l&iacute;nea ahora</span>
+        <span>En l&iacute;nea &middot; Responde en minutos</span>
+      </div>
+      <div class="chat-header-actions">
+        <button class="chat-header-btn" id="chat-reset-btn" title="Nueva conversaci&oacute;n" aria-label="Nueva conversaci&oacute;n">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+        </button>
+        <button class="chat-header-btn" id="chat-close-btn" title="Cerrar" aria-label="Cerrar chat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
       </div>
     </div>
 
@@ -1491,7 +1591,7 @@
     <div class="chat-quick-replies" id="chat-quick-replies"></div>
 
     <div class="chat-input-row">
-      <input type="text" class="chat-input" id="chat-input" placeholder="Escrib&iacute; tu pregunta..." maxlength="200" autocomplete="off">
+      <input type="text" class="chat-input" id="chat-input" placeholder="Escrib&#237; tu pregunta..." maxlength="200" autocomplete="off">
       <button class="chat-send-btn" id="chat-send-btn" aria-label="Enviar mensaje">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
       </button>
@@ -1681,97 +1781,181 @@
 
     // ---- Chatbot ----
     (function() {
-      var fab = document.getElementById('chat-fab');
-      var panel = document.getElementById('chat-panel');
-      var msgsEl = document.getElementById('chat-messages');
-      var quickEl = document.getElementById('chat-quick-replies');
-      var inputEl = document.getElementById('chat-input');
-      var sendBtn = document.getElementById('chat-send-btn');
-      var fabDot = document.getElementById('chat-fab-dot');
+      var fab      = document.getElementById('chat-fab');
+      var panel    = document.getElementById('chat-panel');
+      var msgsEl   = document.getElementById('chat-messages');
+      var quickEl  = document.getElementById('chat-quick-replies');
+      var inputEl  = document.getElementById('chat-input');
+      var sendBtn  = document.getElementById('chat-send-btn');
+      var fabDot   = document.getElementById('chat-fab-dot');
+      var badge    = document.getElementById('chat-badge');
+      var closeBtn = document.getElementById('chat-close-btn');
+      var resetBtn = document.getElementById('chat-reset-btn');
+      var proactive = document.getElementById('chat-proactive');
       if (!fab || !panel) return;
 
       var isOpen = false;
-      var typingTimeout = null;
+      var unread = 0;
+      var initialized = false;
 
-      // FAQ Knowledge base
+      function getTime() {
+        var d = new Date();
+        var h = d.getHours(), m = d.getMinutes();
+        return h + ':' + (m < 10 ? '0' : '') + m;
+      }
+
+      function updateBadge() {
+        if (!badge) return;
+        if (unread > 0 && !isOpen) {
+          badge.textContent = unread > 9 ? '9+' : unread;
+          badge.style.display = 'flex';
+          if (fabDot) fabDot.style.display = 'none';
+        } else {
+          badge.style.display = 'none';
+        }
+      }
+
+      // FAQ Knowledge base — with rich HTML answers, CTA buttons, and context-aware followup quick replies
       var FAQ = [
         {
-          triggers: ['experiencia', 'principiante', 'cero', 'nunca', 'empezar desde'],
-          answer: '¡No necesitás experiencia previa! El programa arranca desde los fundamentos. Muchos de nuestros alumnos empezaron sin saber absolutamente nada de trading. 🎯'
+          triggers: ['hola', 'buenas', 'buen dia', 'buenos dias', 'hey', 'ola ', 'saludos'],
+          answer: '\u00a1Hola! \ud83d\udc4b Soy el asistente de <strong>Orbita Capital</strong>. Estoy ac\u00e1 para responderte todas las dudas sobre la Fase\u00a01.',
+          cta: null,
+          followup: ['\u00bfCu\u00e1nto cuesta?', '\u00bfQu\u00e9 incluye?', '\u00bfC\u00f3mo pago?']
         },
         {
-          triggers: ['precio', 'costo', 'cuanto', 'cuánto', 'vale', 'valor'],
-          answer: 'Fase 1 tiene un pago único desde USD 37 (o su equivalente en ARS). Sin cuotas ni suscripciones. Acceso de por vida con todas las actualizaciones incluidas. 💰'
+          triggers: ['precio', 'costo', 'cuanto', 'cu\u00e1nto', 'vale', 'valor', 'barato', 'caro'],
+          answer: 'Fase\u00a01 tiene un <strong>\u00fanico pago desde USD\u00a037</strong> (o equivalente en pesos ARS). Sin cuotas ni suscripciones. Acceso de por vida con todas las actualizaciones incluidas. \ud83d\udcb0<br><small style="opacity:0.55;font-size:0.75rem">Precio especial activo por tiempo limitado.</small>',
+          cta: { text: 'Ver planes \u2192', url: 'finalizar-compra.html' },
+          followup: ['\u00bfQu\u00e9 incluye?', '\u00bfC\u00f3mo pago?', '\u00bfAcceso inmediato?']
         },
         {
-          triggers: ['pago', 'pagar', 'transferencia', 'mercadopago', 'stripe', 'tarjeta'],
-          answer: 'Aceptamos tarjeta de crédito/débito (Visa, Mastercard, AMEX), MercadoPago en pesos, y tarjeta internacional en dólares vía Stripe. Todo seguro y en minutos. ✅'
+          triggers: ['pago', 'pagar', 'transferencia', 'mercadopago', 'stripe', 'tarjeta', 'credito', 'cr\u00e9dito', 'debito', 'd\u00e9bito', 'efectivo'],
+          answer: 'Aceptamos:<br>\u2022 \ud83d\udcb3 Tarjeta cr\u00e9dito/d\u00e9bito (Visa, Mastercard, AMEX)<br>\u2022 \ud83d\udcf2 <strong>MercadoPago</strong> en pesos ARS<br>\u2022 \ud83c\udf0d Stripe en d\u00f3lares (tarjeta internacional)<br><br>Todo seguro, confirmaci\u00f3n en minutos. \u2705',
+          cta: { text: 'Elegir m\u00e9todo de pago \u2192', url: 'finalizar-compra.html' },
+          followup: ['\u00bfAcceso inmediato?', '\u00bfCu\u00e1nto cuesta?', 'Quiero inscribirme']
         },
         {
-          triggers: ['acceso', 'cuando', 'cuándo', 'inmediato', 'rapido', 'rápido', 'minutos'],
-          answer: 'El acceso se activa en menos de 30 minutos luego de confirmar tu pago. En minutos podés estar viendo el contenido. ⚡'
+          triggers: ['acceso', 'cuando', 'cu\u00e1ndo', 'inmediato', 'rapido', 'r\u00e1pido', 'tardo', 'cuanto tardo', 'cu\u00e1nto tardo'],
+          answer: 'El acceso se activa en <strong>menos de 30\u00a0minutos</strong> luego de confirmar tu pago. \u26a1<br><br>Te enviamos las credenciales por email autom\u00e1ticamente y ya pod\u00e9s empezar.',
+          cta: null,
+          followup: ['\u00bfCu\u00e1nto cuesta?', '\u00bfC\u00f3mo pago?', 'Quiero inscribirme']
         },
         {
-          triggers: ['reembolso', 'devolucion', 'devolución', 'garantia', 'garantía'],
-          answer: 'Dado que es contenido digital de acceso inmediato, no realizamos devoluciones. Pero estamos disponibles para acompañarte en todo momento. 🤝'
+          triggers: ['reembolso', 'devolucion', 'devoluci\u00f3n', 'garantia', 'garant\u00eda', 'riesgo', 'seguro'],
+          answer: 'Dado que es contenido digital con acceso inmediato, no realizamos devoluciones. Sin embargo, estamos disponibles para acompa\u00f1arte en todo momento. \ud83e\udd1d<br><br>Si ten\u00e9s dudas antes de comprar, escrib\u00ednos por Instagram.',
+          cta: { text: 'Hablar por Instagram \u2192', url: 'https://instagram.com/orbitacapital.io', external: true },
+          followup: ['\u00bfCu\u00e1nto cuesta?', '\u00bfQu\u00e9 incluye?']
         },
         {
-          triggers: ['incluye', 'contenido', 'que tiene', 'qué tiene', 'modulo', 'módulo', 'pilar'],
-          answer: 'Fase 1 incluye:\n• Curso de Trading (FlexZone + Relleno de Zona)\n• Mentalidad & Psicotrading\n• Disciplina & Hábitos\n• Físico & Energía\n• Emociones & Confianza\n• Comunidad privada exclusiva 🚀'
+          triggers: ['incluye', 'contenido', 'que tiene', 'qu\u00e9 tiene', 'modulo', 'm\u00f3dulo', 'pilar', 'aprend', 'ense\u00f1', 'tema', 'materia'],
+          answer: 'Fase\u00a01 incluye <strong>6\u00a0pilares completos</strong>:<br>\u2022 \ud83d\udcc8 <strong>Trading</strong> \u2014 FlexZone + Relleno de Zona<br>\u2022 \ud83e\udde0 Mentalidad & Psicotrading<br>\u2022 \u26a1 Disciplina & H\u00e1bitos<br>\u2022 \ud83d\udcaa F\u00edsico & Energ\u00eda<br>\u2022 \u2764\ufe0f Emociones & Confianza<br>\u2022 \ud83d\udd12 Comunidad privada exclusiva<br><br>+20\u00a0lecciones, 5\u00a0h+ de contenido, actualizaciones de por vida.',
+          cta: { text: 'Ver programa completo \u2192', url: 'fase-1.html' },
+          followup: ['\u00bfCu\u00e1nto cuesta?', '\u00bfC\u00f3mo pago?', 'Quiero inscribirme']
         },
         {
-          triggers: ['tiempo', 'duracion', 'duración', 'horas', 'cuando termino', 'cuánto tarda'],
-          answer: 'El programa tiene más de 20 lecciones y 5h+ de contenido. Podés avanzar a tu propio ritmo, sin fechas límite. Acceso de por vida. 📚'
+          triggers: ['tiempo', 'duracion', 'duraci\u00f3n', 'horas', 'lecciones', 'cu\u00e1nto dura', 'cuanto dura'],
+          answer: 'El programa tiene <strong>+20\u00a0lecciones y m\u00e1s de 5\u00a0horas</strong> de contenido. Pod\u00e9s avanzar a tu propio ritmo, sin fechas l\u00edmite. Acceso de por vida con actualizaciones incluidas. \ud83d\udcda',
+          cta: null,
+          followup: ['\u00bfQu\u00e9 incluye?', '\u00bfCu\u00e1nto cuesta?', 'Quiero inscribirme']
         },
         {
-          triggers: ['menor', 'edad', 'joven', '16', '17', '18'],
-          answer: 'Sí, podés acceder siendo menor de edad. Podés pagar con la cuenta de un familiar. Muchos de nuestros alumnos tienen entre 16 y 22 años. 👍'
+          triggers: ['experiencia', 'principiante', 'cero', 'nunca', 'empezar desde', 'sin conocimientos', 'nuevo', 'novato'],
+          answer: '\u00a1No necesit\u00e1s experiencia previa! \ud83c\udfaf El programa arranca desde los fundamentos. La mayor\u00eda de nuestros alumnos empezaron <strong>sin saber nada de trading</strong>. El contenido est\u00e1 dise\u00f1ado para que avances paso a paso.',
+          cta: { text: 'Ver c\u00f3mo funciona \u2192', url: 'fase-1.html' },
+          followup: ['\u00bfCu\u00e1nto cuesta?', '\u00bfQu\u00e9 incluye?', '\u00bfC\u00f3mo pago?']
         },
         {
-          triggers: ['instagram', 'contacto', 'hablar', 'whatsapp', 'mensaje', 'duda'],
-          answer: 'Podés escribirnos por Instagram a @orbitacapital.io y te respondemos en minutos. ¡Estamos disponibles para ayudarte! 💬'
+          triggers: ['menor', 'edad', 'joven', '16', '17', '18', 'a\u00f1os', 'chico'],
+          answer: '\u00a1S\u00ed, pod\u00e9s acceder siendo menor de edad! \ud83d\udc4d Pod\u00e9s pagar con la cuenta de un familiar. Muchos de nuestros alumnos tienen <strong>entre 16 y 22\u00a0a\u00f1os</strong>. El acceso es completamente personal tuyo.',
+          cta: null,
+          followup: ['\u00bfCu\u00e1nto cuesta?', '\u00bfC\u00f3mo pago?', 'Quiero inscribirme']
         },
         {
-          triggers: ['fase 2', 'fase2', 'mentoria', 'mentoría', 'personalizado', 'avanzado'],
-          answer: 'Fase 2 está en desarrollo. Será una mentoría personalizada para traders que ya completaron Fase 1. Podés anotarte en la lista de espera desde la página principal. 📋'
+          triggers: ['fase 2', 'fase2', 'mentoria', 'mentor\u00eda', 'personalizado', 'avanzado', 'siguiente nivel'],
+          answer: '<strong>Fase\u00a02</strong> est\u00e1 en desarrollo. Ser\u00e1 una mentor\u00eda personalizada para traders que ya completaron Fase\u00a01. \ud83d\udccb<br><br>Pod\u00e9s anotarte en la lista de espera desde la p\u00e1gina principal para ser de los primeros en acceder.',
+          cta: null,
+          followup: ['\u00bfCu\u00e1nto cuesta Fase\u00a01?', '\u00bfQu\u00e9 incluye Fase\u00a01?']
+        },
+        {
+          triggers: ['gracias', 'dale', 'perfecto', 'genial', 'buenisimo', 'buen\u00edsimo', 'entend\u00ed', 'entendi', 'listo', 'ok '],
+          answer: '\u00a1Con mucho gusto! \ud83d\ude0a Si ten\u00e9s m\u00e1s dudas, ac\u00e1 estoy. \u00bfQuer\u00e9s ver los planes disponibles?',
+          cta: { text: 'Ver planes \u2192', url: 'finalizar-compra.html' },
+          followup: ['\u00bfCu\u00e1nto cuesta?', '\u00bfQu\u00e9 incluye?', 'Hablar por Instagram']
+        },
+        {
+          triggers: ['instagram', 'contacto', 'hablar', 'whatsapp', 'comunicar'],
+          answer: 'Pod\u00e9s escribirnos por Instagram a <strong>@orbitacapital.io</strong> y te respondemos en minutos. \u00a1Disponibles todos los d\u00edas! \ud83d\udcac',
+          cta: { text: 'Ir a Instagram \u2192', url: 'https://instagram.com/orbitacapital.io', external: true },
+          followup: ['\u00bfCu\u00e1nto cuesta?', '\u00bfQu\u00e9 incluye?']
+        },
+        {
+          triggers: ['inscribir', 'comprar', 'inscribirme', 'unirme', 'entrar', 'empezar', 'quiero'],
+          answer: '\u00a1Excelente decisi\u00f3n! \ud83d\ude80 Pod\u00e9s inscribirte ahora mismo. El proceso toma solo <strong>2\u20133\u00a0minutos</strong> y el acceso se activa inmediatamente.',
+          cta: { text: 'Inscribirme ahora \u2192', url: 'finalizar-compra.html' },
+          followup: ['\u00bfC\u00f3mo pago?', '\u00bfAcceso inmediato?']
         }
       ];
 
-      var INITIAL_QUICK = [
-        '¿Cuánto cuesta?',
-        '¿Qué incluye?',
-        '¿Necesito experiencia?',
-        '¿Cómo pago?'
-      ];
+      var INITIAL_QUICK = ['\u00bfCu\u00e1nto cuesta?', '\u00bfQu\u00e9 incluye?', '\u00bfNecesito experiencia?', '\u00bfC\u00f3mo pago?'];
 
-      function addMsg(text, role) {
+      function addBotMsg(html, ctaText, ctaUrl, ctaExternal) {
+        var group = document.createElement('div');
+        group.className = 'chat-msg-group bot';
         var div = document.createElement('div');
-        div.className = 'chat-msg ' + role;
-        div.textContent = text;
-        msgsEl.appendChild(div);
+        div.className = 'chat-msg bot';
+        div.innerHTML = html;
+        if (ctaText && ctaUrl) {
+          var a = document.createElement('a');
+          a.className = 'chat-cta-btn';
+          if (ctaExternal) { a.href = ctaUrl; a.target = '_blank'; a.rel = 'noopener'; }
+          else { a.href = ctaUrl; }
+          a.innerHTML = ctaText + '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+          div.appendChild(document.createElement('br'));
+          div.appendChild(a);
+        }
+        group.appendChild(div);
+        var time = document.createElement('div');
+        time.className = 'chat-msg-time';
+        time.textContent = getTime();
+        group.appendChild(time);
+        msgsEl.appendChild(group);
         msgsEl.scrollTop = msgsEl.scrollHeight;
-        return div;
+        if (!isOpen) { unread++; updateBadge(); }
       }
 
-      function showTyping(cb) {
+      function addUserMsg(text) {
+        var group = document.createElement('div');
+        group.className = 'chat-msg-group user';
+        var div = document.createElement('div');
+        div.className = 'chat-msg user';
+        div.textContent = text;
+        group.appendChild(div);
+        var time = document.createElement('div');
+        time.className = 'chat-msg-time';
+        time.textContent = getTime();
+        group.appendChild(time);
+        msgsEl.appendChild(group);
+        msgsEl.scrollTop = msgsEl.scrollHeight;
+      }
+
+      function showTyping(cb, delay) {
         var typing = document.createElement('div');
         typing.className = 'chat-typing';
         typing.innerHTML = '<span></span><span></span><span></span>';
         msgsEl.appendChild(typing);
         msgsEl.scrollTop = msgsEl.scrollHeight;
-        typingTimeout = setTimeout(function() {
+        setTimeout(function() {
           if (typing.parentNode) typing.parentNode.removeChild(typing);
           cb();
-        }, 900 + Math.random() * 500);
+        }, delay != null ? delay : (750 + Math.random() * 650));
       }
 
-      function getBotAnswer(text) {
+      function getBotResponse(text) {
         var lower = text.toLowerCase();
         for (var i = 0; i < FAQ.length; i++) {
           for (var j = 0; j < FAQ[i].triggers.length; j++) {
-            if (lower.indexOf(FAQ[i].triggers[j]) !== -1) {
-              return FAQ[i].answer;
-            }
+            if (lower.indexOf(FAQ[i].triggers[j]) !== -1) return FAQ[i];
           }
         }
         return null;
@@ -1784,6 +1968,8 @@
           btn.className = 'chat-quick-btn';
           btn.textContent = q;
           btn.addEventListener('click', function() {
+            if (q === 'Hablar por Instagram') { window.open('https://instagram.com/orbitacapital.io', '_blank', 'noopener'); return; }
+            if (q === 'Quiero inscribirme') { window.location.href = 'finalizar-compra.html'; return; }
             handleUserMessage(q);
           });
           quickEl.appendChild(btn);
@@ -1793,20 +1979,49 @@
       function handleUserMessage(text) {
         if (!text.trim()) return;
         quickEl.innerHTML = '';
-        addMsg(text, 'user');
+        addUserMsg(text);
         inputEl.value = '';
-
-        var answer = getBotAnswer(text);
+        var resp = getBotResponse(text);
         showTyping(function() {
-          if (answer) {
-            addMsg(answer, 'bot');
+          if (resp) {
+            var c = resp.cta;
+            addBotMsg(resp.answer, c && c.text, c && c.url, c && c.external);
+            if (resp.followup && resp.followup.length) {
+              setTimeout(function() { setQuickReplies(resp.followup); }, 300);
+            }
           } else {
-            addMsg('No encontré una respuesta exacta para eso. Te recomiendo escribirnos directamente por Instagram @orbitacapital.io — te respondemos al instante. 📲', 'bot');
+            addBotMsg('No encontr\u00e9 una respuesta exacta. Te recomiendo escribirnos por Instagram <strong>@orbitacapital.io</strong> \u2014 te respondemos en minutos. \ud83d\udcf2', 'Ir a Instagram \u2192', 'https://instagram.com/orbitacapital.io', true);
+            setTimeout(function() { setQuickReplies(['\u00bfCu\u00e1nto cuesta?', '\u00bfQu\u00e9 incluye?', 'Hablar por Instagram']); }, 300);
           }
-          setTimeout(function() {
-            setQuickReplies(['¿Cuánto cuesta?', '¿Cómo pago?', 'Hablar por Instagram']);
-          }, 300);
         });
+      }
+
+      function initChat() {
+        if (initialized) return;
+        initialized = true;
+        showTyping(function() {
+          addBotMsg('\u00a1Hola! \ud83d\udc4b Soy el asistente de <strong>Orbita Capital</strong>. \u00bfEn qu\u00e9 puedo ayudarte hoy?');
+          setTimeout(function() {
+            showTyping(function() {
+              addBotMsg('Pod\u00e9s preguntarme sobre el precio, el contenido, c\u00f3mo pagar, o cualquier duda antes de inscribirte. \ud83d\ude0a');
+              setQuickReplies(INITIAL_QUICK);
+            }, 600);
+          }, 500);
+        }, 700);
+      }
+
+      function resetChat() {
+        msgsEl.innerHTML = '';
+        quickEl.innerHTML = '';
+        initialized = false;
+        unread = 0;
+        updateBadge();
+        initChat();
+      }
+
+      function hideProactive(keepDot) {
+        if (proactive) proactive.classList.remove('visible');
+        if (!keepDot && fabDot) fabDot.style.display = 'none';
       }
 
       function openChat() {
@@ -1814,20 +2029,11 @@
         fab.classList.add('is-open');
         fab.setAttribute('aria-expanded', 'true');
         panel.classList.add('is-open');
-        fabDot.style.display = 'none';
-
-        if (msgsEl.children.length === 0) {
-          showTyping(function() {
-            addMsg('¡Hola! 👋 Soy el asistente de Orbita Capital. ¿En qué puedo ayudarte?', 'bot');
-            setTimeout(function() {
-              showTyping(function() {
-                addMsg('Podés preguntarme sobre el precio, el contenido, cómo pagar, o cualquier duda que tengas.', 'bot');
-                setQuickReplies(INITIAL_QUICK);
-              });
-            }, 600);
-          });
-        }
-        setTimeout(function() { inputEl.focus(); }, 300);
+        unread = 0;
+        updateBadge();
+        hideProactive(false);
+        initChat();
+        setTimeout(function() { inputEl.focus(); }, 350);
       }
 
       function closeChat() {
@@ -1837,34 +2043,26 @@
         panel.classList.remove('is-open');
       }
 
-      fab.addEventListener('click', function() {
-        isOpen ? closeChat() : openChat();
-      });
+      fab.addEventListener('click', function() { isOpen ? closeChat() : openChat(); });
+      if (closeBtn) closeBtn.addEventListener('click', closeChat);
+      if (resetBtn) resetBtn.addEventListener('click', resetChat);
+      if (proactive) proactive.addEventListener('click', function() { hideProactive(false); openChat(); });
 
-      sendBtn.addEventListener('click', function() {
-        handleUserMessage(inputEl.value.trim());
-      });
+      sendBtn.addEventListener('click', function() { handleUserMessage(inputEl.value.trim()); });
+      inputEl.addEventListener('keydown', function(e) { if (e.key === 'Enter') handleUserMessage(inputEl.value.trim()); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && isOpen) closeChat(); });
 
-      inputEl.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') handleUserMessage(inputEl.value.trim());
-      });
-
-      // Handle "Hablar por Instagram" quick reply specially
-      quickEl.addEventListener('click', function(e) {
-        if (e.target.classList.contains('chat-quick-btn') &&
-            e.target.textContent === 'Hablar por Instagram') {
-          window.open('https://instagram.com/orbitacapital.io', '_blank', 'noopener');
-        }
-      });
-
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && isOpen) closeChat();
-      });
-
-      // Show dot after delay to attract attention
+      // Show green dot after 5s, then proactive bubble after 10s
       setTimeout(function() {
-        if (!isOpen && fabDot) fabDot.style.display = 'block';
+        if (!isOpen && fabDot) { fabDot.style.display = 'block'; }
       }, 5000);
+      setTimeout(function() {
+        if (!isOpen && proactive) {
+          proactive.classList.add('visible');
+          if (fabDot) fabDot.style.display = 'none';
+          setTimeout(function() { if (!isOpen) proactive.classList.remove('visible'); }, 7000);
+        }
+      }, 10000);
     })();
   </script>
 </body>

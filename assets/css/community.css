@@ -596,7 +596,8 @@ main dd {
   width: 100%;
   height: auto;
   display: block;
-  object-fit: cover;
+  object-fit: contain;
+  background: #0a0e17;
 }
 
 .image-container figcaption {
@@ -639,7 +640,8 @@ main dd {
 .carousel-wrapper img {
   width: 100%;
   height: auto;
-  object-fit: cover;
+  object-fit: contain;
+  background: #0a0e17;
   transition: transform var(--transition);
 }
 

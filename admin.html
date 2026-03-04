@@ -1686,6 +1686,30 @@
     }
 
     if (result.success) {
+      // Auto-notify eligible users when a NEW visible mentorship is created
+      if (!id && payload.visible) {
+        try {
+          var allUsers = await Auth.getAllUsers();
+          var eligibleUsers = allUsers.filter(function(u) {
+            if (u.rol === 'admin') return false;
+            if (!u.fase) return false;
+            if (payload.acceso_requerido === 'ambas') return true;
+            return u.fase === payload.acceso_requerido || u.fase === 'ambas';
+          });
+          if (eligibleUsers.length > 0) {
+            var fechaObj = new Date(payload.fecha + 'T00:00');
+            var fechaStr = fechaObj.toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'long' });
+            fechaStr = fechaStr.charAt(0).toUpperCase() + fechaStr.slice(1);
+            var userIds = eligibleUsers.map(function(u) { return u.id; });
+            await Auth.sendBulkNotification(
+              userIds,
+              'Nueva mentor\u00eda programada',
+              payload.titulo + ' \u2014 ' + fechaStr + ' a las ' + payload.hora + ' hs. \u00a1No te la pierdas!',
+              'info'
+            );
+          }
+        } catch(e) { /* Notification failure shouldn't block the save flow */ }
+      }
       showToast(id ? 'Mentor\u00eda actualizada' : 'Mentor\u00eda creada correctamente');
       closeModal('modal-mentoria');
       await loadMentorias();

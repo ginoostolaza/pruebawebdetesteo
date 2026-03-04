@@ -545,9 +545,22 @@
     /* ── Pillar Cards Grid ── */
     .pillar-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-columns: 1fr;
       gap: 1.25rem;
       margin-bottom: 2.5rem;
+      max-width: 560px;
+    }
+
+    .pillar-grid-dev {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+      max-width: 100%;
+    }
+
+    @media (max-width: 700px) {
+      .pillar-grid-dev { grid-template-columns: 1fr; }
     }
 
     .pillar-card {
@@ -583,7 +596,7 @@
     /* ── Card Cover ── */
     .pillar-cover {
       position: relative;
-      height: 140px;
+      height: 155px;
       overflow: hidden;
       display: flex;
       align-items: center;
@@ -593,22 +606,19 @@
     .pillar-cover-bg {
       position: absolute;
       inset: 0;
-      opacity: 0.9;
+      opacity: 1;
       transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .pillar-card:hover .pillar-cover-bg {
-      transform: scale(1.05);
-    }
-
-    .pillar-cover-pattern {
+    .pillar-cover-bg::after {
+      content: '';
       position: absolute;
       inset: 0;
-      opacity: 0.08;
-      background-image: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.3) 1px, transparent 1px),
-                         radial-gradient(circle at 80% 20%, rgba(255,255,255,0.2) 1px, transparent 1px),
-                         radial-gradient(circle at 60% 80%, rgba(255,255,255,0.25) 1px, transparent 1px);
-      background-size: 40px 40px, 60px 60px, 50px 50px;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.35) 100%);
+    }
+
+    .pillar-card:hover .pillar-cover-bg {
+      transform: scale(1.04);
     }
 
     .pillar-cover-content {
@@ -618,16 +628,16 @@
     }
 
     .pillar-cover-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: var(--radius-md);
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(8px);
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.18);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 0.6rem;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      margin: 0 auto 0.65rem;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.15);
       transition: transform var(--transition);
     }
 
@@ -829,15 +839,16 @@
     }
 
     .action-buy {
-      background: var(--color-surface-2);
-      color: var(--color-text-dim);
-      border: 1px solid var(--color-border);
+      background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(139,92,246,0.08));
+      color: var(--color-primary);
+      border: 1px solid rgba(59,130,246,0.2);
     }
 
     .action-buy:hover {
-      border-color: var(--color-primary);
-      color: var(--color-primary);
-      background: rgba(59, 130, 246, 0.04);
+      background: linear-gradient(135deg, rgba(59,130,246,0.18), rgba(139,92,246,0.12));
+      border-color: rgba(59,130,246,0.35);
+      color: #fff;
+      transform: translateY(-1px);
     }
 
     .action-buy svg {
@@ -854,7 +865,6 @@
       .fase-hero-stats { gap: 0; }
       .hero-stat { padding: 0.5rem 1rem; }
 
-      .pillar-grid { grid-template-columns: 1fr; }
       .pillar-cover { height: 120px; }
       .breadcrumb { display: none; }
       .fase-philosophy::after { display: none; }
@@ -1455,7 +1465,6 @@
     <div class="pillar-card" id="card-trading">
       <div class="pillar-cover">
         <div class="pillar-cover-bg cover-trading"></div>
-        <div class="pillar-cover-pattern"></div>
         <div class="cover-badge">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
           5 lecciones
@@ -1521,12 +1530,11 @@
   </h2>
   <p class="pillar-section-sub">El trading no es solo t&eacute;cnica. Tu mente, tu cuerpo, tus h&aacute;bitos y tus emociones determinan tus resultados.</p>
 
-  <div class="pillar-grid">
+  <div class="pillar-grid-dev">
     <!-- Pilar 2: Mentalidad -->
     <div class="pillar-card" id="card-mentalidad">
       <div class="pillar-cover">
         <div class="pillar-cover-bg cover-mentalidad"></div>
-        <div class="pillar-cover-pattern"></div>
         <div class="cover-badge">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
           4 lecciones
@@ -1582,7 +1590,6 @@
     <div class="pillar-card" id="card-disciplina">
       <div class="pillar-cover">
         <div class="pillar-cover-bg cover-disciplina"></div>
-        <div class="pillar-cover-pattern"></div>
         <div class="cover-badge">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
           4 lecciones
@@ -1638,7 +1645,6 @@
     <div class="pillar-card" id="card-fisico">
       <div class="pillar-cover">
         <div class="pillar-cover-bg cover-fisico"></div>
-        <div class="pillar-cover-pattern"></div>
         <div class="cover-badge">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
           4 lecciones
@@ -1694,7 +1700,6 @@
     <div class="pillar-card" id="card-emociones">
       <div class="pillar-cover">
         <div class="pillar-cover-bg cover-emociones"></div>
-        <div class="pillar-cover-pattern"></div>
         <div class="cover-badge">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
           4 lecciones

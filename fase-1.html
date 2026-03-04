@@ -760,6 +760,41 @@
       color: var(--color-success);
     }
 
+    /* Módulos bloqueados (sin acceso) */
+    .mod-locked {
+      pointer-events: none;
+      opacity: 0.85;
+    }
+    .mod-locked .mod-lock-icon {
+      color: #f59e0b;
+      flex-shrink: 0;
+    }
+    .mod-locked .mod-lock-icon svg { width: 13px; height: 13px; }
+    .mod-secret {
+      display: inline-block;
+      filter: blur(5px);
+      user-select: none;
+      color: rgba(255, 255, 255, 0.4);
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 4px;
+      padding: 0 4px;
+      letter-spacing: 1px;
+    }
+    .mod-locked-hint {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      padding: 0.5rem 0.6rem;
+      border-radius: 8px;
+      background: rgba(245, 158, 11, 0.07);
+      border: 1px solid rgba(245, 158, 11, 0.18);
+      font-size: 0.75rem;
+      color: #f59e0b;
+      font-style: italic;
+    }
+    .mod-locked-hint svg { width: 13px; height: 13px; flex-shrink: 0; }
+
     /* Card meta footer - duration & content info */
     .pillar-meta {
       display: flex;
@@ -1480,7 +1515,7 @@
         <div class="pillar-number num-trading">Pilar 1 &mdash; Fundamento t&eacute;cnico</div>
         <h3 class="pillar-title">Curso de Trading</h3>
         <p class="pillar-desc">2 sistemas de trading documentados paso a paso, preparaci&oacute;n del gr&aacute;fico, gesti&oacute;n de riesgo, glosario y consejos avanzados para operar con consistencia.</p>
-        <ul class="pillar-modules">
+        <ul class="pillar-modules" id="trading-modules">
           <li>
             <svg class="mod-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
             Introducci&oacute;n al Trading &amp; Opciones Binarias
@@ -1908,6 +1943,9 @@
       }
     }
 
+    // Ocultar nombres de estrategias si no tiene acceso
+    renderTradingModules(hasAccess);
+
     // Render pillar actions
     renderPillarAction('action-trading', hasAccess, 'acceso-comunidad.html', 'Acceder al curso');
     renderPillarAction('action-mentalidad', hasAccess, 'mentalidad.html', 'Acceder al m\u00f3dulo');
@@ -1924,6 +1962,37 @@
       window.location.href = "iniciar-sesion.html";
     });
   });
+
+  function renderTradingModules(hasAccess) {
+    var ul = document.getElementById('trading-modules');
+    if (!ul) return;
+
+    if (hasAccess) return; // Si tiene acceso, mostrar todo tal como está en el HTML
+
+    // Sin acceso: reemplazar lista con vista bloqueada
+    var lockSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+    var checkSvg = '<svg class="mod-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>';
+
+    ul.innerHTML =
+      '<li>' + checkSvg + 'Introducci&oacute;n al Trading &amp; Opciones Binarias</li>' +
+      '<li>' + checkSvg + 'Preparaci&oacute;n del Gr&aacute;fico paso a paso</li>' +
+      '<li class="mod-locked">' +
+        '<span class="mod-lock-icon">' + lockSvg + '</span>' +
+        'Sistema #1 &mdash; <span class="mod-secret">Estrategia exclusiva</span>' +
+      '</li>' +
+      '<li class="mod-locked">' +
+        '<span class="mod-lock-icon">' + lockSvg + '</span>' +
+        'Sistema #2 &mdash; <span class="mod-secret">Estrategia exclusiva</span>' +
+      '</li>' +
+      '<li class="mod-locked">' +
+        '<span class="mod-lock-icon">' + lockSvg + '</span>' +
+        'Glosario &amp; Consejos Adicionales' +
+      '</li>' +
+      '<li class="mod-locked-hint">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>' +
+        'Adquir&iacute; Fase 1 para ver los nombres de las estrategias' +
+      '</li>';
+  }
 
   function renderBottomCTA(hasAccess) {
     var ctaEl = document.getElementById('cta-action');

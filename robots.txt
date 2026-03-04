@@ -1,0 +1,33 @@
+User-agent: *
+
+# Páginas públicas — indexables
+Allow: /
+Allow: /index.html
+Allow: /iniciar-sesion.html
+Allow: /politica-de-privacidad.html
+Allow: /terminos-y-condiciones.html
+Allow: /preguntas-frecuentes.html
+Allow: /404.html
+
+# Páginas privadas — no indexar
+Disallow: /dashboard.html
+Disallow: /admin.html
+Disallow: /perfil.html
+Disallow: /fase-1.html
+Disallow: /acceso-comunidad.html
+Disallow: /comunidad-privada.html
+Disallow: /finalizar-compra.html
+Disallow: /pago-resultado.html
+Disallow: /bot.html
+Disallow: /mentalidad.html
+Disallow: /disciplina-habitos.html
+Disallow: /emociones-confianza.html
+Disallow: /fisico-energia.html
+
+# Funciones serverless y assets internos
+Disallow: /.netlify/
+Disallow: /netlify/
+Disallow: /assets/js/
+Disallow: /assets/css/
+
+Sitemap: https://orbitacapital.io/sitemap.xml

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Página no encontrada | Orbita Capital</title>
+  <link rel="icon" href="assets/img/branding/orbita-logo-symbol.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #060a13;
+      --color-surface: #0d1320;
+      --color-border: rgba(255,255,255,0.06);
+      --color-text: #eaf0f9;
+      --color-text-muted: #8b95a8;
+      --color-text-dim: #5a6478;
+      --color-primary: #3b82f6;
+      --color-secondary: #8b5cf6;
+      --color-accent: #06b6d4;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { height: 100%; }
+    body {
+      font-family: 'Poppins', -apple-system, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Background glow */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 30% 20%, rgba(59,130,246,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 70% 70%, rgba(139,92,246,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .container {
+      position: relative;
+      max-width: 480px;
+      width: 100%;
+    }
+
+    /* Logo */
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-bottom: 3rem;
+      text-decoration: none;
+    }
+    .logo img { width: 32px; height: 32px; border-radius: 8px; }
+    .logo-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-text);
+      letter-spacing: -0.01em;
+    }
+
+    /* 404 number */
+    .error-code {
+      font-size: clamp(5rem, 20vw, 8rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.1s forwards;
+    }
+
+    /* Icon */
+    .error-icon {
+      width: 56px; height: 56px;
+      border-radius: 16px;
+      background: rgba(59,130,246,0.1);
+      border: 1px solid rgba(59,130,246,0.15);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.2s forwards;
+    }
+    .error-icon svg { width: 28px; height: 28px; color: var(--color-primary); }
+
+    .error-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 0.65rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.3s forwards;
+    }
+
+    .error-desc {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      line-height: 1.65;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.4s forwards;
+    }
+
+    /* Buttons */
+    .btn-group {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.5s forwards;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.4rem;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      color: #fff;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border-radius: 10px;
+      text-decoration: none;
+      box-shadow: 0 2px 14px rgba(59,130,246,0.3);
+      transition: all 0.25s ease;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 22px rgba(59,130,246,0.45);
+      color: #fff;
+    }
+    .btn-primary svg { width: 16px; height: 16px; }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.4rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--color-text-muted);
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 10px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.13);
+      color: var(--color-text);
+    }
+    .btn-ghost svg { width: 16px; height: 16px; }
+
+    /* Footer note */
+    .footer-note {
+      margin-top: 3rem;
+      font-size: 0.72rem;
+      color: var(--color-text-dim);
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.6s forwards;
+    }
+    .footer-note a { color: var(--color-primary); text-decoration: none; }
+    .footer-note a:hover { text-decoration: underline; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="logo">
+      <img src="assets/img/branding/orbita-logo-symbol.png" alt="Orbita Capital" width="32" height="32">
+      <span class="logo-name">Orbita Capital</span>
+    </a>
+
+    <div class="error-code">404</div>
+
+    <div class="error-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        <line x1="11" y1="8" x2="11" y2="11"/><line x1="11" y1="14" x2="11.01" y2="14"/>
+      </svg>
+    </div>
+
+    <h1 class="error-title">P&aacute;gina no encontrada</h1>
+    <p class="error-desc">
+      La URL que buscas no existe o fue movida.<br>
+      Si cre&eacute;s que es un error, contact&aacute; a soporte.
+    </p>
+
+    <div class="btn-group">
+      <a href="index.html" class="btn-primary">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        Ir al inicio
+      </a>
+      <button class="btn-ghost" onclick="history.back()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="19" y1="12" x2="5" y2="12"/>
+          <polyline points="12 19 5 12 12 5"/>
+        </svg>
+        Volver atr&aacute;s
+      </button>
+    </div>
+
+    <p class="footer-note">
+      &iquest;Ten&eacute;s una cuenta?
+      <a href="iniciar-sesion.html">Inici&aacute; sesi&oacute;n</a>
+      &nbsp;&middot;&nbsp;
+      &iquest;Necesit&aacute;s ayuda?
+      <a href="https://instagram.com/orbitacapital.io" target="_blank" rel="noopener">Soporte</a>
+    </p>
+  </div>
+</body>
+</html>

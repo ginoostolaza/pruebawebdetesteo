@@ -306,20 +306,44 @@
     });
   }
 
-  // --- Dolar Blue API ---
+  // --- Dolar Blue API (con fallback) ---
   async function fetchDolarBlue() {
     const el = document.getElementById('usd-ars');
     if (!el) return;
 
-    try {
-      const response = await fetch('https://api.bluelytics.com.ar/v2/latest');
-      const data = await response.json();
-      const venta = data.blue.value_sell;
-      el.textContent = `Dólar Blue hoy (venta): $${venta.toFixed(2)} ARS`;
-    } catch (error) {
-      el.textContent = 'Error cargando dólar blue.';
-      console.error('Dolar API error:', error);
+    function formatARS(n) {
+      return '$\u202f' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     }
+
+    // Intenta con dolarapi.com primero (más estable), luego bluelytics como fallback
+    const apis = [
+      {
+        url: 'https://dolarapi.com/v1/dolares/blue',
+        parse: (d) => d.venta
+      },
+      {
+        url: 'https://api.bluelytics.com.ar/v2/latest',
+        parse: (d) => d.blue.value_sell
+      }
+    ];
+
+    for (const api of apis) {
+      try {
+        const res = await fetch(api.url, { signal: AbortSignal.timeout(5000) });
+        if (!res.ok) continue;
+        const data = await res.json();
+        const venta = api.parse(data);
+        if (!venta || isNaN(venta)) continue;
+        el.textContent = `Dólar Blue hoy — Venta: ${formatARS(venta)} ARS`;
+        return;
+      } catch (e) {
+        // try next
+      }
+    }
+
+    // Ambas fallaron: ocultar el widget silenciosamente
+    const widget = el.closest('.dolar-widget');
+    if (widget) widget.style.display = 'none';
   }
 
   // --- Footer Year ---

@@ -641,38 +641,36 @@
     .chat-send-btn:hover { transform: scale(1.1); box-shadow: 0 4px 14px rgba(59,130,246,0.5); }
     .chat-send-btn svg { width: 15px; height: 15px; }
 
-    /* Panel always uses dynamic height so it never overflows the viewport */
+    /* Panel: altura dinámica para no salirse de pantalla en ningún dispositivo */
     .chat-panel {
-      max-height: min(545px, calc(100dvh - 130px));
-      height: min(545px, calc(100dvh - 130px));
+      height: auto;
+      max-height: min(545px, calc(100dvh - 110px));
     }
 
-    /* Tablet (769px – 1024px): slightly narrower panel */
+    /* Tablet (601px – 1024px) */
     @media (max-width: 1024px) and (min-width: 601px) {
       .chat-panel { width: 340px; }
     }
 
-    /* Mobile (≤ 600px): full-width panel, adjusted positions */
+    /* Mobile (≤ 600px) */
     @media (max-width: 600px) {
       .chat-fab { bottom: 76px; right: 14px; width: 52px; height: 52px; }
       .chat-panel {
         right: 8px; left: 8px; width: auto;
-        bottom: 140px;
-        height: min(480px, calc(100dvh - 160px));
-        max-height: min(480px, calc(100dvh - 160px));
+        bottom: 138px;
+        max-height: min(480px, calc(100dvh - 158px));
         border-radius: 18px;
       }
       .chat-fab-tooltip { display: none; }
-      .chat-proactive { right: 14px; bottom: 142px; max-width: calc(100vw - 80px); }
+      .chat-proactive { right: 14px; bottom: 140px; max-width: calc(100vw - 80px); }
     }
 
-    /* Very small screens (≤ 380px) */
+    /* Pantallas muy pequeñas (≤ 380px) */
     @media (max-width: 380px) {
       .chat-panel {
         right: 4px; left: 4px;
-        bottom: 136px;
-        height: min(440px, calc(100dvh - 155px));
-        max-height: min(440px, calc(100dvh - 155px));
+        bottom: 132px;
+        max-height: min(420px, calc(100dvh - 150px));
         border-radius: 14px;
       }
     }
@@ -1844,97 +1842,91 @@
         }
       }
 
-      // Normaliza texto: quita acentos y pasa a minúsculas para comparaciones robustas
-      function normalize(str) {
-        return str.toLowerCase()
-          .replace(/[áàä]/g, 'a').replace(/[éèë]/g, 'e')
-          .replace(/[íìï]/g, 'i').replace(/[óòö]/g, 'o')
-          .replace(/[úùü]/g, 'u').replace(/ñ/g, 'n');
+      // ── Mini-IA ──
+      function norm(s) {
+        return s.toLowerCase()
+          .replace(/[áàäâ]/g,'a').replace(/[éèëê]/g,'e')
+          .replace(/[íìïî]/g,'i').replace(/[óòöô]/g,'o')
+          .replace(/[úùüû]/g,'u').replace(/ñ/g,'n');
       }
+      function tokenize(s) {
+        return norm(s).replace(/[^a-z0-9 ]/g,' ').split(/\s+/).filter(function(w){ return w.length > 1; });
+      }
+      var lastTopic = null;
+      var msgCount = 0;
 
-      // FAQ Knowledge base
-      var FAQ = [
-        {
-          triggers: ['hola', 'buenas', 'buen dia', 'buenos dias', 'hey', 'saludos'],
-          answer: '&#x1F44B; &#161;Hola! Soy el asistente de <strong>Orbita Capital</strong>. &#191;En qu&#233; puedo ayudarte?',
-          cta: null,
-          followup: ['&#191;Cu&#225;nto cuesta?', '&#191;Qu&#233; incluye?', '&#191;C&#243;mo pago?']
-        },
-        {
-          triggers: ['precio', 'costo', 'cuanto', 'vale', 'valor', 'barato', 'caro', 'cuesta'],
-          answer: 'Fase&#160;1 tiene un <strong>pago &#250;nico desde USD&#160;37</strong> (o equivalente en pesos ARS). Sin cuotas ni suscripciones mensuales &#8212; sos due&#241;o del acceso para siempre.',
-          cta: { text: 'Ver planes &#8594;', url: 'finalizar-compra.html' },
-          followup: ['&#191;Qu&#233; incluye?', '&#191;C&#243;mo pago?', '&#191;Acceso inmediato?']
-        },
-        {
-          triggers: ['pago', 'pagar', 'transferencia', 'mercadopago', 'stripe', 'tarjeta', 'credito', 'debito', 'efectivo', 'metodo'],
-          answer: 'Aceptamos todos estos m&#233;todos:<br>&#8226; &#x1F4B3; Tarjeta cr&#233;dito/d&#233;bito (Visa, Mastercard, AMEX)<br>&#8226; &#x1F4F2; <strong>MercadoPago</strong> en pesos ARS<br>&#8226; &#x1F30D; Stripe en d&#243;lares (tarjeta internacional)<br><br>El proceso es 100&#160;% seguro y se completa en minutos.',
-          cta: { text: 'Ir al checkout &#8594;', url: 'finalizar-compra.html' },
-          followup: ['&#191;Acceso inmediato?', '&#191;Cu&#225;nto cuesta?', 'Quiero inscribirme']
-        },
-        {
-          triggers: ['acceso', 'cuando', 'inmediato', 'rapido', 'tardo', 'cuanto tardo', 'activacion', 'minutos'],
-          answer: 'El acceso se activa en <strong>menos de 30&#160;minutos</strong> luego de confirmar tu pago. &#x26A1;<br><br>Te enviamos las credenciales por email autom&#225;ticamente. En la mayor&#237;a de los casos es instant&#225;neo.',
-          cta: null,
-          followup: ['&#191;C&#243;mo pago?', '&#191;Cu&#225;nto cuesta?', 'Quiero inscribirme']
-        },
-        {
-          triggers: ['reembolso', 'devolucion', 'garantia', 'riesgo', 'seguro es'],
-          answer: 'Al ser contenido digital con acceso inmediato, no realizamos devoluciones una vez activado el acceso. &#x1F91D;<br><br>Si ten&#233;s dudas antes de comprar, escrib&#237;nos por Instagram y te respondemos todo.',
-          cta: { text: 'Consultar antes de comprar &#8594;', url: 'https://instagram.com/orbitacapital.io', external: true },
-          followup: ['&#191;Cu&#225;nto cuesta?', '&#191;Qu&#233; incluye?']
-        },
-        {
-          triggers: ['incluye', 'contenido', 'que tiene', 'modulo', 'pilar', 'aprend', 'ensena', 'tema', 'materia', 'programa'],
-          answer: 'Fase&#160;1 incluye <strong>6&#160;pilares completos</strong>:<br>&#8226; &#x1F4C8; <strong>Trading</strong> &#8212; FlexZone + Relleno de Zona<br>&#8226; &#x1F9E0; Mentalidad &amp; Psicotrading<br>&#8226; &#x26A1; Disciplina &amp; H&#225;bitos<br>&#8226; &#x1F4AA; F&#237;sico &amp; Energ&#237;a<br>&#8226; &#x2764;&#xFE0F; Emociones &amp; Confianza<br>&#8226; &#x1F512; Comunidad privada exclusiva<br><br>M&#225;s de 20&#160;lecciones y 5&#160;h+ de contenido. Acceso y actualizaciones de por vida.',
-          cta: { text: 'Ver programa completo &#8594;', url: 'fase-1.html' },
-          followup: ['&#191;Cu&#225;nto cuesta?', '&#191;C&#243;mo pago?', 'Quiero inscribirme']
-        },
-        {
-          triggers: ['duracion', 'cuanto dura', 'horas', 'lecciones', 'cuanto tiempo'],
-          answer: 'El programa tiene <strong>m&#225;s de 20&#160;lecciones y 5&#160;h+ de contenido</strong>. Pod&#233;s avanzar a tu propio ritmo, sin fechas l&#237;mite. El acceso es de por vida e incluye todas las actualizaciones futuras.',
-          cta: null,
-          followup: ['&#191;Qu&#233; incluye?', '&#191;Cu&#225;nto cuesta?', 'Quiero inscribirme']
-        },
-        {
-          triggers: ['experiencia', 'principiante', 'desde cero', 'nunca opere', 'sin conocimientos', 'novato', 'necesito saber'],
-          answer: '&#x1F3AF; No hace falta experiencia previa. El programa arranca desde los conceptos b&#225;sicos y avanza de forma progresiva.<br><br>La mayor&#237;a de nuestros alumnos empezaron <strong>sin saber nada de trading</strong>.',
-          cta: { text: 'Ver c&#243;mo funciona &#8594;', url: 'fase-1.html' },
-          followup: ['&#191;Cu&#225;nto cuesta?', '&#191;Qu&#233; incluye?', '&#191;C&#243;mo pago?']
-        },
-        {
-          triggers: ['menor', 'edad', 'joven', 'tengo 16', 'tengo 17', 'tengo 18', 'chico'],
-          answer: 'S&#237;, pod&#233;s acceder siendo menor de edad. &#x1F44D; Pod&#233;s pagar con la cuenta de un familiar; el acceso es completamente personal tuyo.<br><br>Muchos de nuestros alumnos tienen <strong>entre 16 y 22&#160;a&#241;os</strong>.',
-          cta: null,
-          followup: ['&#191;Cu&#225;nto cuesta?', '&#191;C&#243;mo pago?', 'Quiero inscribirme']
-        },
-        {
-          triggers: ['fase 2', 'fase2', 'mentoria', 'personalizado', 'avanzado', 'siguiente fase'],
-          answer: '<strong>Fase&#160;2</strong> est&#225; en desarrollo &#x1F4CB;. Ser&#225; una mentor&#237;a personalizada para quienes ya completaron Fase&#160;1.<br><br>Pod&#233;s anotarte en la lista de espera desde la p&#225;gina principal.',
-          cta: null,
-          followup: ['&#191;Cu&#225;nto cuesta?', '&#191;Qu&#233; incluye?']
-        },
-        {
-          triggers: ['gracias', 'dale', 'perfecto', 'genial', 'buenisimo', 'entendi', 'listo', 'ok', 'copado', 'bueno'],
-          answer: '&#x1F60A; &#161;Con gusto! Si ten&#233;s alguna duda m&#225;s, ac&#225; estoy.',
-          cta: { text: 'Ver planes &#8594;', url: 'finalizar-compra.html' },
-          followup: ['&#191;Cu&#225;nto cuesta?', '&#191;Qu&#233; incluye?', 'Hablar por Instagram']
-        },
-        {
-          triggers: ['instagram', 'contacto', 'whatsapp', 'comunicar', 'mensaje', 'duda puntual'],
-          answer: 'Pod&#233;s escribirnos por Instagram a <strong>@orbitacapital.io</strong>. Respondemos todos los d&#237;as y r&#225;pido. &#x1F4AC;',
-          cta: { text: 'Ir a Instagram &#8594;', url: 'https://instagram.com/orbitacapital.io', external: true },
-          followup: ['&#191;Cu&#225;nto cuesta?', '&#191;Qu&#233; incluye?']
-        },
-        {
-          triggers: ['inscribir', 'comprar', 'unirme', 'quiero entrar', 'quiero acceder', 'como me uno'],
-          answer: '&#x1F680; &#161;Excelente! El proceso toma <strong>2&#8209;3&#160;minutos</strong>: eleg&#237;s el plan, pagás, y el acceso se activa autom&#225;ticamente.',
-          cta: { text: 'Inscribirme ahora &#8594;', url: 'finalizar-compra.html' },
-          followup: ['&#191;C&#243;mo pago?', '&#191;Acceso inmediato?']
-        }
+      // Base de conocimiento (KB) — respuestas con UTF-8 directo
+      var KB = [
+        { id:'saludo', keys:['hola','buenas','buen dia','buenos dias','hey','saludos','que tal','como estas','buenas tardes','buenas noches'],
+          answer:'\u{1F44B} \u00A1Hola! Soy el asistente de <strong>Orbita Capital</strong>. \u00BFEn qu\u00E9 puedo ayudarte?', cta:null,
+          followup:['\u00BFCu\u00E1nto cuesta?','\u00BFQu\u00E9 incluye?','\u00BFC\u00F3mo pago?'] },
+        { id:'precio', keys:['precio','costo','cuanto','cuanto sale','cuanto vale','valor','barato','caro','cuesta','plata','dinero','dolares','pesos'],
+          answer:'Fase\u00A01 tiene un <strong>pago \u00FAnico desde USD\u00A037</strong> (o su equivalente en pesos ARS). Sin cuotas, sin suscripci\u00F3n. El acceso es tuyo para siempre.',
+          cta:{text:'Ver planes \u2192',url:'finalizar-compra.html'},
+          followup:['\u00BFQu\u00E9 incluye?','\u00BFC\u00F3mo pago?','\u00BFAcceso inmediato?'] },
+        { id:'pago', keys:['pago','pagar','transferencia','mercadopago','stripe','tarjeta','credito','debito','efectivo','metodo','como pago','formas de pago','medios de pago'],
+          answer:'Pod\u00E9s pagar con:<br>\u2022 \u{1F4B3} Tarjeta cr\u00E9dito/d\u00E9bito (Visa, Mastercard, AMEX)<br>\u2022 \u{1F4F2} <strong>MercadoPago</strong> en pesos<br>\u2022 \u{1F30D} Stripe en d\u00F3lares<br><br>Es 100% seguro y toma solo unos minutos.',
+          cta:{text:'Ir al checkout \u2192',url:'finalizar-compra.html'},
+          followup:['\u00BFAcceso inmediato?','\u00BFCu\u00E1nto cuesta?','Quiero inscribirme'] },
+        { id:'acceso', keys:['acceso','cuando','inmediato','rapido','tardo','cuanto tardo','activacion','cuanto demora','activa'],
+          answer:'El acceso se activa en <strong>menos de 30 minutos</strong> despu\u00E9s de confirmar tu pago. \u26A1<br><br>Recib\u00EDs las credenciales por email. En la mayor\u00EDa de los casos, es instant\u00E1neo.',
+          cta:null,
+          followup:['\u00BFC\u00F3mo pago?','\u00BFCu\u00E1nto cuesta?','Quiero inscribirme'] },
+        { id:'reembolso', keys:['reembolso','devolucion','garantia','riesgo','devolver'],
+          answer:'Al ser contenido digital con acceso inmediato, no realizamos devoluciones. \u{1F91D}<br><br>Si ten\u00E9s dudas, escrib\u00EDnos por Instagram antes de comprar y te sacamos todas las dudas.',
+          cta:{text:'Consultar por Instagram \u2192',url:'https://instagram.com/orbitacapital.io',external:true},
+          followup:['\u00BFCu\u00E1nto cuesta?','\u00BFQu\u00E9 incluye?'] },
+        { id:'contenido', keys:['incluye','contenido','que tiene','modulo','pilar','aprend','ensena','tema','materia','programa','curso','que voy a aprender'],
+          answer:'Fase\u00A01 incluye <strong>6 pilares</strong>:<br>\u2022 \u{1F4C8} <strong>Trading</strong> \u2014 2 sistemas operativos completos<br>\u2022 \u{1F9E0} Mentalidad & Psicotrading<br>\u2022 \u26A1 Disciplina & H\u00E1bitos<br>\u2022 \u{1F4AA} F\u00EDsico & Energ\u00EDa<br>\u2022 \u2764\uFE0F Emociones & Confianza<br>\u2022 \u{1F512} Comunidad privada<br><br>+20 lecciones, 5h+ de contenido. Acceso de por vida.',
+          cta:{text:'Ver programa completo \u2192',url:'fase-1.html'},
+          followup:['\u00BFCu\u00E1nto cuesta?','\u00BFC\u00F3mo pago?','Quiero inscribirme'] },
+        { id:'duracion', keys:['duracion','cuanto dura','horas','lecciones','cuanto tiempo','largo'],
+          answer:'El programa tiene <strong>+20 lecciones y m\u00E1s de 5 horas</strong> de contenido. Avanz\u00E1s a tu ritmo, sin fechas l\u00EDmite. El acceso es de por vida e incluye futuras actualizaciones.',
+          cta:null,
+          followup:['\u00BFQu\u00E9 incluye?','\u00BFCu\u00E1nto cuesta?','Quiero inscribirme'] },
+        { id:'experiencia', keys:['experiencia','principiante','desde cero','nunca opere','sin conocimientos','novato','necesito saber','se nada','no se nada','cero conocimiento'],
+          answer:'\u{1F3AF} No necesit\u00E1s experiencia previa. El programa arranca desde los conceptos b\u00E1sicos y avanza progresivamente.<br><br>La mayor\u00EDa de nuestros alumnos empezaron <strong>sin saber nada de trading</strong>.',
+          cta:{text:'Ver c\u00F3mo funciona \u2192',url:'fase-1.html'},
+          followup:['\u00BFCu\u00E1nto cuesta?','\u00BFQu\u00E9 incluye?','\u00BFC\u00F3mo pago?'] },
+        { id:'edad', keys:['menor','edad','joven','tengo 16','tengo 17','tengo 18','chico','adolescente','anos tengo'],
+          answer:'S\u00ED, pod\u00E9s acceder siendo menor de edad. \u{1F44D} Pag\u00E1s con la cuenta de un familiar y el acceso es completamente personal tuyo.<br><br>Muchos alumnos tienen <strong>entre 16 y 22 a\u00F1os</strong>.',
+          cta:null,
+          followup:['\u00BFCu\u00E1nto cuesta?','\u00BFC\u00F3mo pago?','Quiero inscribirme'] },
+        { id:'fase2', keys:['fase 2','fase2','mentoria','personalizado','avanzado','siguiente fase','fase dos'],
+          answer:'<strong>Fase 2</strong> est\u00E1 en desarrollo. \u{1F4CB} Ser\u00E1 una mentor\u00EDa personalizada para quienes completaron Fase\u00A01.<br><br>Pod\u00E9s anotarte en la lista de espera desde la p\u00E1gina principal.',
+          cta:null,
+          followup:['\u00BFCu\u00E1nto cuesta?','\u00BFQu\u00E9 incluye?'] },
+        { id:'gracias', keys:['gracias','dale','perfecto','genial','buenisimo','entendi','listo','copado','excelente','joya','crack','groso','piola'],
+          answer:'\u{1F60A} \u00A1Con gusto! Si ten\u00E9s alguna otra duda, preguntame.',
+          cta:{text:'Ver planes \u2192',url:'finalizar-compra.html'},
+          followup:['\u00BFCu\u00E1nto cuesta?','\u00BFQu\u00E9 incluye?','Hablar por Instagram'] },
+        { id:'contacto', keys:['instagram','contacto','whatsapp','comunicar','mensaje','escribir','hablar con alguien','persona real'],
+          answer:'Pod\u00E9s escribirnos por Instagram a <strong>@orbitacapital.io</strong>. Respondemos todos los d\u00EDas en minutos. \u{1F4AC}',
+          cta:{text:'Ir a Instagram \u2192',url:'https://instagram.com/orbitacapital.io',external:true},
+          followup:['\u00BFCu\u00E1nto cuesta?','\u00BFQu\u00E9 incluye?'] },
+        { id:'inscribir', keys:['inscribir','comprar','unirme','quiero entrar','quiero acceder','como me uno','me interesa','quiero empezar','anotarme','registrarme','sumarme'],
+          answer:'\u{1F680} \u00A1Genial! El proceso toma <strong>2\u20113 minutos</strong>: eleg\u00EDs el plan, pag\u00E1s, y el acceso se activa autom\u00E1ticamente.',
+          cta:{text:'Inscribirme ahora \u2192',url:'finalizar-compra.html'},
+          followup:['\u00BFC\u00F3mo pago?','\u00BFAcceso inmediato?'] },
+        { id:'trading', keys:['que es trading','trading que es','opciones binarias','forex','que son opciones','como funciona trading','operar'],
+          answer:'El trading es la compra y venta de activos financieros para obtener ganancias. En Fase\u00A01 te ense\u00F1amos <strong>opciones binarias</strong> con 2 sistemas probados, paso a paso, para que operes de forma consistente.',
+          cta:{text:'Ver el programa \u2192',url:'fase-1.html'},
+          followup:['\u00BFNecesito experiencia?','\u00BFCu\u00E1nto cuesta?','\u00BFQu\u00E9 incluye?'] },
+        { id:'resultados', keys:['resultados','funciona','sirve','gano plata','ganar dinero','rentable','cuanta plata','ingresos','vivir de'],
+          answer:'Los resultados dependen de tu disciplina y pr\u00E1ctica. Lo que s\u00ED te damos es <strong>formaci\u00F3n de calidad</strong>, estrategias probadas y acompa\u00F1amiento.<br><br>Muchos alumnos empezaron a ver resultados en las primeras semanas.',
+          cta:null,
+          followup:['\u00BFQu\u00E9 incluye?','\u00BFNecesito experiencia?','Quiero inscribirme'] },
+        { id:'comunidad', keys:['comunidad','grupo','discord','telegram','chat privado','otros alumnos','red'],
+          answer:'S\u00ED, Fase\u00A01 incluye acceso a una <strong>comunidad privada exclusiva</strong> donde interactu\u00E1s con otros alumnos, compart\u00EDs an\u00E1lisis y resolvemos dudas en grupo.',
+          cta:null,
+          followup:['\u00BFCu\u00E1nto cuesta?','\u00BFQu\u00E9 incluye?','Quiero inscribirme'] },
+        { id:'seguridad', keys:['seguro','confiable','estafa','legit','trucho','verdad','real','fraude'],
+          answer:'Orbita Capital es un proyecto educativo real con alumnos activos. \u{1F6E1}\uFE0F Los pagos se procesan por <strong>MercadoPago y Stripe</strong> (plataformas oficiales y seguras).<br><br>Pod\u00E9s ver testimonios en nuestra p\u00E1gina.',
+          cta:null,
+          followup:['\u00BFCu\u00E1nto cuesta?','Hablar por Instagram'] }
       ];
 
-      var INITIAL_QUICK = ['&#191;Cu&#225;nto cuesta?', '&#191;Qu&#233; incluye?', '&#191;Necesito experiencia?', '&#191;C&#243;mo pago?'];
+      var INITIAL_QUICK = ['\u00BFCu\u00E1nto cuesta?', '\u00BFQu\u00E9 incluye?', '\u00BFNecesito experiencia?', '\u00BFC\u00F3mo pago?'];
 
       function addBotMsg(html, ctaText, ctaUrl, ctaExternal) {
         var group = document.createElement('div');
@@ -1988,14 +1980,45 @@
         }, delay != null ? delay : (750 + Math.random() * 650));
       }
 
-      function getBotResponse(text) {
-        var norm = normalize(text);
-        for (var i = 0; i < FAQ.length; i++) {
-          for (var j = 0; j < FAQ[i].triggers.length; j++) {
-            if (norm.indexOf(normalize(FAQ[i].triggers[j])) !== -1) return FAQ[i];
+      // ── Mini-IA: scoring de intención ──
+      function findBestMatch(text) {
+        var tokens = tokenize(text);
+        var normText = norm(text);
+        var scores = [];
+        for (var i = 0; i < KB.length; i++) {
+          var entry = KB[i];
+          var score = 0;
+          // Coincidencia de frase completa (peso mayor para frases largas)
+          for (var j = 0; j < entry.keys.length; j++) {
+            var key = norm(entry.keys[j]);
+            if (normText.indexOf(key) !== -1) { score += key.split(' ').length * 3; }
           }
+          // Coincidencia por tokens individuales
+          for (var k = 0; k < tokens.length; k++) {
+            for (var m = 0; m < entry.keys.length; m++) {
+              var kt = tokenize(entry.keys[m]);
+              for (var n = 0; n < kt.length; n++) {
+                if (tokens[k] === kt[n]) { score += 1; break; }
+              }
+            }
+          }
+          // Bonus por contexto previo relacionado
+          if (lastTopic && score > 0) {
+            var rel = { precio:['pago','inscribir','contenido'], pago:['precio','acceso','inscribir'], contenido:['precio','duracion','experiencia'], acceso:['pago','inscribir'], experiencia:['contenido','precio'] };
+            if (rel[lastTopic] && rel[lastTopic].indexOf(entry.id) !== -1) { score += 1; }
+          }
+          if (score > 0) scores.push({ entry: entry, score: score });
         }
-        return null;
+        scores.sort(function(a,b){ return b.score - a.score; });
+        return scores.length > 0 ? scores[0].entry : null;
+      }
+
+      function getSmartFallback(text) {
+        var len = text.trim().length;
+        if (len <= 2) return { answer:'\u{1F914} No entend\u00ED bien. \u00BFPod\u00E9s contarme m\u00E1s?', followup: INITIAL_QUICK };
+        if (text.indexOf('?') !== -1) return { answer:'Buena pregunta. No tengo una respuesta espec\u00EDfica para eso, pero te puedo orientar:', followup:['\u00BFCu\u00E1nto cuesta?','\u00BFQu\u00E9 incluye?','\u00BFC\u00F3mo pago?','Hablar por Instagram'] };
+        if (len > 60) return { answer:'Ten\u00E9s una consulta espec\u00EDfica. \u{1F4AC} Para responderte bien, te conviene escribirnos directamente por Instagram.', followup:['Hablar por Instagram','\u00BFCu\u00E1nto cuesta?','\u00BFQu\u00E9 incluye?'] };
+        return { answer:'No tengo respuesta para eso, pero puedo ayudarte con el precio, el contenido o c\u00F3mo pagar.', followup: INITIAL_QUICK };
       }
 
       function setQuickReplies(questions) {
@@ -2018,29 +2041,33 @@
         quickEl.innerHTML = '';
         addUserMsg(text);
         inputEl.value = '';
-        var resp = getBotResponse(text);
+        msgCount++;
+        var match = findBestMatch(text);
+        var typDelay = msgCount <= 2 ? (750 + Math.random() * 600) : (400 + Math.random() * 400);
         showTyping(function() {
-          if (resp) {
-            var c = resp.cta;
-            addBotMsg(resp.answer, c && c.text, c && c.url, c && c.external);
-            if (resp.followup && resp.followup.length) {
-              setTimeout(function() { setQuickReplies(resp.followup); }, 300);
+          if (match) {
+            lastTopic = match.id;
+            var c = match.cta;
+            addBotMsg(match.answer, c && c.text, c && c.url, c && c.external);
+            if (match.followup && match.followup.length) {
+              setTimeout(function() { setQuickReplies(match.followup); }, 300);
             }
           } else {
-            addBotMsg('No tengo una respuesta exacta para eso. Te recomiendo escribirnos por Instagram &#8212; te respondemos en minutos. &#x1F4AC;', 'Consultar por Instagram &#8594;', 'https://instagram.com/orbitacapital.io', true);
-            setTimeout(function() { setQuickReplies(['&#191;Cu&#225;nto cuesta?', '&#191;Qu&#233; incluye?', 'Hablar por Instagram']); }, 300);
+            var fb = getSmartFallback(text);
+            addBotMsg(fb.answer, fb.cta && fb.cta.text, fb.cta && fb.cta.url, fb.cta && fb.cta.external);
+            setTimeout(function() { setQuickReplies(fb.followup); }, 300);
           }
-        });
+        }, typDelay);
       }
 
       function initChat() {
         if (initialized) return;
         initialized = true;
         showTyping(function() {
-          addBotMsg('&#x1F44B; &#161;Hola! Soy el asistente de <strong>Orbita Capital</strong>. &#191;En qu&#233; puedo ayudarte?');
+          addBotMsg('\u{1F44B} \u00A1Hola! Soy el asistente de <strong>Orbita Capital</strong>. \u00BFEn qu\u00E9 puedo ayudarte?');
           setTimeout(function() {
             showTyping(function() {
-              addBotMsg('Pod&#233;s preguntarme lo que quieras sobre el programa, el precio, c&#243;mo pagar, o c&#243;mo funciona el acceso.');
+              addBotMsg('Pod\u00E9s preguntarme lo que quieras: precio, contenido, c\u00F3mo pagar, o c\u00F3mo funciona el acceso.');
               setQuickReplies(INITIAL_QUICK);
             }, 600);
           }, 500);
@@ -2052,6 +2079,8 @@
         quickEl.innerHTML = '';
         initialized = false;
         unread = 0;
+        lastTopic = null;
+        msgCount = 0;
         updateBadge();
         initChat();
       }

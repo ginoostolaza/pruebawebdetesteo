@@ -742,6 +742,155 @@ a { color: inherit; text-decoration: none; }
   font-weight: 500;
 }
 
+/* --- Growth Summary Cards --- */
+.analytics-growth-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.growth-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+}
+
+.growth-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.growth-card-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.growth-card-trend {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-text-dim);
+}
+
+.growth-card-trend.up {
+  background: rgba(34, 197, 94, 0.1);
+  color: var(--color-success);
+}
+
+.growth-card-trend.down {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--color-error);
+}
+
+.growth-card-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-text);
+  line-height: 1;
+  margin-bottom: 0.75rem;
+}
+
+.growth-card-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.growth-card-bar-fill {
+  height: 100%;
+  background: var(--gradient-primary);
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+
+.growth-card-bar-fill.purple {
+  background: var(--gradient-purple);
+}
+
+.growth-card-bar-fill.cyan {
+  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+}
+
+/* --- Activity Feed --- */
+.activity-feed {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.activity-feed-loading {
+  padding: 2rem;
+  text-align: center;
+  color: var(--color-text-dim);
+  font-size: 0.85rem;
+}
+
+.activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.65rem 0.5rem;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s;
+}
+
+.activity-item:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.activity-item + .activity-item {
+  border-top: 1px solid var(--color-border);
+}
+
+.activity-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.activity-dot.blue { background: var(--color-primary); }
+.activity-dot.green { background: var(--color-success); }
+.activity-dot.purple { background: var(--color-secondary); }
+.activity-dot.orange { background: var(--color-warning); }
+.activity-dot.red { background: var(--color-error); }
+
+.activity-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.activity-text strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.activity-text span {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+
+.activity-time {
+  font-size: 0.7rem;
+  color: var(--color-text-dim);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
 /* ============================================================
    PANELS (tab content)
    ============================================================ */

@@ -326,6 +326,34 @@
           </button>
         </div>
 
+        <!-- Growth Summary Cards -->
+        <div class="analytics-growth-cards" id="analytics-growth">
+          <div class="growth-card">
+            <div class="growth-card-header">
+              <span class="growth-card-label">Nuevos usuarios (30d)</span>
+              <span class="growth-card-trend up" id="growth-users-trend">—</span>
+            </div>
+            <div class="growth-card-value" id="growth-users-value">—</div>
+            <div class="growth-card-bar"><div class="growth-card-bar-fill" id="growth-users-bar" style="width:0%"></div></div>
+          </div>
+          <div class="growth-card">
+            <div class="growth-card-header">
+              <span class="growth-card-label">Ingresos (30d)</span>
+              <span class="growth-card-trend up" id="growth-revenue-trend">—</span>
+            </div>
+            <div class="growth-card-value" id="growth-revenue-value">—</div>
+            <div class="growth-card-bar"><div class="growth-card-bar-fill purple" id="growth-revenue-bar" style="width:0%"></div></div>
+          </div>
+          <div class="growth-card">
+            <div class="growth-card-header">
+              <span class="growth-card-label">Tasa de conversi&oacute;n</span>
+              <span class="growth-card-trend" id="growth-conv-trend">—</span>
+            </div>
+            <div class="growth-card-value" id="growth-conv-value">—</div>
+            <div class="growth-card-bar"><div class="growth-card-bar-fill cyan" id="growth-conv-bar" style="width:0%"></div></div>
+          </div>
+        </div>
+
         <!-- Registration trend -->
         <div class="analytics-section">
           <h3 class="analytics-title">
@@ -369,6 +397,17 @@
             M&eacute;tricas clave
           </h3>
           <div id="analytics-metricas" class="analytics-kpi-grid"></div>
+        </div>
+
+        <!-- Recent Activity Feed -->
+        <div class="analytics-section">
+          <h3 class="analytics-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Actividad reciente
+          </h3>
+          <div id="analytics-activity" class="activity-feed">
+            <div class="activity-feed-loading">Cargando actividad&hellip;</div>
+          </div>
         </div>
       </div>
 
@@ -1228,7 +1267,7 @@
         const titleEl = document.getElementById('topbar-title');
         if (titleEl) titleEl.textContent = titles[tab.dataset.tab] || 'Admin';
         if (tab.dataset.tab === 'mentorias') loadMentorias();
-        if (tab.dataset.tab === 'analytics') renderAnalytics();
+        if (tab.dataset.tab === 'analytics') { renderAnalytics(); renderGrowthCards(); renderActivityFeed(); }
         // Close sidebar on mobile after tab click
         if (window.innerWidth <= 768) {
           document.getElementById('admin-sidebar').classList.remove('open');
@@ -1954,10 +1993,132 @@
     }).join('');
   }
 
+  function renderGrowthCards() {
+    if (!allUsers.length && !allPayments.length) return;
+
+    var now = new Date();
+    var thirtyDaysAgo = new Date(now.getTime() - 30 * 86400000);
+    var sixtyDaysAgo = new Date(now.getTime() - 60 * 86400000);
+
+    // New users in last 30 days
+    var newUsers30 = allUsers.filter(function(u) {
+      return u.fecha_registro && new Date(u.fecha_registro) >= thirtyDaysAgo;
+    }).length;
+    var newUsersPrev30 = allUsers.filter(function(u) {
+      var d = u.fecha_registro ? new Date(u.fecha_registro) : null;
+      return d && d >= sixtyDaysAgo && d < thirtyDaysAgo;
+    }).length;
+
+    var el1 = document.getElementById('growth-users-value');
+    var trend1 = document.getElementById('growth-users-trend');
+    var bar1 = document.getElementById('growth-users-bar');
+    if (el1) el1.textContent = newUsers30;
+    if (trend1) {
+      var pct1 = newUsersPrev30 > 0 ? Math.round((newUsers30 - newUsersPrev30) / newUsersPrev30 * 100) : (newUsers30 > 0 ? 100 : 0);
+      trend1.textContent = (pct1 >= 0 ? '+' : '') + pct1 + '%';
+      trend1.className = 'growth-card-trend ' + (pct1 >= 0 ? 'up' : 'down');
+    }
+    if (bar1) bar1.style.width = Math.min(100, (newUsers30 / Math.max(allUsers.length, 1)) * 100) + '%';
+
+    // Revenue in last 30 days
+    var completed30 = allPayments.filter(function(p) {
+      return p.estado === 'completado' && p.fecha && new Date(p.fecha) >= thirtyDaysAgo;
+    });
+    var rev30 = completed30.reduce(function(s, p) { return s + toUsd(p.monto, p.moneda); }, 0);
+    var completedPrev30 = allPayments.filter(function(p) {
+      var d = p.fecha ? new Date(p.fecha) : null;
+      return p.estado === 'completado' && d && d >= sixtyDaysAgo && d < thirtyDaysAgo;
+    });
+    var revPrev30 = completedPrev30.reduce(function(s, p) { return s + toUsd(p.monto, p.moneda); }, 0);
+
+    var el2 = document.getElementById('growth-revenue-value');
+    var trend2 = document.getElementById('growth-revenue-trend');
+    var bar2 = document.getElementById('growth-revenue-bar');
+    if (el2) el2.textContent = 'U$D ' + rev30.toFixed(0);
+    if (trend2) {
+      var pct2 = revPrev30 > 0 ? Math.round((rev30 - revPrev30) / revPrev30 * 100) : (rev30 > 0 ? 100 : 0);
+      trend2.textContent = (pct2 >= 0 ? '+' : '') + pct2 + '%';
+      trend2.className = 'growth-card-trend ' + (pct2 >= 0 ? 'up' : 'down');
+    }
+    var totalRev = allPayments.filter(function(p) { return p.estado === 'completado'; }).reduce(function(s, p) { return s + toUsd(p.monto, p.moneda); }, 0);
+    if (bar2) bar2.style.width = (totalRev > 0 ? Math.min(100, rev30 / totalRev * 100) : 0) + '%';
+
+    // Conversion rate
+    var total = allUsers.length || 1;
+    var convRate = Math.round(allUsers.filter(function(u) { return u.fase; }).length / total * 100);
+    var el3 = document.getElementById('growth-conv-value');
+    var bar3 = document.getElementById('growth-conv-bar');
+    var trend3 = document.getElementById('growth-conv-trend');
+    if (el3) el3.textContent = convRate + '%';
+    if (bar3) bar3.style.width = convRate + '%';
+    if (trend3) { trend3.textContent = convRate >= 50 ? 'Buena' : 'Mejorable'; trend3.className = 'growth-card-trend ' + (convRate >= 50 ? 'up' : ''); }
+  }
+
+  function renderActivityFeed() {
+    var container = document.getElementById('analytics-activity');
+    if (!container) return;
+
+    // Combine users and payments into activity items
+    var items = [];
+    allUsers.forEach(function(u) {
+      if (!u.fecha_registro) return;
+      items.push({
+        type: 'register',
+        name: u.nombre || u.email || 'Usuario',
+        date: new Date(u.fecha_registro),
+        dot: 'blue',
+        text: 'se registr\u00f3'
+      });
+    });
+    allPayments.forEach(function(p) {
+      if (!p.fecha) return;
+      var user = allUsers.find(function(u) { return u.id === p.user_id; });
+      var name = user ? (user.nombre || user.email) : (p.email || 'Usuario');
+      items.push({
+        type: p.estado === 'completado' ? 'payment' : 'pending',
+        name: name,
+        date: new Date(p.fecha),
+        dot: p.estado === 'completado' ? 'green' : 'orange',
+        text: p.estado === 'completado' ? 'complet\u00f3 un pago (' + (p.moneda === 'ARS' ? '$' : 'U$D') + ' ' + (p.monto || 0) + ')' : 'tiene un pago pendiente'
+      });
+    });
+
+    // Sort by date descending
+    items.sort(function(a, b) { return b.date - a.date; });
+    items = items.slice(0, 20); // Show last 20
+
+    if (items.length === 0) {
+      container.innerHTML = '<div class="activity-feed-loading">No hay actividad registrada a\u00fan.</div>';
+      return;
+    }
+
+    function timeAgo(d) {
+      var diff = Date.now() - d.getTime();
+      var mins = Math.floor(diff / 60000);
+      if (mins < 1) return 'ahora';
+      if (mins < 60) return 'hace ' + mins + 'min';
+      var hrs = Math.floor(mins / 60);
+      if (hrs < 24) return 'hace ' + hrs + 'h';
+      var days = Math.floor(hrs / 24);
+      if (days < 30) return 'hace ' + days + 'd';
+      return d.toLocaleDateString('es-AR', { day: 'numeric', month: 'short' });
+    }
+
+    container.innerHTML = items.map(function(item) {
+      return '<div class="activity-item">' +
+        '<div class="activity-dot ' + item.dot + '"></div>' +
+        '<div class="activity-text"><span><strong>' + escapeHtml(item.name) + '</strong> ' + item.text + '</span></div>' +
+        '<div class="activity-time">' + timeAgo(item.date) + '</div>' +
+      '</div>';
+    }).join('');
+  }
+
   document.getElementById('btn-refresh-analytics').addEventListener('click', async function() {
     showToast('Actualizando datos\u2026');
     await loadData();
     renderAnalytics();
+    renderGrowthCards();
+    renderActivityFeed();
     showToast('Datos actualizados');
   });
 

@@ -538,6 +538,23 @@
             </div>
           </div>
 
+          <!-- Telegram link config -->
+          <div class="action-card">
+            <div class="action-card-top">
+              <div class="action-card-icon" style="background: rgba(0,136,204,0.15); color: #0088cc;">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0h-.056zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+              </div>
+              <div>
+                <h4>Link de Telegram</h4>
+                <p>Actualiza el enlace al grupo privado de la comunidad</p>
+              </div>
+            </div>
+            <div class="action-card-form">
+              <input type="url" id="telegram-link-input" class="admin-search qa-select" placeholder="https://t.me/+..." style="flex:1;">
+              <button class="btn-primary btn-sm" id="btn-save-telegram">Guardar</button>
+            </div>
+          </div>
+
           <!-- Reset progress -->
           <div class="action-card">
             <div class="action-card-top">
@@ -1642,6 +1659,9 @@
       if (prices.bot_ars) document.getElementById('price-bot-ars').value = prices.bot_ars;
       if (prices.bot_usd) document.getElementById('price-bot-usd').value = prices.bot_usd;
     }
+    if (config.telegram_link) {
+      document.getElementById('telegram-link-input').value = config.telegram_link;
+    }
   }
 
   function setupPriceControls() {
@@ -1656,6 +1676,20 @@
       var result = await Auth.updateSiteConfig('prices', prices);
       if (result.success) {
         showToast('Precios actualizados correctamente');
+      } else {
+        showToast('Error: ' + (result.error || 'No se pudo guardar'), 'error');
+      }
+    });
+
+    document.getElementById('btn-save-telegram').addEventListener('click', async function() {
+      var link = document.getElementById('telegram-link-input').value.trim();
+      if (!link || !link.startsWith('https://t.me/')) {
+        showToast('Ingres\u00e1 un link v\u00e1lido de Telegram (https://t.me/...)', 'error');
+        return;
+      }
+      var result = await Auth.updateSiteConfig('telegram_link', link);
+      if (result.success) {
+        showToast('Link de Telegram actualizado');
       } else {
         showToast('Error: ' + (result.error || 'No se pudo guardar'), 'error');
       }

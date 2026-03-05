@@ -46,7 +46,7 @@ const Auth = (function () {
 
   // ---- LOGIN ----
   async function login(email, password) {
-    if (!supabase) return demoLogin(email, password);
+    if (!supabase) return { success: false, message: 'Servicio no disponible. Intentá de nuevo más tarde.' };
 
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) return { success: false, message: translateError(error.message) };
@@ -387,30 +387,6 @@ const Auth = (function () {
     }));
     const { error } = await supabase.from('notifications').insert(rows);
     return { success: !error, error: error?.message };
-  }
-
-  // ---- DEMO LOGIN (development only) ----
-  function demoLogin(email, password) {
-    var isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    if (!isDev) return { success: false, message: 'Servicio no disponible. Intentá de nuevo más tarde.' };
-
-    if (email === 'admin@admin.com' && password === 'admin123') {
-      localStorage.setItem('usuario', JSON.stringify({
-        nombre: 'Admin', email, rol: 'admin', fase: 'ambas', estado: 'activo'
-      }));
-      localStorage.setItem('accesoAutorizado', 'true');
-      localStorage.setItem('timestampAcceso', Date.now().toString());
-      return { success: true };
-    }
-    if (email === 'email@email.com' && password === 'contraseña') {
-      localStorage.setItem('usuario', JSON.stringify({
-        nombre: 'Usuario Demo', email, rol: 'alumno', fase: null, estado: 'activo'
-      }));
-      localStorage.setItem('accesoAutorizado', 'true');
-      localStorage.setItem('timestampAcceso', Date.now().toString());
-      return { success: true };
-    }
-    return { success: false, message: 'Email o contraseña incorrectos.' };
   }
 
   // ---- ERROR TRANSLATION ----

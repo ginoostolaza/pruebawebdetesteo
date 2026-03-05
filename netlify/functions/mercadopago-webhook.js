@@ -6,6 +6,40 @@
 const { MercadoPagoConfig, Payment } = require('mercadopago');
 const { createClient } = require('@supabase/supabase-js');
 const { bienvenidaFase1, bienvenidaBot } = require('./email-templates');
+const crypto = require('crypto');
+
+// Verify MercadoPago webhook signature
+// https://www.mercadopago.com.ar/developers/en/docs/your-integrations/notifications/webhooks
+function verifyMercadoPagoSignature(event, paymentId) {
+  const secret = process.env.MP_WEBHOOK_SECRET;
+  if (!secret) return false;
+
+  const xSignature = event.headers['x-signature'];
+  const xRequestId = event.headers['x-request-id'];
+  if (!xSignature || !xRequestId) return false;
+
+  // Parse "ts=<timestamp>,v1=<hash>" from header
+  const parts = {};
+  xSignature.split(',').forEach(part => {
+    const idx = part.indexOf('=');
+    if (idx > 0) parts[part.slice(0, idx).trim()] = part.slice(idx + 1).trim();
+  });
+  const { ts, v1 } = parts;
+  if (!ts || !v1) return false;
+
+  // Build manifest and compute HMAC-SHA256
+  const manifest = `id:${paymentId};request-id:${xRequestId};ts:${ts};`;
+  const computed = crypto.createHmac('sha256', secret).update(manifest).digest('hex');
+
+  // Constant-time comparison to prevent timing attacks
+  try {
+    const a = Buffer.from(computed, 'hex');
+    const b = Buffer.from(v1, 'hex');
+    return a.length === b.length && crypto.timingSafeEqual(a, b);
+  } catch {
+    return false;
+  }
+}
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const FROM_EMAIL = process.env.RESEND_FROM || 'Orbita Capital <onboarding@resend.dev>';
@@ -49,6 +83,16 @@ exports.handler = async (event) => {
     const paymentId = body.data?.id;
     if (!paymentId) {
       return { statusCode: 200, headers, body: JSON.stringify({ error: 'No payment ID' }) };
+    }
+
+    // Verify webhook signature — reject unauthenticated requests
+    if (!process.env.MP_WEBHOOK_SECRET) {
+      console.error('[MP Webhook] MP_WEBHOOK_SECRET not configured — rejecting webhook');
+      return { statusCode: 500, headers, body: JSON.stringify({ error: 'Webhook secret not configured' }) };
+    }
+    if (!verifyMercadoPagoSignature(event, paymentId)) {
+      console.error('[MP Webhook] Invalid signature for payment', paymentId);
+      return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid signature' }) };
     }
 
     // Fetch payment details from MercadoPago

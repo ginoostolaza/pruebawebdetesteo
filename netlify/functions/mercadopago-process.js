@@ -6,7 +6,7 @@
 const { MercadoPagoConfig, Payment } = require('mercadopago');
 
 exports.handler = async (event) => {
-  const allowedOrigin = process.env.SITE_URL || process.env.URL || '*';
+  const allowedOrigin = process.env.SITE_URL || process.env.URL || 'https://orbitacapital.io';
   const headers = {
     'Access-Control-Allow-Origin': allowedOrigin,
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
@@ -28,21 +28,26 @@ exports.handler = async (event) => {
       token,
       issuer_id,
       payment_method_id,
-      transaction_amount,
       installments,
       payer,
       producto_id,
       user_id
     } = body;
 
-    if (!token || !payment_method_id || !transaction_amount || !payer?.email) {
+    if (!token || !payment_method_id || !payer?.email) {
       return { statusCode: 400, headers, body: JSON.stringify({ error: 'Faltan datos de pago' }) };
     }
 
+    // Server-side prices — never trust client-supplied amount
     const productos = {
-      fase1: 'Curso de Trading — Fase 1',
-      bot: 'Bot de Trading — Suscripcion Mensual'
+      fase1: { title: 'Curso de Trading — Fase 1', unit_price: 47000 },
+      bot: { title: 'Bot de Trading — Suscripcion Mensual', unit_price: 24900 }
     };
+
+    const producto = productos[producto_id];
+    if (!producto) {
+      return { statusCode: 400, headers, body: JSON.stringify({ error: 'Producto no valido' }) };
+    }
 
     const client = new MercadoPagoConfig({
       accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN
@@ -55,13 +60,13 @@ exports.handler = async (event) => {
         token,
         issuer_id: issuer_id || undefined,
         payment_method_id,
-        transaction_amount: Number(transaction_amount),
+        transaction_amount: producto.unit_price,
         installments: Number(installments) || 1,
         payer: {
           email: payer.email,
           identification: payer.identification || undefined
         },
-        description: productos[producto_id] || productos.fase1,
+        description: producto.title,
         statement_descriptor: 'ORBITA CAPITAL',
         metadata: {
           user_id: user_id || '',

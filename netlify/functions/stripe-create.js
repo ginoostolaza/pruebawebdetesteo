@@ -6,7 +6,7 @@
 const Stripe = require('stripe');
 
 exports.handler = async (event) => {
-  const allowedOrigin = process.env.SITE_URL || '*';
+  const allowedOrigin = process.env.SITE_URL || 'https://orbitacapital.io';
   const headers = {
     'Access-Control-Allow-Origin': allowedOrigin,
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
@@ -51,7 +51,7 @@ exports.handler = async (event) => {
     }
 
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-    const siteUrl = process.env.SITE_URL || 'https://tudominio.netlify.app';
+    const siteUrl = process.env.SITE_URL || 'https://orbitacapital.io';
 
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],

@@ -10,7 +10,7 @@
   <script>
     (function () {
       var acceso = localStorage.getItem("accesoAutorizado");
-      var usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
+      var usuario = {}; try { usuario = JSON.parse(localStorage.getItem("usuario") || "{}"); } catch(e) {}
       if (!acceso || acceso !== "true") { window.location.replace("iniciar-sesion.html"); }
       if (usuario.rol !== "admin") { window.location.replace("dashboard.html"); }
     })();

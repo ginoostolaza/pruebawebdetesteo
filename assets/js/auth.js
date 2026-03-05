@@ -26,6 +26,15 @@ const Auth = (function () {
     return supabase;
   }
 
+  // Safe localStorage JSON parse — returns fallback if malformed
+  function lsGet(key, fallback) {
+    try {
+      return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback));
+    } catch (e) {
+      return fallback;
+    }
+  }
+
   // ---- Build user data from profile, with fallbacks ----
   function buildUserData(authUser, profile, fallback) {
     return {
@@ -122,7 +131,7 @@ const Auth = (function () {
 
   // ---- GET USER PROGRESS ----
   async function getProgress(userId) {
-    const userData = JSON.parse(localStorage.getItem('usuario') || '{}');
+    const userData = lsGet('usuario', {});
     if (!userData.fase) return [];
 
     if (!supabase) {
@@ -157,7 +166,7 @@ const Auth = (function () {
   async function getSession() {
     if (!supabase) {
       const acceso = localStorage.getItem('accesoAutorizado');
-      return acceso === 'true' ? { user: JSON.parse(localStorage.getItem('usuario') || '{}') } : null;
+      return acceso === 'true' ? { user: lsGet('usuario', {}) } : null;
     }
 
     const { data } = await supabase.auth.getSession();
@@ -166,7 +175,7 @@ const Auth = (function () {
       const profile = await getProfile(user.id);
 
       // Use existing sessionStorage data as fallback if profile fetch fails
-      const existing = JSON.parse(localStorage.getItem('usuario') || '{}');
+      const existing = lsGet('usuario', {});
       const userData = buildUserData(user, profile, existing);
 
       if (!profile) {
@@ -208,7 +217,7 @@ const Auth = (function () {
         return false;
       }
       // Check if account is suspended
-      const userData = JSON.parse(localStorage.getItem('usuario') || '{}');
+      const userData = lsGet('usuario', {});
       if (userData.estado === 'suspendido') {
         localStorage.removeItem('usuario');
         localStorage.removeItem('accesoAutorizado');
@@ -223,7 +232,7 @@ const Auth = (function () {
   // ---- REFRESH PROFILE: force re-fetch from DB ----
   async function refreshProfile() {
     if (!supabase) return null;
-    const existing = JSON.parse(localStorage.getItem('usuario') || '{}');
+    const existing = lsGet('usuario', {});
     if (!existing.id) return null;
     const profile = await getProfile(existing.id);
     if (profile) {
@@ -248,7 +257,7 @@ const Auth = (function () {
 
   // ---- CHECK COURSE ACCESS ----
   function hasAccess(requiredFase) {
-    const userData = JSON.parse(localStorage.getItem('usuario') || '{}');
+    const userData = lsGet('usuario', {});
     const fase = userData.fase;
     if (!fase) return false;
     if (fase === 'ambas') return true;
@@ -272,7 +281,7 @@ const Auth = (function () {
     const isAuth = await guard();
     if (!isAuth) return false;
 
-    const userData = JSON.parse(localStorage.getItem('usuario') || '{}');
+    const userData = lsGet('usuario', {});
     if (userData.rol !== 'admin') {
       window.location.replace('dashboard.html');
       return false;
@@ -538,6 +547,7 @@ const Auth = (function () {
     getNotifications, getUnreadCount, markNotificationRead, markAllNotificationsRead,
     sendNotification, sendBulkNotification,
     getSiteConfig, updateSiteConfig,
-    getMentorships, getAllMentorships, createMentorship, updateMentorship, deleteMentorship
+    getMentorships, getAllMentorships, createMentorship, updateMentorship, deleteMentorship,
+    lsGet
   };
 })();

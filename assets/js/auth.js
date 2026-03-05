@@ -26,6 +26,15 @@ const Auth = (function () {
     return supabase;
   }
 
+  // Safe localStorage JSON parse — returns fallback if malformed
+  function lsGet(key, fallback) {
+    try {
+      return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback));
+    } catch (e) {
+      return fallback;
+    }
+  }
+
   // ---- Build user data from profile, with fallbacks ----
   function buildUserData(authUser, profile, fallback) {
     return {
@@ -46,7 +55,7 @@ const Auth = (function () {
 
   // ---- LOGIN ----
   async function login(email, password) {
-    if (!supabase) return demoLogin(email, password);
+    if (!supabase) return { success: false, message: 'Servicio no disponible. Intentá de nuevo más tarde.' };
 
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) return { success: false, message: translateError(error.message) };
@@ -115,14 +124,14 @@ const Auth = (function () {
     if (!supabase) return null;
     const { data, error } = await supabase.from('profiles').select('*').eq('id', userId).single();
     if (error) {
-      console.error('[Auth] Error fetching profile');
+      console.error('[Auth] Error fetching profile:', error.message);
     }
     return data;
   }
 
   // ---- GET USER PROGRESS ----
   async function getProgress(userId) {
-    const userData = JSON.parse(localStorage.getItem('usuario') || '{}');
+    const userData = lsGet('usuario', {});
     if (!userData.fase) return [];
 
     if (!supabase) {
@@ -157,7 +166,7 @@ const Auth = (function () {
   async function getSession() {
     if (!supabase) {
       const acceso = localStorage.getItem('accesoAutorizado');
-      return acceso === 'true' ? { user: JSON.parse(localStorage.getItem('usuario') || '{}') } : null;
+      return acceso === 'true' ? { user: lsGet('usuario', {}) } : null;
     }
 
     const { data } = await supabase.auth.getSession();
@@ -166,7 +175,7 @@ const Auth = (function () {
       const profile = await getProfile(user.id);
 
       // Use existing sessionStorage data as fallback if profile fetch fails
-      const existing = JSON.parse(localStorage.getItem('usuario') || '{}');
+      const existing = lsGet('usuario', {});
       const userData = buildUserData(user, profile, existing);
 
       if (!profile) {
@@ -188,6 +197,16 @@ const Auth = (function () {
       window.location.replace('iniciar-sesion.html');
       return false;
     }
+    // Session expiry: force re-auth after 7 days of inactivity
+    const ts = parseInt(localStorage.getItem('timestampAcceso') || '0');
+    const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
+    if (ts && (Date.now() - ts) > SEVEN_DAYS && !supabase) {
+      localStorage.removeItem('usuario');
+      localStorage.removeItem('accesoAutorizado');
+      localStorage.removeItem('timestampAcceso');
+      window.location.replace('iniciar-sesion.html');
+      return false;
+    }
     if (supabase) {
       const session = await getSession();
       if (!session) {
@@ -198,7 +217,7 @@ const Auth = (function () {
         return false;
       }
       // Check if account is suspended
-      const userData = JSON.parse(localStorage.getItem('usuario') || '{}');
+      const userData = lsGet('usuario', {});
       if (userData.estado === 'suspendido') {
         localStorage.removeItem('usuario');
         localStorage.removeItem('accesoAutorizado');
@@ -213,7 +232,7 @@ const Auth = (function () {
   // ---- REFRESH PROFILE: force re-fetch from DB ----
   async function refreshProfile() {
     if (!supabase) return null;
-    const existing = JSON.parse(localStorage.getItem('usuario') || '{}');
+    const existing = lsGet('usuario', {});
     if (!existing.id) return null;
     const profile = await getProfile(existing.id);
     if (profile) {
@@ -238,7 +257,7 @@ const Auth = (function () {
 
   // ---- CHECK COURSE ACCESS ----
   function hasAccess(requiredFase) {
-    const userData = JSON.parse(localStorage.getItem('usuario') || '{}');
+    const userData = lsGet('usuario', {});
     const fase = userData.fase;
     if (!fase) return false;
     if (fase === 'ambas') return true;
@@ -262,7 +281,7 @@ const Auth = (function () {
     const isAuth = await guard();
     if (!isAuth) return false;
 
-    const userData = JSON.parse(localStorage.getItem('usuario') || '{}');
+    const userData = lsGet('usuario', {});
     if (userData.rol !== 'admin') {
       window.location.replace('dashboard.html');
       return false;
@@ -301,7 +320,7 @@ const Auth = (function () {
   // ---- ADMIN: Initialize progress for a user ----
   async function initProgress(userId) {
     if (!supabase) return { success: false };
-    const modules = ['preparacion-grafico', 'flexzone', 'relleno-zona', 'glosario', 'consejos'];
+    const modules = ['preparacion-grafico', 'flexzone', 'relleno-zona', 'glosario', 'consejos', 'protocolo-operacion'];
     const rows = modules.map(m => ({ user_id: userId, modulo: m, completado: false }));
     const { error } = await supabase.from('progreso').upsert(rows, { onConflict: 'user_id,modulo', ignoreDuplicates: true });
     return { success: !error, error: error?.message };
@@ -377,30 +396,6 @@ const Auth = (function () {
     }));
     const { error } = await supabase.from('notifications').insert(rows);
     return { success: !error, error: error?.message };
-  }
-
-  // ---- DEMO LOGIN (development only) ----
-  function demoLogin(email, password) {
-    var isDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-    if (!isDev) return { success: false, message: 'Servicio no disponible. Intentá de nuevo más tarde.' };
-
-    if (email === 'admin@admin.com' && password === 'admin123') {
-      localStorage.setItem('usuario', JSON.stringify({
-        nombre: 'Admin', email, rol: 'admin', fase: 'ambas', estado: 'activo'
-      }));
-      localStorage.setItem('accesoAutorizado', 'true');
-      localStorage.setItem('timestampAcceso', Date.now().toString());
-      return { success: true };
-    }
-    if (email === 'email@email.com' && password === 'contraseña') {
-      localStorage.setItem('usuario', JSON.stringify({
-        nombre: 'Usuario Demo', email, rol: 'alumno', fase: null, estado: 'activo'
-      }));
-      localStorage.setItem('accesoAutorizado', 'true');
-      localStorage.setItem('timestampAcceso', Date.now().toString());
-      return { success: true };
-    }
-    return { success: false, message: 'Email o contraseña incorrectos.' };
   }
 
   // ---- ERROR TRANSLATION ----
@@ -552,6 +547,7 @@ const Auth = (function () {
     getNotifications, getUnreadCount, markNotificationRead, markAllNotificationsRead,
     sendNotification, sendBulkNotification,
     getSiteConfig, updateSiteConfig,
-    getMentorships, getAllMentorships, createMentorship, updateMentorship, deleteMentorship
+    getMentorships, getAllMentorships, createMentorship, updateMentorship, deleteMentorship,
+    lsGet
   };
 })();

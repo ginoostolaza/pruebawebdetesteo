@@ -256,6 +256,7 @@
     let autoPlayInterval;
 
     // Create dots
+    const dots = [];
     if (dotsContainer) {
       slides.forEach((_, i) => {
         const dot = document.createElement('button');
@@ -264,12 +265,12 @@
         dot.setAttribute('aria-label', `Testimonio ${i + 1}`);
         dot.addEventListener('click', () => goTo(i));
         dotsContainer.appendChild(dot);
+        dots.push(dot);
       });
     }
 
     function goTo(index) {
       slides[current].classList.remove('active');
-      const dots = document.querySelectorAll('.testimonial-dot');
       if (dots[current]) dots[current].classList.remove('active');
 
       current = (index + slides.length) % slides.length;

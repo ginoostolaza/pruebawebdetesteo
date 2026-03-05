@@ -381,7 +381,7 @@
         <div class="account-item">
           <div class="account-info">
             <h3 class="card-section-title">Desactivar cuenta</h3>
-            <p class="text-dim">Tu cuenta sera desactivada temporalmente. Podras reactivarla en cualquier momento contactando a soporte.</p>
+            <p class="text-dim">Tu cuenta ser&aacute; desactivada temporalmente. Podr&aacute;s reactivarla en cualquier momento contactando a soporte.</p>
           </div>
           <button class="btn-warning-outline" id="btn-deactivate">Desactivar</button>
         </div>
@@ -677,7 +677,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("btn-deactivate").addEventListener("click", function() {
     showConfirm(
       "Desactivar cuenta",
-      "Tu cuenta sera desactivada temporalmente. No podras acceder hasta que soporte la reactive. ¿Deseas continuar?",
+      "Tu cuenta ser&aacute; desactivada temporalmente. No podr&aacute;s acceder hasta que soporte la reactive. ¿Deseas continuar?",
       null,
       async function() {
         var result = await Auth.deactivateAccount();

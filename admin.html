@@ -303,10 +303,10 @@
               <tr>
                 <th>T&iacute;tulo</th>
                 <th>Fecha</th>
-                <th>Hora</th>
-                <th>Acceso</th>
+                <th class="th-hide-mobile">Hora</th>
+                <th class="th-hide-mobile">Acceso</th>
                 <th>Estado</th>
-                <th>Visible</th>
+                <th class="th-hide-mobile">Visible</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -749,11 +749,11 @@
         </div>
       </div>
       <div class="modal-field">
-        <label>Referencia externa <span style="color:var(--text-muted);font-weight:400">(opcional)</span></label>
+        <label>Referencia externa <span style="color:var(--color-text-muted);font-weight:400">(opcional)</span></label>
         <input type="text" id="payment-reference" placeholder="ID de Stripe, MercadoPago, comprobante, etc.">
       </div>
       <div class="modal-field">
-        <label>Concepto <span style="color:var(--text-muted);font-weight:400">(opcional)</span></label>
+        <label>Concepto <span style="color:var(--color-text-muted);font-weight:400">(opcional)</span></label>
         <input type="text" id="payment-concept" placeholder="Se autocompleta seg&uacute;n el producto">
       </div>
       <div class="modal-actions">
@@ -776,7 +776,7 @@
         <input type="text" id="mentoria-titulo" required placeholder="Ej: Mentor&iacute;a Grupal - An&aacute;lisis de Mercado">
       </div>
       <div class="modal-field">
-        <label>Descripci&oacute;n <span style="color:var(--text-muted);font-weight:400">(opcional)</span></label>
+        <label>Descripci&oacute;n <span style="color:var(--color-text-muted);font-weight:400">(opcional)</span></label>
         <textarea id="mentoria-descripcion" rows="2" placeholder="Breve descripci&oacute;n de la sesi&oacute;n..." style="resize:vertical;min-height:50px;"></textarea>
       </div>
       <div class="modal-row">
@@ -822,7 +822,7 @@
   <div class="modal-card" style="max-width:420px;">
     <div class="modal-bar-blue" style="background:var(--color-error);"></div>
     <h3>Eliminar mentor&iacute;a</h3>
-    <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:1.5rem;">
+    <p style="color:var(--color-text-muted);font-size:0.88rem;margin-bottom:1.5rem;">
       &iquest;Est&aacute;s seguro de que quer&eacute;s eliminar esta sesi&oacute;n de mentor&iacute;a? Esta acci&oacute;n no se puede deshacer.
     </p>
     <input type="hidden" id="delete-mentoria-id">
@@ -1729,13 +1729,13 @@
 
       return '<tr>' +
         '<td><strong>' + escapeHtml(m.titulo || '') + '</strong>' +
-          (m.descripcion ? '<br><span style="font-size:0.75rem;color:var(--text-muted)">' + escapeHtml(m.descripcion).substring(0, 60) + '</span>' : '') +
+          (m.descripcion ? '<br><span style="font-size:0.75rem;color:var(--color-text-muted)">' + escapeHtml(m.descripcion).substring(0, 60) + '</span>' : '') +
         '</td>' +
         '<td>' + formatDate(m.fecha) + '</td>' +
-        '<td>' + (m.hora || '—') + '</td>' +
-        '<td>' + accesoText + '</td>' +
+        '<td class="th-hide-mobile">' + (m.hora || '—') + '</td>' +
+        '<td class="th-hide-mobile">' + accesoText + '</td>' +
         '<td>' + statusBadge + '</td>' +
-        '<td>' + visibleBadge + '</td>' +
+        '<td class="th-hide-mobile">' + visibleBadge + '</td>' +
         '<td>' +
           '<div class="action-btns">' +
             '<button class="btn-icon" title="Editar" onclick="editMentoria(' + m.id + ')">' +

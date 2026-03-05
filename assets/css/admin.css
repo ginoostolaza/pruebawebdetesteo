@@ -1675,6 +1675,10 @@ a { color: inherit; text-decoration: none; }
 
   .monthly-count { display: none; }
 
+  .analytics-bar-list .monthly-row {
+    grid-template-columns: minmax(90px, 130px) 1fr auto;
+  }
+
   .topbar-date { display: none; }
 
   /* Hide non-essential table columns on mobile */
@@ -1695,6 +1699,94 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 400px) {
   .admin-stats { grid-template-columns: 1fr; }
   .admin-content { padding: 0.75rem 0.75rem 3rem; }
+}
+
+/* ============================================================
+   MENTORÍAS TABLE — .table-wrap alias (mirrors .table-container)
+   ============================================================ */
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+
+/* ============================================================
+   BADGE VARIANTS — used by mentorías status cells
+   ============================================================ */
+.badge-success {
+  background: rgba(34, 197, 94, 0.1);
+  color: var(--color-success);
+  border: 1px solid rgba(34, 197, 94, 0.12);
+}
+
+.badge-dim {
+  background: rgba(90, 100, 120, 0.12);
+  color: var(--color-text-dim);
+  border: 1px solid rgba(90, 100, 120, 0.1);
+}
+
+/* ============================================================
+   ICON BUTTONS — mentorías edit/delete actions
+   ============================================================ */
+.action-btns {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: nowrap;
+}
+
+.btn-icon {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(59, 130, 246, 0.07);
+  border: 1px solid rgba(59, 130, 246, 0.12);
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--color-primary);
+  transition: all var(--transition);
+  flex-shrink: 0;
+}
+
+.btn-icon svg { width: 14px; height: 14px; }
+
+.btn-icon:hover {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.25);
+  transform: translateY(-1px);
+}
+
+.btn-icon.danger {
+  background: rgba(239, 68, 68, 0.07);
+  border-color: rgba(239, 68, 68, 0.12);
+  color: var(--color-error);
+}
+
+.btn-icon.danger:hover {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+/* ============================================================
+   EMPTY STATE
+   ============================================================ */
+.empty-state {
+  text-align: center;
+  padding: 2.5rem;
+  color: var(--color-text-dim);
+  font-style: italic;
+  font-size: 0.88rem;
+}
+
+/* ============================================================
+   ANALYTICS BARS — wider label column (not just 60px)
+   ============================================================ */
+.analytics-bar-list .monthly-row {
+  grid-template-columns: minmax(120px, 200px) 1fr auto;
 }
 
 /* ============================================================

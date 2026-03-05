@@ -115,7 +115,7 @@ const Auth = (function () {
     if (!supabase) return null;
     const { data, error } = await supabase.from('profiles').select('*').eq('id', userId).single();
     if (error) {
-      console.error('[Auth] Error fetching profile');
+      console.error('[Auth] Error fetching profile:', error.message);
     }
     return data;
   }
@@ -185,6 +185,16 @@ const Auth = (function () {
   async function guard() {
     const quickCheck = localStorage.getItem('accesoAutorizado');
     if (!quickCheck || quickCheck !== 'true') {
+      window.location.replace('iniciar-sesion.html');
+      return false;
+    }
+    // Session expiry: force re-auth after 7 days of inactivity
+    const ts = parseInt(localStorage.getItem('timestampAcceso') || '0');
+    const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
+    if (ts && (Date.now() - ts) > SEVEN_DAYS && !supabase) {
+      localStorage.removeItem('usuario');
+      localStorage.removeItem('accesoAutorizado');
+      localStorage.removeItem('timestampAcceso');
       window.location.replace('iniciar-sesion.html');
       return false;
     }
@@ -301,7 +311,7 @@ const Auth = (function () {
   // ---- ADMIN: Initialize progress for a user ----
   async function initProgress(userId) {
     if (!supabase) return { success: false };
-    const modules = ['preparacion-grafico', 'flexzone', 'relleno-zona', 'glosario', 'consejos'];
+    const modules = ['preparacion-grafico', 'flexzone', 'relleno-zona', 'glosario', 'consejos', 'protocolo-operacion'];
     const rows = modules.map(m => ({ user_id: userId, modulo: m, completado: false }));
     const { error } = await supabase.from('progreso').upsert(rows, { onConflict: 'user_id,modulo', ignoreDuplicates: true });
     return { success: !error, error: error?.message };

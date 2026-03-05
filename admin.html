@@ -58,9 +58,13 @@
         <span>Mentor&iacute;as</span>
       </button>
       <span class="sidebar-nav-label">Herramientas</span>
+      <button class="admin-tab sidebar-item" data-tab="analytics">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+        <span>Estad&iacute;sticas</span>
+      </button>
       <button class="admin-tab sidebar-item" data-tab="actions">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        <span>Acciones rápidas</span>
+        <span>Acciones r&aacute;pidas</span>
       </button>
     </nav>
 
@@ -312,6 +316,62 @@
         <p class="empty-state" id="mentorias-empty" style="display:none;">No hay mentor&iacute;as creadas a&uacute;n.</p>
       </div>
 
+      <!-- ============ ANALYTICS TAB ============ -->
+      <div class="admin-panel" id="panel-analytics">
+        <div class="panel-header">
+          <h2>Estad&iacute;sticas del sitio</h2>
+          <button class="btn-primary btn-sm" id="btn-refresh-analytics">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            Actualizar
+          </button>
+        </div>
+
+        <!-- Registration trend -->
+        <div class="analytics-section">
+          <h3 class="analytics-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Registros por mes
+          </h3>
+          <div id="analytics-registros" class="analytics-bar-list"></div>
+        </div>
+
+        <!-- Module completion rates -->
+        <div class="analytics-section">
+          <h3 class="analytics-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            Tasa de completado por m&oacute;dulo
+          </h3>
+          <div id="analytics-modulos" class="analytics-bar-list"></div>
+        </div>
+
+        <!-- Payment methods breakdown -->
+        <div class="analytics-section">
+          <h3 class="analytics-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            M&eacute;todos de pago
+          </h3>
+          <div id="analytics-metodos" class="analytics-bar-list"></div>
+        </div>
+
+        <!-- Access distribution -->
+        <div class="analytics-section">
+          <h3 class="analytics-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Distribuci&oacute;n de acceso
+          </h3>
+          <div id="analytics-acceso" class="analytics-bar-list"></div>
+        </div>
+
+        <!-- Key ratios -->
+        <div class="analytics-section">
+          <h3 class="analytics-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            M&eacute;tricas clave
+          </h3>
+          <div id="analytics-metricas" class="analytics-kpi-grid"></div>
+        </div>
+      </div>
+
       <!-- ============ QUICK ACTIONS TAB ============ -->
       <div class="admin-panel" id="panel-actions">
         <div class="panel-header">
@@ -475,6 +535,23 @@
                 </div>
               </div>
               <button class="btn-primary btn-sm" id="btn-save-prices">Guardar precios</button>
+            </div>
+          </div>
+
+          <!-- Reset progress -->
+          <div class="action-card">
+            <div class="action-card-top">
+              <div class="action-card-icon cyan">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+              </div>
+              <div>
+                <h4>Reiniciar progreso</h4>
+                <p>Reinicia los m&oacute;dulos completados de un usuario</p>
+              </div>
+            </div>
+            <div class="action-card-form">
+              <select id="qa-reset-user" class="admin-select qa-select"></select>
+              <button class="btn-danger btn-sm" id="btn-qa-reset-progress">Reiniciar progreso</button>
             </div>
           </div>
 
@@ -821,16 +898,22 @@
     setupPriceControls();
   });
 
-  // ---- Fetch Dolar Blue ----
+  // ---- Fetch Dolar Blue (dual API with fallback) ----
   async function fetchDolarBlueAdmin() {
-    try {
-      var response = await fetch('https://api.bluelytics.com.ar/v2/latest');
-      var data = await response.json();
-      dolarBlueVenta = data.blue.value_sell;
-    } catch (e) {
-      console.error('Error fetching dolar blue:', e);
-      dolarBlueVenta = null;
+    var apis = [
+      { url: 'https://dolarapi.com/v1/dolares/blue', parse: function(d) { return d.venta; } },
+      { url: 'https://api.bluelytics.com.ar/v2/latest', parse: function(d) { return d.blue.value_sell; } }
+    ];
+    for (var i = 0; i < apis.length; i++) {
+      try {
+        var res = await fetch(apis[i].url, { signal: AbortSignal.timeout(5000) });
+        if (!res.ok) continue;
+        var data = await res.json();
+        var val = apis[i].parse(data);
+        if (val && !isNaN(val)) { dolarBlueVenta = val; return; }
+      } catch (e) { /* try next */ }
     }
+    dolarBlueVenta = null;
   }
 
   // ---- Revenue Controls ----
@@ -1113,6 +1196,7 @@
     const notifOptions = '<option value="all">Todos los usuarios</option>' +
       allUsers.map(u => '<option value="' + escapeHtml(u.id) + '">' + escapeHtml(u.nombre || u.email) + '</option>').join('');
     document.getElementById("qa-notif-user").innerHTML = notifOptions;
+    document.getElementById("qa-reset-user").innerHTML = options;
   }
 
   function setupEventListeners() {
@@ -1123,10 +1207,11 @@
         tab.classList.add('active');
         document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
         // Update topbar title
-        const titles = { users: 'Usuarios', payments: 'Pagos', mentorias: 'Mentorías', actions: 'Acciones Rápidas' };
+        const titles = { users: 'Usuarios', payments: 'Pagos', mentorias: 'Mentorías', analytics: 'Estadísticas', actions: 'Acciones Rápidas' };
         const titleEl = document.getElementById('topbar-title');
         if (titleEl) titleEl.textContent = titles[tab.dataset.tab] || 'Admin';
         if (tab.dataset.tab === 'mentorias') loadMentorias();
+        if (tab.dataset.tab === 'analytics') renderAnalytics();
         // Close sidebar on mobile after tab click
         if (window.innerWidth <= 768) {
           document.getElementById('admin-sidebar').classList.remove('open');
@@ -1144,7 +1229,7 @@
         var key = th.dataset.sort;
         if (usersSortKey === key) { usersSortDir = usersSortDir === 'asc' ? 'desc' : 'asc'; }
         else { usersSortKey = key; usersSortDir = 'asc'; }
-        renderUsers(_filteredUsers.length ? _filteredUsers : allUsers);
+        renderUsers(_filteredUsers);
       });
     });
 
@@ -1154,7 +1239,7 @@
         var key = th.dataset.sort;
         if (paymentsSortKey === key) { paymentsSortDir = paymentsSortDir === 'asc' ? 'desc' : 'asc'; }
         else { paymentsSortKey = key; paymentsSortDir = 'asc'; }
-        renderPayments(_filteredPayments.length ? _filteredPayments : allPayments);
+        renderPayments(_filteredPayments);
       });
     });
 
@@ -1735,6 +1820,131 @@
     } else {
       showToast('Error: ' + (result.error || 'No se pudo eliminar'), 'error');
     }
+  });
+
+  // ============================================================
+  //  ANALYTICS TAB
+  // ============================================================
+  function renderAnalyticsBars(containerId, items, maxValue, colorClass) {
+    var container = document.getElementById(containerId);
+    if (!container) return;
+    if (!items.length) { container.innerHTML = '<div class="monthly-empty">Sin datos</div>'; return; }
+    container.innerHTML = items.map(function(item) {
+      var pct = maxValue > 0 ? Math.round(item.value / maxValue * 100) : 0;
+      return '<div class="monthly-row">' +
+        '<div class="monthly-label" style="min-width:160px;">' + escapeHtml(item.label) + '</div>' +
+        '<div class="monthly-bar-track"><div class="monthly-bar-fill ' + (colorClass || '') + '" style="width:' + pct + '%"></div></div>' +
+        '<div class="monthly-value">' + escapeHtml(String(item.display || item.value)) + '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  function renderAnalytics() {
+    if (!allUsers.length && !allPayments.length) return;
+
+    // 1. Registros por mes (last 6 months)
+    var regByMonth = {};
+    allUsers.forEach(function(u) {
+      if (!u.fecha_registro) return;
+      var d = new Date(u.fecha_registro);
+      var key = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+      regByMonth[key] = (regByMonth[key] || 0) + 1;
+    });
+    var monthNames = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+    var regItems = Object.keys(regByMonth).sort().slice(-6).map(function(k) {
+      var p = k.split('-');
+      return { label: monthNames[parseInt(p[1]) - 1] + ' ' + p[0], value: regByMonth[k], display: regByMonth[k] + ' usuarios' };
+    });
+    var regMax = Math.max.apply(null, regItems.map(function(i) { return i.value; }));
+    renderAnalyticsBars('analytics-registros', regItems, regMax);
+
+    // 2. Módulos completados (requires progress data — use available payment as proxy)
+    var moduleLabels = {
+      'preparacion-grafico': 'Preparación del Gráfico',
+      'flexzone': 'Sistema #1 — Flexzone',
+      'relleno-zona': 'Sistema #2 — Relleno de Zona',
+      'glosario': 'Glosario',
+      'consejos': 'Consejos Adicionales',
+      'protocolo-operacion': 'Protocolo Diario'
+    };
+    var usersWithFase = allUsers.filter(function(u) { return u.fase; }).length || 1;
+    // Can't fetch all progress here without extra DB call; show note instead
+    document.getElementById('analytics-modulos').innerHTML =
+      '<div class="monthly-empty" style="font-size:0.82rem;">Los datos de completado de m\u00f3dulos requieren consultar la tabla <code>progreso</code> individualmente. Implementar con <code>Auth.getAllProgress()</code> si el volumen lo permite.</div>';
+
+    // 3. Métodos de pago
+    var metodoCounts = {};
+    allPayments.filter(function(p) { return p.estado === 'completado'; }).forEach(function(p) {
+      var m = p.metodo || 'Desconocido';
+      metodoCounts[m] = (metodoCounts[m] || 0) + 1;
+    });
+    var metodoItems = Object.keys(metodoCounts).sort(function(a, b) { return metodoCounts[b] - metodoCounts[a]; }).map(function(k) {
+      return { label: k, value: metodoCounts[k], display: metodoCounts[k] + ' pagos' };
+    });
+    var metodoMax = Math.max.apply(null, metodoItems.map(function(i) { return i.value; }));
+    renderAnalyticsBars('analytics-metodos', metodoItems, metodoMax);
+
+    // 4. Distribución de acceso
+    var total = allUsers.length || 1;
+    var accesoData = [
+      { label: 'Fase 1', value: allUsers.filter(function(u) { return u.fase === 'fase-1'; }).length },
+      { label: 'Ambas fases', value: allUsers.filter(function(u) { return u.fase === 'ambas'; }).length },
+      { label: 'Sin acceso', value: allUsers.filter(function(u) { return !u.fase; }).length },
+      { label: 'Suspendidos', value: allUsers.filter(function(u) { return u.estado === 'suspendido'; }).length }
+    ].filter(function(i) { return i.value > 0; }).map(function(i) {
+      return { label: i.label, value: i.value, display: i.value + ' (' + Math.round(i.value / total * 100) + '%)' };
+    });
+    var accesoMax = Math.max.apply(null, accesoData.map(function(i) { return i.value; }));
+    renderAnalyticsBars('analytics-acceso', accesoData, accesoMax);
+
+    // 5. KPIs
+    var completedPayments = allPayments.filter(function(p) { return p.estado === 'completado'; });
+    var totalUsdRevenue = completedPayments.reduce(function(s, p) { return s + toUsd(p.monto, p.moneda); }, 0);
+    var conversionRate = total > 0 ? Math.round(allUsers.filter(function(u) { return u.fase; }).length / total * 100) : 0;
+    var avgRevenuePerUser = allUsers.filter(function(u) { return u.fase; }).length > 0
+      ? (totalUsdRevenue / allUsers.filter(function(u) { return u.fase; }).length).toFixed(2)
+      : 0;
+    var kpis = [
+      { label: 'Tasa de conversi\u00f3n', value: conversionRate + '%', sub: 'usuarios con acceso' },
+      { label: 'Ingreso total (USD)', value: 'U$D ' + totalUsdRevenue.toFixed(2), sub: completedPayments.length + ' pagos completados' },
+      { label: 'Ingreso promedio/alumno', value: 'U$D ' + avgRevenuePerUser, sub: 'usuarios con acceso' },
+      { label: 'Suscriptores bot', value: allUsers.filter(function(u) { return u.bot_activo; }).length, sub: 'de ' + total + ' usuarios' },
+      { label: 'En comunidad', value: allUsers.filter(function(u) { return u.comunidad_activa; }).length, sub: 'de ' + total + ' usuarios' },
+      { label: 'Nuevos este mes', value: (function() {
+          var now = new Date(); var key = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
+          return regByMonth[key] || 0;
+        })(), sub: 'registros del mes actual' }
+    ];
+    document.getElementById('analytics-metricas').innerHTML = kpis.map(function(k) {
+      return '<div class="kpi-card"><div class="kpi-value">' + escapeHtml(String(k.value)) + '</div><div class="kpi-label">' + escapeHtml(k.label) + '</div><div class="kpi-sub">' + escapeHtml(k.sub) + '</div></div>';
+    }).join('');
+  }
+
+  document.getElementById('btn-refresh-analytics').addEventListener('click', async function() {
+    showToast('Actualizando datos\u2026');
+    await loadData();
+    renderAnalytics();
+    showToast('Datos actualizados');
+  });
+
+  // ============================================================
+  //  RESET PROGRESS
+  // ============================================================
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('btn-qa-reset-progress').addEventListener('click', async function() {
+      var userId = document.getElementById('qa-reset-user').value;
+      if (!userId) { showToast('Selecciona un usuario', 'error'); return; }
+      var user = allUsers.find(function(u) { return u.id === userId; });
+      var nombre = user ? (user.nombre || user.email) : 'este usuario';
+      if (!confirm('\u00bfSeguro que quer\u00e9s reiniciar el progreso de ' + nombre + '? Se marcar\u00e1n todos los m\u00f3dulos como no completados.')) return;
+      var sb = Auth.getClient();
+      if (!sb) { showToast('Supabase no disponible', 'error'); return; }
+      var modules = ['preparacion-grafico', 'flexzone', 'relleno-zona', 'glosario', 'consejos', 'protocolo-operacion'];
+      var rows = modules.map(function(m) { return { user_id: userId, modulo: m, completado: false, fecha_completado: null }; });
+      var { error } = await sb.from('progreso').upsert(rows, { onConflict: 'user_id,modulo' });
+      if (!error) { showToast('Progreso de ' + nombre + ' reiniciado'); }
+      else { showToast('Error: ' + error.message, 'error'); }
+    });
   });
 
 </script>

@@ -43,7 +43,8 @@ exports.handler = async (event) => {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid JSON' }) };
   }
 
-  if (!nombre || !email || !email.includes('@')) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  if (!nombre || !email || !emailRegex.test(email)) {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'Nombre y email son requeridos' }) };
   }
 

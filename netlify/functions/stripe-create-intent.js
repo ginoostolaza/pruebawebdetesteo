@@ -6,7 +6,7 @@
 const Stripe = require('stripe');
 
 exports.handler = async (event) => {
-  const allowedOrigin = process.env.SITE_URL || '*';
+  const allowedOrigin = process.env.SITE_URL || 'https://orbitacapital.io';
   const headers = {
     'Access-Control-Allow-Origin': allowedOrigin,
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',

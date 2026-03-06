@@ -1905,7 +1905,7 @@
     container.innerHTML = items.map(function(item) {
       var pct = maxValue > 0 ? Math.round(item.value / maxValue * 100) : 0;
       return '<div class="monthly-row">' +
-        '<div class="monthly-label" style="min-width:160px;">' + escapeHtml(item.label) + '</div>' +
+        '<div class="monthly-label">' + escapeHtml(item.label) + '</div>' +
         '<div class="monthly-bar-track"><div class="monthly-bar-fill ' + (colorClass || '') + '" style="width:' + pct + '%"></div></div>' +
         '<div class="monthly-value">' + escapeHtml(String(item.display || item.value)) + '</div>' +
       '</div>';
@@ -1929,7 +1929,7 @@
       return { label: monthNames[parseInt(p[1]) - 1] + ' ' + p[0], value: regByMonth[k], display: regByMonth[k] + ' usuarios' };
     });
     var regMax = Math.max.apply(null, regItems.map(function(i) { return i.value; }));
-    renderAnalyticsBars('analytics-registros', regItems, regMax);
+    renderAnalyticsBars('analytics-registros', regItems, regMax, '');
 
     // 2. Módulos completados (requires progress data — use available payment as proxy)
     var moduleLabels = {
@@ -1955,7 +1955,7 @@
       return { label: k, value: metodoCounts[k], display: metodoCounts[k] + ' pagos' };
     });
     var metodoMax = Math.max.apply(null, metodoItems.map(function(i) { return i.value; }));
-    renderAnalyticsBars('analytics-metodos', metodoItems, metodoMax);
+    renderAnalyticsBars('analytics-metodos', metodoItems, metodoMax, 'bar-purple');
 
     // 4. Distribución de acceso
     var total = allUsers.length || 1;
@@ -1968,7 +1968,7 @@
       return { label: i.label, value: i.value, display: i.value + ' (' + Math.round(i.value / total * 100) + '%)' };
     });
     var accesoMax = Math.max.apply(null, accesoData.map(function(i) { return i.value; }));
-    renderAnalyticsBars('analytics-acceso', accesoData, accesoMax);
+    renderAnalyticsBars('analytics-acceso', accesoData, accesoMax, 'bar-success');
 
     // 5. KPIs
     var completedPayments = allPayments.filter(function(p) { return p.estado === 'completado'; });
@@ -1988,8 +1988,10 @@
           return regByMonth[key] || 0;
         })(), sub: 'registros del mes actual' }
     ];
-    document.getElementById('analytics-metricas').innerHTML = kpis.map(function(k) {
-      return '<div class="kpi-card"><div class="kpi-value">' + escapeHtml(String(k.value)) + '</div><div class="kpi-label">' + escapeHtml(k.label) + '</div><div class="kpi-sub">' + escapeHtml(k.sub) + '</div></div>';
+    var kpiColors = ['primary', 'warning', 'success', 'accent', 'secondary', 'primary'];
+    document.getElementById('analytics-metricas').innerHTML = kpis.map(function(k, i) {
+      var c = kpiColors[i % kpiColors.length];
+      return '<div class="kpi-card kpi-' + c + '"><div class="kpi-value">' + escapeHtml(String(k.value)) + '</div><div class="kpi-label">' + escapeHtml(k.label) + '</div><div class="kpi-sub">' + escapeHtml(k.sub) + '</div></div>';
     }).join('');
   }
 

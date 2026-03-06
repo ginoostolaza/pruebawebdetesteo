@@ -15,6 +15,143 @@
   to = "/.netlify/functions/:splat"
   status = 200
 
+# ============================================================
+# CLEAN URLS — professional routes without .html
+# status 200 = rewrite (URL stays clean, serves the .html file)
+# ============================================================
+
+# Main pages
+[[redirects]]
+  from = "/inicio"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/iniciar-sesion"
+  to = "/iniciar-sesion.html"
+  status = 200
+
+[[redirects]]
+  from = "/login"
+  to = "/iniciar-sesion.html"
+  status = 200
+
+# Academy / Course pages
+[[redirects]]
+  from = "/academia"
+  to = "/fase-1.html"
+  status = 200
+
+[[redirects]]
+  from = "/curso"
+  to = "/acceso-comunidad.html"
+  status = 200
+
+[[redirects]]
+  from = "/fase-1"
+  to = "/fase-1.html"
+  status = 200
+
+# Dashboard & profile
+[[redirects]]
+  from = "/dashboard"
+  to = "/dashboard.html"
+  status = 200
+
+[[redirects]]
+  from = "/perfil"
+  to = "/perfil.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin.html"
+  status = 200
+
+# Commerce
+[[redirects]]
+  from = "/finalizar-compra"
+  to = "/finalizar-compra.html"
+  status = 200
+
+[[redirects]]
+  from = "/checkout"
+  to = "/finalizar-compra.html"
+  status = 200
+
+[[redirects]]
+  from = "/pago-resultado"
+  to = "/pago-resultado.html"
+  status = 200
+
+# Community & bot
+[[redirects]]
+  from = "/comunidad"
+  to = "/comunidad-privada.html"
+  status = 200
+
+[[redirects]]
+  from = "/comunidad-privada"
+  to = "/comunidad-privada.html"
+  status = 200
+
+[[redirects]]
+  from = "/bot"
+  to = "/bot.html"
+  status = 200
+
+# Course modules (pillar content)
+[[redirects]]
+  from = "/mentalidad"
+  to = "/mentalidad.html"
+  status = 200
+
+[[redirects]]
+  from = "/disciplina-habitos"
+  to = "/disciplina-habitos.html"
+  status = 200
+
+[[redirects]]
+  from = "/emociones-confianza"
+  to = "/emociones-confianza.html"
+  status = 200
+
+[[redirects]]
+  from = "/fisico-energia"
+  to = "/fisico-energia.html"
+  status = 200
+
+# Legal
+[[redirects]]
+  from = "/terminos"
+  to = "/terminos-y-condiciones.html"
+  status = 200
+
+[[redirects]]
+  from = "/terminos-y-condiciones"
+  to = "/terminos-y-condiciones.html"
+  status = 200
+
+[[redirects]]
+  from = "/privacidad"
+  to = "/politica-de-privacidad.html"
+  status = 200
+
+[[redirects]]
+  from = "/politica-de-privacidad"
+  to = "/politica-de-privacidad.html"
+  status = 200
+
+[[redirects]]
+  from = "/faq"
+  to = "/preguntas-frecuentes.html"
+  status = 200
+
+[[redirects]]
+  from = "/preguntas-frecuentes"
+  to = "/preguntas-frecuentes.html"
+  status = 200
+
 # Rutas inválidas → 404 personalizado
 [[redirects]]
   from = "/*"

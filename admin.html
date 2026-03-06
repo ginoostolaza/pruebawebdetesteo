@@ -399,6 +399,42 @@
           <div id="analytics-metricas" class="analytics-kpi-grid"></div>
         </div>
 
+        <!-- Conversion Funnel -->
+        <div class="analytics-section">
+          <h3 class="analytics-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46"/></svg>
+            Embudo de Conversi&oacute;n
+          </h3>
+          <div id="analytics-funnel" class="funnel-container"></div>
+        </div>
+
+        <!-- Revenue Metrics -->
+        <div class="analytics-section">
+          <h3 class="analytics-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            M&eacute;tricas de Revenue
+          </h3>
+          <div id="analytics-revenue-kpis" class="analytics-kpi-grid"></div>
+        </div>
+
+        <!-- Sales by Day (last 14 days) -->
+        <div class="analytics-section">
+          <h3 class="analytics-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Ventas por d&iacute;a (14d)
+          </h3>
+          <div id="analytics-ventas-dia" class="analytics-bar-list"></div>
+        </div>
+
+        <!-- Traffic Source Estimation -->
+        <div class="analytics-section">
+          <h3 class="analytics-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            Fuente de tr&aacute;fico (estimado por referrer)
+          </h3>
+          <div id="analytics-traffic" class="analytics-bar-list"></div>
+        </div>
+
         <!-- Recent Activity Feed -->
         <div class="analytics-section">
           <h3 class="analytics-title">
@@ -1285,7 +1321,7 @@
         const titleEl = document.getElementById('topbar-title');
         if (titleEl) titleEl.textContent = titles[tab.dataset.tab] || 'Admin';
         if (tab.dataset.tab === 'mentorias') loadMentorias();
-        if (tab.dataset.tab === 'analytics') { renderAnalytics(); renderGrowthCards(); renderActivityFeed(); }
+        if (tab.dataset.tab === 'analytics') { renderAnalytics(); renderGrowthCards(); renderFunnelAndRevenue(); renderActivityFeed(); }
         // Close sidebar on mobile after tab click
         if (window.innerWidth <= 768) {
           document.getElementById('admin-sidebar').classList.remove('open');
@@ -2013,6 +2049,114 @@
     }).join('');
   }
 
+  function renderFunnelAndRevenue() {
+    if (!allUsers.length && !allPayments.length) return;
+
+    var total = allUsers.length || 1;
+    var completedPayments = allPayments.filter(function(p) { return p.estado === 'completado'; });
+    var usersWithAccess = allUsers.filter(function(u) { return u.fase; }).length;
+    var totalUsdRevenue = completedPayments.reduce(function(s, p) { return s + toUsd(p.monto, p.moneda); }, 0);
+
+    // === Funnel ===
+    var funnelSteps = [
+      { label: 'Registros totales', value: total, color: 'primary' },
+      { label: 'Con acceso (pagaron)', value: usersWithAccess, color: 'success' },
+      { label: 'Pagos completados', value: completedPayments.length, color: 'accent' }
+    ];
+    var funnelMax = funnelSteps[0].value || 1;
+    var funnelEl = document.getElementById('analytics-funnel');
+    if (funnelEl) {
+      funnelEl.innerHTML = funnelSteps.map(function(step, i) {
+        var pct = Math.round(step.value / funnelMax * 100);
+        var convLabel = i > 0 ? ' (' + pct + '% del total)' : '';
+        return '<div class="funnel-step">' +
+          '<div class="funnel-step-label">' + escapeHtml(step.label) + '</div>' +
+          '<div class="funnel-step-bar-bg">' +
+            '<div class="funnel-step-bar bar-' + step.color + '" style="width:' + pct + '%"></div>' +
+          '</div>' +
+          '<div class="funnel-step-value">' + step.value + convLabel + '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    // === Revenue KPIs ===
+    var now = new Date();
+    var conversionRate = total > 0 ? (usersWithAccess / total * 100).toFixed(1) : 0;
+    var revenuePerUser = total > 0 ? (totalUsdRevenue / total).toFixed(2) : 0;
+    var revenuePerPaying = usersWithAccess > 0 ? (totalUsdRevenue / usersWithAccess).toFixed(2) : 0;
+
+    // Sales per day (last 30 days average)
+    var thirtyDaysAgo = new Date(now.getTime() - 30 * 86400000);
+    var sales30d = completedPayments.filter(function(p) {
+      return p.fecha && new Date(p.fecha) >= thirtyDaysAgo;
+    });
+    var rev30d = sales30d.reduce(function(s, p) { return s + toUsd(p.monto, p.moneda); }, 0);
+    var salesPerDay = (sales30d.length / 30).toFixed(1);
+    var revPerDay = (rev30d / 30).toFixed(2);
+
+    var revKpis = [
+      { label: 'Conversion Rate', value: conversionRate + '%', sub: 'registros \u2192 pagos', color: 'primary' },
+      { label: 'Ventas / d\u00eda (30d)', value: salesPerDay, sub: 'promedio \u00faltimos 30 d\u00edas', color: 'warning' },
+      { label: 'Revenue / d\u00eda', value: 'U$D ' + revPerDay, sub: 'promedio \u00faltimos 30 d\u00edas', color: 'success' },
+      { label: 'Ingresos totales', value: 'U$D ' + totalUsdRevenue.toFixed(2), sub: completedPayments.length + ' pagos', color: 'accent' },
+      { label: 'Revenue / visitante', value: 'U$D ' + revenuePerUser, sub: 'ingresos / total usuarios', color: 'secondary' },
+      { label: 'Ticket promedio', value: 'U$D ' + revenuePerPaying, sub: 'ingresos / usuarios con acceso', color: 'primary' }
+    ];
+    var revEl = document.getElementById('analytics-revenue-kpis');
+    if (revEl) {
+      revEl.innerHTML = revKpis.map(function(k) {
+        return '<div class="kpi-card kpi-' + k.color + '"><div class="kpi-value">' + escapeHtml(String(k.value)) + '</div><div class="kpi-label">' + escapeHtml(k.label) + '</div><div class="kpi-sub">' + escapeHtml(k.sub) + '</div></div>';
+      }).join('');
+    }
+
+    // === Sales by Day (last 14 days) ===
+    var days14 = [];
+    for (var d = 13; d >= 0; d--) {
+      var date = new Date(now.getTime() - d * 86400000);
+      var key = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+      days14.push(key);
+    }
+    var salesByDay = {};
+    days14.forEach(function(k) { salesByDay[k] = { count: 0, revenue: 0 }; });
+    completedPayments.forEach(function(p) {
+      if (!p.fecha) return;
+      var pd = new Date(p.fecha);
+      var pk = pd.getFullYear() + '-' + String(pd.getMonth() + 1).padStart(2, '0') + '-' + String(pd.getDate()).padStart(2, '0');
+      if (salesByDay[pk]) {
+        salesByDay[pk].count++;
+        salesByDay[pk].revenue += toUsd(p.monto, p.moneda);
+      }
+    });
+    var dayNames = ['Dom','Lun','Mar','Mi\u00e9','Jue','Vie','S\u00e1b'];
+    var salesItems = days14.map(function(k) {
+      var parts = k.split('-');
+      var dt = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+      var label = dayNames[dt.getDay()] + ' ' + parts[2] + '/' + parts[1];
+      var data = salesByDay[k];
+      return { label: label, value: data.revenue, display: data.count + ' ventas \u2014 U$D ' + data.revenue.toFixed(0) };
+    });
+    var salesMax = Math.max.apply(null, salesItems.map(function(i) { return i.value; })) || 1;
+    renderAnalyticsBars('analytics-ventas-dia', salesItems, salesMax, 'bar-purple');
+
+    // === Traffic Source (estimated from payment metadata or user signup source) ===
+    var trafficSources = {};
+    allUsers.forEach(function(u) {
+      var src = u.fuente || u.utm_source || u.referrer || 'Directo';
+      if (src.indexOf('instagram') !== -1 || src.indexOf('ig') !== -1) src = 'Instagram';
+      else if (src.indexOf('google') !== -1) src = 'Google';
+      else if (src.indexOf('tiktok') !== -1) src = 'TikTok';
+      else if (src.indexOf('whatsapp') !== -1 || src.indexOf('wa.me') !== -1) src = 'WhatsApp';
+      else if (src !== 'Directo') src = 'Referido';
+      trafficSources[src] = (trafficSources[src] || 0) + 1;
+    });
+    var trafficItems = Object.keys(trafficSources).sort(function(a, b) { return trafficSources[b] - trafficSources[a]; }).map(function(k) {
+      var pct = Math.round(trafficSources[k] / total * 100);
+      return { label: k, value: trafficSources[k], display: trafficSources[k] + ' usuarios (' + pct + '%)' };
+    });
+    var trafficMax = trafficItems.length > 0 ? Math.max.apply(null, trafficItems.map(function(i) { return i.value; })) : 1;
+    renderAnalyticsBars('analytics-traffic', trafficItems, trafficMax, 'bar-success');
+  }
+
   function renderGrowthCards() {
     if (!allUsers.length && !allPayments.length) return;
 
@@ -2138,6 +2282,7 @@
     await loadData();
     renderAnalytics();
     renderGrowthCards();
+    renderFunnelAndRevenue();
     renderActivityFeed();
     showToast('Datos actualizados');
   });

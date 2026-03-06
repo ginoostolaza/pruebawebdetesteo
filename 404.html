@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>Página no encontrada | Orbita Capital</title>
+  <title>404 &mdash; Saliste de la &oacute;rbita | Orbita Capital</title>
   <link rel="icon" href="assets/img/branding/orbita-logo-symbol.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,23 +35,60 @@
       padding: 2rem;
       text-align: center;
       -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+      position: relative;
     }
 
-    /* Background glow */
-    body::before {
+    /* Animated background orbs */
+    body::before,
+    body::after {
       content: '';
       position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(80px);
+    }
+
+    body::before {
+      top: -15%;
+      left: -10%;
+      width: 500px;
+      height: 500px;
+      background: rgba(59, 130, 246, 0.07);
+      animation: float-orb 12s ease-in-out infinite;
+    }
+
+    body::after {
+      bottom: -15%;
+      right: -10%;
+      width: 450px;
+      height: 450px;
+      background: rgba(139, 92, 246, 0.06);
+      animation: float-orb 15s ease-in-out infinite reverse;
+    }
+
+    @keyframes float-orb {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -20px) scale(1.05); }
+      66% { transform: translate(-20px, 15px) scale(0.95); }
+    }
+
+    /* Subtle grid pattern */
+    .grid-bg {
+      position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background:
-        radial-gradient(ellipse 60% 40% at 30% 20%, rgba(59,130,246,0.06) 0%, transparent 70%),
-        radial-gradient(ellipse 50% 40% at 70% 70%, rgba(139,92,246,0.05) 0%, transparent 70%);
+      background-image:
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: 60px 60px;
       pointer-events: none;
     }
 
     .container {
       position: relative;
-      max-width: 480px;
+      max-width: 520px;
       width: 100%;
+      z-index: 1;
     }
 
     /* Logo */
@@ -59,62 +96,132 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0.6rem;
-      margin-bottom: 3rem;
+      gap: 0.65rem;
+      margin-bottom: 2.5rem;
       text-decoration: none;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.05s forwards;
     }
-    .logo img { width: 32px; height: 32px; border-radius: 8px; }
+    .logo img {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+    }
     .logo-name {
-      font-size: 1rem;
+      font-size: 1.05rem;
       font-weight: 700;
       color: var(--color-text);
       letter-spacing: -0.01em;
     }
 
-    /* 404 number */
+    /* 404 code */
     .error-code {
-      font-size: clamp(5rem, 20vw, 8rem);
+      font-size: clamp(6rem, 22vw, 10rem);
       font-weight: 800;
       line-height: 1;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.06em;
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 40%, #06b6d4 80%, #22c55e 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.75rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.15s forwards, gradient-shift 6s ease infinite;
+      position: relative;
+    }
+
+    .error-code::after {
+      content: '404';
+      position: absolute;
+      top: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: inherit;
+      font-weight: inherit;
+      letter-spacing: inherit;
       background: linear-gradient(135deg, #3b82f6, #8b5cf6, #06b6d4);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 1rem;
-      opacity: 0;
-      animation: fadeUp 0.6s ease 0.1s forwards;
+      opacity: 0.15;
+      filter: blur(12px);
+      pointer-events: none;
     }
 
-    /* Icon */
-    .error-icon {
-      width: 56px; height: 56px;
-      border-radius: 16px;
-      background: rgba(59,130,246,0.1);
-      border: 1px solid rgba(59,130,246,0.15);
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 1.5rem;
-      opacity: 0;
-      animation: fadeUp 0.6s ease 0.2s forwards;
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
-    .error-icon svg { width: 28px; height: 28px; color: var(--color-primary); }
+
+    /* Orbit ring decoration */
+    .orbit-ring {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 2rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease 0.25s forwards;
+    }
+
+    .orbit-ring::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 2px solid rgba(59, 130, 246, 0.15);
+      animation: spin-slow 8s linear infinite;
+    }
+
+    .orbit-ring::after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      box-shadow: 0 0 12px rgba(59, 130, 246, 0.5);
+      animation: spin-slow 8s linear infinite;
+      transform-origin: 4px 44px;
+    }
+
+    @keyframes spin-slow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .orbit-ring svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 32px;
+      height: 32px;
+      color: var(--color-text-dim);
+    }
 
     .error-title {
-      font-size: 1.4rem;
+      font-size: clamp(1.2rem, 3.5vw, 1.6rem);
       font-weight: 700;
       color: var(--color-text);
-      margin-bottom: 0.65rem;
+      margin-bottom: 0.6rem;
       opacity: 0;
-      animation: fadeUp 0.6s ease 0.3s forwards;
+      animation: fadeUp 0.6s ease 0.35s forwards;
     }
 
     .error-desc {
       font-size: 0.9rem;
       color: var(--color-text-muted);
-      line-height: 1.65;
+      line-height: 1.7;
       margin-bottom: 2.5rem;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
       opacity: 0;
-      animation: fadeUp 0.6s ease 0.4s forwards;
+      animation: fadeUp 0.6s ease 0.45s forwards;
     }
 
     /* Buttons */
@@ -124,108 +231,138 @@
       justify-content: center;
       flex-wrap: wrap;
       opacity: 0;
-      animation: fadeUp 0.6s ease 0.5s forwards;
+      animation: fadeUp 0.6s ease 0.55s forwards;
     }
 
-    .btn-primary {
+    .btn {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.7rem 1.4rem;
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-      color: #fff;
+      padding: 0.75rem 1.5rem;
       font-family: inherit;
       font-size: 0.85rem;
       font-weight: 700;
       border-radius: 10px;
       text-decoration: none;
-      box-shadow: 0 2px 14px rgba(59,130,246,0.3);
+      cursor: pointer;
       transition: all 0.25s ease;
+      border: none;
+    }
+
+    .btn svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      color: #fff;
+      box-shadow: 0 2px 16px rgba(59, 130, 246, 0.3);
     }
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 22px rgba(59,130,246,0.45);
+      box-shadow: 0 6px 28px rgba(59, 130, 246, 0.45);
       color: #fff;
     }
-    .btn-primary svg { width: 16px; height: 16px; }
 
     .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.7rem 1.4rem;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       color: var(--color-text-muted);
-      font-family: inherit;
-      font-size: 0.85rem;
-      font-weight: 600;
-      border-radius: 10px;
-      text-decoration: none;
-      cursor: pointer;
-      transition: all 0.25s ease;
     }
     .btn-ghost:hover {
-      background: rgba(255,255,255,0.07);
-      border-color: rgba(255,255,255,0.13);
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(255, 255, 255, 0.15);
       color: var(--color-text);
+      transform: translateY(-1px);
     }
-    .btn-ghost svg { width: 16px; height: 16px; }
 
-    /* Footer note */
+    /* Footer */
     .footer-note {
-      margin-top: 3rem;
+      margin-top: 3.5rem;
       font-size: 0.72rem;
       color: var(--color-text-dim);
       opacity: 0;
-      animation: fadeUp 0.6s ease 0.6s forwards;
+      animation: fadeUp 0.6s ease 0.65s forwards;
     }
-    .footer-note a { color: var(--color-primary); text-decoration: none; }
-    .footer-note a:hover { text-decoration: underline; }
+    .footer-note a {
+      color: var(--color-primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .footer-note a:hover {
+      color: var(--color-accent);
+      text-decoration: underline;
+    }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
+      from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      .error-code, .orbit-ring, .logo, .error-title,
+      .error-desc, .btn-group, .footer-note {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 1.5rem; }
+      .btn { padding: 0.65rem 1.25rem; font-size: 0.8rem; }
+      .orbit-ring { width: 64px; height: 64px; }
+      .orbit-ring::after { transform-origin: 4px 36px; }
+      .orbit-ring svg { width: 26px; height: 26px; }
     }
   </style>
 </head>
 <body>
+  <div class="grid-bg"></div>
+
   <div class="container">
     <a href="index.html" class="logo">
-      <img src="assets/img/branding/orbita-logo-symbol.png" alt="Orbita Capital" width="32" height="32">
+      <img src="assets/img/branding/orbita-logo-symbol.png" alt="Orbita Capital" width="36" height="36">
       <span class="logo-name">Orbita Capital</span>
     </a>
 
     <div class="error-code">404</div>
 
-    <div class="error-icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        <line x1="11" y1="8" x2="11" y2="11"/><line x1="11" y1="14" x2="11.01" y2="14"/>
+    <div class="orbit-ring">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M2 12h20"/>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/>
       </svg>
     </div>
 
-    <h1 class="error-title">P&aacute;gina no encontrada</h1>
+    <h1 class="error-title">Saliste de la &oacute;rbita</h1>
     <p class="error-desc">
-      La URL que buscas no existe o fue movida.<br>
-      Si cre&eacute;s que es un error, contact&aacute; a soporte.
+      La p&aacute;gina que busc&aacute;s no existe o cambi&oacute; de ubicaci&oacute;n.<br>
+      Pero pod&eacute;s volver al centro de control.
     </p>
 
     <div class="btn-group">
-      <a href="index.html" class="btn-primary">
+      <a href="index.html" class="btn btn-primary">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
           <polyline points="9 22 9 12 15 12 15 22"/>
         </svg>
-        Ir al inicio
+        Volver al inicio
       </a>
-      <button class="btn-ghost" onclick="history.back()">
+      <a href="fase-1.html" class="btn btn-ghost">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="19" y1="12" x2="5" y2="12"/>
-          <polyline points="12 19 5 12 12 5"/>
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
         </svg>
-        Volver atr&aacute;s
-      </button>
+        Explorar la academia
+      </a>
     </div>
 
     <p class="footer-note">

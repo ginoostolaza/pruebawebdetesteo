@@ -38,6 +38,7 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  font-size: 14px;
 }
 
 body {

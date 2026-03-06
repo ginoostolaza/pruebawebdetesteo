@@ -307,7 +307,20 @@
     });
   }
 
-  // --- Dolar Blue API (con fallback) ---
+  // --- Dolar Blue API (con fallback y reintentos) ---
+  async function fetchWithTimeout(url, timeoutMs) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      const res = await fetch(url, { signal: controller.signal });
+      clearTimeout(timer);
+      return res;
+    } catch (e) {
+      clearTimeout(timer);
+      throw e;
+    }
+  }
+
   async function fetchDolarBlue() {
     const el = document.getElementById('usd-ars');
     if (!el) return;
@@ -316,35 +329,52 @@
       return '$\u202f' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
     }
 
-    // Intenta con dolarapi.com primero (más estable), luego bluelytics como fallback
     const apis = [
       {
         url: 'https://dolarapi.com/v1/dolares/blue',
-        parse: (d) => d.venta
+        parse: (d) => d && typeof d.venta === 'number' ? d.venta : null
       },
       {
         url: 'https://api.bluelytics.com.ar/v2/latest',
-        parse: (d) => d.blue.value_sell
+        parse: (d) => d && d.blue && typeof d.blue.value_sell === 'number' ? d.blue.value_sell : null
       }
     ];
 
+    // Intentar cada API con hasta 2 reintentos
     for (const api of apis) {
-      try {
-        const res = await fetch(api.url, { signal: AbortSignal.timeout(5000) });
-        if (!res.ok) continue;
-        const data = await res.json();
-        const venta = api.parse(data);
-        if (!venta || isNaN(venta)) continue;
-        el.textContent = `Dólar Blue hoy — Venta: ${formatARS(venta)} ARS`;
-        return;
-      } catch (e) {
-        // try next
+      for (let attempt = 0; attempt < 2; attempt++) {
+        try {
+          const res = await fetchWithTimeout(api.url, 6000);
+          if (!res.ok) break; // skip to next API, don't retry on HTTP errors
+          const data = await res.json();
+          const venta = api.parse(data);
+          if (venta && !isNaN(venta) && venta > 0) {
+            el.textContent = `Dólar Blue hoy — Venta: ${formatARS(venta)} ARS`;
+            // Also store for other pages
+            try { sessionStorage.setItem('dolarBlueVenta', String(venta)); } catch(e) {}
+            return;
+          }
+          break; // parsed but invalid, skip to next API
+        } catch (e) {
+          if (attempt === 0) {
+            await new Promise(r => setTimeout(r, 1500)); // wait before retry
+          }
+        }
       }
     }
 
-    // Ambas fallaron: ocultar el widget silenciosamente
-    const widget = el.closest('.dolar-widget');
-    if (widget) widget.style.display = 'none';
+    // Try cached value from sessionStorage as last resort
+    try {
+      const cached = sessionStorage.getItem('dolarBlueVenta');
+      if (cached && !isNaN(Number(cached))) {
+        el.textContent = `Dólar Blue — Venta: ${formatARS(Number(cached))} ARS (última ref.)`;
+        return;
+      }
+    } catch(e) {}
+
+    // All failed: show error message instead of hiding
+    el.textContent = 'Cotización no disponible en este momento';
+    el.style.opacity = '0.6';
   }
 
   // --- Footer Year ---

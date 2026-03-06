@@ -11,6 +11,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 2rem;
+  font-size: 14px;
 }
 
 body {

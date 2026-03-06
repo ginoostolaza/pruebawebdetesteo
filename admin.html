@@ -954,20 +954,38 @@
     setupPriceControls();
   });
 
-  // ---- Fetch Dolar Blue (dual API with fallback) ----
+  // ---- Fetch with timeout (compatible with all browsers) ----
+  function fetchWithTimeout(url, timeoutMs) {
+    var controller = new AbortController();
+    var timer = setTimeout(function() { controller.abort(); }, timeoutMs);
+    return fetch(url, { signal: controller.signal }).then(function(res) {
+      clearTimeout(timer);
+      return res;
+    }).catch(function(e) {
+      clearTimeout(timer);
+      throw e;
+    });
+  }
+
+  // ---- Fetch Dolar Blue (dual API with fallback + retries) ----
   async function fetchDolarBlueAdmin() {
     var apis = [
-      { url: 'https://dolarapi.com/v1/dolares/blue', parse: function(d) { return d.venta; } },
-      { url: 'https://api.bluelytics.com.ar/v2/latest', parse: function(d) { return d.blue.value_sell; } }
+      { url: 'https://dolarapi.com/v1/dolares/blue', parse: function(d) { return d && typeof d.venta === 'number' ? d.venta : null; } },
+      { url: 'https://api.bluelytics.com.ar/v2/latest', parse: function(d) { return d && d.blue && typeof d.blue.value_sell === 'number' ? d.blue.value_sell : null; } }
     ];
     for (var i = 0; i < apis.length; i++) {
-      try {
-        var res = await fetch(apis[i].url, { signal: AbortSignal.timeout(5000) });
-        if (!res.ok) continue;
-        var data = await res.json();
-        var val = apis[i].parse(data);
-        if (val && !isNaN(val)) { dolarBlueVenta = val; return; }
-      } catch (e) { /* try next */ }
+      for (var attempt = 0; attempt < 2; attempt++) {
+        try {
+          var res = await fetchWithTimeout(apis[i].url, 6000);
+          if (!res.ok) break;
+          var data = await res.json();
+          var val = apis[i].parse(data);
+          if (val && !isNaN(val) && val > 0) { dolarBlueVenta = val; return; }
+          break;
+        } catch (e) {
+          if (attempt === 0) await new Promise(function(r) { setTimeout(r, 1500); });
+        }
+      }
     }
     dolarBlueVenta = null;
   }

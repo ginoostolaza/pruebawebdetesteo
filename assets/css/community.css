@@ -635,6 +635,33 @@ main dd {
   border-radius: var(--radius-md);
   background: var(--color-bg);
   border: 1px solid var(--color-border);
+  position: relative;
+}
+
+/* Ensure Bootstrap carousel works within dark theme */
+.carousel-wrapper .carousel,
+.carousel-wrapper .carousel-inner {
+  width: 100%;
+  position: relative;
+}
+
+.carousel-wrapper .carousel-inner {
+  overflow: hidden;
+}
+
+.carousel-wrapper .carousel-item {
+  display: none;
+  float: left;
+  width: 100%;
+  margin-right: -100%;
+  backface-visibility: hidden;
+  transition: transform 0.6s ease-in-out;
+}
+
+.carousel-wrapper .carousel-item.active,
+.carousel-wrapper .carousel-item-next,
+.carousel-wrapper .carousel-item-prev {
+  display: block;
 }
 
 .carousel-wrapper img {
@@ -642,13 +669,39 @@ main dd {
   height: auto;
   object-fit: contain;
   background: #0a0e17;
-  transition: transform var(--transition);
+  display: block;
 }
 
-.carousel-wrapper img:hover {
-  transform: scale(1.02);
+/* Carousel indicators (dots) */
+.carousel-wrapper .carousel-indicators {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.4rem;
+  z-index: 5;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
+.carousel-wrapper .carousel-indicators button {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s;
+}
+
+.carousel-wrapper .carousel-indicators button.active {
+  background: var(--color-primary);
+}
+
+/* Navigation arrow buttons */
 .carousel-outside {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -661,11 +714,63 @@ main dd {
   border-radius: var(--radius-sm);
   transition: all var(--transition);
   flex-shrink: 0;
+  color: var(--color-text-muted);
 }
 
 .carousel-outside:hover {
-  background: rgba(59, 130, 246, 0.1);
+  background: rgba(59, 130, 246, 0.15);
   border-color: var(--color-primary);
+  color: #fff;
+}
+
+/* Fix Bootstrap carousel-control icons for dark theme */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 16px;
+  height: 16px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  display: inline-block;
+  filter: none;
+}
+
+.carousel-control-prev-icon {
+  background-image: none;
+}
+
+.carousel-control-next-icon {
+  background-image: none;
+}
+
+/* Replace Bootstrap SVG icons with CSS arrows for visibility */
+.carousel-outside:first-child::after {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(45deg);
+  margin-left: 3px;
+}
+
+.carousel-outside:last-child::after {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid currentColor;
+  border-top: 2px solid currentColor;
+  transform: rotate(45deg);
+  margin-right: 3px;
+}
+
+/* Slide counter label */
+.carousel-slide-counter {
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--color-text-dim);
+  margin-top: 0.5rem;
 }
 
 /* ============================================================
@@ -1162,13 +1267,17 @@ main hr {
   }
 
   .carousel-container {
-    flex-direction: column;
     gap: 0.5rem;
   }
 
   .carousel-outside {
     width: 36px;
     height: 36px;
+  }
+
+  .image-container,
+  .carousel-wrapper {
+    max-width: 100%;
   }
 }
 

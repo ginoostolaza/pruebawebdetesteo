@@ -144,8 +144,8 @@
 <!-- ========== BIENVENIDA ========== -->
 <section class="bienvenida" id="fase-1">
   <header>
-    <div style="display:inline-flex;align-items:center;gap:0.5rem;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--color-primary);background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.15);padding:0.35rem 0.85rem;border-radius:50px;margin-bottom:1rem;">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M3 3v18h18"/><path d="M18 17l-5-8-4 5-3-3"/></svg>
+    <div class="section-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18 17l-5-8-4 5-3-3"/></svg>
       Pilar 1 &mdash; Curso de Trading
     </div>
     <h1 class="bienvenida__titulo">Domin&aacute; el Arte del Trading</h1>
@@ -170,18 +170,18 @@
 
   <hr class="bienvenida__divider">
 
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.75rem;margin-bottom:1.25rem;">
-    <div style="text-align:center;padding:0.85rem;background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.1);border-radius:10px;">
-      <div style="font-size:1.3rem;font-weight:800;color:var(--color-text);">2</div>
-      <div style="font-size:0.72rem;color:var(--color-text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Sistemas</div>
+  <div class="stats-grid">
+    <div class="stat-card stat-card--blue">
+      <div class="stat-card__value">2</div>
+      <div class="stat-card__label">Sistemas</div>
     </div>
-    <div style="text-align:center;padding:0.85rem;background:rgba(139,92,246,0.05);border:1px solid rgba(139,92,246,0.1);border-radius:10px;">
-      <div style="font-size:1.3rem;font-weight:800;color:var(--color-text);">6</div>
-      <div style="font-size:0.72rem;color:var(--color-text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">M&oacute;dulos</div>
+    <div class="stat-card stat-card--purple">
+      <div class="stat-card__value">6</div>
+      <div class="stat-card__label">M&oacute;dulos</div>
     </div>
-    <div style="text-align:center;padding:0.85rem;background:rgba(6,182,212,0.05);border:1px solid rgba(6,182,212,0.1);border-radius:10px;">
-      <div style="font-size:1.3rem;font-weight:800;color:var(--color-text);">1 min</div>
-      <div style="font-size:0.72rem;color:var(--color-text-dim);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Temporalidad</div>
+    <div class="stat-card stat-card--cyan">
+      <div class="stat-card__value">1 min</div>
+      <div class="stat-card__label">Temporalidad</div>
     </div>
   </div>
 
@@ -814,8 +814,8 @@
 <!-- ========== PROTOCOLO DE OPERACION DIARIA ========== -->
 <section id="protocolo-operacion">
   <header>
-    <div style="display:inline-flex;align-items:center;gap:0.5rem;font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--color-primary);background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.15);padding:0.35rem 0.85rem;border-radius:50px;margin-bottom:1rem;">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+    <div class="section-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
       M&oacute;dulo Final &mdash; Disciplina Operativa
     </div>
     <h1>Protocolo de Operaci&oacute;n Diaria</h1>
@@ -838,30 +838,30 @@
     <h3>La matem&aacute;tica que te da claridad</h3>
     <p>Ejemplo con capital inicial de <strong>$300</strong>:</p>
 
-    <div style="background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.15);border-radius:12px;padding:1.25rem 1.5rem;margin:1rem 0;">
-      <table style="width:100%;border-collapse:collapse;font-size:0.9rem;">
+    <div class="protocol-table-wrap">
+      <table class="protocol-table">
         <thead>
-          <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
-            <th style="text-align:left;padding:0.5rem 0.75rem;color:var(--color-text-dim);font-weight:600;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px;">Per&iacute;odo</th>
-            <th style="text-align:left;padding:0.5rem 0.75rem;color:var(--color-text-dim);font-weight:600;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px;">Objetivo</th>
-            <th style="text-align:left;padding:0.5rem 0.75rem;color:var(--color-text-dim);font-weight:600;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px;">C&aacute;lculo</th>
+          <tr>
+            <th>Per&iacute;odo</th>
+            <th>Objetivo</th>
+            <th>C&aacute;lculo</th>
           </tr>
         </thead>
         <tbody>
-          <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
-            <td style="padding:0.6rem 0.75rem;font-weight:600;">Mensual</td>
-            <td style="padding:0.6rem 0.75rem;color:var(--color-primary);">$450</td>
-            <td style="padding:0.6rem 0.75rem;color:var(--color-text-dim);">150% del capital</td>
-          </tr>
-          <tr style="border-bottom:1px solid rgba(255,255,255,0.05);">
-            <td style="padding:0.6rem 0.75rem;font-weight:600;">Semanal</td>
-            <td style="padding:0.6rem 0.75rem;color:var(--color-primary);">$112</td>
-            <td style="padding:0.6rem 0.75rem;color:var(--color-text-dim);">$450 &divide; 4 semanas</td>
+          <tr>
+            <td>Mensual</td>
+            <td>$450</td>
+            <td>150% del capital</td>
           </tr>
           <tr>
-            <td style="padding:0.6rem 0.75rem;font-weight:600;">Diario</td>
-            <td style="padding:0.6rem 0.75rem;color:var(--color-primary);">$15&ndash;$20</td>
-            <td style="padding:0.6rem 0.75rem;color:var(--color-text-dim);">$450 &divide; 22 d&iacute;as h&aacute;biles</td>
+            <td>Semanal</td>
+            <td>$112</td>
+            <td>$450 &divide; 4 semanas</td>
+          </tr>
+          <tr>
+            <td>Diario</td>
+            <td>$15&ndash;$20</td>
+            <td>$450 &divide; 22 d&iacute;as h&aacute;biles</td>
           </tr>
         </tbody>
       </table>
@@ -872,7 +872,7 @@
       Eso <em>elimina el miedo y la avaricia</em> que destruyen a la mayor&iacute;a.
     </p>
 
-    <div class="bienvenida__motivacion" style="margin-top:1rem;">
+    <div class="bienvenida__motivacion">
       <p><strong>Regla:</strong> Cuando alcanz&aacute;s tu objetivo diario, <strong>cerr&aacute; la plataforma</strong>. No existe raz&oacute;n v&aacute;lida para seguir operando.</p>
     </div>
   </article>
@@ -887,21 +887,21 @@
       La concentraci&oacute;n se agota; operar cansado es operar mal.
     </p>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1.25rem 0;">
-      <div style="background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.15);border-radius:12px;padding:1.1rem;">
-        <div style="font-size:1.5rem;margin-bottom:0.4rem;">&#9200;</div>
-        <div style="font-weight:700;font-size:0.95rem;margin-bottom:0.25rem;">Duraci&oacute;n por bloque</div>
-        <div style="color:var(--color-text-dim);font-size:0.88rem;">15 a 20 minutos de an&aacute;lisis activo</div>
+    <div class="session-grid">
+      <div class="session-card session-card--purple">
+        <div class="session-card__icon">&#9200;</div>
+        <div class="session-card__title">Duraci&oacute;n por bloque</div>
+        <div class="session-card__desc">15 a 20 minutos de an&aacute;lisis activo</div>
       </div>
-      <div style="background:rgba(6,182,212,0.06);border:1px solid rgba(6,182,212,0.15);border-radius:12px;padding:1.1rem;">
-        <div style="font-size:1.5rem;margin-bottom:0.4rem;">&#128200;</div>
-        <div style="font-weight:700;font-size:0.95rem;margin-bottom:0.25rem;">M&aacute;x. operaciones</div>
-        <div style="color:var(--color-text-dim);font-size:0.88rem;">2 a 3 entradas por sesi&oacute;n. No m&aacute;s.</div>
+      <div class="session-card session-card--cyan">
+        <div class="session-card__icon">&#128200;</div>
+        <div class="session-card__title">M&aacute;x. operaciones</div>
+        <div class="session-card__desc">2 a 3 entradas por sesi&oacute;n. No m&aacute;s.</div>
       </div>
-      <div style="background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.15);border-radius:12px;padding:1.1rem;">
-        <div style="font-size:1.5rem;margin-bottom:0.4rem;">&#128683;</div>
-        <div style="font-weight:700;font-size:0.95rem;margin-bottom:0.25rem;">Sin "compensar"</div>
-        <div style="color:var(--color-text-dim);font-size:0.88rem;">Si perdes, no busques recuperarlo en el mismo bloque</div>
+      <div class="session-card session-card--blue">
+        <div class="session-card__icon">&#128683;</div>
+        <div class="session-card__title">Sin "compensar"</div>
+        <div class="session-card__desc">Si perdes, no busques recuperarlo en el mismo bloque</div>
       </div>
     </div>
 
@@ -927,7 +927,7 @@
       <li><strong>El 5% protege tu cuenta.</strong> Incluso con 5 p&eacute;rdidas seguidas, conserv&aacute;s m&aacute;s del 77% de tu capital.</li>
     </ul>
 
-    <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:12px;padding:1rem 1.25rem;margin:1rem 0;">
+    <div class="inline-alert inline-alert--danger">
       <strong style="color:#ef4444;">Trampa com&uacute;n:</strong> Pensar que porque "esta vez estoy seguro" pod&eacute;s arriesgar m&aacute;s.
       El mercado no sabe lo que pens&aacute;s. Las reglas existen para los momentos en que est&aacute;s convencido, no solo cuando tens dudas.
     </div>
@@ -942,26 +942,26 @@
       Despu&eacute;s de cada operaci&oacute;n &mdash;gan&eacute;s o pierdas&mdash; hac&eacute;te estas <strong>5 preguntas</strong> antes de abrir la pr&oacute;xima:
     </p>
 
-    <ol style="counter-reset:none;">
-      <li style="margin-bottom:0.75rem;">
+    <ol class="ol-review">
+      <li>
         <strong>&iquest;Esperaste todas las confirmaciones del sistema?</strong>
-        <br><span style="color:var(--color-text-dim);font-size:0.9rem;">Si la respuesta es no, la p&eacute;rdida fue por impaciencia, no por el mercado.</span>
+        <br><span>Si la respuesta es no, la p&eacute;rdida fue por impaciencia, no por el mercado.</span>
       </li>
-      <li style="margin-bottom:0.75rem;">
+      <li>
         <strong>&iquest;Entraste por impulso o por sistema?</strong>
-        <br><span style="color:var(--color-text-dim);font-size:0.9rem;">Una entrada por impulso, aunque gane, es un error de proceso.</span>
+        <br><span>Una entrada por impulso, aunque gane, es un error de proceso.</span>
       </li>
-      <li style="margin-bottom:0.75rem;">
+      <li>
         <strong>&iquest;El contexto de mercado era favorable?</strong>
-        <br><span style="color:var(--color-text-dim);font-size:0.9rem;">El sistema no funciona en cualquier condici&oacute;n. &iquest;El mercado estaba en tendencia o en rango?</span>
+        <br><span>El sistema no funciona en cualquier condici&oacute;n. &iquest;El mercado estaba en tendencia o en rango?</span>
       </li>
-      <li style="margin-bottom:0.75rem;">
+      <li>
         <strong>&iquest;Respet&aacute;s el monto m&aacute;ximo de riesgo?</strong>
-        <br><span style="color:var(--color-text-dim);font-size:0.9rem;">Si arriesgaste m&aacute;s del 5%, el error fue tuyo independientemente del resultado.</span>
+        <br><span>Si arriesgaste m&aacute;s del 5%, el error fue tuyo independientemente del resultado.</span>
       </li>
-      <li style="margin-bottom:0.75rem;">
+      <li>
         <strong>&iquest;Qu&eacute; aprendiste de esta operaci&oacute;n?</strong>
-        <br><span style="color:var(--color-text-dim);font-size:0.9rem;">Si la respuesta es "nada", no est&aacute;s prestando atenci&oacute;n. Cada trade es informaci&oacute;n.</span>
+        <br><span>Si la respuesta es "nada", no est&aacute;s prestando atenci&oacute;n. Cada trade es informaci&oacute;n.</span>
       </li>
     </ol>
 
@@ -981,9 +981,9 @@
       Cuando los n&uacute;meros son peque&ntilde;os y claros, <strong>la emoci&oacute;n baja y la precisi&oacute;n sube</strong>.
     </p>
 
-    <div style="background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.15);border-radius:12px;padding:1.25rem 1.5rem;margin:1rem 0;">
-      <p style="margin:0 0 0.75rem;"><strong>Ejemplo real:</strong></p>
-      <ul style="margin:0;padding-left:1.25rem;">
+    <div class="example-box">
+      <p><strong>Ejemplo real:</strong></p>
+      <ul>
         <li>Capital: <strong>$300</strong></li>
         <li>Riesgo por operaci&oacute;n: <strong>$15 (5%)</strong></li>
         <li>Objetivo diario: <strong>$15&ndash;$20</strong></li>
@@ -1003,7 +1003,7 @@
   <!-- BLOQUE 6: Honestidad -->
   <article>
     <h2>6. Aviso Honesto: Promedio, No Garant&iacute;a</h2>
-    <div style="background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.25);border-radius:12px;padding:1.1rem 1.4rem;margin-bottom:1rem;">
+    <div class="inline-alert inline-alert--warning">
       <p style="margin:0;font-size:0.95rem;">
         <strong style="color:#f59e0b;">Importante:</strong> El objetivo mensual es un <em>promedio estad&iacute;stico</em>, no una promesa diaria.
         Hay d&iacute;as que gan&aacute;s el doble. Hay d&iacute;as que perdes. El resultado se mide al final del mes.
@@ -1024,16 +1024,16 @@
       Esta es la regla m&aacute;s importante del protocolo. Y la que m&aacute;s se rompe.
     </p>
 
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin:1.25rem 0;">
-      <div style="background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.25);border-radius:12px;padding:1.1rem 1.25rem;">
-        <div style="font-weight:800;font-size:1.1rem;color:#f59e0b;margin-bottom:0.4rem;">1 P&eacute;rdida</div>
-        <div style="font-size:0.9rem;margin-bottom:0.5rem;">Detente. Sal del gr&aacute;fico.</div>
-        <div style="font-size:0.85rem;color:var(--color-text-dim);">Esperá 10 minutos m&iacute;nimo. Respirá. Luego evaluá si volvés con cabeza fr&iacute;a.</div>
+    <div class="cutoff-grid">
+      <div class="cutoff-card cutoff-card--warning">
+        <div class="cutoff-card__title">1 P&eacute;rdida</div>
+        <div class="cutoff-card__action">Detente. Sal del gr&aacute;fico.</div>
+        <div class="cutoff-card__detail">Esperá 10 minutos m&iacute;nimo. Respirá. Luego evaluá si volvés con cabeza fr&iacute;a.</div>
       </div>
-      <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:12px;padding:1.1rem 1.25rem;">
-        <div style="font-weight:800;font-size:1.1rem;color:#ef4444;margin-bottom:0.4rem;">2 P&eacute;rdidas</div>
-        <div style="font-size:0.9rem;margin-bottom:0.5rem;">Fin del d&iacute;a. Sin excepciones.</div>
-        <div style="font-size:0.85rem;color:var(--color-text-dim);">Cerr&aacute; la plataforma. El mercado sigue ma&ntilde;ana. Tu capital no se recupera solo.</div>
+      <div class="cutoff-card cutoff-card--danger">
+        <div class="cutoff-card__title">2 P&eacute;rdidas</div>
+        <div class="cutoff-card__action">Fin del d&iacute;a. Sin excepciones.</div>
+        <div class="cutoff-card__detail">Cerr&aacute; la plataforma. El mercado sigue ma&ntilde;ana. Tu capital no se recupera solo.</div>
       </div>
     </div>
 
@@ -1042,7 +1042,7 @@
       No porque el mercado lo sepa, sino porque vos ya no est&aacute;s en el estado mental correcto para operar bien.
     </p>
 
-    <div class="bienvenida__motivacion" style="margin-top:1rem;">
+    <div class="bienvenida__motivacion">
       <p><strong>La regla no tiene excepciones.</strong> "Pero esta vez el setup es perfecto" no es v&aacute;lido. Nada es v&aacute;lido para romperla.</p>
     </div>
   </article>
@@ -1056,7 +1056,7 @@
       Este es el cambio de paradigma que lo transforma todo:
     </p>
 
-    <div style="background:rgba(59,130,246,0.06);border-left:4px solid var(--color-primary);border-radius:0 12px 12px 0;padding:1.1rem 1.4rem;margin:1.25rem 0;font-size:1.05rem;font-style:italic;">
+    <div class="philosophy-quote">
       &ldquo;Una operaci&oacute;n puede perder y ser un <strong>buen trade</strong>. Una operaci&oacute;n puede ganar y ser un <strong>p&eacute;simo trade</strong>.
       Lo que importa es si respet&aacute;s el sistema.&rdquo;
     </div>
@@ -1074,8 +1074,8 @@
       No al rev&eacute;s.
     </p>
 
-    <div class="bienvenida__motivacion" style="margin-top:1.5rem;border-color:rgba(59,130,246,0.3);">
-      <p style="font-size:1rem;">
+    <div class="bienvenida__motivacion">
+      <p>
         <strong>Tu ventaja competitiva no es la estrategia. Es el comportamiento.</strong><br>
         Cualquiera puede copiar un sistema. Pocos pueden mantener la disciplina para ejecutarlo correctamente d&iacute;a tras d&iacute;a.
         Eso es lo que te va a diferenciar.

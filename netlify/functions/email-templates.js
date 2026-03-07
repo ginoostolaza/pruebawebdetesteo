@@ -60,6 +60,16 @@ function layout(content) {
 }
 
 // ── Shared helpers ───────────────────────────────────────────
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 function pill(text, color = '#3b82f6') {
   const bg = color === '#3b82f6' ? 'rgba(59,130,246,0.15)' : 'rgba(16,185,129,0.15)';
   const border = color === '#3b82f6' ? 'rgba(59,130,246,0.35)' : 'rgba(16,185,129,0.35)';
@@ -109,7 +119,7 @@ function bienvenidaFase1({ nombre }) {
     </p>
 
     <p style="margin:0 0 6px;color:#94a3b8;font-size:14px;">
-      Hola, <strong style="color:#e2e8f0;">${nombre}</strong>
+      Hola, <strong style="color:#e2e8f0;">${escapeHtml(nombre)}</strong>
     </p>
     <p style="margin:0 0 24px;color:#94a3b8;font-size:14px;line-height:1.7;">
       Tu compra del <strong style="color:#e2e8f0;">Curso Fase 1</strong> fue procesada exitosamente.
@@ -172,7 +182,7 @@ function bienvenidaBot({ nombre }) {
     </p>
 
     <p style="margin:0 0 6px;color:#94a3b8;font-size:14px;">
-      Hola, <strong style="color:#e2e8f0;">${nombre}</strong>
+      Hola, <strong style="color:#e2e8f0;">${escapeHtml(nombre)}</strong>
     </p>
     <p style="margin:0 0 24px;color:#94a3b8;font-size:14px;line-height:1.7;">
       Tu compra del <strong style="color:#e2e8f0;">Bot de Trading</strong> fue procesada exitosamente.
@@ -233,7 +243,7 @@ function confirmacionWaitlist({ nombre }) {
     </p>
 
     <p style="margin:0 0 6px;color:#94a3b8;font-size:14px;">
-      Hola, <strong style="color:#e2e8f0;">${nombre}</strong>
+      Hola, <strong style="color:#e2e8f0;">${escapeHtml(nombre)}</strong>
     </p>
     <p style="margin:0 0 24px;color:#94a3b8;font-size:14px;line-height:1.7;">
       Te registraste correctamente en la lista de espera para la

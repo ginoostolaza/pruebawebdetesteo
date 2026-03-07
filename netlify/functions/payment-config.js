@@ -4,8 +4,9 @@
 // ============================================================
 
 exports.handler = async (event) => {
+  const allowedOrigin = process.env.SITE_URL || process.env.URL || 'https://orbitacapital.io';
   const headers = {
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': allowedOrigin,
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Allow-Methods': 'GET, OPTIONS',
     'Content-Type': 'application/json'

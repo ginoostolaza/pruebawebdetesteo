@@ -1312,7 +1312,7 @@
       return '<tr>' +
         '<td><div class="user-cell-compact"><span class="payment-user-name">' + escapeHtml(nombre) + '</span>' + (email ? '<span class="payment-user-email">' + escapeHtml(email) + '</span>' : '') + '</div></td>' +
         '<td><span class="badge ' + productoClass + '">' + escapeHtml(productoText) + '</span></td>' +
-        '<td class="td-amount">' + ((p.moneda || 'ARS').toUpperCase() === 'ARS' ? '$' : 'U$D ') + parseFloat(p.monto).toFixed(2) + ' <span class="currency-label">' + escapeHtml((p.moneda || 'ARS').toUpperCase()) + '</span></td>' +
+        '<td class="td-amount">' + ((p.moneda || 'ARS').toUpperCase() === 'ARS' ? '$' : 'U$D ') + parseFloat(p.monto || 0).toFixed(2) + ' <span class="currency-label">' + escapeHtml((p.moneda || 'ARS').toUpperCase()) + '</span></td>' +
         '<td class="th-hide-mobile">' + escapeHtml(p.metodo || '-') + '</td>' +
         '<td class="td-ref th-hide-mobile" title="' + escapeHtml(referencia) + '">' + escapeHtml(refDisplay) + '</td>' +
         '<td><span class="badge ' + statusClass + '">' + escapeHtml(p.estado || 'pendiente') + '</span></td>' +
@@ -1464,7 +1464,8 @@
         estado: document.getElementById("payment-estado").value,
         producto: producto !== 'otro' ? producto : null,
         provider: providerMap[metodo] || 'manual',
-        provider_payment_id: document.getElementById("payment-reference").value || null
+        provider_payment_id: document.getElementById("payment-reference").value || null,
+        fecha: new Date().toISOString()
       };
       if (!payment.user_id) { showToast("Selecciona un usuario.", 'error'); return; }
       if (!payment.monto) { showToast("Ingresa el monto.", 'error'); return; }
@@ -1613,7 +1614,7 @@
         return '<div class="user-payment-row">' +
           '<div class="user-payment-main">' +
             '<span class="user-payment-product">' + escapeHtml(productoText) + '</span>' +
-            '<span class="user-payment-amount">' + ((p.moneda || 'ARS').toUpperCase() === 'ARS' ? '$' : 'U$D ') + parseFloat(p.monto).toFixed(2) + ' ' + escapeHtml((p.moneda || 'ARS').toUpperCase()) + '</span>' +
+            '<span class="user-payment-amount">' + ((p.moneda || 'ARS').toUpperCase() === 'ARS' ? '$' : 'U$D ') + parseFloat(p.monto || 0).toFixed(2) + ' ' + escapeHtml((p.moneda || 'ARS').toUpperCase()) + '</span>' +
           '</div>' +
           '<div class="user-payment-sub">' +
             '<span class="badge ' + statusClass2 + '">' + escapeHtml(p.estado) + '</span>' +
@@ -1655,7 +1656,7 @@
     if (existing) existing.remove();
     const toast = document.createElement('div');
     toast.className = 'admin-toast toast-' + type;
-    toast.innerHTML = (_toastIcons[type] || _toastIcons.info) + '<span>' + message + '</span>';
+    toast.innerHTML = (_toastIcons[type] || _toastIcons.info) + '<span>' + escapeHtml(message) + '</span>';
     document.body.appendChild(toast);
     requestAnimationFrame(function() { toast.classList.add('show'); });
     setTimeout(function() {
@@ -1972,8 +1973,8 @@
       // Auto-notify eligible users when a NEW visible mentorship is created
       if (!id && payload.visible) {
         try {
-          var allUsers = await Auth.getAllUsers();
-          var eligibleUsers = allUsers.filter(function(u) {
+          var freshUsers = await Auth.getAllUsers();
+          var eligibleUsers = freshUsers.filter(function(u) {
             if (u.rol === 'admin') return false;
             if (!u.fase) return false;
             if (payload.acceso_requerido === 'ambas') return true;
@@ -2053,7 +2054,7 @@
       var p = k.split('-');
       return { label: monthNames[parseInt(p[1]) - 1] + ' ' + p[0], value: regByMonth[k], display: regByMonth[k] + ' usuarios' };
     });
-    var regMax = Math.max.apply(null, regItems.map(function(i) { return i.value; }));
+    var regMax = regItems.length > 0 ? Math.max.apply(null, regItems.map(function(i) { return i.value; })) : 0;
     renderAnalyticsBars('analytics-registros', regItems, regMax, '');
 
     // 2. Módulos completados (requires progress data — use available payment as proxy)
@@ -2066,9 +2067,29 @@
       'protocolo-operacion': 'Protocolo Diario'
     };
     var usersWithFase = allUsers.filter(function(u) { return u.fase; }).length || 1;
-    // Can't fetch all progress here without extra DB call; show note instead
-    document.getElementById('analytics-modulos').innerHTML =
-      '<div class="monthly-empty" style="font-size:0.82rem;">Los datos de completado de m\u00f3dulos requieren consultar la tabla <code>progreso</code> individualmente. Implementar con <code>Auth.getAllProgress()</code> si el volumen lo permite.</div>';
+    // Fetch actual progress data
+    Auth.getAllProgress().then(function(progressData) {
+      if (!progressData || !progressData.length) {
+        document.getElementById('analytics-modulos').innerHTML = '<div class="monthly-empty">Sin datos de progreso</div>';
+        return;
+      }
+      var moduleCounts = {};
+      var moduleTotal = {};
+      progressData.forEach(function(row) {
+        if (!moduleTotal[row.modulo]) moduleTotal[row.modulo] = 0;
+        if (!moduleCounts[row.modulo]) moduleCounts[row.modulo] = 0;
+        moduleTotal[row.modulo]++;
+        if (row.completado) moduleCounts[row.modulo]++;
+      });
+      var modItems = Object.keys(moduleLabels).filter(function(k) { return moduleTotal[k]; }).map(function(k) {
+        var pct = moduleTotal[k] > 0 ? Math.round(moduleCounts[k] / moduleTotal[k] * 100) : 0;
+        return { label: moduleLabels[k], value: pct, display: pct + '% (' + (moduleCounts[k] || 0) + '/' + moduleTotal[k] + ')' };
+      });
+      var modMax = modItems.length > 0 ? Math.max.apply(null, modItems.map(function(i) { return i.value; })) : 0;
+      renderAnalyticsBars('analytics-modulos', modItems, modMax || 100, 'bar-success');
+    }).catch(function() {
+      document.getElementById('analytics-modulos').innerHTML = '<div class="monthly-empty">Error al cargar datos de progreso</div>';
+    });
 
     // 3. Métodos de pago
     var metodoCounts = {};
@@ -2079,7 +2100,7 @@
     var metodoItems = Object.keys(metodoCounts).sort(function(a, b) { return metodoCounts[b] - metodoCounts[a]; }).map(function(k) {
       return { label: k, value: metodoCounts[k], display: metodoCounts[k] + ' pagos' };
     });
-    var metodoMax = Math.max.apply(null, metodoItems.map(function(i) { return i.value; }));
+    var metodoMax = metodoItems.length > 0 ? Math.max.apply(null, metodoItems.map(function(i) { return i.value; })) : 0;
     renderAnalyticsBars('analytics-metodos', metodoItems, metodoMax, 'bar-purple');
 
     // 4. Distribución de acceso
@@ -2092,7 +2113,7 @@
     ].filter(function(i) { return i.value > 0; }).map(function(i) {
       return { label: i.label, value: i.value, display: i.value + ' (' + Math.round(i.value / total * 100) + '%)' };
     });
-    var accesoMax = Math.max.apply(null, accesoData.map(function(i) { return i.value; }));
+    var accesoMax = accesoData.length > 0 ? Math.max.apply(null, accesoData.map(function(i) { return i.value; })) : 0;
     renderAnalyticsBars('analytics-acceso', accesoData, accesoMax, 'bar-success');
 
     // 5. KPIs
@@ -2314,7 +2335,7 @@
         name: name,
         date: new Date(p.fecha),
         dot: p.estado === 'completado' ? 'green' : 'orange',
-        text: p.estado === 'completado' ? 'completó un pago (' + ((p.moneda || 'ARS').toUpperCase() === 'ARS' ? '$' : 'U$D') + ' ' + (p.monto || 0) + ')' : 'tiene un pago pendiente'
+        text: p.estado === 'completado' ? 'completó un pago (' + ((p.moneda || 'ARS').toUpperCase() === 'ARS' ? '$' : 'U$D') + ' ' + parseFloat(p.monto || 0).toFixed(2) + ')' : 'tiene un pago pendiente'
       });
     });
 
@@ -2342,7 +2363,7 @@
     container.innerHTML = items.map(function(item) {
       return '<div class="activity-item">' +
         '<div class="activity-dot ' + item.dot + '"></div>' +
-        '<div class="activity-text"><span><strong>' + escapeHtml(item.name) + '</strong> ' + item.text + '</span></div>' +
+        '<div class="activity-text"><span><strong>' + escapeHtml(item.name) + '</strong> ' + escapeHtml(item.text) + '</span></div>' +
         '<div class="activity-time">' + timeAgo(item.date) + '</div>' +
       '</div>';
     }).join('');

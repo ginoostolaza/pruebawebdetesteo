@@ -1056,6 +1056,7 @@
       btnUsd.classList.add('active');
       btnArs.classList.remove('active');
       updateRevenueDisplay();
+      refreshAnalyticsIfVisible();
     });
 
     btnArs.addEventListener('click', function() {
@@ -1063,6 +1064,7 @@
       btnArs.classList.add('active');
       btnUsd.classList.remove('active');
       updateRevenueDisplay();
+      refreshAnalyticsIfVisible();
     });
 
     document.querySelectorAll('.time-range-btn').forEach(function(btn) {
@@ -1097,28 +1099,64 @@
     return div.innerHTML;
   }
 
-  function toUsd(monto, moneda) {
+  // ---- Currency helpers ----
+  // Converts a single payment amount to the target currency.
+  // Returns the converted amount, or 0 if conversion is impossible.
+  function convertAmount(monto, monedaOrigen, monedaDestino) {
     var amount = parseFloat(monto || 0);
-    var cur = (moneda || 'ARS').toUpperCase();
-    if (cur === 'ARS') {
-      return dolarBlueVenta ? (amount / dolarBlueVenta) : 0;
-    }
+    var from = (monedaOrigen || 'ARS').toUpperCase();
+    var to = (monedaDestino || 'USD').toUpperCase();
+    if (from === to) return amount;
+    if (from === 'ARS' && to === 'USD') return dolarBlueVenta ? (amount / dolarBlueVenta) : 0;
+    if (from === 'USD' && to === 'ARS') return dolarBlueVenta ? (amount * dolarBlueVenta) : 0;
     return amount;
+  }
+
+  // Sums an array of payments into the display currency.
+  // Keeps amounts in their native currency and only converts the other.
+  function sumPayments(payments, displayCurrency) {
+    var nativeTotal = 0;   // total of payments already in displayCurrency
+    var convertedTotal = 0; // total converted from the other currency
+    var unconvertible = 0;  // total that couldn't be converted (API down)
+    payments.forEach(function(p) {
+      var amount = parseFloat(p.monto || 0);
+      var cur = (p.moneda || 'ARS').toUpperCase();
+      if (cur === displayCurrency) {
+        nativeTotal += amount;
+      } else {
+        var converted = convertAmount(amount, cur, displayCurrency);
+        if (converted === 0 && amount > 0) {
+          unconvertible += amount;
+        } else {
+          convertedTotal += converted;
+        }
+      }
+    });
+    return { total: nativeTotal + convertedTotal, native: nativeTotal, converted: convertedTotal, unconvertible: unconvertible };
+  }
+
+  // Legacy helper used in analytics — converts to USD
+  function toUsd(monto, moneda) {
+    return convertAmount(monto, moneda, 'USD');
+  }
+
+  function formatMoney(amount, currency) {
+    var prefix = (currency || currentCurrency) === 'ARS' ? 'ARS $' : 'U$D ';
+    return prefix + amount.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 
   function formatCurrency(amountUsd) {
     if (currentCurrency === 'ARS' && dolarBlueVenta) {
-      var ars = amountUsd * dolarBlueVenta;
-      return 'ARS $' + ars.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      return formatMoney(amountUsd * dolarBlueVenta, 'ARS');
     }
-    return 'U$D ' + amountUsd.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return formatMoney(amountUsd, 'USD');
   }
 
   function updateRevenueDisplay() {
     var payments = getFilteredPayments();
-    var totalUsd = payments.reduce(function(sum, p) { return sum + toUsd(p.monto, p.moneda); }, 0);
+    var result = sumPayments(payments, currentCurrency);
 
-    document.getElementById('stat-revenue').textContent = formatCurrency(totalUsd);
+    document.getElementById('stat-revenue').textContent = formatMoney(result.total, currentCurrency);
     document.getElementById('revenue-count-label').textContent = payments.length + ' pago' + (payments.length !== 1 ? 's' : '') + ' completado' + (payments.length !== 1 ? 's' : '');
 
     var labelMap = { '7': 'Últimos 7 días', '30': 'Últimos 30 días', 'all': 'Desde siempre' };
@@ -1127,8 +1165,15 @@
     var refEl = document.getElementById('revenue-dolar-ref');
     if (dolarBlueVenta) {
       refEl.textContent = 'Cotización dólar blue: $' + dolarBlueVenta.toFixed(2) + ' ARS';
+      if (result.converted > 0) {
+        var otherCur = currentCurrency === 'ARS' ? 'USD' : 'ARS';
+        refEl.textContent += ' — Incluye pagos convertidos desde ' + otherCur;
+      }
+    } else if (result.unconvertible > 0) {
+      var missingCur = currentCurrency === 'ARS' ? 'USD' : 'ARS';
+      refEl.textContent = 'Cotización dólar blue no disponible — pagos en ' + missingCur + ' no incluidos en el total';
     } else {
-      refEl.textContent = 'Cotización dólar blue no disponible — pagos en ARS excluidos del cálculo';
+      refEl.textContent = '';
     }
 
     renderMonthlyBreakdown(payments);
@@ -1145,24 +1190,27 @@
     payments.forEach(function(p) {
       var date = p.fecha ? new Date(p.fecha) : new Date();
       var key = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0');
-      if (!months[key]) months[key] = { payments: [], totalUsd: 0 };
+      if (!months[key]) months[key] = { payments: [] };
       months[key].payments.push(p);
-      months[key].totalUsd += toUsd(p.monto, p.moneda);
     });
 
     var sortedKeys = Object.keys(months).sort().reverse();
-    var maxUsd = Math.max.apply(null, sortedKeys.map(function(k) { return months[k].totalUsd; }));
+    // Pre-calculate totals in display currency
+    sortedKeys.forEach(function(k) {
+      months[k].displayTotal = sumPayments(months[k].payments, currentCurrency).total;
+    });
+    var maxTotal = sortedKeys.length > 0 ? Math.max.apply(null, sortedKeys.map(function(k) { return months[k].displayTotal; })) : 0;
     var monthNames = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
 
     var html = sortedKeys.map(function(key) {
       var parts = key.split('-');
       var monthLabel = monthNames[parseInt(parts[1]) - 1] + ' ' + parts[0];
       var m = months[key];
-      var pct = maxUsd > 0 ? (m.totalUsd / maxUsd * 100) : 0;
+      var pct = maxTotal > 0 ? (m.displayTotal / maxTotal * 100) : 0;
       return '<div class="monthly-row">' +
         '<div class="monthly-label">' + monthLabel + '</div>' +
         '<div class="monthly-bar-track"><div class="monthly-bar-fill" style="width:' + pct + '%"></div></div>' +
-        '<div class="monthly-value">' + formatCurrency(m.totalUsd) + '</div>' +
+        '<div class="monthly-value">' + formatMoney(m.displayTotal, currentCurrency) + '</div>' +
         '<div class="monthly-count">' + m.payments.length + ' pago' + (m.payments.length !== 1 ? 's' : '') + '</div>' +
       '</div>';
     }).join('');
@@ -1312,7 +1360,7 @@
       return '<tr>' +
         '<td><div class="user-cell-compact"><span class="payment-user-name">' + escapeHtml(nombre) + '</span>' + (email ? '<span class="payment-user-email">' + escapeHtml(email) + '</span>' : '') + '</div></td>' +
         '<td><span class="badge ' + productoClass + '">' + escapeHtml(productoText) + '</span></td>' +
-        '<td class="td-amount">' + ((p.moneda || 'ARS').toUpperCase() === 'ARS' ? '$' : 'U$D ') + parseFloat(p.monto || 0).toFixed(2) + ' <span class="currency-label">' + escapeHtml((p.moneda || 'ARS').toUpperCase()) + '</span></td>' +
+        '<td class="td-amount">' + ((p.moneda || 'ARS').toUpperCase() === 'ARS' ? '$' : 'U$D ') + parseFloat(p.monto || 0).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' <span class="currency-label">' + escapeHtml((p.moneda || 'ARS').toUpperCase()) + '</span></td>' +
         '<td class="th-hide-mobile">' + escapeHtml(p.metodo || '-') + '</td>' +
         '<td class="td-ref th-hide-mobile" title="' + escapeHtml(referencia) + '">' + escapeHtml(refDisplay) + '</td>' +
         '<td><span class="badge ' + statusClass + '">' + escapeHtml(p.estado || 'pendiente') + '</span></td>' +
@@ -1472,6 +1520,20 @@
       if (!producto) { showToast("Selecciona un producto.", 'error'); return; }
       const result = await Auth.addPayment(payment);
       if (result.success) {
+        // Auto-grant access if payment is completado
+        if (payment.estado === 'completado' && payment.user_id && payment.producto) {
+          if (payment.producto === 'fase1') {
+            var currentUser = allUsers.find(function(u) { return u.id === payment.user_id; });
+            var currentFase = currentUser ? currentUser.fase : null;
+            var newFase = 'fase-1';
+            if (currentFase === 'fase-2') newFase = 'ambas';
+            else if (currentFase === 'ambas' || currentFase === 'fase-1') newFase = currentFase;
+            await Auth.updateUser(payment.user_id, { fase: newFase });
+            await Auth.initProgress(payment.user_id);
+          } else if (payment.producto === 'bot') {
+            await Auth.updateUser(payment.user_id, { bot_activo: true });
+          }
+        }
         closeModal("modal-add-payment");
         document.getElementById("form-add-payment").reset();
         showToast('Pago registrado correctamente');
@@ -1614,7 +1676,7 @@
         return '<div class="user-payment-row">' +
           '<div class="user-payment-main">' +
             '<span class="user-payment-product">' + escapeHtml(productoText) + '</span>' +
-            '<span class="user-payment-amount">' + ((p.moneda || 'ARS').toUpperCase() === 'ARS' ? '$' : 'U$D ') + parseFloat(p.monto || 0).toFixed(2) + ' ' + escapeHtml((p.moneda || 'ARS').toUpperCase()) + '</span>' +
+            '<span class="user-payment-amount">' + ((p.moneda || 'ARS').toUpperCase() === 'ARS' ? '$' : 'U$D ') + parseFloat(p.monto || 0).toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' ' + escapeHtml((p.moneda || 'ARS').toUpperCase()) + '</span>' +
           '</div>' +
           '<div class="user-payment-sub">' +
             '<span class="badge ' + statusClass2 + '">' + escapeHtml(p.estado) + '</span>' +
@@ -1826,6 +1888,15 @@
     }
     if (config.telegram_link) {
       document.getElementById('telegram-link-input').value = config.telegram_link;
+    }
+  }
+
+  function refreshAnalyticsIfVisible() {
+    var analyticsPanel = document.getElementById('panel-analytics');
+    if (analyticsPanel && analyticsPanel.classList.contains('active')) {
+      renderAnalytics();
+      renderGrowthCards();
+      renderFunnelAndRevenue();
     }
   }
 
@@ -2116,17 +2187,17 @@
     var accesoMax = accesoData.length > 0 ? Math.max.apply(null, accesoData.map(function(i) { return i.value; })) : 0;
     renderAnalyticsBars('analytics-acceso', accesoData, accesoMax, 'bar-success');
 
-    // 5. KPIs
+    // 5. KPIs (respect currency toggle)
     var completedPayments = allPayments.filter(function(p) { return p.estado === 'completado'; });
-    var totalUsdRevenue = completedPayments.reduce(function(s, p) { return s + toUsd(p.monto, p.moneda); }, 0);
+    var revResult = sumPayments(completedPayments, currentCurrency);
+    var totalRevenue = revResult.total;
     var conversionRate = total > 0 ? Math.round(allUsers.filter(function(u) { return u.fase; }).length / total * 100) : 0;
-    var avgRevenuePerUser = allUsers.filter(function(u) { return u.fase; }).length > 0
-      ? (totalUsdRevenue / allUsers.filter(function(u) { return u.fase; }).length).toFixed(2)
-      : 0;
+    var payingUsers = allUsers.filter(function(u) { return u.fase; }).length;
+    var avgRevenuePerUser = payingUsers > 0 ? (totalRevenue / payingUsers) : 0;
     var kpis = [
       { label: 'Tasa de conversi\u00f3n', value: conversionRate + '%', sub: 'usuarios con acceso' },
-      { label: 'Ingreso total (USD)', value: 'U$D ' + totalUsdRevenue.toFixed(2), sub: completedPayments.length + ' pagos completados' },
-      { label: 'Ingreso promedio/alumno', value: 'U$D ' + avgRevenuePerUser, sub: 'usuarios con acceso' },
+      { label: 'Ingreso total', value: formatMoney(totalRevenue, currentCurrency), sub: completedPayments.length + ' pagos completados' },
+      { label: 'Ingreso promedio/alumno', value: formatMoney(avgRevenuePerUser, currentCurrency), sub: 'usuarios con acceso' },
       { label: 'Suscriptores bot', value: allUsers.filter(function(u) { return u.bot_activo; }).length, sub: 'de ' + total + ' usuarios' },
       { label: 'En comunidad', value: allUsers.filter(function(u) { return u.comunidad_activa; }).length, sub: 'de ' + total + ' usuarios' },
       { label: 'Nuevos este mes', value: (function() {
@@ -2147,7 +2218,8 @@
     var total = allUsers.length || 1;
     var completedPayments = allPayments.filter(function(p) { return p.estado === 'completado'; });
     var usersWithAccess = allUsers.filter(function(u) { return u.fase; }).length;
-    var totalUsdRevenue = completedPayments.reduce(function(s, p) { return s + toUsd(p.monto, p.moneda); }, 0);
+    var revAll = sumPayments(completedPayments, currentCurrency);
+    var totalRevenue = revAll.total;
 
     // === Funnel ===
     var funnelSteps = [
@@ -2171,28 +2243,28 @@
       }).join('');
     }
 
-    // === Revenue KPIs ===
+    // === Revenue KPIs (uses currency toggle) ===
     var now = new Date();
     var conversionRate = total > 0 ? (usersWithAccess / total * 100).toFixed(1) : 0;
-    var revenuePerUser = total > 0 ? (totalUsdRevenue / total).toFixed(2) : 0;
-    var revenuePerPaying = usersWithAccess > 0 ? (totalUsdRevenue / usersWithAccess).toFixed(2) : 0;
+    var revenuePerUser = total > 0 ? (totalRevenue / total) : 0;
+    var revenuePerPaying = usersWithAccess > 0 ? (totalRevenue / usersWithAccess) : 0;
 
     // Sales per day (last 30 days average)
     var thirtyDaysAgo = new Date(now.getTime() - 30 * 86400000);
     var sales30d = completedPayments.filter(function(p) {
       return p.fecha && new Date(p.fecha) >= thirtyDaysAgo;
     });
-    var rev30d = sales30d.reduce(function(s, p) { return s + toUsd(p.monto, p.moneda); }, 0);
+    var rev30d = sumPayments(sales30d, currentCurrency).total;
     var salesPerDay = (sales30d.length / 30).toFixed(1);
-    var revPerDay = (rev30d / 30).toFixed(2);
+    var revPerDay = rev30d / 30;
 
     var revKpis = [
-      { label: 'Conversion Rate', value: conversionRate + '%', sub: 'registros \u2192 pagos', color: 'primary' },
+      { label: 'Tasa de conversi\u00f3n', value: conversionRate + '%', sub: 'registros \u2192 pagos', color: 'primary' },
       { label: 'Ventas / d\u00eda (30d)', value: salesPerDay, sub: 'promedio \u00faltimos 30 d\u00edas', color: 'warning' },
-      { label: 'Revenue / d\u00eda', value: 'U$D ' + revPerDay, sub: 'promedio \u00faltimos 30 d\u00edas', color: 'success' },
-      { label: 'Ingresos totales', value: 'U$D ' + totalUsdRevenue.toFixed(2), sub: completedPayments.length + ' pagos', color: 'accent' },
-      { label: 'Revenue / visitante', value: 'U$D ' + revenuePerUser, sub: 'ingresos / total usuarios', color: 'secondary' },
-      { label: 'Ticket promedio', value: 'U$D ' + revenuePerPaying, sub: 'ingresos / usuarios con acceso', color: 'primary' }
+      { label: 'Revenue / d\u00eda', value: formatMoney(revPerDay, currentCurrency), sub: 'promedio \u00faltimos 30 d\u00edas', color: 'success' },
+      { label: 'Ingresos totales', value: formatMoney(totalRevenue, currentCurrency), sub: completedPayments.length + ' pagos', color: 'accent' },
+      { label: 'Revenue / visitante', value: formatMoney(revenuePerUser, currentCurrency), sub: 'ingresos / total usuarios', color: 'secondary' },
+      { label: 'Ticket promedio', value: formatMoney(revenuePerPaying, currentCurrency), sub: 'ingresos / usuarios con acceso', color: 'primary' }
     ];
     var revEl = document.getElementById('analytics-revenue-kpis');
     if (revEl) {
@@ -2209,14 +2281,13 @@
       days14.push(key);
     }
     var salesByDay = {};
-    days14.forEach(function(k) { salesByDay[k] = { count: 0, revenue: 0 }; });
+    days14.forEach(function(k) { salesByDay[k] = { payments: [] }; });
     completedPayments.forEach(function(p) {
       if (!p.fecha) return;
       var pd = new Date(p.fecha);
       var pk = pd.getFullYear() + '-' + String(pd.getMonth() + 1).padStart(2, '0') + '-' + String(pd.getDate()).padStart(2, '0');
       if (salesByDay[pk]) {
-        salesByDay[pk].count++;
-        salesByDay[pk].revenue += toUsd(p.monto, p.moneda);
+        salesByDay[pk].payments.push(p);
       }
     });
     var dayNames = ['Dom','Lun','Mar','Mi\u00e9','Jue','Vie','S\u00e1b'];
@@ -2224,10 +2295,11 @@
       var parts = k.split('-');
       var dt = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
       var label = dayNames[dt.getDay()] + ' ' + parts[2] + '/' + parts[1];
-      var data = salesByDay[k];
-      return { label: label, value: data.revenue, display: data.count + ' ventas \u2014 U$D ' + data.revenue.toFixed(0) };
+      var dayData = salesByDay[k];
+      var dayTotal = sumPayments(dayData.payments, currentCurrency).total;
+      return { label: label, value: dayTotal, display: dayData.payments.length + ' ventas \u2014 ' + formatMoney(dayTotal, currentCurrency) };
     });
-    var salesMax = Math.max.apply(null, salesItems.map(function(i) { return i.value; })) || 1;
+    var salesMax = salesItems.length > 0 ? (Math.max.apply(null, salesItems.map(function(i) { return i.value; })) || 1) : 1;
     renderAnalyticsBars('analytics-ventas-dia', salesItems, salesMax, 'bar-purple');
 
     // === Traffic Source (estimated from payment metadata or user signup source) ===
@@ -2276,27 +2348,27 @@
     }
     if (bar1) bar1.style.width = Math.min(100, (newUsers30 / Math.max(allUsers.length, 1)) * 100) + '%';
 
-    // Revenue in last 30 days
+    // Revenue in last 30 days (uses currency toggle)
     var completed30 = allPayments.filter(function(p) {
       return p.estado === 'completado' && p.fecha && new Date(p.fecha) >= thirtyDaysAgo;
     });
-    var rev30 = completed30.reduce(function(s, p) { return s + toUsd(p.monto, p.moneda); }, 0);
+    var rev30 = sumPayments(completed30, currentCurrency).total;
     var completedPrev30 = allPayments.filter(function(p) {
       var d = p.fecha ? new Date(p.fecha) : null;
       return p.estado === 'completado' && d && d >= sixtyDaysAgo && d < thirtyDaysAgo;
     });
-    var revPrev30 = completedPrev30.reduce(function(s, p) { return s + toUsd(p.monto, p.moneda); }, 0);
+    var revPrev30 = sumPayments(completedPrev30, currentCurrency).total;
 
     var el2 = document.getElementById('growth-revenue-value');
     var trend2 = document.getElementById('growth-revenue-trend');
     var bar2 = document.getElementById('growth-revenue-bar');
-    if (el2) el2.textContent = 'U$D ' + rev30.toFixed(0);
+    if (el2) el2.textContent = formatMoney(rev30, currentCurrency);
     if (trend2) {
       var pct2 = revPrev30 > 0 ? Math.round((rev30 - revPrev30) / revPrev30 * 100) : (rev30 > 0 ? 100 : 0);
       trend2.textContent = (pct2 >= 0 ? '+' : '') + pct2 + '%';
       trend2.className = 'growth-card-trend ' + (pct2 >= 0 ? 'up' : 'down');
     }
-    var totalRev = allPayments.filter(function(p) { return p.estado === 'completado'; }).reduce(function(s, p) { return s + toUsd(p.monto, p.moneda); }, 0);
+    var totalRev = sumPayments(allPayments.filter(function(p) { return p.estado === 'completado'; }), currentCurrency).total;
     if (bar2) bar2.style.width = (totalRev > 0 ? Math.min(100, rev30 / totalRev * 100) : 0) + '%';
 
     // Conversion rate

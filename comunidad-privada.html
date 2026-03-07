@@ -12,12 +12,12 @@
     (function () {
       var acceso = localStorage.getItem("accesoAutorizado");
       if (!acceso || acceso !== "true") {
-        window.location.replace("iniciar-sesion.html");
+        window.location.replace("/login");
         return;
       }
       var usuario = {}; try { usuario = JSON.parse(localStorage.getItem("usuario") || "{}"); } catch(e) {}
       if (!usuario.comunidad_activa) {
-        window.location.replace("dashboard.html");
+        window.location.replace("/dashboard");
       }
     })();
   </script>
@@ -39,7 +39,7 @@
     <span class="dash-nav-tag" style="background: linear-gradient(135deg, #22c55e, #06b6d4); color: #fff;">Comunidad</span>
   </div>
   <div class="dash-nav-right">
-    <a href="dashboard.html" class="btn-admin" style="display:inline-flex;">
+    <a href="/dashboard" class="btn-admin" style="display:inline-flex;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
       <span>Dashboard</span>
     </a>
@@ -196,7 +196,7 @@
   </h2>
 
   <div class="quick-links">
-    <a href="dashboard.html" class="quick-link">
+    <a href="/dashboard" class="quick-link">
       <div class="quick-link-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
       </div>
@@ -206,7 +206,7 @@
       </div>
     </a>
 
-    <a href="acceso-comunidad.html" class="quick-link">
+    <a href="/curso" class="quick-link">
       <div class="quick-link-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
       </div>
@@ -242,14 +242,14 @@
     // Check community access
     const userData = JSON.parse(localStorage.getItem("usuario") || "{}");
     if (!userData.comunidad_activa) {
-      window.location.replace("dashboard.html");
+      window.location.replace("/dashboard");
       return;
     }
 
     // Logout
     document.getElementById("btn-logout").addEventListener("click", async () => {
       await Auth.logout();
-      window.location.href = "iniciar-sesion.html";
+      window.location.href = "/login";
     });
 
     // Load Telegram link from site_config

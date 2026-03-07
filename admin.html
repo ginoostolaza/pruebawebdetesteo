@@ -11,8 +11,8 @@
     (function () {
       var acceso = localStorage.getItem("accesoAutorizado");
       var usuario = {}; try { usuario = JSON.parse(localStorage.getItem("usuario") || "{}"); } catch(e) {}
-      if (!acceso || acceso !== "true") { window.location.replace("iniciar-sesion.html"); }
-      if (usuario.rol !== "admin") { window.location.replace("dashboard.html"); }
+      if (!acceso || acceso !== "true") { window.location.replace("/login"); }
+      if (usuario.rol !== "admin") { window.location.replace("/dashboard"); }
     })();
   </script>
 
@@ -69,7 +69,7 @@
     </nav>
 
     <div class="sidebar-footer">
-      <a href="dashboard.html" class="sidebar-footer-link">
+      <a href="/dashboard" class="sidebar-footer-link">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         <span>Ver Dashboard</span>
       </a>
@@ -1079,15 +1079,17 @@
 
   function toUsd(monto, moneda) {
     var amount = parseFloat(monto || 0);
-    if ((moneda || 'USD') === 'ARS' && dolarBlueVenta) {
-      return amount / dolarBlueVenta;
+    if ((moneda || 'ARS') === 'ARS') {
+      return dolarBlueVenta ? (amount / dolarBlueVenta) : (amount / 1300);
     }
     return amount;
   }
 
   function formatCurrency(amountUsd) {
     if (currentCurrency === 'ARS') {
-      if (!dolarBlueVenta) return 'Sin cotización';
+      if (!dolarBlueVenta) {
+        return 'U$D ' + amountUsd.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' *';
+      }
       var ars = amountUsd * dolarBlueVenta;
       return 'ARS $' + ars.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
@@ -1108,7 +1110,7 @@
     if (dolarBlueVenta) {
       refEl.textContent = 'Cotización dólar blue: $' + dolarBlueVenta.toFixed(2) + ' ARS';
     } else {
-      refEl.textContent = 'Cotización dólar blue no disponible';
+      refEl.textContent = '* Cotización dólar blue no disponible — mostrando en USD';
     }
 
     renderMonthlyBreakdown(payments);
@@ -1285,7 +1287,7 @@
       return '<tr>' +
         '<td><div class="user-cell-compact"><span class="payment-user-name">' + escapeHtml(nombre) + '</span>' + (email ? '<span class="payment-user-email">' + escapeHtml(email) + '</span>' : '') + '</div></td>' +
         '<td><span class="badge ' + productoClass + '">' + escapeHtml(productoText) + '</span></td>' +
-        '<td class="td-amount">$' + parseFloat(p.monto).toFixed(2) + ' <span class="currency-label">' + escapeHtml(p.moneda || 'USD') + '</span></td>' +
+        '<td class="td-amount">$' + parseFloat(p.monto).toFixed(2) + ' <span class="currency-label">' + escapeHtml(p.moneda || 'ARS') + '</span></td>' +
         '<td class="th-hide-mobile">' + escapeHtml(p.metodo || '-') + '</td>' +
         '<td class="td-ref th-hide-mobile" title="' + escapeHtml(referencia) + '">' + escapeHtml(refDisplay) + '</td>' +
         '<td><span class="badge ' + statusClass + '">' + escapeHtml(p.estado || 'completado') + '</span></td>' +
@@ -1365,7 +1367,7 @@
 
     document.getElementById("btn-logout").addEventListener("click", async () => {
       await Auth.logout();
-      window.location.href = "iniciar-sesion.html";
+      window.location.href = "/login";
     });
 
     document.getElementById("btn-add-payment").addEventListener("click", () => {
@@ -1572,7 +1574,7 @@
         return '<div class="user-payment-row">' +
           '<div class="user-payment-main">' +
             '<span class="user-payment-product">' + escapeHtml(productoText) + '</span>' +
-            '<span class="user-payment-amount">$' + parseFloat(p.monto).toFixed(2) + ' ' + escapeHtml(p.moneda || 'USD') + '</span>' +
+            '<span class="user-payment-amount">$' + parseFloat(p.monto).toFixed(2) + ' ' + escapeHtml(p.moneda || 'ARS') + '</span>' +
           '</div>' +
           '<div class="user-payment-sub">' +
             '<span class="badge ' + statusClass2 + '">' + escapeHtml(p.estado) + '</span>' +
@@ -1712,7 +1714,7 @@
       if (!allPayments.length) { showToast('No hay pagos para exportar', 'error'); return; }
       const headers = ['Usuario', 'Monto', 'Moneda', 'Método', 'Concepto', 'Estado', 'Fecha'];
       var rows = allPayments.map(function(p) {
-        return [p.profiles ? p.profiles.nombre : '', p.monto || 0, p.moneda || 'USD',
+        return [p.profiles ? p.profiles.nombre : '', p.monto || 0, p.moneda || 'ARS',
           p.metodo || '', p.concepto || '', p.estado || '',
           p.fecha ? new Date(p.fecha).toLocaleDateString('es-AR') : ''
         ].map(function(v) { return '"' + String(v).replace(/"/g, '""') + '"'; }).join(',');

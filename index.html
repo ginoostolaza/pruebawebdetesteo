@@ -861,7 +861,7 @@
         <li><a href="#como-funciona" class="nav-link">C&oacute;mo funciona</a></li>
         <li><a href="#fases" class="nav-link">Precios</a></li>
         <li><a href="#faqs" class="nav-link">FAQs</a></li>
-        <li><a href="iniciar-sesion.html" class="nav-link nav-login-btn">Iniciar Sesi&oacute;n</a></li>
+        <li><a href="/login" class="nav-link nav-login-btn">Iniciar Sesi&oacute;n</a></li>
       </ul>
     </div>
   </nav>
@@ -1318,7 +1318,7 @@
                 Acceso desde cualquier dispositivo, sin l&iacute;mite de tiempo
               </li>
             </ul>
-            <a class="btn btn-primary btn-glow pricing-cta" href="finalizar-compra.html" role="button" aria-label="Comenzar Fase 1">
+            <a class="btn btn-primary btn-glow pricing-cta" href="/checkout" role="button" aria-label="Comenzar Fase 1">
               Quiero empezar ahora
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
@@ -1646,7 +1646,7 @@
   <!-- Sticky CTA Bar -->
   <div class="sticky-cta-bar" id="sticky-cta-bar">
     <span class="sticky-price">Fase 1 desde <strong id="sticky-price-val">USD 37</strong></span>
-    <a href="finalizar-compra.html" class="btn btn-primary btn-glow">
+    <a href="/checkout" class="btn btn-primary btn-glow">
       Empezar ahora
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </a>
@@ -2036,7 +2036,7 @@
           btn.textContent = q;
           btn.addEventListener('click', function() {
             if (q === 'Hablar por Instagram') { window.open('https://instagram.com/orbitacapital.io', '_blank', 'noopener'); return; }
-            if (q === 'Quiero inscribirme') { window.location.href = 'finalizar-compra.html'; return; }
+            if (q === 'Quiero inscribirme') { window.location.href = '/checkout'; return; }
             handleUserMessage(q);
           });
           quickEl.appendChild(btn);

@@ -187,11 +187,11 @@
         '<h1 class="result-title">Pago confirmado</h1>' +
         '<p class="result-desc">Tu pago por <strong>' + productoName + '</strong> fue procesado exitosamente. Tu acceso ya esta habilitado en tu cuenta.</p>' +
         '<div class="result-actions">' +
-          '<a href="dashboard.html" class="btn-result btn-primary">' +
+          '<a href="/dashboard" class="btn-result btn-primary">' +
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>' +
             'Ir al Dashboard' +
           '</a>' +
-          '<a href="index.html" class="btn-result btn-secondary">Volver al inicio</a>' +
+          '<a href="/" class="btn-result btn-secondary">Volver al inicio</a>' +
         '</div>' +
         '<p class="result-note">Si no ves el acceso habilitado, cerra sesion e ingresa de nuevo.</p>';
       document.title = 'Pago Confirmado | Orbita Capital';
@@ -203,7 +203,7 @@
         '<h1 class="result-title">Pago en proceso</h1>' +
         '<p class="result-desc">Tu pago por <strong>' + productoName + '</strong> esta siendo procesado. Una vez confirmado, tu acceso se habilitara automaticamente.</p>' +
         '<div class="result-actions">' +
-          '<a href="dashboard.html" class="btn-result btn-primary">' +
+          '<a href="/dashboard" class="btn-result btn-primary">' +
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>' +
             'Ir al Dashboard' +
           '</a>' +
@@ -221,7 +221,7 @@
         '<h1 class="result-title">Pago no completado</h1>' +
         '<p class="result-desc">Tu pago no pudo ser procesado. No se realizo ningun cobro. Podes intentar de nuevo o elegir otro metodo de pago.</p>' +
         '<div class="result-actions">' +
-          '<a href="finalizar-compra.html?plan=' + (producto || 'fase1') + '" class="btn-result btn-primary">' +
+          '<a href="/checkout?plan=' + (producto || 'fase1') + '" class="btn-result btn-primary">' +
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>' +
             'Intentar de nuevo' +
           '</a>' +

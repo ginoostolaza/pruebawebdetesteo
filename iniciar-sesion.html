@@ -20,7 +20,7 @@
   <!-- Left: Branding panel -->
   <div class="login-branding">
     <div class="branding-content">
-      <a href="index.html" class="branding-back">
+      <a href="/" class="branding-back">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         Volver al inicio
       </a>
@@ -50,7 +50,7 @@
     <div class="login-form-container">
 
       <!-- Mobile-only back link (branding panel hidden on mobile) -->
-      <a href="index.html" class="mobile-back-link">
+      <a href="/" class="mobile-back-link">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         Volver al inicio
       </a>
@@ -285,7 +285,7 @@
     try {
       const result = await Auth.login(email, password);
       if (result.success) {
-        window.location.href = 'dashboard.html';
+        window.location.href = '/dashboard';
       } else {
         showError('login-error', result.message);
       }
@@ -426,7 +426,7 @@
   (async function () {
     const session = await Auth.getSession();
     if (session) {
-      window.location.replace('dashboard.html');
+      window.location.replace('/dashboard');
     }
   })();
 </script>

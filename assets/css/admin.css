@@ -1046,7 +1046,7 @@ a { color: inherit; text-decoration: none; }
 
 .admin-panel.active {
   display: block;
-  animation: fadeIn 0.25s ease;
+  animation: fadeInUp 0.3s ease forwards;
 }
 
 .panel-header {
@@ -2190,6 +2190,389 @@ a { color: inherit; text-decoration: none; }
   .funnel-step-value {
     text-align: left;
     font-size: 0.72rem;
+  }
+}
+
+/* ============================================================
+   SKELETON LOADING ANIMATION
+   ============================================================ */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-row td {
+  padding: 0.8rem 1rem !important;
+  border-top: 1px solid var(--color-border);
+}
+
+.skeleton-bar {
+  height: 12px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--color-surface-2) 25%, var(--color-surface-3) 50%, var(--color-surface-2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite ease-in-out;
+}
+
+.skeleton-bar.w-40 { width: 40%; }
+.skeleton-bar.w-50 { width: 50%; }
+.skeleton-bar.w-60 { width: 60%; }
+.skeleton-bar.w-70 { width: 70%; }
+.skeleton-bar.w-80 { width: 80%; }
+.skeleton-bar.w-short { width: 55px; }
+.skeleton-bar.w-badge { width: 65px; height: 22px; border-radius: 20px; }
+
+.skeleton-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(90deg, var(--color-surface-2) 25%, var(--color-surface-3) 50%, var(--color-surface-2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite ease-in-out;
+}
+
+/* ============================================================
+   BUTTON LOADING STATE
+   ============================================================ */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.btn-loading {
+  pointer-events: none;
+  opacity: 0.7;
+  position: relative;
+}
+
+.btn-loading::after {
+  content: '';
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  margin-left: 6px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* ============================================================
+   TOAST IMPROVEMENTS
+   ============================================================ */
+.admin-toast {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.toast-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.toast-warning {
+  background: linear-gradient(135deg, var(--color-warning), #d97706);
+}
+
+.toast-info {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+}
+
+/* ============================================================
+   STAT COUNTER ANIMATION
+   ============================================================ */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.admin-stat-value.loaded {
+  animation: countUp 0.3s ease-out;
+}
+
+/* Pulse glow on stat hover */
+.admin-stat:hover .admin-stat-icon {
+  transform: scale(1.1);
+  transition: transform var(--transition);
+}
+
+.admin-stat-icon {
+  transition: transform var(--transition);
+}
+
+/* ============================================================
+   SEARCH ACTIVE INDICATOR
+   ============================================================ */
+.admin-search.has-value {
+  border-color: var(--color-primary);
+  background: rgba(59, 130, 246, 0.04);
+}
+
+.search-clear-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background: var(--color-surface-3);
+  border: none;
+  border-radius: 50%;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  transition: all var(--transition);
+}
+
+.search-clear-btn:hover {
+  background: var(--color-error);
+  color: #fff;
+}
+
+.admin-search.has-value ~ .search-clear-btn {
+  display: flex;
+}
+
+/* No results empty state */
+.no-results-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.no-results-state svg {
+  width: 40px;
+  height: 40px;
+  color: var(--color-text-dim);
+  opacity: 0.4;
+}
+
+.no-results-state .no-results-title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.no-results-state .no-results-sub {
+  font-size: 0.78rem;
+  color: var(--color-text-dim);
+}
+
+/* ============================================================
+   FILTER ACTIVE BADGE
+   ============================================================ */
+.admin-select.filter-active {
+  border-color: var(--color-primary);
+  background: rgba(59, 130, 246, 0.06);
+  color: var(--color-primary);
+}
+
+/* ============================================================
+   TABLE ROW ENTRANCE ANIMATION
+   ============================================================ */
+@keyframes rowFadeIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.admin-table tbody tr {
+  animation: rowFadeIn 0.2s ease-out both;
+}
+
+.admin-table tbody tr:nth-child(1) { animation-delay: 0.02s; }
+.admin-table tbody tr:nth-child(2) { animation-delay: 0.04s; }
+.admin-table tbody tr:nth-child(3) { animation-delay: 0.06s; }
+.admin-table tbody tr:nth-child(4) { animation-delay: 0.08s; }
+.admin-table tbody tr:nth-child(5) { animation-delay: 0.1s; }
+.admin-table tbody tr:nth-child(6) { animation-delay: 0.12s; }
+.admin-table tbody tr:nth-child(7) { animation-delay: 0.14s; }
+.admin-table tbody tr:nth-child(8) { animation-delay: 0.16s; }
+.admin-table tbody tr:nth-child(9) { animation-delay: 0.18s; }
+.admin-table tbody tr:nth-child(10) { animation-delay: 0.2s; }
+
+/* ============================================================
+   MODAL CLOSE ANIMATION
+   ============================================================ */
+@keyframes modalOut {
+  from { transform: translateY(0) scale(1); opacity: 1; }
+  to { transform: translateY(10px) scale(0.97); opacity: 0; }
+}
+
+.modal-overlay.closing .modal-card {
+  animation: modalOut 0.2s ease-in forwards;
+}
+
+.modal-overlay.closing {
+  animation: fadeOut 0.2s ease-in forwards;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* ============================================================
+   FOCUS VISIBLE STATES (Accessibility)
+   ============================================================ */
+.sidebar-item:focus-visible,
+.btn-primary:focus-visible,
+.btn-danger:focus-visible,
+.btn-edit:focus-visible,
+.btn-cancel:focus-visible,
+.btn-icon:focus-visible,
+.page-btn:focus-visible,
+.time-range-btn:focus-visible,
+.currency-toggle-btn:focus-visible,
+.modal-tab:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.admin-search:focus-visible,
+.admin-select:focus-visible {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* ============================================================
+   ANALYTICS BAR ANIMATION
+   ============================================================ */
+@keyframes barGrow {
+  from { width: 0; }
+}
+
+.analytics-bar-list .monthly-bar-fill,
+.funnel-step-bar,
+.growth-card-bar-fill {
+  animation: barGrow 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* ============================================================
+   BETTER TABLE HOVER
+   ============================================================ */
+.admin-table tbody tr:hover td {
+  color: var(--color-text);
+}
+
+.admin-table tbody tr:hover .td-amount {
+  color: #34d399;
+}
+
+.admin-table tbody tr:hover .btn-edit {
+  background: rgba(59, 130, 246, 0.12);
+}
+
+/* ============================================================
+   QUICK ACTION CARD IMPROVEMENTS
+   ============================================================ */
+.action-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.action-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.action-card:hover::before {
+  opacity: 1;
+}
+
+/* ============================================================
+   TOPBAR NOTIFICATION BADGE (for future use)
+   ============================================================ */
+.topbar-user-section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.topbar-admin-name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-text);
+  display: none;
+}
+
+@media (min-width: 769px) {
+  .topbar-admin-name { display: inline; }
+}
+
+/* ============================================================
+   KPI CARD HOVER GLOW
+   ============================================================ */
+.kpi-primary:hover { box-shadow: 0 4px 20px rgba(59, 130, 246, 0.12); }
+.kpi-warning:hover { box-shadow: 0 4px 20px rgba(245, 158, 11, 0.12); }
+.kpi-success:hover { box-shadow: 0 4px 20px rgba(34, 197, 94, 0.12); }
+.kpi-accent:hover { box-shadow: 0 4px 20px rgba(6, 182, 212, 0.12); }
+.kpi-secondary:hover { box-shadow: 0 4px 20px rgba(139, 92, 246, 0.12); }
+
+/* ============================================================
+   REVENUE PANEL IMPROVEMENTS
+   ============================================================ */
+.revenue-total-value {
+  transition: all 0.3s ease;
+}
+
+.revenue-panel:hover .revenue-total-value {
+  transform: scale(1.02);
+}
+
+/* ============================================================
+   MOBILE IMPROVEMENTS
+   ============================================================ */
+@media (max-width: 768px) {
+  /* Better touch targets */
+  .btn-primary, .btn-danger { min-height: 44px; }
+  .btn-edit { min-height: 36px; padding: 0.4rem 0.85rem; }
+  .page-btn { min-height: 36px; min-width: 36px; }
+
+  /* Stats overview shimmer fix */
+  .admin-stat-icon { width: 30px; height: 30px; }
+  .admin-stat-icon svg { width: 14px; height: 14px; }
+
+  /* Funnel on mobile */
+  .funnel-container { gap: 0.85rem; }
+}
+
+/* ============================================================
+   SECONDARY STATS SCROLL INDICATOR
+   ============================================================ */
+.admin-stats-secondary {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.admin-stats-secondary::-webkit-scrollbar { display: none; }
+
+@media (max-width: 768px) {
+  .admin-stats-secondary {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
+
+  .admin-stat-mini {
+    flex-shrink: 0;
+    white-space: nowrap;
   }
 }
 

@@ -49,7 +49,7 @@ async function grantAccess(supabase, { userId, productoId, userEmail, userName }
       .eq('id', userId);
 
     // Initialize progress modules
-    const modules = ['preparacion-grafico', 'flexzone', 'relleno-zona', 'glosario', 'consejos'];
+    const modules = ['preparacion-grafico', 'flexzone', 'relleno-zona', 'glosario', 'consejos', 'protocolo-operacion'];
     const rows = modules.map(m => ({ user_id: userId, modulo: m, completado: false }));
     await supabase.from('progreso').upsert(rows, { onConflict: 'user_id,modulo', ignoreDuplicates: true });
   }
@@ -61,29 +61,38 @@ async function grantAccess(supabase, { userId, productoId, userEmail, userName }
       .eq('id', userId);
   }
 
-  // Send welcome notification to user's dashboard
-  await supabase.from('notifications').insert({
-    user_id: userId,
-    titulo: '¡Bienvenido a Orbita Capital!',
-    mensaje: productoId === 'fase1'
-      ? 'Tu acceso está activo. Empezá por el módulo de Preparación del Gráfico en tu dashboard.'
-      : 'Tu bot de trading está activo. Descargalo desde la sección Bot en tu dashboard.',
-    tipo: 'success'
-  });
+  // Send welcome notification (only if not already sent — prevents duplicates on retries)
+  const { data: existingNotif } = await supabase
+    .from('notifications')
+    .select('id')
+    .eq('user_id', userId)
+    .eq('titulo', '¡Bienvenido a Orbita Capital!')
+    .limit(1);
 
-  // Get user name for email
-  const { data: nameProfile } = await supabase
-    .from('profiles')
-    .select('nombre')
-    .eq('id', userId)
-    .single();
+  if (!existingNotif || existingNotif.length === 0) {
+    await supabase.from('notifications').insert({
+      user_id: userId,
+      titulo: '¡Bienvenido a Orbita Capital!',
+      mensaje: productoId === 'fase1'
+        ? 'Tu acceso está activo. Empezá por el módulo de Preparación del Gráfico en tu dashboard.'
+        : 'Tu bot de trading está activo. Descargalo desde la sección Bot en tu dashboard.',
+      tipo: 'success'
+    });
 
-  const nombre = nameProfile?.nombre || userName || 'trader';
+    // Get user name for email (only send with first notification)
+    const { data: nameProfile } = await supabase
+      .from('profiles')
+      .select('nombre')
+      .eq('id', userId)
+      .single();
 
-  if (productoId === 'fase1') {
-    await sendEmail(userEmail, '¡Bienvenido a Orbita Capital! Tu acceso está activo', bienvenidaFase1({ nombre }));
-  } else if (productoId === 'bot') {
-    await sendEmail(userEmail, '¡Tu bot de trading está listo! — Orbita Capital', bienvenidaBot({ nombre }));
+    const nombre = nameProfile?.nombre || userName || 'trader';
+
+    if (productoId === 'fase1') {
+      await sendEmail(userEmail, '¡Bienvenido a Orbita Capital! Tu acceso está activo', bienvenidaFase1({ nombre }));
+    } else if (productoId === 'bot') {
+      await sendEmail(userEmail, '¡Tu bot de trading está listo! — Orbita Capital', bienvenidaBot({ nombre }));
+    }
   }
 }
 

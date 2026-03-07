@@ -1003,26 +1003,32 @@
     });
   }
 
-  // ---- Fetch Dolar Blue (dual API with fallback + retries) ----
+  // ---- Fetch Dolar Blue (Bluelytics primary, dolarapi fallback) ----
   async function fetchDolarBlueAdmin() {
-    var apis = [
-      { url: 'https://dolarapi.com/v1/dolares/blue', parse: function(d) { return d && typeof d.venta === 'number' ? d.venta : null; } },
-      { url: 'https://api.bluelytics.com.ar/v2/latest', parse: function(d) { return d && d.blue && typeof d.blue.value_sell === 'number' ? d.blue.value_sell : null; } }
-    ];
-    for (var i = 0; i < apis.length; i++) {
-      for (var attempt = 0; attempt < 2; attempt++) {
-        try {
-          var res = await fetchWithTimeout(apis[i].url, 6000);
-          if (!res.ok) break;
-          var data = await res.json();
-          var val = apis[i].parse(data);
-          if (val && !isNaN(val) && val > 0) { dolarBlueVenta = val; return; }
-          break;
-        } catch (e) {
-          if (attempt === 0) await new Promise(function(r) { setTimeout(r, 1500); });
+    // Bluelytics — fuente principal, estable y confiable
+    try {
+      var res = await fetchWithTimeout('https://api.bluelytics.com.ar/v2/latest', 8000);
+      if (res.ok) {
+        var data = await res.json();
+        if (data && data.blue && typeof data.blue.value_sell === 'number' && data.blue.value_sell > 0) {
+          dolarBlueVenta = data.blue.value_sell;
+          return;
         }
       }
-    }
+    } catch (e) { /* fallback below */ }
+
+    // Fallback — dolarapi.com
+    try {
+      var res2 = await fetchWithTimeout('https://dolarapi.com/v1/dolares/blue', 6000);
+      if (res2.ok) {
+        var data2 = await res2.json();
+        if (data2 && typeof data2.venta === 'number' && data2.venta > 0) {
+          dolarBlueVenta = data2.venta;
+          return;
+        }
+      }
+    } catch (e) { /* no more fallbacks */ }
+
     dolarBlueVenta = null;
   }
 
@@ -1079,17 +1085,15 @@
 
   function toUsd(monto, moneda) {
     var amount = parseFloat(monto || 0);
-    if ((moneda || 'ARS') === 'ARS') {
-      return dolarBlueVenta ? (amount / dolarBlueVenta) : (amount / 1300);
+    if ((moneda || 'ARS') === 'ARS' && dolarBlueVenta) {
+      return amount / dolarBlueVenta;
     }
     return amount;
   }
 
   function formatCurrency(amountUsd) {
     if (currentCurrency === 'ARS') {
-      if (!dolarBlueVenta) {
-        return 'U$D ' + amountUsd.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' *';
-      }
+      if (!dolarBlueVenta) return 'U$D ' + amountUsd.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       var ars = amountUsd * dolarBlueVenta;
       return 'ARS $' + ars.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
@@ -1110,7 +1114,7 @@
     if (dolarBlueVenta) {
       refEl.textContent = 'Cotización dólar blue: $' + dolarBlueVenta.toFixed(2) + ' ARS';
     } else {
-      refEl.textContent = '* Cotización dólar blue no disponible — mostrando en USD';
+      refEl.textContent = 'Cotización dólar blue no disponible';
     }
 
     renderMonthlyBreakdown(payments);

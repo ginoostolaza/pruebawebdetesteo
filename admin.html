@@ -95,6 +95,7 @@
       </div>
       <div class="topbar-right">
         <span class="topbar-date" id="topbar-date"></span>
+        <span class="topbar-admin-name" id="topbar-admin-name"></span>
         <span class="topbar-badge">Admin</span>
       </div>
     </header>
@@ -235,7 +236,11 @@
               </tr>
             </thead>
             <tbody id="users-table-body">
-              <tr><td colspan="9" class="table-loading">Cargando usuarios&hellip;</td></tr>
+              <tr class="skeleton-row"><td><div class="skeleton-bar w-60"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-70"></div></td><td><div class="skeleton-bar w-badge"></div></td><td><div class="skeleton-bar w-short"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-short"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-short"></div></td><td><div class="skeleton-bar w-badge"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-50"></div></td><td><div class="skeleton-bar w-short"></div></td></tr>
+              <tr class="skeleton-row"><td><div class="skeleton-bar w-50"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-80"></div></td><td><div class="skeleton-bar w-badge"></div></td><td><div class="skeleton-bar w-short"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-short"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-short"></div></td><td><div class="skeleton-bar w-badge"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-40"></div></td><td><div class="skeleton-bar w-short"></div></td></tr>
+              <tr class="skeleton-row"><td><div class="skeleton-bar w-70"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-60"></div></td><td><div class="skeleton-bar w-badge"></div></td><td><div class="skeleton-bar w-short"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-short"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-short"></div></td><td><div class="skeleton-bar w-badge"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-60"></div></td><td><div class="skeleton-bar w-short"></div></td></tr>
+              <tr class="skeleton-row"><td><div class="skeleton-bar w-40"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-50"></div></td><td><div class="skeleton-bar w-badge"></div></td><td><div class="skeleton-bar w-short"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-short"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-short"></div></td><td><div class="skeleton-bar w-badge"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-70"></div></td><td><div class="skeleton-bar w-short"></div></td></tr>
+              <tr class="skeleton-row"><td><div class="skeleton-bar w-60"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-40"></div></td><td><div class="skeleton-bar w-badge"></div></td><td><div class="skeleton-bar w-short"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-short"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-short"></div></td><td><div class="skeleton-bar w-badge"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-50"></div></td><td><div class="skeleton-bar w-short"></div></td></tr>
             </tbody>
           </table>
           <div class="table-pagination" id="users-pagination"></div>
@@ -280,7 +285,11 @@
               </tr>
             </thead>
             <tbody id="payments-table-body">
-              <tr><td colspan="7" class="table-loading">Cargando pagos&hellip;</td></tr>
+              <tr class="skeleton-row"><td><div class="skeleton-bar w-60"></div></td><td><div class="skeleton-bar w-badge"></div></td><td><div class="skeleton-bar w-short"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-50"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-40"></div></td><td><div class="skeleton-bar w-badge"></div></td><td><div class="skeleton-bar w-50"></div></td></tr>
+              <tr class="skeleton-row"><td><div class="skeleton-bar w-50"></div></td><td><div class="skeleton-bar w-badge"></div></td><td><div class="skeleton-bar w-short"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-60"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-50"></div></td><td><div class="skeleton-bar w-badge"></div></td><td><div class="skeleton-bar w-40"></div></td></tr>
+              <tr class="skeleton-row"><td><div class="skeleton-bar w-70"></div></td><td><div class="skeleton-bar w-badge"></div></td><td><div class="skeleton-bar w-short"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-40"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-60"></div></td><td><div class="skeleton-bar w-badge"></div></td><td><div class="skeleton-bar w-60"></div></td></tr>
+              <tr class="skeleton-row"><td><div class="skeleton-bar w-40"></div></td><td><div class="skeleton-bar w-badge"></div></td><td><div class="skeleton-bar w-short"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-50"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-40"></div></td><td><div class="skeleton-bar w-badge"></div></td><td><div class="skeleton-bar w-50"></div></td></tr>
+              <tr class="skeleton-row"><td><div class="skeleton-bar w-60"></div></td><td><div class="skeleton-bar w-badge"></div></td><td><div class="skeleton-bar w-short"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-70"></div></td><td class="th-hide-mobile"><div class="skeleton-bar w-50"></div></td><td><div class="skeleton-bar w-badge"></div></td><td><div class="skeleton-bar w-70"></div></td></tr>
             </tbody>
           </table>
           <div class="table-pagination" id="payments-pagination"></div>
@@ -970,13 +979,18 @@
     if (overlay) overlay.addEventListener('click', closeSidebar);
   })();
 
-  // ---- Topbar date ----
+  // ---- Topbar date + admin name ----
   (function() {
     var el = document.getElementById('topbar-date');
     if (el) {
       var d = new Date();
       el.textContent = d.toLocaleDateString('es-AR', { weekday:'long', day:'numeric', month:'long' });
     }
+    try {
+      var u = JSON.parse(localStorage.getItem('usuario') || '{}');
+      var nameEl = document.getElementById('topbar-admin-name');
+      if (nameEl && u.nombre) nameEl.textContent = u.nombre;
+    } catch(e) {}
   })();
 
   document.addEventListener("DOMContentLoaded", async () => {
@@ -1167,11 +1181,18 @@
     populateUserSelect();
   }
 
+  function animateStat(el, value) {
+    el.textContent = value;
+    el.classList.remove('loaded');
+    void el.offsetWidth;
+    el.classList.add('loaded');
+  }
+
   function renderStats() {
-    document.getElementById("stat-total-users").textContent = allUsers.length;
-    document.getElementById("stat-active-users").textContent = allUsers.filter(u => u.estado === 'activo').length;
-    document.getElementById("stat-bot-users").textContent = allUsers.filter(u => u.bot_activo).length;
-    document.getElementById("stat-comunidad-main").textContent = allUsers.filter(u => u.comunidad_activa).length;
+    animateStat(document.getElementById("stat-total-users"), allUsers.length);
+    animateStat(document.getElementById("stat-active-users"), allUsers.filter(u => u.estado === 'activo').length);
+    animateStat(document.getElementById("stat-bot-users"), allUsers.filter(u => u.bot_activo).length);
+    animateStat(document.getElementById("stat-comunidad-main"), allUsers.filter(u => u.comunidad_activa).length);
     updateRevenueDisplay();
     document.getElementById("stat-fase1").textContent = allUsers.filter(u => u.fase === 'fase-1').length;
     document.getElementById("stat-ambas").textContent = allUsers.filter(u => u.fase === 'ambas').length;
@@ -1234,7 +1255,7 @@
     const tbody = document.getElementById("users-table-body");
     updateSortHeaders('table-users', usersSortKey, usersSortDir);
     if (!total) {
-      tbody.innerHTML = '<tr><td colspan="9" class="table-empty">No hay usuarios registrados</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="9"><div class="no-results-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span class="no-results-title">Sin resultados</span><span class="no-results-sub">No se encontraron usuarios con los filtros actuales</span></div></td></tr>';
       document.getElementById('users-pagination').innerHTML = '';
       return;
     }
@@ -1273,7 +1294,7 @@
     const tbody = document.getElementById("payments-table-body");
     updateSortHeaders('table-payments', paymentsSortKey, paymentsSortDir);
     if (!total) {
-      tbody.innerHTML = '<tr><td colspan="7" class="table-empty">No hay pagos registrados</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7"><div class="no-results-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span class="no-results-title">Sin pagos</span><span class="no-results-sub">No se encontraron pagos con los filtros actuales</span></div></td></tr>';
       document.getElementById('payments-pagination').innerHTML = '';
       return;
     }
@@ -1495,6 +1516,12 @@
     usersPage = 1;
     _filteredUsers = getFilteredUsers();
     renderUsers(_filteredUsers);
+    // Search active indicator
+    var searchEl = document.getElementById('user-search');
+    searchEl.classList.toggle('has-value', !!searchEl.value.trim());
+    // Filter active indicator
+    var filterEl = document.getElementById('user-filter');
+    filterEl.classList.toggle('filter-active', filterEl.value !== 'all');
   }
 
   function getFilteredPayments2() {
@@ -1518,6 +1545,14 @@
     paymentsPage = 1;
     _filteredPayments = getFilteredPayments2();
     renderPayments(_filteredPayments);
+    // Search active indicator
+    var searchEl = document.getElementById('payment-search');
+    searchEl.classList.toggle('has-value', !!searchEl.value.trim());
+    // Filter active indicators
+    var filterEl = document.getElementById('payment-filter');
+    filterEl.classList.toggle('filter-active', filterEl.value !== 'all');
+    var prodEl = document.getElementById('payment-product-filter');
+    prodEl.classList.toggle('filter-active', prodEl.value !== 'all');
   }
 
   function openEditUser(userId) {
@@ -1593,11 +1628,26 @@
   }
 
   function openModal(id) { document.getElementById(id).classList.add('active'); }
-  function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+  function closeModal(id) {
+    var el = document.getElementById(id);
+    el.classList.add('closing');
+    setTimeout(function() {
+      el.classList.remove('active', 'closing');
+    }, 200);
+  }
 
   document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('modal-overlay')) e.target.classList.remove('active');
+    if (e.target.classList.contains('modal-overlay') && !e.target.classList.contains('closing')) {
+      closeModal(e.target.id);
+    }
   });
+
+  var _toastIcons = {
+    success: '<svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>',
+    error: '<svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
+    warning: '<svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+    info: '<svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>'
+  };
 
   function showToast(message, type) {
     type = type || 'success';
@@ -1605,13 +1655,26 @@
     if (existing) existing.remove();
     const toast = document.createElement('div');
     toast.className = 'admin-toast toast-' + type;
-    toast.textContent = message;
+    toast.innerHTML = (_toastIcons[type] || _toastIcons.info) + '<span>' + message + '</span>';
     document.body.appendChild(toast);
     requestAnimationFrame(function() { toast.classList.add('show'); });
     setTimeout(function() {
       toast.classList.remove('show');
       setTimeout(function() { toast.remove(); }, 300);
-    }, 3000);
+    }, 3500);
+  }
+
+  function withLoading(btn, asyncFn) {
+    return async function() {
+      if (btn.classList.contains('btn-loading')) return;
+      var originalText = btn.innerHTML;
+      btn.classList.add('btn-loading');
+      try {
+        await asyncFn.apply(this, arguments);
+      } finally {
+        btn.classList.remove('btn-loading');
+      }
+    };
   }
 
   document.addEventListener('DOMContentLoaded', function() {
@@ -1619,7 +1682,9 @@
       const userId = document.getElementById('qa-access-user').value;
       const fase = document.getElementById('qa-access-fase').value;
       if (!userId) { showToast('Selecciona un usuario', 'error'); return; }
+      this.classList.add('btn-loading');
       const result = await Auth.updateUser(userId, { fase: fase });
+      this.classList.remove('btn-loading');
       if (result.success) {
         await Auth.initProgress(userId);
         showToast('Acceso otorgado correctamente');

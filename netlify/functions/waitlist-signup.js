@@ -22,9 +22,10 @@ async function sendEmail(to, subject, html) {
 }
 
 exports.handler = async (event) => {
+  const allowedOrigin = process.env.SITE_URL || process.env.URL || 'https://orbitacapital.io';
   const headers = {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': allowedOrigin,
     'Access-Control-Allow-Headers': 'Content-Type'
   };
 
@@ -66,14 +67,18 @@ exports.handler = async (event) => {
     return { statusCode: 500, headers, body: JSON.stringify({ error: 'No se pudo guardar. Intentá de nuevo.' }) };
   }
 
-  // Send confirmation email
+  // Send confirmation email (don't let email failure break the signup)
   if (RESEND_API_KEY) {
-    const emailResult = await sendEmail(
-      email,
-      '¡Estás en la lista! — Orbita Capital',
-      confirmacionWaitlist({ nombre })
-    );
-    console.log('[Waitlist] Email sent:', emailResult?.id || emailResult?.error);
+    try {
+      const emailResult = await sendEmail(
+        email,
+        '¡Estás en la lista! — Orbita Capital',
+        confirmacionWaitlist({ nombre })
+      );
+      console.log('[Waitlist] Email sent:', emailResult?.id || emailResult?.error);
+    } catch (emailErr) {
+      console.error('[Waitlist] Email error (signup still saved):', emailErr.message);
+    }
   }
 
   return {

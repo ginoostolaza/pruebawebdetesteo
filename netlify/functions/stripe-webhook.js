@@ -1,6 +1,7 @@
 // ============================================================
 // Stripe - Webhook Handler
 // Processes payment events and auto-grants product access
+// Handles both Checkout Sessions and PaymentIntents
 // ============================================================
 
 const Stripe = require('stripe');
@@ -28,6 +29,80 @@ async function sendEmail(to, subject, html) {
   }
 }
 
+// Grant product access, send notification + email
+async function grantAccess(supabase, { userId, productoId, userEmail, userName }) {
+  // Auto-grant access
+  if (productoId === 'fase1') {
+    const { data: faseProfile } = await supabase
+      .from('profiles')
+      .select('fase')
+      .eq('id', userId)
+      .single();
+
+    let newFase = 'fase-1';
+    if (faseProfile?.fase === 'fase-2') newFase = 'ambas';
+    else if (faseProfile?.fase === 'ambas' || faseProfile?.fase === 'fase-1') newFase = faseProfile.fase;
+
+    await supabase
+      .from('profiles')
+      .update({ fase: newFase })
+      .eq('id', userId);
+
+    // Initialize progress modules
+    const modules = ['preparacion-grafico', 'flexzone', 'relleno-zona', 'glosario', 'consejos'];
+    const rows = modules.map(m => ({ user_id: userId, modulo: m, completado: false }));
+    await supabase.from('progreso').upsert(rows, { onConflict: 'user_id,modulo', ignoreDuplicates: true });
+  }
+
+  if (productoId === 'bot') {
+    await supabase
+      .from('profiles')
+      .update({ bot_activo: true })
+      .eq('id', userId);
+  }
+
+  // Send welcome notification to user's dashboard
+  await supabase.from('notifications').insert({
+    user_id: userId,
+    titulo: '¡Bienvenido a Orbita Capital!',
+    mensaje: productoId === 'fase1'
+      ? 'Tu acceso está activo. Empezá por el módulo de Preparación del Gráfico en tu dashboard.'
+      : 'Tu bot de trading está activo. Descargalo desde la sección Bot en tu dashboard.',
+    tipo: 'success'
+  });
+
+  // Get user name for email
+  const { data: nameProfile } = await supabase
+    .from('profiles')
+    .select('nombre')
+    .eq('id', userId)
+    .single();
+
+  const nombre = nameProfile?.nombre || userName || 'trader';
+
+  if (productoId === 'fase1') {
+    await sendEmail(userEmail, '¡Bienvenido a Orbita Capital! Tu acceso está activo', bienvenidaFase1({ nombre }));
+  } else if (productoId === 'bot') {
+    await sendEmail(userEmail, '¡Tu bot de trading está listo! — Orbita Capital', bienvenidaBot({ nombre }));
+  }
+}
+
+// Save payment record with upsert (handles webhook retries)
+async function recordPayment(supabase, record) {
+  const { error: upsertError } = await supabase
+    .from('pagos')
+    .upsert(record, {
+      onConflict: 'provider,provider_payment_id',
+      ignoreDuplicates: false
+    });
+
+  if (upsertError) {
+    // Fallback to insert if upsert fails (no unique constraint yet)
+    const { error: insertError } = await supabase.from('pagos').insert(record);
+    if (insertError) console.error('[Stripe] Error recording payment:', insertError);
+  }
+}
+
 exports.handler = async (event) => {
   const headers = { 'Content-Type': 'application/json' };
 
@@ -42,7 +117,7 @@ exports.handler = async (event) => {
     const sig = event.headers['stripe-signature'];
 
     if (!process.env.STRIPE_WEBHOOK_SECRET) {
-      console.error('STRIPE_WEBHOOK_SECRET not configured - rejecting webhook');
+      console.error('[Stripe Webhook] STRIPE_WEBHOOK_SECRET not configured — rejecting');
       return { statusCode: 500, headers, body: JSON.stringify({ error: 'Webhook secret not configured' }) };
     }
 
@@ -58,22 +133,8 @@ exports.handler = async (event) => {
         process.env.STRIPE_WEBHOOK_SECRET
       );
     } catch (err) {
-      console.error('Webhook signature verification failed');
+      console.error('[Stripe Webhook] Signature verification failed');
       return { statusCode: 400, headers, body: JSON.stringify({ error: 'Invalid signature' }) };
-    }
-
-    // Only process checkout.session.completed events
-    if (stripeEvent.type !== 'checkout.session.completed') {
-      return { statusCode: 200, headers, body: JSON.stringify({ received: true, type: stripeEvent.type }) };
-    }
-
-    const session = stripeEvent.data.object;
-    const userId = session.metadata?.user_id;
-    const productoId = session.metadata?.producto_id;
-
-    if (!userId || !productoId) {
-      console.error('Missing user_id or producto_id in session metadata');
-      return { statusCode: 200, headers, body: JSON.stringify({ error: 'Missing metadata' }) };
     }
 
     // Connect to Supabase with service role key (bypasses RLS)
@@ -82,95 +143,84 @@ exports.handler = async (event) => {
       process.env.SUPABASE_SERVICE_ROLE_KEY
     );
 
-    // Record the payment
-    const { error: paymentError } = await supabase.from('pagos').insert({
-      user_id: userId,
-      monto: (session.amount_total / 100).toFixed(2),
-      moneda: (session.currency || 'usd').toUpperCase(),
-      metodo: 'Stripe',
-      concepto: productoId === 'fase1' ? 'Curso Fase 1 (Stripe)' : 'Bot de Trading (Stripe)',
-      estado: 'completado',
-      producto: productoId,
-      provider: 'stripe',
-      provider_payment_id: session.id,
-      provider_status: session.payment_status,
-      metadata: {
-        customer_email: session.customer_email,
-        payment_intent: session.payment_intent
+    // ── Handle checkout.session.completed ──
+    if (stripeEvent.type === 'checkout.session.completed') {
+      const session = stripeEvent.data.object;
+      const userId = session.metadata?.user_id;
+      const productoId = session.metadata?.producto_id;
+
+      if (!userId || !productoId) {
+        console.error('[Stripe Webhook] Missing metadata in checkout session');
+        return { statusCode: 200, headers, body: JSON.stringify({ error: 'Missing metadata' }) };
       }
-    });
 
-    if (paymentError) {
-      console.error('Error inserting payment:', paymentError);
+      await recordPayment(supabase, {
+        user_id: userId,
+        monto: Number((session.amount_total / 100).toFixed(2)),
+        moneda: (session.currency || 'usd').toUpperCase(),
+        metodo: 'Stripe',
+        concepto: productoId === 'fase1' ? 'Curso Fase 1 (Stripe)' : 'Bot de Trading (Stripe)',
+        estado: 'completado',
+        producto: productoId,
+        provider: 'stripe',
+        provider_payment_id: session.id,
+        provider_status: session.payment_status,
+        metadata: {
+          customer_email: session.customer_email,
+          payment_intent: session.payment_intent
+        }
+      });
+
+      const userEmail = session.customer_email;
+      const userName = session.customer_details?.name || userEmail?.split('@')[0];
+      await grantAccess(supabase, { userId, productoId, userEmail, userName });
+
+      console.log(`[Stripe Webhook] checkout.session.completed — Session: ${session.id} — User: ${userId} — Product: ${productoId}`);
+      return { statusCode: 200, headers, body: JSON.stringify({ success: true }) };
     }
 
-    // Auto-grant access
-    if (productoId === 'fase1') {
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('fase')
-        .eq('id', userId)
-        .single();
+    // ── Handle payment_intent.succeeded (PaymentIntent / Payment Element flow) ──
+    if (stripeEvent.type === 'payment_intent.succeeded') {
+      const paymentIntent = stripeEvent.data.object;
+      const userId = paymentIntent.metadata?.user_id;
+      const productoId = paymentIntent.metadata?.producto_id;
+      const userEmail = paymentIntent.metadata?.user_email || paymentIntent.receipt_email;
 
-      let newFase = 'fase-1';
-      if (profile?.fase === 'fase-2') newFase = 'ambas';
-      else if (profile?.fase === 'ambas' || profile?.fase === 'fase-1') newFase = profile.fase;
+      if (!userId || !productoId) {
+        console.error('[Stripe Webhook] Missing metadata in payment_intent');
+        return { statusCode: 200, headers, body: JSON.stringify({ error: 'Missing metadata' }) };
+      }
 
-      await supabase
-        .from('profiles')
-        .update({ fase: newFase })
-        .eq('id', userId);
+      await recordPayment(supabase, {
+        user_id: userId,
+        monto: Number((paymentIntent.amount / 100).toFixed(2)),
+        moneda: (paymentIntent.currency || 'usd').toUpperCase(),
+        metodo: 'Stripe',
+        concepto: productoId === 'fase1' ? 'Curso Fase 1 (Stripe)' : 'Bot de Trading (Stripe)',
+        estado: 'completado',
+        producto: productoId,
+        provider: 'stripe',
+        provider_payment_id: paymentIntent.id,
+        provider_status: paymentIntent.status,
+        metadata: {
+          receipt_email: paymentIntent.receipt_email,
+          payment_method: paymentIntent.payment_method
+        }
+      });
 
-      // Initialize progress modules
-      const modules = ['preparacion-grafico', 'flexzone', 'relleno-zona', 'glosario', 'consejos'];
-      const rows = modules.map(m => ({ user_id: userId, modulo: m, completado: false }));
-      await supabase.from('progreso').upsert(rows, { onConflict: 'user_id,modulo', ignoreDuplicates: true });
+      const userName = paymentIntent.metadata?.user_nombre || userEmail?.split('@')[0];
+      await grantAccess(supabase, { userId, productoId, userEmail, userName });
+
+      console.log(`[Stripe Webhook] payment_intent.succeeded — PI: ${paymentIntent.id} — User: ${userId} — Product: ${productoId}`);
+      return { statusCode: 200, headers, body: JSON.stringify({ success: true }) };
     }
 
-    if (productoId === 'bot') {
-      await supabase
-        .from('profiles')
-        .update({ bot_activo: true })
-        .eq('id', userId);
-    }
-
-    // Send welcome notification to user's dashboard
-    await supabase.from('notifications').insert({
-      user_id: userId,
-      titulo: '¡Bienvenido a Orbita Capital!',
-      mensaje: productoId === 'fase1'
-        ? 'Tu acceso está activo. Empezá por el módulo de Preparación del Gráfico en tu dashboard.'
-        : 'Tu bot de trading está activo. Descargalo desde la sección Bot en tu dashboard.',
-      tipo: 'success'
-    });
-
-    // Send welcome email via Resend
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('nombre')
-      .eq('id', userId)
-      .single();
-
-    const nombre = profile?.nombre || session.customer_details?.name || session.customer_email?.split('@')[0] || 'trader';
-    const userEmail = session.customer_email;
-
-    if (productoId === 'fase1') {
-      await sendEmail(userEmail, '¡Bienvenido a Orbita Capital! Tu acceso está activo', bienvenidaFase1({ nombre }));
-    } else if (productoId === 'bot') {
-      await sendEmail(userEmail, '¡Tu bot de trading está listo! — Orbita Capital', bienvenidaBot({ nombre }));
-    }
-
-    console.log(`[Stripe Webhook] Session ${session.id} - User: ${userId} - Product: ${productoId}`);
-
-    return {
-      statusCode: 200,
-      headers,
-      body: JSON.stringify({ success: true })
-    };
+    // Other event types — acknowledge but don't process
+    return { statusCode: 200, headers, body: JSON.stringify({ received: true, type: stripeEvent.type }) };
   } catch (error) {
-    console.error('Stripe webhook error:', error);
+    console.error('[Stripe Webhook] Error:', error);
     return {
-      statusCode: 200,
+      statusCode: 200, // Always return 200 to avoid infinite retries
       headers,
       body: JSON.stringify({ error: 'Internal error' })
     };

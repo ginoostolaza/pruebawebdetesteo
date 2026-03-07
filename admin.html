@@ -798,8 +798,8 @@
         <div class="modal-field">
           <label>Moneda</label>
           <select id="payment-currency">
-            <option value="USD">USD</option>
             <option value="ARS">ARS</option>
+            <option value="USD">USD</option>
           </select>
         </div>
       </div>
@@ -1085,15 +1085,15 @@
 
   function toUsd(monto, moneda) {
     var amount = parseFloat(monto || 0);
-    if ((moneda || 'ARS') === 'ARS' && dolarBlueVenta) {
-      return amount / dolarBlueVenta;
+    var cur = (moneda || 'ARS').toUpperCase();
+    if (cur === 'ARS') {
+      return dolarBlueVenta ? (amount / dolarBlueVenta) : 0;
     }
     return amount;
   }
 
   function formatCurrency(amountUsd) {
-    if (currentCurrency === 'ARS') {
-      if (!dolarBlueVenta) return 'U$D ' + amountUsd.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    if (currentCurrency === 'ARS' && dolarBlueVenta) {
       var ars = amountUsd * dolarBlueVenta;
       return 'ARS $' + ars.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
@@ -1114,7 +1114,7 @@
     if (dolarBlueVenta) {
       refEl.textContent = 'Cotización dólar blue: $' + dolarBlueVenta.toFixed(2) + ' ARS';
     } else {
-      refEl.textContent = 'Cotización dólar blue no disponible';
+      refEl.textContent = 'Cotización dólar blue no disponible — pagos en ARS excluidos del cálculo';
     }
 
     renderMonthlyBreakdown(payments);
@@ -1291,10 +1291,10 @@
       return '<tr>' +
         '<td><div class="user-cell-compact"><span class="payment-user-name">' + escapeHtml(nombre) + '</span>' + (email ? '<span class="payment-user-email">' + escapeHtml(email) + '</span>' : '') + '</div></td>' +
         '<td><span class="badge ' + productoClass + '">' + escapeHtml(productoText) + '</span></td>' +
-        '<td class="td-amount">$' + parseFloat(p.monto).toFixed(2) + ' <span class="currency-label">' + escapeHtml(p.moneda || 'ARS') + '</span></td>' +
+        '<td class="td-amount">' + ((p.moneda || 'ARS').toUpperCase() === 'ARS' ? '$' : 'U$D ') + parseFloat(p.monto).toFixed(2) + ' <span class="currency-label">' + escapeHtml((p.moneda || 'ARS').toUpperCase()) + '</span></td>' +
         '<td class="th-hide-mobile">' + escapeHtml(p.metodo || '-') + '</td>' +
         '<td class="td-ref th-hide-mobile" title="' + escapeHtml(referencia) + '">' + escapeHtml(refDisplay) + '</td>' +
-        '<td><span class="badge ' + statusClass + '">' + escapeHtml(p.estado || 'completado') + '</span></td>' +
+        '<td><span class="badge ' + statusClass + '">' + escapeHtml(p.estado || 'pendiente') + '</span></td>' +
         '<td class="td-date" title="' + escapeHtml(fecha) + '">' + escapeHtml(ago || fecha) + '</td>' +
       '</tr>';
     }).join('');
@@ -1578,7 +1578,7 @@
         return '<div class="user-payment-row">' +
           '<div class="user-payment-main">' +
             '<span class="user-payment-product">' + escapeHtml(productoText) + '</span>' +
-            '<span class="user-payment-amount">$' + parseFloat(p.monto).toFixed(2) + ' ' + escapeHtml(p.moneda || 'ARS') + '</span>' +
+            '<span class="user-payment-amount">' + ((p.moneda || 'ARS').toUpperCase() === 'ARS' ? '$' : 'U$D ') + parseFloat(p.monto).toFixed(2) + ' ' + escapeHtml((p.moneda || 'ARS').toUpperCase()) + '</span>' +
           '</div>' +
           '<div class="user-payment-sub">' +
             '<span class="badge ' + statusClass2 + '">' + escapeHtml(p.estado) + '</span>' +
@@ -1718,8 +1718,8 @@
       if (!allPayments.length) { showToast('No hay pagos para exportar', 'error'); return; }
       const headers = ['Usuario', 'Monto', 'Moneda', 'Método', 'Concepto', 'Estado', 'Fecha'];
       var rows = allPayments.map(function(p) {
-        return [p.profiles ? p.profiles.nombre : '', p.monto || 0, p.moneda || 'ARS',
-          p.metodo || '', p.concepto || '', p.estado || '',
+        return [p.profiles ? p.profiles.nombre : '', p.monto || 0, (p.moneda || 'ARS').toUpperCase(),
+          p.metodo || '', p.concepto || '', p.estado || 'pendiente',
           p.fecha ? new Date(p.fecha).toLocaleDateString('es-AR') : ''
         ].map(function(v) { return '"' + String(v).replace(/"/g, '""') + '"'; }).join(',');
       });
@@ -2249,7 +2249,7 @@
         name: name,
         date: new Date(p.fecha),
         dot: p.estado === 'completado' ? 'green' : 'orange',
-        text: p.estado === 'completado' ? 'complet\u00f3 un pago (' + (p.moneda === 'ARS' ? '$' : 'U$D') + ' ' + (p.monto || 0) + ')' : 'tiene un pago pendiente'
+        text: p.estado === 'completado' ? 'completó un pago (' + ((p.moneda || 'ARS').toUpperCase() === 'ARS' ? '$' : 'U$D') + ' ' + (p.monto || 0) + ')' : 'tiene un pago pendiente'
       });
     });
 

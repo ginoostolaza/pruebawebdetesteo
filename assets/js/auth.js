@@ -140,7 +140,8 @@ const Auth = (function () {
         { modulo: 'flexzone', completado: false },
         { modulo: 'relleno-zona', completado: false },
         { modulo: 'glosario', completado: false },
-        { modulo: 'consejos', completado: false }
+        { modulo: 'consejos', completado: false },
+        { modulo: 'protocolo-operacion', completado: false }
       ];
     }
     const { data } = await supabase.from('progreso').select('*').eq('user_id', userId).order('id');

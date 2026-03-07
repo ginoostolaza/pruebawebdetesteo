@@ -11,7 +11,7 @@
     (function () {
       var acceso = localStorage.getItem("accesoAutorizado");
       if (!acceso || acceso !== "true") {
-        window.location.replace("iniciar-sesion.html");
+        window.location.replace("/login");
       }
     })();
   </script>
@@ -1296,7 +1296,7 @@
     <span class="dash-nav-tag" id="user-role-tag">Alumno</span>
   </div>
   <div class="dash-nav-right">
-    <a href="admin.html" class="btn-admin" id="btn-admin" style="display:none;">
+    <a href="/admin" class="btn-admin" id="btn-admin" style="display:none;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       <span>Panel Admin</span>
     </a>
@@ -1314,11 +1314,11 @@
           </div>
         </div>
         <div class="dropdown-divider"></div>
-        <a href="perfil.html#personal" class="dropdown-item">
+        <a href="/perfil#personal" class="dropdown-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           Mi perfil
         </a>
-        <a href="dashboard.html" class="dropdown-item">
+        <a href="/dashboard" class="dropdown-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
           Dashboard
         </a>
@@ -1339,12 +1339,12 @@
 
   <!-- Back Bar -->
   <div class="back-bar">
-    <a href="dashboard.html" class="back-link">
+    <a href="/dashboard" class="back-link">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
       Volver al Dashboard
     </a>
     <div class="breadcrumb">
-      <a href="dashboard.html">Dashboard</a>
+      <a href="/dashboard">Dashboard</a>
       <span class="breadcrumb-sep">/</span>
       <span class="breadcrumb-current">Fase 1</span>
     </div>
@@ -1959,7 +1959,7 @@
     // Logout
     document.getElementById("btn-logout").addEventListener("click", async () => {
       await Auth.logout();
-      window.location.href = "iniciar-sesion.html";
+      window.location.href = "/login";
     });
   });
 
@@ -2003,12 +2003,12 @@
     if (hasAccess) {
       ctaTitle.textContent = 'Empezá tu primer pilar';
       ctaDesc.textContent = 'Ya tenés acceso completo. Seleccioná un pilar arriba o comenzá con el curso de Trading, el fundamento técnico de todo lo que viene.';
-      ctaEl.innerHTML = '<a href="acceso-comunidad.html" class="cta-btn cta-btn-primary">' +
+      ctaEl.innerHTML = '<a href="/curso" class="cta-btn cta-btn-primary">' +
         'Ir al Curso de Trading' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
         '</a>';
     } else {
-      ctaEl.innerHTML = '<a href="finalizar-compra.html?plan=fase1" class="cta-btn cta-btn-primary">' +
+      ctaEl.innerHTML = '<a href="/checkout?plan=fase1" class="cta-btn cta-btn-primary">' +
         'Adquirir Fase 1 ahora' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
         '</a>';
@@ -2025,7 +2025,7 @@
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
         '</a>';
     } else {
-      el.innerHTML = '<a href="finalizar-compra.html?plan=fase1" class="pillar-action action-buy">' +
+      el.innerHTML = '<a href="/checkout?plan=fase1" class="pillar-action action-buy">' +
         '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>' +
         'Adquirir Fase 1 para acceder' +
         '</a>';

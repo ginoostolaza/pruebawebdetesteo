@@ -36,7 +36,7 @@
       Pago seguro
     </span>
   </div>
-  <a href="index.html" class="topbar-back">
+  <a href="/" class="topbar-back">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
     Volver
   </a>
@@ -131,11 +131,11 @@
     <!-- Login required notice (JS-controlled) -->
     <div class="login-required" id="login-notice" style="display:none;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-      <p>Para pagar necesit&aacute;s <a href="iniciar-sesion.html">iniciar sesi&oacute;n</a>. Si no ten&eacute;s cuenta, <a href="iniciar-sesion.html">registrate gratis</a>.</p>
+      <p>Para pagar necesit&aacute;s <a href="/login">iniciar sesi&oacute;n</a>. Si no ten&eacute;s cuenta, <a href="/login">registrate gratis</a>.</p>
     </div>
 
     <!-- Already a student link (JS-controlled) -->
-    <a href="iniciar-sesion.html" class="already-student-link" id="already-student-link" style="display:none;">
+    <a href="/login" class="already-student-link" id="already-student-link" style="display:none;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
       Ya soy alumno &mdash; Iniciar sesi&oacute;n
     </a>
@@ -518,7 +518,7 @@
     </div>
 
     <!-- Login -->
-    <a href="iniciar-sesion.html" class="login-link" id="sidebar-login">
+    <a href="/login" class="login-link" id="sidebar-login">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
       Ya soy alumno &mdash; Iniciar sesi&oacute;n
     </a>
@@ -895,7 +895,7 @@
       stripeFallbackBtn.addEventListener('click', async (e) => {
         e.stopPropagation();
         if (!isLoggedIn) {
-          window.location.href = 'iniciar-sesion.html';
+          window.location.href = '/login';
           return;
         }
 
@@ -990,9 +990,9 @@
                 const result = await response.json();
 
                 if (result.status === 'approved') {
-                  window.location.href = 'pago-resultado.html?status=success&provider=mercadopago&producto=' + plan + '&payment_id=' + result.id;
+                  window.location.href = '/pago-resultado?status=success&provider=mercadopago&producto=' + plan + '&payment_id=' + result.id;
                 } else if (result.status === 'in_process' || result.status === 'pending') {
-                  window.location.href = 'pago-resultado.html?status=pending&provider=mercadopago&producto=' + plan;
+                  window.location.href = '/pago-resultado?status=pending&provider=mercadopago&producto=' + plan;
                 } else {
                   const msg = getMPErrorMessage(result.status_detail);
                   showError('mp-error', msg);
@@ -1040,7 +1040,7 @@
       mpFallbackBtn.addEventListener('click', async (e) => {
         e.stopPropagation();
         if (!isLoggedIn) {
-          window.location.href = 'iniciar-sesion.html';
+          window.location.href = '/login';
           return;
         }
 

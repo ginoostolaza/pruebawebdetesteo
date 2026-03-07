@@ -11,7 +11,7 @@
     (function () {
       var acceso = localStorage.getItem("accesoAutorizado");
       if (!acceso || acceso !== "true") {
-        window.location.replace("iniciar-sesion.html");
+        window.location.replace("/login");
       }
     })();
   </script>
@@ -30,7 +30,7 @@
      ============================================================ -->
 <nav class="profile-nav">
   <div class="profile-nav-left">
-    <a href="dashboard.html" class="nav-back-btn">
+    <a href="/dashboard" class="nav-back-btn">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
       Dashboard
     </a>
@@ -685,7 +685,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           showToast("Cuenta desactivada. Cerrando sesión...");
           setTimeout(async function() {
             await Auth.logout();
-            window.location.href = "iniciar-sesion.html";
+            window.location.href = "/login";
           }, 1500);
         } else {
           showToast("Error: " + (result.error || "No se pudo desactivar la cuenta."), "error");
@@ -712,7 +712,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         showToast("Cuenta marcada para eliminacion. Cerrando sesión...");
         setTimeout(async function() {
           await Auth.logout();
-          window.location.href = "iniciar-sesion.html";
+          window.location.href = "/login";
         }, 1500);
       }
     );
@@ -723,7 +723,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // ============================================================
   document.getElementById("btn-logout").addEventListener("click", async function() {
     await Auth.logout();
-    window.location.href = "iniciar-sesion.html";
+    window.location.href = "/login";
   });
 
   // ============================================================

@@ -41,39 +41,42 @@
         <span class="sidebar-brand-name">Orbita Capital</span>
         <span class="sidebar-brand-sub">Panel Admin</span>
       </div>
+      <button class="sidebar-collapse-btn" id="sidebar-collapse-btn" title="Colapsar sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="11 17 6 12 11 7"/><polyline points="18 17 13 12 18 7"/></svg>
+      </button>
     </div>
 
     <nav class="sidebar-nav">
       <span class="sidebar-nav-label">Gestión</span>
-      <button class="admin-tab sidebar-item active" data-tab="users">
+      <button class="admin-tab sidebar-item active" data-tab="users" data-tooltip="Usuarios">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         <span>Usuarios</span>
       </button>
-      <button class="admin-tab sidebar-item" data-tab="payments">
+      <button class="admin-tab sidebar-item" data-tab="payments" data-tooltip="Pagos">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         <span>Pagos</span>
       </button>
-      <button class="admin-tab sidebar-item" data-tab="mentorias">
+      <button class="admin-tab sidebar-item" data-tab="mentorias" data-tooltip="Mentorías">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></svg>
         <span>Mentor&iacute;as</span>
       </button>
       <span class="sidebar-nav-label">Herramientas</span>
-      <button class="admin-tab sidebar-item" data-tab="analytics">
+      <button class="admin-tab sidebar-item" data-tab="analytics" data-tooltip="Estadísticas">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
         <span>Estad&iacute;sticas</span>
       </button>
-      <button class="admin-tab sidebar-item" data-tab="actions">
+      <button class="admin-tab sidebar-item" data-tab="actions" data-tooltip="Acciones">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         <span>Acciones r&aacute;pidas</span>
       </button>
     </nav>
 
     <div class="sidebar-footer">
-      <a href="/dashboard" class="sidebar-footer-link">
+      <a href="/dashboard" class="sidebar-footer-link" data-tooltip="Dashboard">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         <span>Ver Dashboard</span>
       </a>
-      <button class="sidebar-footer-link danger" id="btn-logout">
+      <button class="sidebar-footer-link danger" id="btn-logout" data-tooltip="Salir">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
         <span>Cerrar sesión</span>
       </button>
@@ -92,6 +95,11 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         </button>
         <div class="topbar-page-title" id="topbar-title">Usuarios</div>
+      </div>
+      <div class="global-search-wrap">
+        <svg class="global-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" class="global-search" id="global-search" placeholder="Buscar usuarios, pagos… (Ctrl+K)" autocomplete="off">
+        <div class="global-search-results" id="global-search-results"></div>
       </div>
       <div class="topbar-right">
         <span class="topbar-date" id="topbar-date"></span>
@@ -143,6 +151,30 @@
         </div>
       </div>
 
+      <!-- Financial Summary Bar -->
+      <div class="financial-summary-bar" id="financial-summary-bar">
+        <div class="fin-summary-item">
+          <div class="fin-summary-label">Hoy</div>
+          <div class="fin-summary-value" id="fin-today">—</div>
+          <div class="fin-summary-sub" id="fin-today-count">0 pagos</div>
+        </div>
+        <div class="fin-summary-item">
+          <div class="fin-summary-label">Esta semana</div>
+          <div class="fin-summary-value" id="fin-week">—</div>
+          <div class="fin-summary-sub" id="fin-week-count">0 pagos</div>
+        </div>
+        <div class="fin-summary-item">
+          <div class="fin-summary-label">Este mes</div>
+          <div class="fin-summary-value" id="fin-month">—</div>
+          <div class="fin-summary-sub" id="fin-month-count">0 pagos</div>
+        </div>
+        <div class="fin-summary-item highlight">
+          <div class="fin-summary-label">Total acumulado</div>
+          <div class="fin-summary-value" id="fin-total">—</div>
+          <div class="fin-summary-sub" id="fin-total-sub"></div>
+        </div>
+      </div>
+
       <!-- Revenue Panel -->
       <div class="revenue-panel">
         <div class="revenue-header">
@@ -169,6 +201,13 @@
           <div class="revenue-total">
             <div class="revenue-total-value" id="stat-revenue">—</div>
             <div class="revenue-total-sub" id="revenue-count-label">0 pagos completados</div>
+          </div>
+          <div class="revenue-chart-container" id="revenue-chart-container">
+            <canvas id="revenue-chart"></canvas>
+            <div class="chart-tooltip" id="chart-tooltip">
+              <div class="chart-tooltip-date"></div>
+              <div class="chart-tooltip-amount"></div>
+            </div>
           </div>
           <div class="revenue-monthly-list" id="revenue-monthly"></div>
         </div>
@@ -2450,6 +2489,366 @@
     renderActivityFeed();
     showToast('Datos actualizados');
   });
+
+  // ============================================================
+  //  SIDEBAR COLLAPSE (Desktop)
+  // ============================================================
+  (function() {
+    var layout = document.querySelector('.admin-layout');
+    var collapseBtn = document.getElementById('sidebar-collapse-btn');
+    if (!collapseBtn || !layout) return;
+
+    // Restore saved state
+    if (localStorage.getItem('sidebar-collapsed') === '1') {
+      layout.classList.add('sidebar-collapsed');
+      collapseBtn.title = 'Expandir sidebar';
+    }
+
+    collapseBtn.addEventListener('click', function() {
+      layout.classList.toggle('sidebar-collapsed');
+      var isCollapsed = layout.classList.contains('sidebar-collapsed');
+      localStorage.setItem('sidebar-collapsed', isCollapsed ? '1' : '0');
+      collapseBtn.title = isCollapsed ? 'Expandir sidebar' : 'Colapsar sidebar';
+    });
+  })();
+
+  // ============================================================
+  //  GLOBAL SEARCH (Ctrl+K)
+  // ============================================================
+  (function() {
+    var searchInput = document.getElementById('global-search');
+    var resultsBox = document.getElementById('global-search-results');
+    if (!searchInput || !resultsBox) return;
+
+    // Ctrl+K shortcut
+    document.addEventListener('keydown', function(e) {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInput.focus();
+      }
+      if (e.key === 'Escape') {
+        resultsBox.classList.remove('show');
+        searchInput.blur();
+      }
+    });
+
+    var searchDebounce = debounce(function() {
+      var q = searchInput.value.trim().toLowerCase();
+      if (q.length < 2) { resultsBox.classList.remove('show'); return; }
+
+      var results = [];
+
+      // Search users
+      allUsers.forEach(function(u) {
+        var name = (u.nombre || '').toLowerCase();
+        var email = (u.email || '').toLowerCase();
+        if (name.indexOf(q) !== -1 || email.indexOf(q) !== -1) {
+          results.push({ type: 'user', typeLabel: 'Usuario', name: u.nombre || u.email, detail: u.email || '', tab: 'users' });
+        }
+      });
+
+      // Search payments
+      allPayments.forEach(function(p) {
+        var user = allUsers.find(function(u) { return u.id === p.user_id; });
+        var name = user ? (user.nombre || user.email || '') : (p.email || '');
+        var concept = (p.concepto || '').toLowerCase();
+        if (name.toLowerCase().indexOf(q) !== -1 || concept.indexOf(q) !== -1) {
+          var cur = (p.moneda || 'ARS').toUpperCase();
+          results.push({ type: 'payment', typeLabel: 'Pago', name: name, detail: formatMoney(parseFloat(p.monto || 0), cur) + ' — ' + (p.estado || ''), tab: 'payments' });
+        }
+      });
+
+      results = results.slice(0, 8);
+
+      if (results.length === 0) {
+        resultsBox.innerHTML = '<div class="search-result-item" style="color:var(--color-text-dim);justify-content:center;">Sin resultados</div>';
+      } else {
+        resultsBox.innerHTML = results.map(function(r) {
+          return '<div class="search-result-item" data-tab="' + r.tab + '">' +
+            '<span class="search-result-type type-' + r.type + '">' + escapeHtml(r.typeLabel) + '</span>' +
+            '<span class="search-result-name">' + escapeHtml(r.name) + '</span>' +
+            '<span class="search-result-detail">' + escapeHtml(r.detail) + '</span>' +
+          '</div>';
+        }).join('');
+      }
+      resultsBox.classList.add('show');
+    }, 200);
+
+    searchInput.addEventListener('input', searchDebounce);
+
+    resultsBox.addEventListener('click', function(e) {
+      var item = e.target.closest('.search-result-item');
+      if (!item) return;
+      var tab = item.dataset.tab;
+      if (tab) {
+        document.querySelectorAll('.admin-tab').forEach(function(t) {
+          t.classList.toggle('active', t.dataset.tab === tab);
+        });
+        document.querySelectorAll('.admin-panel').forEach(function(p) {
+          p.classList.toggle('active', p.id === 'panel-' + tab);
+        });
+      }
+      resultsBox.classList.remove('show');
+      searchInput.value = '';
+    });
+
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.global-search-wrap')) resultsBox.classList.remove('show');
+    });
+  })();
+
+  // ============================================================
+  //  FINANCIAL SUMMARY BAR
+  // ============================================================
+  function updateFinancialSummary() {
+    var completed = allPayments.filter(function(p) { return p.estado === 'completado'; });
+    var now = new Date();
+
+    // Today
+    var todayStr = now.toISOString().slice(0, 10);
+    var todayPayments = completed.filter(function(p) { return p.fecha && p.fecha.slice(0, 10) === todayStr; });
+    var todayResult = sumPayments(todayPayments, currentCurrency);
+    document.getElementById('fin-today').textContent = formatMoney(todayResult.total, currentCurrency);
+    document.getElementById('fin-today-count').textContent = todayPayments.length + ' pago' + (todayPayments.length !== 1 ? 's' : '');
+
+    // This week (Monday-based)
+    var dayOfWeek = now.getDay() || 7;
+    var weekStart = new Date(now);
+    weekStart.setDate(now.getDate() - dayOfWeek + 1);
+    weekStart.setHours(0, 0, 0, 0);
+    var weekPayments = completed.filter(function(p) { return p.fecha && new Date(p.fecha) >= weekStart; });
+    var weekResult = sumPayments(weekPayments, currentCurrency);
+    document.getElementById('fin-week').textContent = formatMoney(weekResult.total, currentCurrency);
+    document.getElementById('fin-week-count').textContent = weekPayments.length + ' pago' + (weekPayments.length !== 1 ? 's' : '');
+
+    // This month
+    var monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+    var monthPayments = completed.filter(function(p) { return p.fecha && new Date(p.fecha) >= monthStart; });
+    var monthResult = sumPayments(monthPayments, currentCurrency);
+    document.getElementById('fin-month').textContent = formatMoney(monthResult.total, currentCurrency);
+    document.getElementById('fin-month-count').textContent = monthPayments.length + ' pago' + (monthPayments.length !== 1 ? 's' : '');
+
+    // Total
+    var totalResult = sumPayments(completed, currentCurrency);
+    document.getElementById('fin-total').textContent = formatMoney(totalResult.total, currentCurrency);
+    var totalSub = completed.length + ' pagos totales';
+    if (totalResult.unconvertible > 0) {
+      var otherCur = currentCurrency === 'ARS' ? 'USD' : 'ARS';
+      totalSub += ' (excl. ' + otherCur + ' sin convertir)';
+    }
+    document.getElementById('fin-total-sub').textContent = totalSub;
+  }
+
+  // ============================================================
+  //  REVENUE CHART (Canvas)
+  // ============================================================
+  function drawRevenueChart() {
+    var canvas = document.getElementById('revenue-chart');
+    if (!canvas) return;
+    var container = document.getElementById('revenue-chart-container');
+    var ctx = canvas.getContext('2d');
+    var dpr = window.devicePixelRatio || 1;
+    var w = container.clientWidth;
+    var h = container.clientHeight;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    ctx.scale(dpr, dpr);
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+
+    var payments = getFilteredPayments();
+
+    // Group by day
+    var days = parseInt(currentRange) || 90;
+    if (currentRange === 'all') days = 90;
+    var dayMap = {};
+    var now = new Date();
+    for (var i = days - 1; i >= 0; i--) {
+      var d = new Date(now);
+      d.setDate(d.getDate() - i);
+      dayMap[d.toISOString().slice(0, 10)] = [];
+    }
+    payments.forEach(function(p) {
+      if (!p.fecha) return;
+      var key = p.fecha.slice(0, 10);
+      if (dayMap[key]) dayMap[key].push(p);
+    });
+
+    var keys = Object.keys(dayMap).sort();
+    var values = keys.map(function(k) { return sumPayments(dayMap[k], currentCurrency).total; });
+    var maxVal = Math.max.apply(null, values.concat([1]));
+
+    // Chart dimensions
+    var pad = { top: 20, right: 15, bottom: 30, left: 10 };
+    var chartW = w - pad.left - pad.right;
+    var chartH = h - pad.top - pad.bottom;
+
+    ctx.clearRect(0, 0, w, h);
+
+    if (keys.length < 2) {
+      ctx.fillStyle = 'rgba(138,149,168,0.5)';
+      ctx.font = '12px Poppins, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('Sin datos suficientes para el gráfico', w / 2, h / 2);
+      return;
+    }
+
+    // Build points
+    var points = values.map(function(v, i) {
+      return {
+        x: pad.left + (i / (keys.length - 1)) * chartW,
+        y: pad.top + chartH - (v / maxVal) * chartH
+      };
+    });
+
+    // Gradient fill
+    var grad = ctx.createLinearGradient(0, pad.top, 0, pad.top + chartH);
+    grad.addColorStop(0, 'rgba(59, 130, 246, 0.25)');
+    grad.addColorStop(1, 'rgba(59, 130, 246, 0.01)');
+
+    // Fill area
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, pad.top + chartH);
+    points.forEach(function(p) { ctx.lineTo(p.x, p.y); });
+    ctx.lineTo(points[points.length - 1].x, pad.top + chartH);
+    ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Line
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
+    for (var j = 1; j < points.length; j++) {
+      var cp1x = (points[j - 1].x + points[j].x) / 2;
+      ctx.bezierCurveTo(cp1x, points[j - 1].y, cp1x, points[j].y, points[j].x, points[j].y);
+    }
+    ctx.strokeStyle = '#3b82f6';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // X-axis labels (show ~5-7 labels)
+    ctx.fillStyle = 'rgba(138,149,168,0.6)';
+    ctx.font = '10px Poppins, sans-serif';
+    ctx.textAlign = 'center';
+    var labelStep = Math.max(1, Math.floor(keys.length / 6));
+    for (var l = 0; l < keys.length; l += labelStep) {
+      var parts = keys[l].split('-');
+      ctx.fillText(parseInt(parts[2]) + '/' + parseInt(parts[1]), points[l].x, h - 8);
+    }
+
+    // Tooltip on hover
+    var tooltip = document.getElementById('chart-tooltip');
+    canvas.onmousemove = function(e) {
+      var rect = canvas.getBoundingClientRect();
+      var mx = e.clientX - rect.left;
+      var closestIdx = 0;
+      var closestDist = Infinity;
+      points.forEach(function(p, i) {
+        var dist = Math.abs(p.x - mx);
+        if (dist < closestDist) { closestDist = dist; closestIdx = i; }
+      });
+      if (closestDist < 30 && keys[closestIdx]) {
+        tooltip.querySelector('.chart-tooltip-date').textContent = keys[closestIdx];
+        tooltip.querySelector('.chart-tooltip-amount').textContent = formatMoney(values[closestIdx], currentCurrency);
+        tooltip.style.left = Math.min(points[closestIdx].x, w - 140) + 'px';
+        tooltip.style.top = (points[closestIdx].y - 50) + 'px';
+        tooltip.classList.add('show');
+
+        // Highlight dot
+        ctx.clearRect(0, 0, w, h);
+        drawRevenueChartStatic(ctx, points, keys, values, maxVal, w, h, pad, chartW, chartH, grad);
+        ctx.beginPath();
+        ctx.arc(points[closestIdx].x, points[closestIdx].y, 4, 0, Math.PI * 2);
+        ctx.fillStyle = '#3b82f6';
+        ctx.fill();
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+      } else {
+        tooltip.classList.remove('show');
+      }
+    };
+    canvas.onmouseleave = function() { tooltip.classList.remove('show'); };
+
+    // Store for redraw
+    canvas._chartData = { points: points, keys: keys, values: values, maxVal: maxVal, w: w, h: h, pad: pad, chartW: chartW, chartH: chartH, grad: grad };
+  }
+
+  function drawRevenueChartStatic(ctx, points, keys, values, maxVal, w, h, pad, chartW, chartH, grad) {
+    ctx.clearRect(0, 0, w, h);
+
+    // Fill
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, pad.top + chartH);
+    points.forEach(function(p) { ctx.lineTo(p.x, p.y); });
+    ctx.lineTo(points[points.length - 1].x, pad.top + chartH);
+    ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Line
+    ctx.beginPath();
+    ctx.moveTo(points[0].x, points[0].y);
+    for (var j = 1; j < points.length; j++) {
+      var cp1x = (points[j - 1].x + points[j].x) / 2;
+      ctx.bezierCurveTo(cp1x, points[j - 1].y, cp1x, points[j].y, points[j].x, points[j].y);
+    }
+    ctx.strokeStyle = '#3b82f6';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Labels
+    ctx.fillStyle = 'rgba(138,149,168,0.6)';
+    ctx.font = '10px Poppins, sans-serif';
+    ctx.textAlign = 'center';
+    var labelStep = Math.max(1, Math.floor(keys.length / 6));
+    for (var l = 0; l < keys.length; l += labelStep) {
+      var parts = keys[l].split('-');
+      ctx.fillText(parseInt(parts[2]) + '/' + parseInt(parts[1]), points[l].x, h - 8);
+    }
+  }
+
+  // ============================================================
+  //  ANIMATED NUMBER COUNTERS
+  // ============================================================
+  function animateNumber(el, targetValue, duration, formatter) {
+    var start = 0;
+    var startTime = null;
+    duration = duration || 800;
+
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      var progress = Math.min((timestamp - startTime) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+      var current = Math.round(start + (targetValue - start) * eased);
+      el.textContent = formatter ? formatter(current) : current;
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  // Enhance animateStat with counter animation
+  var _origAnimateStat = animateStat;
+  animateStat = function(el, value) {
+    if (typeof value === 'number' && !isNaN(value)) {
+      animateNumber(el, value, 600);
+    } else {
+      el.textContent = value;
+    }
+    el.classList.remove('loaded');
+    void el.offsetWidth;
+    el.classList.add('loaded');
+  };
+
+  // ============================================================
+  //  HOOK: Update new features when data changes
+  // ============================================================
+  var _origUpdateRevenue = updateRevenueDisplay;
+  updateRevenueDisplay = function() {
+    _origUpdateRevenue();
+    updateFinancialSummary();
+    drawRevenueChart();
+  };
 
   // ============================================================
   //  RESET PROGRESS
